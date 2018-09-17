@@ -1,13 +1,14 @@
-package service;
+package service.impl;
 
 import domain.Course;
 import domain.Language;
 import domain.User;
+import service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     public void add(User user){
         System.out.println("User added successfully");

@@ -12,8 +12,8 @@
           <!--class="org.springframework.web.servlet.view.InternalResourceViewResolver"-->
           <!--p:prefix="/WEB-INF/jsp/" p:suffix=".jsp"/>-->
 
-    <bean id="userService" class="service.UserServiceImpl"/>
-    <bean id="gemstoneService" class="service.GemstoneServiceImpl"/>
+    <bean id="userService" class="service.impl.UserServiceImpl"/>
+    <bean id="gemstoneService" class="service.impl.GemstoneServiceImpl"/>
 
     <context:component-scan base-package="web"/>
 

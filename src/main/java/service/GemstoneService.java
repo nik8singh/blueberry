@@ -1,6 +1,11 @@
 package service;
 
+import domain.Gemstone;
+
+import java.util.ArrayList;
+
 public interface GemstoneService {
 
-    void getGemstones();
+    ArrayList<Gemstone> getGemstones();
+    void addGemstone(Gemstone gemstone);
 }
