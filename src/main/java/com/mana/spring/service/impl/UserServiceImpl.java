@@ -1,9 +1,9 @@
-package service.impl;
+package com.mana.spring.service.impl;
 
-import domain.Course;
-import domain.Language;
-import domain.User;
-import service.UserService;
+import com.mana.spring.domain.Course;
+import com.mana.spring.domain.Language;
+import com.mana.spring.domain.User;
+import com.mana.spring.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;

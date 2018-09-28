@@ -1,4 +1,4 @@
-package filter;
+package com.mana.spring.filter;
 
 import org.springframework.stereotype.Component;
 
@@ -20,8 +20,8 @@ public class  CORSFilter implements Filter {
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.setHeader("Access-Control-Allow-Methods",
                 "POST, GET, OPTIONS, DELETE");
-        res.setHeader("Access-Control-Max-Age", "3600");
-        res.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+        res.setHeader("Access-Control-Allow-Headers", "X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept");
+        res.setHeader("Access-Control-Max-Age", "1728000");
         chain.doFilter(request, res);
     }
 

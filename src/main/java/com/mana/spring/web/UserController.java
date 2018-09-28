@@ -1,7 +1,7 @@
-package web;
-import domain.Course;
-import domain.Language;
-import domain.User;
+package com.mana.spring.web;
+import com.mana.spring.domain.Course;
+import com.mana.spring.domain.Language;
+import com.mana.spring.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import service.UserService;
+import com.mana.spring.service.UserService;
 
 import java.util.List;
 

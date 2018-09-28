@@ -1,6 +1,6 @@
-package service;
+package com.mana.spring.service;
 
-import domain.Gemstone;
+import com.mana.spring.domain.Gemstone;
 
 import java.util.ArrayList;
 

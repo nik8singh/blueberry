@@ -1,8 +1,8 @@
-package service;
+package com.mana.spring.service;
 
-import domain.Course;
-import domain.Language;
-import domain.User;
+import com.mana.spring.domain.Course;
+import com.mana.spring.domain.Language;
+import com.mana.spring.domain.User;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package domain;
+package com.mana.spring.domain;
 
 public class Course {
 

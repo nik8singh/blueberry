@@ -7,14 +7,14 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/*</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
     <filter>
         <filter-name>CorsFilter</filter-name>
-        <filter-class>filter.CORSFilter</filter-class>
+        <filter-class>com.mana.spring.filter.CORSFilter</filter-class>
     </filter>
 
     <filter-mapping>
