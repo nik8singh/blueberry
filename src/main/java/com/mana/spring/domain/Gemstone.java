@@ -32,6 +32,7 @@ public class Gemstone {
     public Gemstone(String gemstoneName, String gemstoneDescription) {
         this.gemstoneName = gemstoneName;
         this.gemstoneDescription = gemstoneDescription;
+
     }
 
     public Gemstone(String gemstoneName, String gemstoneDescription, Date createdDate, Date updatedDate) {
@@ -41,7 +42,7 @@ public class Gemstone {
         this.updatedDate = updatedDate;
     }
 
-    public long getGenstoneId() {
+    public long getGemstoneId() {
         return gemstoneId;
     }
 
@@ -61,7 +62,7 @@ public class Gemstone {
         return updatedDate;
     }
 
-    public void setGenstoneId(long gemstoneId) {
+    public void setGemstoneId(long gemstoneId) {
         this.gemstoneId = gemstoneId;
     }
 
@@ -81,6 +82,7 @@ public class Gemstone {
         this.updatedDate = updatedDate;
     }
 
+
     @Override
     public String toString() {
         return "Gemstone{" +
@@ -91,6 +93,4 @@ public class Gemstone {
                 ", updatedDate=" + updatedDate +
                 '}';
     }
-
-
 }
