@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 @Transactional
@@ -26,11 +27,16 @@ public class GemstoneServiceImpl implements GemstoneService {
         return (ArrayList<Gemstone>) gemstoneDAO.listGemstone();
     }
 
-    public void addUpdateGemstone(Gemstone gemstone) {
-            gemstoneDAO.saveGemstone(gemstone);
+    public void addGemstone(Gemstone gemstone) {
+        gemstoneDAO.saveGemstone(gemstone);
+    }
+
+    public void updateGemstone(Gemstone gemstone) {
+        gemstoneDAO.updateGemstone(gemstone);
     }
 
     public void deleteGemstone(Gemstone gemstone) {
         gemstoneDAO.deleteGemstone(gemstone);
     }
+
 }

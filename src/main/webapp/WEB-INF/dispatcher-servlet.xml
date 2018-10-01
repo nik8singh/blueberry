@@ -49,8 +49,13 @@
 
     <bean id="gemstoneDAO" class="com.mana.spring.dao.impl.GemstoneDAOImpl"/>
     <bean id="gemstoneService" class="com.mana.spring.service.impl.GemstoneServiceImpl"/>
-    <bean id="userService" class="com.mana.spring.service.impl.UserServiceImpl"/>
     <bean id="gemstoneController" class="com.mana.spring.web.GemstoneController"/>
+    <bean id="jewelryTypeDAO" class="com.mana.spring.dao.impl.JewelryTypeDAOImpl"/>
+    <bean id="jewelryTypeService" class="com.mana.spring.service.impl.JewelryTypeServiceImpl"/>
+    <bean id="jewelryTypeController" class="com.mana.spring.web.JewelryTypeController"/>
+    <bean id="metalDAO" class="com.mana.spring.dao.impl.MetalDAOImpl"/>
+    <bean id="metalService" class="com.mana.spring.service.impl.MetalServiceImpl"/>
+    <bean id="metalController" class="com.mana.spring.web.MetalController"/>
 
 
     <bean id="hibernateTemplate"

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public interface GemstoneService {
 
     ArrayList<Gemstone> getGemstones();
-    void addUpdateGemstone(Gemstone gemstone);
+    void addGemstone(Gemstone gemstone);
+    void updateGemstone(Gemstone gemstone);
     void deleteGemstone(Gemstone gemstone);
 }
