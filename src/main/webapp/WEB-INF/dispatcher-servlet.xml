@@ -11,7 +11,6 @@
                             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
     <context:component-scan base-package="com.mana.spring.web"/>
-
     <mvc:annotation-driven/>
     <context:annotation-config/>
     <tx:annotation-driven transaction-manager="transactionManager"/>
@@ -31,11 +30,6 @@
 
     <bean id="mySessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="myDataSource"/>
-        <!--<property name="annotatedClasses">-->
-        <!--<list>-->
-        <!--<value>com.mana.spring.domain.Gemstone</value>-->
-        <!--</list>-->
-        <!--</property>-->
         <property name="packagesToScan" value="com.mana.spring.domain"/>
         <property name="hibernateProperties">
             <props>
@@ -63,6 +57,16 @@
     <bean id="couponService" class="com.mana.spring.service.impl.CouponServiceImpl"/>
     <bean id="couponController" class="com.mana.spring.web.CouponController"/>
 
+    <bean id="userDAO" class="com.mana.spring.dao.impl.UserDAOImpl"/>
+    <bean id="userService" class="com.mana.spring.service.impl.UserServiceImpl"/>
+    <bean id="userController" class="com.mana.spring.web.UserController"/>
+
+    <bean id="addressDAO" class="com.mana.spring.dao.impl.AddressDAOImpl"/>
+
+    <bean id="showService" class="com.mana.spring.service.impl.ShowServiceImpl"/>
+    <bean id="showDAO" class="com.mana.spring.dao.impl.ShowDAOImpl"/>
+    <bean id="showController" class="com.mana.spring.web.ShowController"/>
+
 
     <bean id="hibernateTemplate"
           class="org.springframework.orm.hibernate5.HibernateTemplate">
@@ -76,5 +80,7 @@
           class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="mySessionFactory"/>
     </bean>
+
+
 
 </beans>

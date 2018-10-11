@@ -8,17 +8,17 @@ import java.util.Date;
 public class Metal {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "metal_id")
     private long metalId;
 
     @Column(name = "metal_name", nullable = false)
     private String metalName;
 
-    @Column(name = "metal_description", nullable = false)
+    @Column(name = "metal_description")
     private String metalDescription;
 
-    @Column(name = "created_date", updatable = false)
+    @Column(name = "created_date")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createdDate;
 

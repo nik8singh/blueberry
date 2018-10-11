@@ -8,14 +8,14 @@ import java.util.Date;
 public class Coupon {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "coupon_id")
     private long couponId;
 
-    @Column(name = "coupon_name")
+    @Column(name = "coupon_name", nullable = false)
     private String couponName;
 
-    @Column(name = "coupon_discount_percent")
+    @Column(name = "coupon_discount_percent", nullable = false)
     private double couponDiscountPercent;
 
     @Column(name = "coupon_start_date")

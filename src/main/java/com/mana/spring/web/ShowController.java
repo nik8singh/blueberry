@@ -1,7 +1,9 @@
 package com.mana.spring.web;
 
-import com.mana.spring.domain.Metal;
-import com.mana.spring.service.MetalService;
+import com.mana.spring.domain.Show;
+import com.mana.spring.domain.User;
+import com.mana.spring.service.ShowService;
+import com.mana.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,33 +12,34 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/metal")
-public class MetalController {
+@RequestMapping("/show")
+public class ShowController {
 
     @Autowired
-    public MetalService metalService;
+    public ShowService showService;
 
     @RequestMapping(value = "all", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    ArrayList<Metal> getAllMetals() {
-        return metalService.getMetals();
+    ArrayList<Show> getAllShows() {
+        return showService.getShows();
     }
 
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public ResponseEntity saveMetal(@RequestBody Metal metal) {
-        metalService.addMetal(metal);
-        return new ResponseEntity(metal, HttpStatus.OK);
+    public ResponseEntity saveShow(@RequestBody Show show) {
+        System.out.println(show);
+//        showService.addShow(show);
+        return new ResponseEntity(show, HttpStatus.OK);
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public ResponseEntity updateMetal(@RequestBody Metal metal) {
-        metalService.updateMetal(metal);
+    public ResponseEntity updateShow(@RequestBody Show show) {
+        showService.updateShow(show);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.DELETE)
-    public ResponseEntity deleteMetal(@RequestBody Metal metal) {
-        metalService.deleteMetal(metal);
+    public ResponseEntity deleteShow(@RequestBody Show show) {
+        showService.deleteShow(show);
         return new ResponseEntity(HttpStatus.OK);
     }
 
