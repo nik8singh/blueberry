@@ -1,5 +1,7 @@
 package com.mana.spring.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -32,24 +34,26 @@ public class Address {
     @Column(name = "address_zipcode", nullable = false)
     private String addressZipcode;
 
-    @Column(name = "created_date")
+    @Column(name = "created_date", columnDefinition = "TIMESTAMP")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createdDate;
 
-    @Column(name = "updated_date")
+    @Column(name = "updated_date", columnDefinition = "TIMESTAMP")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;
 
-    @ManyToMany(mappedBy = "addresses")
+    @JsonIgnore
+    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REMOVE, CascadeType.PERSIST }, mappedBy = "addresses")
     private Set<User> user = new HashSet<User>(0);
 
-//    @OneToOne(mappedBy="showAddress")
-//    private Show show;
+    @JsonIgnore
+    @OneToOne(orphanRemoval = true, cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE }, mappedBy ="shopAddress")
+    private Shop shopAddress;
 
     public Address() {
     }
 
-    public Address(String addressFullname, String addressStreet, String addressUnit, String addressCity, String addressState, String addressZipcode, Date createdDate, Date updatedDate, Set<User> user) {
+    public Address(String addressFullname, String addressStreet, String addressUnit, String addressCity, String addressState, String addressZipcode, Date createdDate, Date updatedDate, Set<User> user, Shop shopAddress) {
         this.addressFullname = addressFullname;
         this.addressStreet = addressStreet;
         this.addressUnit = addressUnit;
@@ -59,6 +63,7 @@ public class Address {
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
         this.user = user;
+        this.shopAddress = shopAddress;
     }
 
     public Long getAddressId() {
@@ -101,6 +106,14 @@ public class Address {
         this.addressCity = addressCity;
     }
 
+    public String getAddressState() {
+        return addressState;
+    }
+
+    public void setAddressState(String addressState) {
+        this.addressState = addressState;
+    }
+
     public String getAddressZipcode() {
         return addressZipcode;
     }
@@ -133,21 +146,13 @@ public class Address {
         this.user = user;
     }
 
-    public String getAddressState() {
-        return addressState;
+    public Shop getShopAddress() {
+        return shopAddress;
     }
 
-    public void setAddressState(String addressState) {
-        this.addressState = addressState;
+    public void setShopAddress(Shop shopAddress) {
+        this.shopAddress = shopAddress;
     }
-
-//    public Show getShow() {
-//        return show;
-//    }
-//
-//    public void setShow(Show show) {
-//        this.show = show;
-//    }
 
     @Override
     public String toString() {

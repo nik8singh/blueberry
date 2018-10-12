@@ -1,9 +1,7 @@
 package com.mana.spring.web;
 
-import com.mana.spring.domain.Show;
-import com.mana.spring.domain.User;
-import com.mana.spring.service.ShowService;
-import com.mana.spring.service.UserService;
+import com.mana.spring.domain.Shop;
+import com.mana.spring.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,34 +10,34 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/show")
-public class ShowController {
+@RequestMapping("/shop")
+public class ShopController {
 
     @Autowired
-    public ShowService showService;
+    public ShopService shopService;
 
     @RequestMapping(value = "all", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    ArrayList<Show> getAllShows() {
-        return showService.getShows();
+    ArrayList<Shop> getAllShops() {
+        return shopService.getShops();
     }
 
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public ResponseEntity saveShow(@RequestBody Show show) {
-        System.out.println(show);
-//        showService.addShow(show);
-        return new ResponseEntity(show, HttpStatus.OK);
+    public ResponseEntity saveShop(@RequestBody Shop shop) {
+        System.out.println(shop);
+//        shopService.addShop(shop);
+        return new ResponseEntity(shop, HttpStatus.OK);
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public ResponseEntity updateShow(@RequestBody Show show) {
-        showService.updateShow(show);
+    public ResponseEntity updateShop(@RequestBody Shop shop) {
+        shopService.updateShop(shop);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.DELETE)
-    public ResponseEntity deleteShow(@RequestBody Show show) {
-        showService.deleteShow(show);
+    public ResponseEntity deleteShop(@RequestBody Shop shop) {
+        shopService.deleteShop(shop);
         return new ResponseEntity(HttpStatus.OK);
     }
 

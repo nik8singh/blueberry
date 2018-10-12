@@ -33,7 +33,7 @@
         <property name="packagesToScan" value="com.mana.spring.domain"/>
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
@@ -63,9 +63,9 @@
 
     <bean id="addressDAO" class="com.mana.spring.dao.impl.AddressDAOImpl"/>
 
-    <bean id="showService" class="com.mana.spring.service.impl.ShowServiceImpl"/>
-    <bean id="showDAO" class="com.mana.spring.dao.impl.ShowDAOImpl"/>
-    <bean id="showController" class="com.mana.spring.web.ShowController"/>
+    <bean id="shopService" class="com.mana.spring.service.impl.ShopServiceImpl"/>
+    <bean id="shopDAO" class="com.mana.spring.dao.impl.ShopDAOImpl"/>
+    <bean id="shopController" class="com.mana.spring.web.ShopController"/>
 
 
     <bean id="hibernateTemplate"
