@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -16,15 +15,27 @@ public class ShopDAOImpl implements ShopDAO {
     private HibernateTemplate hibernateTemplate;
 
     public void saveShop(Shop shop) {
-        hibernateTemplate.save(shop);
+        try {
+            hibernateTemplate.save(shop);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateShop(Shop shop) {
-        hibernateTemplate.update(shop);
+        try {
+            hibernateTemplate.update(shop);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void deleteShop(Shop shop) {
-        hibernateTemplate.delete(shop);
+        try {
+            hibernateTemplate.delete(shop);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public List listShop() {

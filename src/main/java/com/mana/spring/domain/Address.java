@@ -19,11 +19,11 @@ public class Address {
     @Column(name = "address_fullname", nullable = false)
     private String addressFullname;
 
-    @Column(name = "address_street", nullable = false)
-    private String addressStreet;
+    @Column(name = "address_lineone", nullable = false)
+    private String addressLineOne;
 
-    @Column(name = "address_unit", nullable = false)
-    private String addressUnit;
+    @Column(name = "address_linetwo", nullable = false)
+    private String addressLineTwo;
 
     @Column(name = "address_city", nullable = false)
     private String addressCity;
@@ -33,6 +33,9 @@ public class Address {
 
     @Column(name = "address_zipcode", nullable = false)
     private String addressZipcode;
+
+    @Column(name = "address_country", nullable = false)
+    private String addressCountry;
 
     @Column(name = "created_date", columnDefinition = "TIMESTAMP")
     @Temporal(value = TemporalType.TIMESTAMP)
@@ -53,17 +56,16 @@ public class Address {
     public Address() {
     }
 
-    public Address(String addressFullname, String addressStreet, String addressUnit, String addressCity, String addressState, String addressZipcode, Date createdDate, Date updatedDate, Set<User> user, Shop shopAddress) {
+    public Address(String addressFullname, String addressLineOne, String addressLineTwo, String addressCity, String addressState, String addressZipcode, String addressCountry, Date createdDate, Date updatedDate) {
         this.addressFullname = addressFullname;
-        this.addressStreet = addressStreet;
-        this.addressUnit = addressUnit;
+        this.addressLineOne = addressLineOne;
+        this.addressLineTwo = addressLineTwo;
         this.addressCity = addressCity;
         this.addressState = addressState;
         this.addressZipcode = addressZipcode;
+        this.addressCountry = addressCountry;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
-        this.user = user;
-        this.shopAddress = shopAddress;
     }
 
     public Long getAddressId() {
@@ -82,20 +84,20 @@ public class Address {
         this.addressFullname = addressFullname;
     }
 
-    public String getAddressStreet() {
-        return addressStreet;
+    public String getAddressLineOne() {
+        return addressLineOne;
     }
 
-    public void setAddressStreet(String addressStreet) {
-        this.addressStreet = addressStreet;
+    public void setAddressLineOne(String addressLineOne) {
+        this.addressLineOne = addressLineOne;
     }
 
-    public String getAddressUnit() {
-        return addressUnit;
+    public String getAddressLineTwo() {
+        return addressLineTwo;
     }
 
-    public void setAddressUnit(String addressUnit) {
-        this.addressUnit = addressUnit;
+    public void setAddressLineTwo(String addressLineTwo) {
+        this.addressLineTwo = addressLineTwo;
     }
 
     public String getAddressCity() {
@@ -120,6 +122,14 @@ public class Address {
 
     public void setAddressZipcode(String addressZipcode) {
         this.addressZipcode = addressZipcode;
+    }
+
+    public String getAddressCountry() {
+        return addressCountry;
+    }
+
+    public void setAddressCountry(String addressCountry) {
+        this.addressCountry = addressCountry;
     }
 
     public Date getCreatedDate() {
@@ -156,15 +166,16 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address{" +
+        return "\nAddress{ " +
                 "addressId=" + addressId +
-                ", addressFullname='" + addressFullname + '\'' +
-                ", addressStreet='" + addressStreet + '\'' +
-                ", addressUnit='" + addressUnit + '\'' +
-                ", addressCity='" + addressCity + '\'' +
-                ", addressState='" + addressState + '\'' +
-                ", addressZipcode='" + addressZipcode + '\'' +
-                ", createdDate=" + createdDate +
+                "\naddressFullname='" + addressFullname + '\'' +
+                "\naddressLineOne='" + addressLineOne + '\'' +
+                "\naddressLineTwo='" + addressLineTwo + '\'' +
+                "\naddressCity='" + addressCity + '\'' +
+                "\naddressState='" + addressState + '\'' +
+                "\naddressZipcode='" + addressZipcode + '\'' +
+                "\naddressCountry='" + addressCountry + '\'' +
+                "\ncreatedDate=" + createdDate +
                 ", updatedDate=" + updatedDate +
                 '}';
     }

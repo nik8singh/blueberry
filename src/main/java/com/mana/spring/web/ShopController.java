@@ -25,7 +25,7 @@ public class ShopController {
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public ResponseEntity saveShop(@RequestBody Shop shop) {
         System.out.println(shop);
-//        shopService.addShop(shop);
+        shopService.addShop(shop);
         return new ResponseEntity(shop, HttpStatus.OK);
     }
 

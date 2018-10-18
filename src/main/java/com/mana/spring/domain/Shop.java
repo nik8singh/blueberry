@@ -18,13 +18,13 @@ public class Shop {
     @Column(name = "shop_desrciption", nullable = false)
     private String shopDescription;
 
-    @Column(name = "booth_number", nullable = false)
+    @Column(name = "booth_number")
     private String boothNumber;
 
-    @Column(name = "shop_start_date", nullable = false)
+    @Column(name = "shop_start_date")
     private Date shopStartDate;
 
-    @Column(name = "shop_end_date", nullable = false)
+    @Column(name = "shop_end_date")
     private Date shopEndDate;
 
     @Column(name = "created_date")
