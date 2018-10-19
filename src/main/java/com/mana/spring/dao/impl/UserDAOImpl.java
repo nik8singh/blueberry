@@ -18,10 +18,7 @@ public class UserDAOImpl implements UserDAO {
         hibernateTemplate.save(user);
     }
 
-    public void updateUser(User user) {
-        hibernateTemplate.update(user);
-
-    }
+    public void updateUser(User user) { hibernateTemplate.update(user); }
 
     public void deleteUser(User user) {
         hibernateTemplate.delete(user);

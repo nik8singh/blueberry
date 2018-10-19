@@ -1,7 +1,9 @@
 package com.mana.spring.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "jewelry_type")
@@ -25,6 +27,9 @@ public class JewelryType {
     @Column(name = "updated_date")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productJewelryType", fetch = FetchType.EAGER)//, orphanRemoval = true)
+    private List<Product> product = new ArrayList<Product>();
 
     public JewelryType() {
     }
