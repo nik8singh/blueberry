@@ -1,9 +1,7 @@
 package com.mana.spring.web;
 
 import com.mana.spring.domain.Product;
-import com.mana.spring.domain.User;
 import com.mana.spring.service.ProductService;
-import com.mana.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +18,7 @@ public class ProductController {
 
     @RequestMapping(value = "all", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    ArrayList<User> getAllProducts() {
+    ArrayList<Product> getAllProducts() {
         return productService.getProducts();
     }
 

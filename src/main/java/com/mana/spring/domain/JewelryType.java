@@ -1,5 +1,8 @@
 package com.mana.spring.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,7 +32,10 @@ public class JewelryType {
     private Date updatedDate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productJewelryType", fetch = FetchType.EAGER)//, orphanRemoval = true)
-    private List<Product> product = new ArrayList<Product>();
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "productId")
+    private List<Product> product = new ArrayList<Product>(0);
 
     public JewelryType() {
     }

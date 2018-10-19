@@ -1,14 +1,19 @@
 package com.mana.spring.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "gemstone")
 public class Gemstone {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "gemstone_id")
     private long gemstoneId;
 
@@ -25,6 +30,18 @@ public class Gemstone {
     @Column(name = "updated_date")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "gemstone_product",
+            joinColumns = {@JoinColumn(name = "gemstone_id")},
+            inverseJoinColumns = {@JoinColumn(name = "product_id")}
+    )
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "productId")
+    private Set<Product> products = new HashSet<Product>(0);
+
 
     public Gemstone() {
     }
@@ -82,6 +99,13 @@ public class Gemstone {
         this.updatedDate = updatedDate;
     }
 
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
 
     @Override
     public String toString() {
@@ -91,6 +115,7 @@ public class Gemstone {
                 ", gemstoneDescription='" + gemstoneDescription + '\'' +
                 ", createdDate=" + createdDate +
                 ", updatedDate=" + updatedDate +
+                ", products=" + products +
                 '}';
     }
 }

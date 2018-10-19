@@ -1,7 +1,12 @@
 package com.mana.spring.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "product")
@@ -19,7 +24,7 @@ public class Product {
     private String productDescription;
 
     @Column(name = "product_weight")
-    private double productweight;
+    private double productWeight;
 
     @Column(name = "weight_unit")
     private String weightUnit;
@@ -58,14 +63,30 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_jewelry_type")
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "jewelryTypeId")
     private JewelryType productJewelryType;
 
-    public Product(){}
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "gemstone_product",
+            joinColumns = {@JoinColumn(name = "product_id")},
+            inverseJoinColumns = {@JoinColumn(name = "gemstone_id")}
+    )
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "gemstoneId")
+    private Set<Gemstone> gemstones = new HashSet<Gemstone>(0);
 
-    public Product(String productName, String productDescription, double productweight, String weightUnit, double productPrice, String productCurrency, String productSku, int productQuantity, String productQuantityType, boolean productOnFeatured, String productPublished, String productExpense, Date createdDate, Date updatedDate) {
+
+    public Product() {
+    }
+
+    public Product(String productName, String productDescription, double productWeight, String weightUnit, double productPrice, String productCurrency, String productSku, int productQuantity, String productQuantityType, boolean productOnFeatured, String productPublished, String productExpense, Date createdDate, Date updatedDate) {
         this.productName = productName;
         this.productDescription = productDescription;
-        this.productweight = productweight;
+        this.productWeight = productWeight;
         this.weightUnit = weightUnit;
         this.productPrice = productPrice;
         this.productCurrency = productCurrency;
@@ -103,12 +124,12 @@ public class Product {
         this.productDescription = productDescription;
     }
 
-    public double getProductweight() {
-        return productweight;
+    public double getProductWeight() {
+        return productWeight;
     }
 
-    public void setProductweight(double productweight) {
-        this.productweight = productweight;
+    public void setProductWeight(double productweight) {
+        this.productWeight = productweight;
     }
 
     public String getWeightUnit() {
@@ -207,13 +228,21 @@ public class Product {
         this.productJewelryType = productJewelryType;
     }
 
+    public Set<Gemstone> getGemstones() {
+        return gemstones;
+    }
+
+    public void setGemstones(Set<Gemstone> gemstones) {
+        this.gemstones = gemstones;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
                 "productId=" + productId +
                 ", productName='" + productName + '\'' +
                 ", productDescription='" + productDescription + '\'' +
-                ", productweight=" + productweight +
+                ", productWeight=" + productWeight +
                 ", weightUnit='" + weightUnit + '\'' +
                 ", productPrice=" + productPrice +
                 ", productCurrency='" + productCurrency + '\'' +
@@ -226,6 +255,7 @@ public class Product {
                 ", createdDate=" + createdDate +
                 ", updatedDate=" + updatedDate +
                 ", productJewelryType=" + productJewelryType +
+                ", gemstones=" + gemstones +
                 '}';
     }
 }

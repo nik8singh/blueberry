@@ -1,8 +1,6 @@
 package com.mana.spring.web;
 
-import com.mana.spring.domain.Metal;
 import com.mana.spring.domain.User;
-import com.mana.spring.service.MetalService;
 import com.mana.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
