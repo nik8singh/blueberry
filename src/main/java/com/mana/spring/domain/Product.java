@@ -32,11 +32,11 @@ public class Product {
     @Column(name = "product_price")
     private double productPrice;
 
+    @Column(name = "product_sku", unique = true)
+    private String productSku;
+
     @Column(name = "price_currency")
     private String productCurrency;
-
-    @Column(name = "product_sku")
-    private String productSku;
 
     @Column(name = "product_quantity")
     private int productQuantity;
@@ -78,6 +78,10 @@ public class Product {
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "gemstoneId")
     private Set<Gemstone> gemstones = new HashSet<Gemstone>(0);
+    
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "imageId" )
+//    private Set<Image> images = new HashSet<Image>(0);
 
 
     public Product() {
