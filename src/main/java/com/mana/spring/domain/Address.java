@@ -16,25 +16,25 @@ public class Address {
     @Column(name = "address_id")
     private Long addressId;
 
-    @Column(name = "address_fullname", nullable = false)
+    @Column(name = "address_fullname")
     private String addressFullname;
 
-    @Column(name = "address_lineone", nullable = false)
+    @Column(name = "address_lineone")
     private String addressLineOne;
 
-    @Column(name = "address_linetwo", nullable = false)
+    @Column(name = "address_linetwo")
     private String addressLineTwo;
 
-    @Column(name = "address_city", nullable = false)
+    @Column(name = "address_city")
     private String addressCity;
 
-    @Column(name = "address_state", nullable = false)
+    @Column(name = "address_state")
     private String addressState;
 
-    @Column(name = "address_zipcode", nullable = false)
+    @Column(name = "address_zipcode")
     private String addressZipcode;
 
-    @Column(name = "address_country", nullable = false)
+    @Column(name = "address_country")
     private String addressCountry;
 
     @Column(name = "created_date", columnDefinition = "TIMESTAMP")
@@ -46,11 +46,11 @@ public class Address {
     private Date updatedDate;
 
     @JsonIgnore
-    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REMOVE, CascadeType.PERSIST }, mappedBy = "addresses")
+    @ManyToMany(mappedBy = "addresses")
     private Set<User> user = new HashSet<User>(0);
 
     @JsonIgnore
-    @OneToOne(orphanRemoval = true, cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE }, mappedBy ="shopAddress")
+    @OneToOne(mappedBy ="shopAddress")
     private Shop shopAddress;
 
     public Address() {
@@ -166,17 +166,17 @@ public class Address {
 
     @Override
     public String toString() {
-        return "\nAddress{ " +
-                "addressId=" + addressId +
-                "\naddressFullname='" + addressFullname + '\'' +
-                "\naddressLineOne='" + addressLineOne + '\'' +
-                "\naddressLineTwo='" + addressLineTwo + '\'' +
-                "\naddressCity='" + addressCity + '\'' +
-                "\naddressState='" + addressState + '\'' +
-                "\naddressZipcode='" + addressZipcode + '\'' +
-                "\naddressCountry='" + addressCountry + '\'' +
-                "\ncreatedDate=" + createdDate +
-                ", updatedDate=" + updatedDate +
-                '}';
+        return "\n\t\tAddress{ " +
+                "\n\t\taddressId= " + addressId +
+                "\n\t\taddressFullname= " + addressFullname+
+                "\n\t\taddressLineOne= " + addressLineOne+
+                "\n\t\taddressLineTwo= " + addressLineTwo +
+                "\n\t\taddressCity= " + addressCity +
+                "\n\t\taddressState= " + addressState +
+                "\n\t\taddressZipcode= " + addressZipcode +
+                "\n\t\taddressCountry= " + addressCountry  +
+                "\n\t\tcreatedDate= " + createdDate +
+                "\n\t\tupdatedDate= " + updatedDate +
+                "\n\t\t}";
     }
 }

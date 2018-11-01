@@ -1,6 +1,6 @@
 package com.mana.spring.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -9,6 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "user")
+@JsonIgnoreProperties({ "userPassword"})
 public class User {
 
     @Id
@@ -16,20 +17,19 @@ public class User {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "user_first_name", nullable = false)
+    @Column(name = "user_first_name")
     private String userFirstName;
 
-    @Column(name = "user_last_name", nullable = false)
+    @Column(name = "user_last_name")
     private String userLastName;
 
-    @Column(name = "user_email", nullable = false)
+    @Column(name = "user_email")
     private String userEmail;
 
-    @JsonIgnore
-    @Column(name = "user_password", nullable = false)
+    @Column(name = "user_password")
     private String userPassword;
 
-    @Column(name = "auth", nullable = false)
+    @Column(name = "auth")
     private String authorizationLevel;
 
     @Column(name = "created_date")
@@ -40,7 +40,7 @@ public class User {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_address",
             joinColumns = {@JoinColumn(name = "user_id")},
@@ -141,16 +141,16 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", userFirstName='" + userFirstName + '\'' +
-                ", userLastName='" + userLastName + '\'' +
-                ", userEmail='" + userEmail + '\'' +
-                ", userPassword='" + userPassword + '\'' +
-                ", authorizationLevel='" + authorizationLevel + '\'' +
-                ", createdDate=" + createdDate +
-                ", updatedDate=" + updatedDate +
-                ", addresses=" + addresses +
+        return "\nUser{" +
+                "\n\tuserId= " + userId +
+                "\n\tuserFirstName= " + userFirstName +
+                "\n\tuserLastName= " + userLastName +
+                "\n\tuserEmail= " + userEmail +
+                "\n\tuserPassword= " + userPassword +
+                "\n\tauthorizationLevel= " + authorizationLevel +
+                "\n\tcreatedDate= " + createdDate +
+                "\n\tupdatedDate= " + updatedDate +
+                "\n\taddresses= " + addresses +
                 '}';
     }
 }

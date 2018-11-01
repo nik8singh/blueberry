@@ -1,0 +1,67 @@
+import com.mana.spring.domain.Address;
+import com.mana.spring.domain.Shop;
+import com.mana.spring.domain.User;
+import com.mana.spring.web.ShopController;
+import com.mana.spring.web.UserController;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.transaction.Transactional;
+import java.util.List;
+
+@ContextConfiguration({"classpath:test-servlet.xml"})
+@RunWith(SpringJUnit4ClassRunner.class)
+public class TestMapping {
+
+    @Autowired
+    private ShopController shopController;
+
+    @Autowired
+    private UserController userController;
+
+    @Test
+    public void getAllShops() {
+        List<Shop> shops = shopController.getAllShops();
+        System.out.println();
+        System.out.println(shops);
+    }
+
+    @Test
+    public void deleteShopShouldNotDeleteAddress() {
+
+        Shop shop = new Shop();
+        shop.setShopId(13L);
+        Address address = new Address();
+        address.setAddressId(14L);
+        shop.setShopAddress(address);
+        shopController.deleteShop(shop);
+        List<Shop> shops = shopController.getAllShops();
+        System.out.println();
+        System.out.println(shops);
+
+    }
+
+    @Test
+    public void getAllUsers() {
+        List<User> users = userController.getAllUsers();
+        System.out.println();
+        System.out.println(users);
+    }
+
+
+    @Test
+    public void deletingUserShouldNotDeleteAddress() {
+        List<User> users = userController.getAllUsers();
+        for(User a: users){
+            System.out.println(a);
+            userController.deleteUser(a);
+            break;
+        }
+
+
+    }
+
+}

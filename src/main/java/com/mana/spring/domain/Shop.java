@@ -12,10 +12,10 @@ public class Shop {
     @Column(name = "shop_id")
     private Long shopId;
 
-    @Column(name = "shop_name", nullable = false)
+    @Column(name = "shop_name")
     private String shopName;
 
-    @Column(name = "shop_desrciption", nullable = false)
+    @Column(name = "shop_desrciption")
     private String shopDescription;
 
     @Column(name = "booth_number")
@@ -36,7 +36,7 @@ public class Shop {
     private Date updatedDate;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "shop_address", nullable = false)
+    @JoinColumn(name = "shop_address")
     private Address shopAddress;
 
     public Shop() {
@@ -127,16 +127,16 @@ public class Shop {
 
     @Override
     public String toString() {
-        return "shop{" +
-                "shopId=" + shopId +
-                ", shopName='" + shopName + '\'' +
-                ", shopDescription='" + shopDescription + '\'' +
-                ", boothNumber='" + boothNumber + '\'' +
-                ", shopStartDate=" + shopStartDate +
-                ", shopEndDate=" + shopEndDate +
-                ", createdDate=" + createdDate +
-                ", updatedDate=" + updatedDate +
-                ", shopAddress=" + shopAddress +
+        return "\nshop{" +
+                "\n\tshopId= " + shopId +
+                "\n\tshopName= " + shopName +
+                "\n\tshopDescription= " + shopDescription +
+                "\n\tboothNumber= " + boothNumber +
+                "\n\tshopStartDate= " + shopStartDate +
+                "\n\tshopEndDate= " + shopEndDate +
+                "\n\tcreatedDate= " + createdDate +
+                "\n\tupdatedDate= " + updatedDate +
+                "\n\tshopAddress= " + shopAddress +
                 '}';
     }
 }
