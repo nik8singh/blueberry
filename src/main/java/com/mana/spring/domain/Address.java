@@ -46,7 +46,7 @@ public class Address {
     private Date updatedDate;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "addresses")
+    @ManyToMany(mappedBy = "addresses", fetch = FetchType.EAGER)
     private Set<User> user = new HashSet<User>(0);
 
     @JsonIgnore

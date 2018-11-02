@@ -1,6 +1,7 @@
 import com.mana.spring.domain.Address;
 import com.mana.spring.domain.Shop;
 import com.mana.spring.domain.User;
+import com.mana.spring.web.AddressController;
 import com.mana.spring.web.ShopController;
 import com.mana.spring.web.UserController;
 import org.junit.Test;
@@ -10,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.transaction.Transactional;
+import java.util.Iterator;
 import java.util.List;
 
 @ContextConfiguration({"classpath:test-servlet.xml"})
@@ -21,6 +23,9 @@ public class TestMapping {
 
     @Autowired
     private UserController userController;
+
+    @Autowired
+    private AddressController addressController;
 
     @Test
     public void getAllShops() {
@@ -51,11 +56,39 @@ public class TestMapping {
         System.out.println(users);
     }
 
+    @Test
+    public void removeUserAddress() {
+
+
+        User user = userController.getAllUsers().get(0);
+        Address add = user.getAddresses().iterator().next();
+        System.out.println(add);
+
+        for (Iterator<User> iterator = add.getUser().iterator(); iterator.hasNext(); ) {
+            if (iterator.next().getUserId().equals(user.getUserId())) {
+                iterator.remove();
+                break;
+            }
+        }
+
+        for (Iterator<Address> iterator = user.getAddresses().iterator(); iterator.hasNext(); ) {
+            Address a = iterator.next();
+            if (a.getAddressId().equals(add.getAddressId())) {
+                iterator.remove();
+                break;
+            }
+        }
+
+        System.out.println(user);
+
+        userController.updateUser(user);
+
+    }
 
     @Test
     public void deletingUserShouldNotDeleteAddress() {
         List<User> users = userController.getAllUsers();
-        for(User a: users){
+        for (User a : users) {
             System.out.println(a);
             userController.deleteUser(a);
             break;

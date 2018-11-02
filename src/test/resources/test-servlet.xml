@@ -64,8 +64,6 @@
     <bean id="userService" class="com.mana.spring.service.impl.UserServiceImpl"/>
     <bean id="userController" class="com.mana.spring.web.UserController"/>
 
-    <bean id="addressDAO" class="com.mana.spring.dao.impl.AddressDAOImpl"/>
-
     <bean id="shopService" class="com.mana.spring.service.impl.ShopServiceImpl"/>
     <bean id="shopDAO" class="com.mana.spring.dao.impl.ShopDAOImpl"/>
     <bean id="shopController" class="com.mana.spring.web.ShopController"/>
@@ -73,6 +71,10 @@
     <bean id="productService" class="com.mana.spring.service.impl.ProductServiceImpl"/>
     <bean id="productDAO" class="com.mana.spring.dao.impl.ProductDAOImpl"/>
     <bean id="productController" class="com.mana.spring.web.ProductController"/>
+
+    <bean id="addressService" class="com.mana.spring.service.impl.AddressServiceImpl"/>
+    <bean id="addressDAO" class="com.mana.spring.dao.impl.AddressDAOImpl"/>
+    <bean id="addressController" class="com.mana.spring.web.AddressController"/>
 
     <bean id="hibernateTemplate"
           class="org.springframework.orm.hibernate5.HibernateTemplate">
