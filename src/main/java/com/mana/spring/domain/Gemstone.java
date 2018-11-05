@@ -23,6 +23,9 @@ public class Gemstone {
     @Column(name = "gemstone_description")
     private String gemstoneDescription;
 
+    @Column(name = "active", nullable = false)
+    private boolean gemstoneActive;
+
     @Column(name = "created_date")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createdDate;
@@ -46,17 +49,13 @@ public class Gemstone {
     public Gemstone() {
     }
 
-    public Gemstone(String gemstoneName, String gemstoneDescription) {
+    public Gemstone(String gemstoneName, String gemstoneDescription, boolean gemstoneActive, Date createdDate, Date updatedDate, Set<Product> products) {
         this.gemstoneName = gemstoneName;
         this.gemstoneDescription = gemstoneDescription;
-
-    }
-
-    public Gemstone(String gemstoneName, String gemstoneDescription, Date createdDate, Date updatedDate) {
-        this.gemstoneName = gemstoneName;
-        this.gemstoneDescription = gemstoneDescription;
+        this.gemstoneActive = gemstoneActive;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
+        this.products = products;
     }
 
     public long getGemstoneId() {
@@ -107,15 +106,24 @@ public class Gemstone {
         this.products = products;
     }
 
+    public boolean isGemstoneActive() {
+        return gemstoneActive;
+    }
+
+    public void setGemstoneActive(boolean gemstoneActive) {
+        this.gemstoneActive = gemstoneActive;
+    }
+
     @Override
     public String toString() {
-        return "Gemstone{" +
-                "gemstoneId=" + gemstoneId +
-                ", gemstoneName='" + gemstoneName + '\'' +
-                ", gemstoneDescription='" + gemstoneDescription + '\'' +
-                ", createdDate=" + createdDate +
-                ", updatedDate=" + updatedDate +
-                ", products=" + products +
+        return "\nGemstone{" +
+                "\n\tgemstoneId= " + gemstoneId +
+                "\n\tgemstoneName= '" + gemstoneName + '\'' +
+                "\n\tgemstoneDescription= '" + gemstoneDescription + '\'' +
+                "\n\tgemstoneActive= " +gemstoneActive+
+                "\n\tcreatedDate= " + createdDate +
+                "\n\tupdatedDate= " + updatedDate +
+//                "\n\tproducts= " + products +
                 '}';
     }
 }

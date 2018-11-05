@@ -30,4 +30,7 @@ public class MetalServiceImpl implements MetalService {
         metalDAO.deleteMetal(metal);
     }
 
+    public Metal getMetal(String metalName) {
+        return metalDAO.getMetal(metalName);
+    }
 }

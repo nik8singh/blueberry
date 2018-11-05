@@ -13,4 +13,5 @@ public interface MetalService {
     void updateMetal(Metal metal);
 
     void deleteMetal(Metal metal);
+    Metal getMetal(String metalName);
 }

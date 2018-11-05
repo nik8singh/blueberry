@@ -1,5 +1,8 @@
 package com.mana.spring.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -15,8 +18,8 @@ public class Image {
     @Column(name = "image_site_location")
     private String imageSiteLocation;
 
-    @Column(name = "image_file")
-    private byte[] imageFile;
+    @Column(name = "image_server_location")
+    private String imageServerLocation;
 
     @Column(name = "image_priority")
     private int imagePriority;
@@ -31,6 +34,9 @@ public class Image {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "productId")
     private Product product;
 
     public Image() {
@@ -52,12 +58,12 @@ public class Image {
         this.imageSiteLocation = imageSiteLocation;
     }
 
-    public byte[] getImageFile() {
-        return imageFile;
+    public String getImageServerLocation() {
+        return imageServerLocation;
     }
 
-    public void setImageFile(byte[] imageFile) {
-        this.imageFile = imageFile;
+    public void setImageServerLocation(String imageFile) {
+        this.imageServerLocation = imageFile;
     }
 
     public int getImagePriority() {
@@ -94,13 +100,13 @@ public class Image {
 
     @Override
     public String toString() {
-        return "Image{" +
-                "imageId=" + imageId +
-                ", imageSiteLocation=" + imageSiteLocation +
-                ", imageFile=" + imageFile +
-                ", imagePriority=" + imagePriority +
-                ", createdDate=" + createdDate +
-                ", updatedDate=" + updatedDate +
+        return "\nImage{" +
+                "\n\timageId= " + imageId +
+                "\n\timageSiteLocation= " + imageSiteLocation +
+                "\n\timageServerLocation= " + imageServerLocation +
+                "\n\timagePriority= " + imagePriority +
+                "\n\tcreatedDate= " + createdDate +
+                "\n\tupdatedDate= " + updatedDate +
                 '}';
     }
 }

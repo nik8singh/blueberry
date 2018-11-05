@@ -28,4 +28,9 @@ public class MetalDAOImpl implements MetalDAO {
     public List listMetal() {
         return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Metal met ORDER BY met.createdDate").list();
     }
+
+    public Metal getMetal(String metalName) {
+        return (Metal) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Metal gem where gem.metalName= :name ").setParameter("name", metalName).list().get(0);
+    }
+
 }

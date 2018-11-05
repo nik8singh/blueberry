@@ -17,10 +17,10 @@ public class User {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "user_first_name")
+    @Column(name = "user_firstname")
     private String userFirstName;
 
-    @Column(name = "user_last_name")
+    @Column(name = "user_lastname")
     private String userLastName;
 
     @Column(name = "user_email")

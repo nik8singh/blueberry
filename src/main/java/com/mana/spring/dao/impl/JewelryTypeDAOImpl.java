@@ -30,5 +30,12 @@ public class JewelryTypeDAOImpl implements JewelryTypeDAO {
         return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.JewelryType jt ORDER BY jt.createdDate").list();
     }
 
+    public List listActiveJewelryTypes() {
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.JewelryType jt where jt.jewelryTypeActive= :active ORDER BY jt.createdDate").setParameter("active", true).list();
+    }
 
+    public JewelryType getJewelryType(String jewelryTypeName) {
+        return (JewelryType) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.JewelryType jt where jt.jewelryTypeName= :name ").setParameter("name", jewelryTypeName).list().get(0);
+
+    }
 }

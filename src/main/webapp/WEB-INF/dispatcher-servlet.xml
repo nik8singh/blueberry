@@ -76,6 +76,10 @@
     <bean id="addressDAO" class="com.mana.spring.dao.impl.AddressDAOImpl"/>
     <bean id="addressController" class="com.mana.spring.web.AddressController"/>
 
+    <bean id="imageService" class="com.mana.spring.service.impl.ImageServiceImpl"/>
+    <bean id="imageDAO" class="com.mana.spring.dao.impl.ImageDAOImpl"/>
+    <!--<bean id="imageController" class="com.mana.spring.web."/>-->
+
     <bean id="hibernateTemplate"
           class="org.springframework.orm.hibernate5.HibernateTemplate">
         <property name="sessionFactory">

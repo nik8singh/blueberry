@@ -3,6 +3,7 @@ package com.mana.spring.service.impl;
 import com.mana.spring.dao.GemstoneDAO;
 import com.mana.spring.dao.impl.GemstoneDAOImpl;
 import com.mana.spring.domain.Gemstone;
+import com.mana.spring.domain.Product;
 import com.mana.spring.service.GemstoneService;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 @Transactional
 public class GemstoneServiceImpl implements GemstoneService {
@@ -24,7 +22,11 @@ public class GemstoneServiceImpl implements GemstoneService {
     private GemstoneDAO gemstoneDAO;
 
     public ArrayList<Gemstone> getGemstones() {
-        return (ArrayList<Gemstone>) gemstoneDAO.listGemstone();
+        return (ArrayList<Gemstone>) gemstoneDAO.listGemstones();
+    }
+
+    public ArrayList<Gemstone> getActiveGemstones() {
+        return (ArrayList<Gemstone>) gemstoneDAO.listActiveGemstones();
     }
 
     public void addGemstone(Gemstone gemstone) {
@@ -39,4 +41,8 @@ public class GemstoneServiceImpl implements GemstoneService {
         gemstoneDAO.deleteGemstone(gemstone);
     }
 
+    public Gemstone getGemstone(String gemstoneName) {
+        Gemstone gem = gemstoneDAO.getGemstone(gemstoneName);
+        return gem;
+    }
 }

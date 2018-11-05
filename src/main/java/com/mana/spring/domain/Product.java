@@ -53,6 +53,9 @@ public class Product {
     @Column(name = "product_expense")
     private String productExpense;
 
+    @Column(name = "product_accept_coupon")
+    private boolean productAcceptCoupon;
+
     @Column(name = "created_date")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createdDate;
@@ -78,30 +81,27 @@ public class Product {
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "gemstoneId")
     private Set<Gemstone> gemstones = new HashSet<Gemstone>(0);
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "metal_product",
+            joinColumns = {@JoinColumn(name = "product_id")},
+            inverseJoinColumns = {@JoinColumn(name = "metal_id")}
+    )
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "metalId")
+    private Set<Metal> metals = new HashSet<Metal>(0);
     
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "imageId" )
-//    private Set<Image> images = new HashSet<Image>(0);
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.EAGER)
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "imageId")
+    private Set<Image> images = new HashSet<Image>(0);
 
 
     public Product() {
-    }
-
-    public Product(String productName, String productDescription, double productWeight, String weightUnit, double productPrice, String productCurrency, String productSku, int productQuantity, String productQuantityType, boolean productOnFeatured, String productPublished, String productExpense, Date createdDate, Date updatedDate) {
-        this.productName = productName;
-        this.productDescription = productDescription;
-        this.productWeight = productWeight;
-        this.weightUnit = weightUnit;
-        this.productPrice = productPrice;
-        this.productCurrency = productCurrency;
-        this.productSku = productSku;
-        this.productQuantity = productQuantity;
-        this.productQuantityType = productQuantityType;
-        this.productOnFeatured = productOnFeatured;
-        this.productPublished = productPublished;
-        this.productExpense = productExpense;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
     }
 
     public Long getProductId() {
@@ -132,8 +132,8 @@ public class Product {
         return productWeight;
     }
 
-    public void setProductWeight(double productweight) {
-        this.productWeight = productweight;
+    public void setProductWeight(double productWeight) {
+        this.productWeight = productWeight;
     }
 
     public String getWeightUnit() {
@@ -152,20 +152,20 @@ public class Product {
         this.productPrice = productPrice;
     }
 
-    public String getProductCurrency() {
-        return productCurrency;
-    }
-
-    public void setProductCurrency(String productCurrency) {
-        this.productCurrency = productCurrency;
-    }
-
     public String getProductSku() {
         return productSku;
     }
 
     public void setProductSku(String productSku) {
         this.productSku = productSku;
+    }
+
+    public String getProductCurrency() {
+        return productCurrency;
+    }
+
+    public void setProductCurrency(String productCurrency) {
+        this.productCurrency = productCurrency;
     }
 
     public int getProductQuantity() {
@@ -240,26 +240,51 @@ public class Product {
         this.gemstones = gemstones;
     }
 
+    public Set<Metal> getMetals() {
+        return metals;
+    }
+
+    public void setMetals(Set<Metal> metals) {
+        this.metals = metals;
+    }
+
+    public Set<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<Image> images) {
+        this.images = images;
+    }
+
+    public boolean isProductAcceptCoupon() {
+        return productAcceptCoupon;
+    }
+
+    public void setProductAcceptCoupon(boolean productAcceptCoupon) {
+        this.productAcceptCoupon = productAcceptCoupon;
+    }
+
     @Override
     public String toString() {
-        return "Product{" +
-                "productId=" + productId +
-                ", productName='" + productName + '\'' +
-                ", productDescription='" + productDescription + '\'' +
-                ", productWeight=" + productWeight +
-                ", weightUnit='" + weightUnit + '\'' +
-                ", productPrice=" + productPrice +
-                ", productCurrency='" + productCurrency + '\'' +
-                ", productSku='" + productSku + '\'' +
-                ", productQuantity=" + productQuantity +
-                ", productQuantityType='" + productQuantityType + '\'' +
-                ", productOnFeatured=" + productOnFeatured +
-                ", productPublished='" + productPublished + '\'' +
-                ", productExpense='" + productExpense + '\'' +
-                ", createdDate=" + createdDate +
-                ", updatedDate=" + updatedDate +
-                ", productJewelryType=" + productJewelryType +
-                ", gemstones=" + gemstones +
+        return "\nProduct{" +
+                "\n\tproductId= " + productId +
+                "\n\tproductName= '" + productName + '\'' +
+                "\n\tproductDescription= '" + productDescription + '\'' +
+                "\n\tproductWeight= " + productWeight +
+                "\n\tweightUnit= '" + weightUnit + '\'' +
+                "\n\tproductPrice= " + productPrice +
+                "\n\tproductCurrency= '" + productCurrency + '\'' +
+                "\n\tproductSku= '" + productSku + '\'' +
+                "\n\tproductQuantity= " + productQuantity +
+                "\n\tproductQuantityType= '" + productQuantityType + '\'' +
+                "\n\tproductOnFeatured= " + productOnFeatured +
+                "\n\tproductPublished= '" + productPublished + '\'' +
+                "\n\tproductExpense= '" + productExpense + '\'' +
+                "\n\tcreatedDate= " + createdDate +
+                "\n\tupdatedDate= " + updatedDate +
+                "\n\tproductAcceptCoupon= " + productAcceptCoupon +
+//                ", productJewelryType=" + productJewelryType +
+//                ", gemstones=" + gemstones +
                 '}';
     }
 }

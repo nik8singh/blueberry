@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "jewelry_type")
@@ -23,6 +21,9 @@ public class JewelryType {
     @Column(name = "jewelry_type_description")
     private String jewelryTypeDescription;
 
+    @Column(name = "active", nullable = false)
+    private boolean jewelryTypeActive;
+
     @Column(name = "created_date")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createdDate;
@@ -35,16 +36,18 @@ public class JewelryType {
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "productId")
-    private List<Product> product = new ArrayList<Product>(0);
+    private Set<Product> products = new HashSet<Product>(0);
 
     public JewelryType() {
     }
 
-    public JewelryType(String jewelryTypeName, String jewelryTypeDescription, Date createdDate, Date updatedDate) {
+    public JewelryType(String jewelryTypeName, String jewelryTypeDescription, boolean jewelryTypeActive, Date createdDate, Date updatedDate, Set<Product> products) {
         this.jewelryTypeName = jewelryTypeName;
         this.jewelryTypeDescription = jewelryTypeDescription;
+        this.jewelryTypeActive = jewelryTypeActive;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
+        this.products = products;
     }
 
     public long getJewelryTypeId() {
@@ -71,6 +74,22 @@ public class JewelryType {
         this.jewelryTypeDescription = jewelryTypeDescription;
     }
 
+    public boolean isJewelryTypeActive() {
+        return jewelryTypeActive;
+    }
+
+    public void setJewelryTypeActive(boolean jewelryTypeActive) {
+        this.jewelryTypeActive = jewelryTypeActive;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> product) {
+        this.products = product;
+    }
+
     public Date getCreatedDate() {
         return createdDate;
     }
@@ -89,12 +108,14 @@ public class JewelryType {
 
     @Override
     public String toString() {
-        return "JewelryType{" +
-                "jewelryTypeId=" + jewelryTypeId +
-                ", jewelryTypeName='" + jewelryTypeName + '\'' +
-                ", jewelryTypeDescription='" + jewelryTypeDescription + '\'' +
-                ", createdDate=" + createdDate +
-                ", updatedDate=" + updatedDate +
+        return "\nJewelryType{" +
+                "\n\tjewelryTypeId= " + jewelryTypeId +
+                "\n\tjewelryTypeName= '" + jewelryTypeName + '\'' +
+                "\n\tjewelryTypeDescription= '" + jewelryTypeDescription + '\'' +
+                "\n\tjewelryTypeActive= " + jewelryTypeActive +
+                "\n\tcreatedDate= " + createdDate +
+                "\n\tupdatedDate= " + updatedDate +
+//                "\n\tproduct=" + product +
                 '}';
     }
 }

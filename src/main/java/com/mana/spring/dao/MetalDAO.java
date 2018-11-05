@@ -13,4 +13,6 @@ public interface MetalDAO {
     void deleteMetal(Metal metal);
 
     List listMetal();
+
+    Metal getMetal(String metalName);
 }

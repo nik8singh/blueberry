@@ -30,4 +30,12 @@ public class JewelryTypeServiceImpl implements JewelryTypeService {
     public void deleteJewelryType(JewelryType jewelryType) {
         jewelryTypeDAO.deleteJewelryType(jewelryType);
     }
+
+    public ArrayList<JewelryType> getActiveJewelryTypes() {
+        return (ArrayList<JewelryType>) jewelryTypeDAO.listActiveJewelryTypes();
+    }
+
+    public JewelryType getJewelryType(String jewelryTypeName) {
+        return jewelryTypeDAO.getJewelryType(jewelryTypeName);
+    }
 }

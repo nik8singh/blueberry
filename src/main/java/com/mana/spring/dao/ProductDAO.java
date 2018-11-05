@@ -13,4 +13,8 @@ public interface ProductDAO {
     void deleteProduct(Product product);
 
     List listProduct();
+
+    List listAvailableProducts();
+
+    Product getProduct(Long productId);
 }

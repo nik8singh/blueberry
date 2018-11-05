@@ -9,4 +9,6 @@ public interface JewelryTypeService {
     void addJewelryType(JewelryType jewelryType);
     void updateJewelryType(JewelryType jewelryType);
     void deleteJewelryType(JewelryType jewelryType);
+    ArrayList<JewelryType> getActiveJewelryTypes();
+    JewelryType getJewelryType(String jewelryTypeName);
 }

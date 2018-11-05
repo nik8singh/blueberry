@@ -1,7 +1,12 @@
 package com.mana.spring.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "metal")
@@ -26,14 +31,26 @@ public class Metal {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "metal_product",
+            joinColumns = {@JoinColumn(name = "metal_id")},
+            inverseJoinColumns = {@JoinColumn(name = "product_id")}
+    )
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "productId")
+    private Set<Product> products = new HashSet<Product>(0);
+
     public Metal() {
     }
 
-    public Metal(String metalName, String metalDescription, Date createdDate, Date updatedDate) {
+    public Metal(String metalName, String metalDescription, Date createdDate, Date updatedDate, Set<Product> products) {
         this.metalName = metalName;
         this.metalDescription = metalDescription;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
+        this.products = products;
     }
 
     public long getMetalId() {
@@ -76,14 +93,22 @@ public class Metal {
         this.updatedDate = updatedDate;
     }
 
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
+
     @Override
     public String toString() {
-        return "metal{" +
-                "metalId=" + metalId +
-                ", metalName='" + metalName + '\'' +
-                ", metalDescription='" + metalDescription + '\'' +
-                ", createdDate=" + createdDate +
-                ", updatedDate=" + updatedDate +
+        return "\nmetal{" +
+                "\n\tmetalId= " + metalId +
+                "\n\tmetalName= '" + metalName + '\'' +
+                "\n\tmetalDescription= '" + metalDescription + '\'' +
+                "\n\tcreatedDate= " + createdDate +
+                "\n\tupdatedDate= " + updatedDate +
                 '}';
     }
 }

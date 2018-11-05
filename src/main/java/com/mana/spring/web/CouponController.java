@@ -2,6 +2,7 @@ package com.mana.spring.web;
 
 import com.mana.spring.domain.Coupon;
 import com.mana.spring.domain.Metal;
+import com.mana.spring.dto.CouponDTO;
 import com.mana.spring.service.CouponService;
 import com.mana.spring.service.MetalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,26 +21,25 @@ public class CouponController {
 
     @RequestMapping(value = "all", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    ArrayList<Coupon> getAllCoupons() {
+    ArrayList<CouponDTO> getAllCoupons() {
         return couponService.getCoupons();
     }
 
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public ResponseEntity saveCoupon(@RequestBody Coupon coupon) {
-        couponService.addCoupon(coupon);
-        return new ResponseEntity(coupon, HttpStatus.OK);
+    public ResponseEntity saveCoupon(@RequestBody CouponDTO couponDTO) {
+        couponService.addCoupon(couponDTO);
+        return new ResponseEntity(couponDTO, HttpStatus.OK);
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public ResponseEntity updateCoupon(@RequestBody Coupon coupon) {
-        couponService.updateCoupon(coupon);
+    public ResponseEntity updateCoupon(@RequestBody CouponDTO couponDTO) {
+        couponService.updateCoupon(couponDTO);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.DELETE)
-    public ResponseEntity deleteCoupon(@RequestBody Coupon coupon) {
-        System.out.println("delete requested for " + coupon.getCouponId());
-        couponService.deleteCoupon(coupon);
+    public ResponseEntity deleteCoupon(@RequestBody CouponDTO couponDTO) {
+        couponService.deleteCoupon(couponDTO);
         return new ResponseEntity(HttpStatus.OK);
     }
 

@@ -10,5 +10,7 @@ public interface JewelryTypeDAO {
     void updateJewelryType(JewelryType jewelryType);
     void deleteJewelryType(JewelryType jewelryType);
     List listJewelryType();
+    List listActiveJewelryTypes();
+    JewelryType getJewelryType(String jewelryTypeName);
 
 }
