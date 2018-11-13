@@ -2,6 +2,7 @@ package com.mana.spring.web;
 
 import com.mana.spring.domain.Metal;
 import com.mana.spring.domain.Product;
+import com.mana.spring.dto.MetalDTO;
 import com.mana.spring.service.MetalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,32 +21,39 @@ public class MetalController {
 
     @RequestMapping(value = "all", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    ArrayList<Metal> getAllMetals() {
+    ArrayList<MetalDTO> getAllMetals() {
         return metalService.getMetals();
     }
 
+    @RequestMapping(value = "allactive", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    ArrayList<MetalDTO> getAllActiveMetals() {
+        return metalService.getActiveMetals();
+    }
+
+
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public ResponseEntity saveMetal(@RequestBody Metal metal) {
-        metalService.addMetal(metal);
-        return new ResponseEntity(metal, HttpStatus.OK);
+    public ResponseEntity saveMetal(@RequestBody MetalDTO metalDTO) {
+        metalService.addMetal(metalDTO);
+        return new ResponseEntity(metalDTO, HttpStatus.OK);
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public ResponseEntity updateMetal(@RequestBody Metal metal) {
-        metalService.updateMetal(metal);
+    public ResponseEntity updateMetal(@RequestBody MetalDTO metalDTO) {
+        metalService.updateMetal(metalDTO);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "delete", method = RequestMethod.DELETE)
-    public ResponseEntity deleteMetal(@RequestBody Metal metal) {
-        metalService.deleteMetal(metal);
-        return new ResponseEntity(HttpStatus.OK);
-    }
+//    @RequestMapping(value = "delete", method = RequestMethod.DELETE)
+//    public ResponseEntity deleteMetal(@RequestBody Metal metal) {
+//        metalService.deleteMetal(metal);
+//        return new ResponseEntity(HttpStatus.OK);
+//    }
 
     @RequestMapping(value = "metal", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody Set<Product> getMetal(String metalName) {
+    public @ResponseBody Set<Product> getMetalProducts(MetalDTO metalDTO) {
 
-        return metalService.getMetal(metalName).getProducts();
+        return metalService.getMetalProducts(metalDTO).getProducts();
     }
 
 

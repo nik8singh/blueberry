@@ -21,9 +21,9 @@ public class JewelryTypeDAOImpl implements JewelryTypeDAO {
         hibernateTemplate.update(jewelryType);
     }
 
-    public void deleteJewelryType(JewelryType jewelryType) {
-        hibernateTemplate.delete(jewelryType);
-    }
+//    public void deleteJewelryType(JewelryType jewelryType) {
+//        hibernateTemplate.delete(jewelryType);
+//    }
 
     public List listJewelryType() {
         System.out.println("STATUS: All jewelry type DAO");

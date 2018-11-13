@@ -76,7 +76,6 @@ public class ProductServiceImpl implements ProductService {
 
     public ProductDTO daoToDto(Product product) {
 
-
         ArrayList<GemstoneDTO> gemstoneDTOs = new ArrayList<GemstoneDTO>();
         ArrayList<MetalDTO> metalDTOs = new ArrayList<MetalDTO>();
 

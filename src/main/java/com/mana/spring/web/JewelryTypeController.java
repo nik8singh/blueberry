@@ -1,7 +1,7 @@
 package com.mana.spring.web;
 
-import com.mana.spring.domain.JewelryType;
 import com.mana.spring.domain.Product;
+import com.mana.spring.dto.JewelryTypeDTO;
 import com.mana.spring.service.JewelryTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,40 +20,40 @@ public class JewelryTypeController {
 
     @RequestMapping(value = "all",method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    ArrayList<JewelryType> getAllJewelryType() {
+    ArrayList<JewelryTypeDTO> getAllJewelryType() {
         return jewelryTypeService.getJewelryTypes();
     }
 
     @RequestMapping(value = "allactive", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    ArrayList<JewelryType> getAllActiveJewelryTypes() {
+    ArrayList<JewelryTypeDTO> getAllActiveJewelryTypes() {
 
         return jewelryTypeService.getActiveJewelryTypes();
     }
 
     @RequestMapping(value = "save",method = RequestMethod.POST)
-    public ResponseEntity saveJewelryType(@RequestBody JewelryType jewelryType) {
+    public ResponseEntity saveJewelryType(@RequestBody JewelryTypeDTO jewelryTypeDTO) {
 
-        jewelryTypeService.addJewelryType(jewelryType);
-        return new ResponseEntity(jewelryType, HttpStatus.OK);
+        jewelryTypeService.addJewelryType(jewelryTypeDTO);
+        return new ResponseEntity(jewelryTypeDTO, HttpStatus.OK);
     }
 
     @RequestMapping(value = "update",method = RequestMethod.POST)
-    public ResponseEntity updateJewelryType(@RequestBody JewelryType jewelryType) {
+    public ResponseEntity updateJewelryType(@RequestBody JewelryTypeDTO jewelryTypeDTO) {
 
-        jewelryTypeService.updateJewelryType(jewelryType);
+        jewelryTypeService.updateJewelryType(jewelryTypeDTO);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "delete",method = RequestMethod.DELETE)
-    public ResponseEntity deleteJewelryType(@RequestBody JewelryType jewelryType) {
-
-        jewelryTypeService.deleteJewelryType(jewelryType);
-        return new ResponseEntity(HttpStatus.OK);
-    }
+//    @RequestMapping(value = "delete",method = RequestMethod.DELETE)
+//    public ResponseEntity deleteJewelryType(@RequestBody JewelryTypeDTO jewelryTypeDTO) {
+//
+//        jewelryTypeService.deleteJewelryType(jewelryTypeDTO);
+//        return new ResponseEntity(HttpStatus.OK);
+//    }
 
     @RequestMapping(value = "jewelryType", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody Set<Product> getJewelryType(String jewelryTypeName) {
-        return jewelryTypeService.getJewelryType(jewelryTypeName).getProducts();
+    public @ResponseBody Set<Product> getJewelryTypeProducts(JewelryTypeDTO jewelryTypeDTO) {
+        return jewelryTypeService.getJewelryTypeProducts(jewelryTypeDTO).getProducts();
     }
 }

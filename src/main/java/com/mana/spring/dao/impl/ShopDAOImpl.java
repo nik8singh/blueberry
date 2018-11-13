@@ -30,20 +30,24 @@ public class ShopDAOImpl implements ShopDAO {
         }
     }
 
-    public void deleteShop(Shop shop) {
-        try {
-            hibernateTemplate.delete(shop);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    public void deleteShop(Shop shop) {
+//        try {
+//            hibernateTemplate.delete(shop);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public List listShop() {
 
-        List result = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Shop").list();
-        hibernateTemplate.initialize(result);
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Shop shop ORDER BY shop.createdDate").list();
 
-        return result;
     }
+
+    public Shop getShop(String shopName) {
+        return (Shop) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Shop shop where shop.shopName= :name ").setParameter("name", shopName).list().get(0);
+
+    }
+
 
 }

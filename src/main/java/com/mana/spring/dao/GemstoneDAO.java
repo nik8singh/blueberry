@@ -9,7 +9,7 @@ public interface GemstoneDAO {
 
     void saveGemstone(Gemstone gemstone);
     void updateGemstone(Gemstone gemstone);
-    void deleteGemstone(Gemstone gemstone);
+//    void deleteGemstone(Gemstone gemstone);
     List listGemstones();
     List listActiveGemstones();
     Gemstone getGemstone(String gemstoneName);

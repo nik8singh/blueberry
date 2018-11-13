@@ -26,7 +26,7 @@ public class Gemstone {
     @Column(name = "active", nullable = false)
     private boolean gemstoneActive;
 
-    @Column(name = "created_date")
+    @Column(name = "created_date", updatable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createdDate;
 

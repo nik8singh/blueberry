@@ -22,9 +22,9 @@ public class GemstoneDAOImpl implements GemstoneDAO {
         hibernateTemplate.update(gemstone);
     }
 
-    public void deleteGemstone(Gemstone gemstone) {
-        hibernateTemplate.delete(gemstone);
-    }
+//    public void deleteGemstone(Gemstone gemstone) {
+//        hibernateTemplate.delete(gemstone);
+//    }
 
     public List listGemstones() {
         return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Gemstone gem ORDER BY gem.createdDate").list();

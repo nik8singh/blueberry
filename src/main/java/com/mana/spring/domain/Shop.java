@@ -53,8 +53,8 @@ public class Shop {
         this.shopAddress = shopAddress;
     }
 
-    public Long getShopId() {
-        return shopId;
+        public Long getShopId() {
+            return shopId;
     }
 
     public void setShopId(Long shopId) {

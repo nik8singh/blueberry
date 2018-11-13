@@ -24,7 +24,7 @@ public class JewelryType {
     @Column(name = "active", nullable = false)
     private boolean jewelryTypeActive;
 
-    @Column(name = "created_date")
+    @Column(name = "created_date", updatable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createdDate;
 

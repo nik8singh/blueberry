@@ -23,7 +23,10 @@ public class Metal {
     @Column(name = "metal_description")
     private String metalDescription;
 
-    @Column(name = "created_date")
+    @Column(name = "active")
+    private boolean metalActive;
+
+    @Column(name = "created_date", updatable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createdDate;
 
@@ -45,13 +48,7 @@ public class Metal {
     public Metal() {
     }
 
-    public Metal(String metalName, String metalDescription, Date createdDate, Date updatedDate, Set<Product> products) {
-        this.metalName = metalName;
-        this.metalDescription = metalDescription;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
-        this.products = products;
-    }
+
 
     public long getMetalId() {
         return metalId;
@@ -75,6 +72,14 @@ public class Metal {
 
     public void setMetalDescription(String metalDescription) {
         this.metalDescription = metalDescription;
+    }
+
+    public boolean isMetalActive() {
+        return metalActive;
+    }
+
+    public void setMetalActive(boolean metalActive) {
+        this.metalActive = metalActive;
     }
 
     public Date getCreatedDate() {
@@ -107,6 +112,7 @@ public class Metal {
                 "\n\tmetalId= " + metalId +
                 "\n\tmetalName= '" + metalName + '\'' +
                 "\n\tmetalDescription= '" + metalDescription + '\'' +
+                "\n\tmetalActive= '" + metalActive + '\'' +
                 "\n\tcreatedDate= " + createdDate +
                 "\n\tupdatedDate= " + updatedDate +
                 '}';

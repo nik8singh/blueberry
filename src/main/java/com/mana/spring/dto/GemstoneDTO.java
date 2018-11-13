@@ -2,9 +2,13 @@ package com.mana.spring.dto;
 
 public class GemstoneDTO {
 
+    private long gemstoneId;
+
     private String gemstoneName;
 
     private String gemstoneDescription;
+
+    private boolean gemstoneActive;
 
     public GemstoneDTO() {
     }
@@ -12,6 +16,14 @@ public class GemstoneDTO {
     public GemstoneDTO(String gemstoneName, String gemstoneDescription) {
         this.gemstoneName = gemstoneName;
         this.gemstoneDescription = gemstoneDescription;
+    }
+
+    public long getGemstoneId() {
+        return gemstoneId;
+    }
+
+    public void setGemstoneId(long gemstoneId) {
+        this.gemstoneId = gemstoneId;
     }
 
     public String getGemstoneName() {
@@ -26,15 +38,27 @@ public class GemstoneDTO {
         return gemstoneDescription;
     }
 
+    public boolean isGemstoneActive() {
+        return gemstoneActive;
+    }
+
+    public void setGemstoneActive(boolean gemstoneActive) {
+        this.gemstoneActive = gemstoneActive;
+    }
+
     public void setGemstoneDescription(String gemstoneDescription) {
         this.gemstoneDescription = gemstoneDescription;
     }
 
+
+
     @Override
     public String toString() {
         return "\n\tGemstoneDTO{" +
+                "\n\t\tgemstoneId='" + gemstoneId + '\'' +
                 "\n\t\tgemstoneName='" + gemstoneName + '\'' +
                 "\n\t\tgemstoneDescription='" + gemstoneDescription + '\'' +
+                "\n\t\tgemstoneActive='" + gemstoneActive + '\'' +
                 "\n\t}";
     }
 }

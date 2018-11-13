@@ -21,12 +21,16 @@ public class MetalDAOImpl implements MetalDAO {
         hibernateTemplate.update(metal);
     }
 
-    public void deleteMetal(Metal metal) {
-        hibernateTemplate.delete(metal);
+//    public void deleteMetal(Metal metal) {
+//        hibernateTemplate.delete(metal);
+//    }
+
+    public List listMetals() {
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Metal met ORDER BY met.createdDate").list();
     }
 
-    public List listMetal() {
-        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Metal met ORDER BY met.createdDate").list();
+    public List listActiveMetals() {
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Metal met where met.metalActive= :active ORDER BY met.createdDate").setParameter("active", true).list();
     }
 
     public Metal getMetal(String metalName) {

@@ -2,6 +2,7 @@ package com.mana.spring.web;
 
 import com.mana.spring.domain.Gemstone;
 import com.mana.spring.domain.Product;
+import com.mana.spring.dto.GemstoneDTO;
 import com.mana.spring.service.GemstoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,43 +21,43 @@ public class GemstoneController {
 
     @RequestMapping(value = "all", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    ArrayList<Gemstone> getAllGemstones() {
+    ArrayList<GemstoneDTO> getAllGemstones() {
 
         return gemstoneService.getGemstones();
     }
 
     @RequestMapping(value = "allactive", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    ArrayList<Gemstone> getAllActiveGemstones() {
+    ArrayList<GemstoneDTO> getAllActiveGemstones() {
 
         return gemstoneService.getActiveGemstones();
     }
 
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public ResponseEntity saveGemstone(@RequestBody Gemstone gemstone) {
+    public ResponseEntity saveGemstone(@RequestBody GemstoneDTO gemstoneDTO) {
 
-        gemstoneService.addGemstone(gemstone);
-        return new ResponseEntity(gemstone, HttpStatus.OK);
+        gemstoneService.addGemstone(gemstoneDTO);
+        return new ResponseEntity(gemstoneDTO, HttpStatus.OK);
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public ResponseEntity updateGemstone(@RequestBody Gemstone gemstone) {
+    public ResponseEntity updateGemstone(@RequestBody GemstoneDTO gemstoneDTO) {
 
-        gemstoneService.updateGemstone(gemstone);
+        gemstoneService.updateGemstone(gemstoneDTO);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "delete", method = RequestMethod.DELETE)
-    public ResponseEntity deleteGemstone(@RequestBody Gemstone gemstone) {
-
-        gemstoneService.deleteGemstone(gemstone);
-        return new ResponseEntity(HttpStatus.OK);
-    }
+//    @RequestMapping(value = "delete", method = RequestMethod.DELETE)
+//    public ResponseEntity deleteGemstone(@RequestBody GemstoneDTO gemstoneDTO) {
+//
+//        gemstoneService.deleteGemstone(gemstoneDTO);
+//        return new ResponseEntity(HttpStatus.OK);
+//    }
 
     @RequestMapping(value = "gemstone", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody Set<Product> getGemstone(String gemstoneName) {
+    public @ResponseBody Set<Product> getGemstoneProducts(@RequestBody GemstoneDTO gemstoneDTO) {
 
-        return gemstoneService.getGemstone(gemstoneName).getProducts();
+        return gemstoneService.getGemstoneProducts(gemstoneDTO).getProducts();
     }
 
 

@@ -1,17 +1,21 @@
 package com.mana.spring.service;
 
-import com.mana.spring.domain.Metal;
+import com.mana.spring.dto.MetalDTO;
+import com.mana.spring.dto.ProductListDTO;
 
 import java.util.ArrayList;
 
 public interface MetalService {
 
-    ArrayList<Metal> getMetals();
+    ArrayList<MetalDTO> getMetals();
 
-    void addMetal(Metal metal);
+    ArrayList<MetalDTO> getActiveMetals();
 
-    void updateMetal(Metal metal);
+    void addMetal(MetalDTO metalDTO);
 
-    void deleteMetal(Metal metal);
-    Metal getMetal(String metalName);
+    void updateMetal(MetalDTO metalDTO);
+
+//  void deleteMetal(MetalDTO metalDTO);
+
+    ProductListDTO getMetalProducts(MetalDTO metalDTO);
 }

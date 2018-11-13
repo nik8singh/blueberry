@@ -1,18 +1,14 @@
 package com.mana.spring.service.impl;
 
 import com.mana.spring.dao.GemstoneDAO;
-import com.mana.spring.dao.impl.GemstoneDAOImpl;
 import com.mana.spring.domain.Gemstone;
-import com.mana.spring.domain.Product;
+import com.mana.spring.dto.GemstoneDTO;
+import com.mana.spring.dto.ProductListDTO;
 import com.mana.spring.service.GemstoneService;
-import org.hibernate.HibernateException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.sql.Timestamp;
 import java.util.*;
 
 @Transactional
@@ -21,28 +17,67 @@ public class GemstoneServiceImpl implements GemstoneService {
     @Autowired
     private GemstoneDAO gemstoneDAO;
 
-    public ArrayList<Gemstone> getGemstones() {
-        return (ArrayList<Gemstone>) gemstoneDAO.listGemstones();
+    public ArrayList<GemstoneDTO> getGemstones() {
+        ArrayList<Gemstone> gemstones = (ArrayList<Gemstone>) gemstoneDAO.listGemstones();
+       return daoListToDtoList(gemstones);
     }
 
-    public ArrayList<Gemstone> getActiveGemstones() {
-        return (ArrayList<Gemstone>) gemstoneDAO.listActiveGemstones();
+    public ArrayList<GemstoneDTO> getActiveGemstones() {
+
+        ArrayList<Gemstone> gemstones = (ArrayList<Gemstone>) gemstoneDAO.listActiveGemstones();
+        return daoListToDtoList(gemstones);
+
     }
 
-    public void addGemstone(Gemstone gemstone) {
-        gemstoneDAO.saveGemstone(gemstone);
+    public void addGemstone(GemstoneDTO gemstoneDTO) {
+
+        gemstoneDAO.saveGemstone(dtoToDao(gemstoneDTO));
     }
 
-    public void updateGemstone(Gemstone gemstone) {
-        gemstoneDAO.updateGemstone(gemstone);
+    public void updateGemstone(GemstoneDTO gemstoneDTO) {
+        gemstoneDAO.updateGemstone(dtoToDao(gemstoneDTO));
     }
 
-    public void deleteGemstone(Gemstone gemstone) {
-        gemstoneDAO.deleteGemstone(gemstone);
+//    public void deleteGemstone(GemstoneDTO gemstoneDTO) {
+//        gemstoneDAO.deleteGemstone(dtoToDao(gemstoneDTO));
+//    }
+
+    public ProductListDTO getGemstoneProducts(GemstoneDTO gemstoneDTO) {
+        Gemstone gem = gemstoneDAO.getGemstone(gemstoneDTO.getGemstoneName());
+        ProductListDTO productListDTO = new ProductListDTO();
+        BeanUtils.copyProperties(gem, productListDTO);
+        return productListDTO;
     }
 
-    public Gemstone getGemstone(String gemstoneName) {
-        Gemstone gem = gemstoneDAO.getGemstone(gemstoneName);
-        return gem;
+    public ArrayList<GemstoneDTO> daoListToDtoList(ArrayList<Gemstone> gemstones){
+
+        ArrayList<GemstoneDTO> gemstoneDTOs = new ArrayList<GemstoneDTO>();
+
+        for (Gemstone gem : gemstones) {
+            gemstoneDTOs.add(daoToDto(gem));
+        }
+
+        return gemstoneDTOs;
     }
+
+    public GemstoneDTO daoToDto(Gemstone gemstone) {
+
+        // to copy to
+        GemstoneDTO target = new GemstoneDTO();
+
+        BeanUtils.copyProperties(gemstone, target);
+        return target;
+
+    }
+
+    public Gemstone dtoToDao(GemstoneDTO gemstoneDTO) {
+
+        // to copy to
+        Gemstone target = new Gemstone();
+
+        BeanUtils.copyProperties(gemstoneDTO, target);
+        return target;
+
+    }
+
 }

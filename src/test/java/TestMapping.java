@@ -1,6 +1,7 @@
 import com.mana.spring.domain.Address;
 import com.mana.spring.domain.Shop;
 import com.mana.spring.domain.User;
+import com.mana.spring.dto.ShopDTO;
 import com.mana.spring.web.AddressController;
 import com.mana.spring.web.ShopController;
 import com.mana.spring.web.UserController;
@@ -24,30 +25,37 @@ public class TestMapping {
     @Autowired
     private UserController userController;
 
-    @Autowired
-    private AddressController addressController;
+
+//    @Test
+//    public void getAllShops() {
+//        List<Shop> shops = shopController.getAllShops();
+//        System.out.println();
+//        System.out.println(shops);
+//    }
 
     @Test
-    public void getAllShops() {
-        List<Shop> shops = shopController.getAllShops();
+    public void getShop() {
+        ShopDTO shopDTO = new ShopDTO();
+        shopDTO.setShopName("GDL");
+        shopController.getShop(shopDTO);
         System.out.println();
-        System.out.println(shops);
+//        System.out.println(shops);
     }
-
-    @Test
-    public void deleteShopShouldNotDeleteAddress() {
-
-        Shop shop = new Shop();
-        shop.setShopId(13L);
-        Address address = new Address();
-        address.setAddressId(14L);
-        shop.setShopAddress(address);
-        shopController.deleteShop(shop);
-        List<Shop> shops = shopController.getAllShops();
-        System.out.println();
-        System.out.println(shops);
-
-    }
+//
+//    @Test
+//    public void deleteShopShouldNotDeleteAddress() {
+//
+//        Shop shop = new Shop();
+//        shop.setShopId(13L);
+//        Address address = new Address();
+//        address.setAddressId(14L);
+//        shop.setShopAddress(address);
+//        shopController.deleteShop(shop);
+//        List<Shop> shops = shopController.getAllShops();
+//        System.out.println();
+//        System.out.println(shops);
+//
+//    }
 
     @Test
     public void getAllUsers() {
@@ -58,7 +66,6 @@ public class TestMapping {
 
     @Test
     public void removeUserAddress() {
-
 
         User user = userController.getAllUsers().get(0);
         Address add = user.getAddresses().iterator().next();
