@@ -12,7 +12,7 @@ public interface ProductService {
 
     void updateProduct(ProductDTO productDTO);
 
-    void deleteProduct(ProductDTO productDTO);
+//    void deleteProduct(ProductDTO productDTO);
 
     ArrayList<ProductDTO> getAvailableProducts();
 

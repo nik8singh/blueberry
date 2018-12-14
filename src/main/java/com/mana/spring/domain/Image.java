@@ -13,13 +13,13 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "image_id")
-    private Long imageId;
+    private long imageId;
 
     @Column(name = "image_site_location")
     private String imageSiteLocation;
 
-    @Column(name = "image_server_location")
-    private String imageServerLocation;
+    @Column(name = "image")
+    private byte[] image;
 
     @Column(name = "image_priority")
     private int imagePriority;
@@ -42,11 +42,11 @@ public class Image {
     public Image() {
     }
 
-    public Long getImageId() {
+    public long getImageId() {
         return imageId;
     }
 
-    public void setImageId(Long imageId) {
+    public void setImageId(long imageId) {
         this.imageId = imageId;
     }
 
@@ -56,14 +56,6 @@ public class Image {
 
     public void setImageSiteLocation(String imageSiteLocation) {
         this.imageSiteLocation = imageSiteLocation;
-    }
-
-    public String getImageServerLocation() {
-        return imageServerLocation;
-    }
-
-    public void setImageServerLocation(String imageFile) {
-        this.imageServerLocation = imageFile;
     }
 
     public int getImagePriority() {
@@ -98,12 +90,20 @@ public class Image {
         this.product = product;
     }
 
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "\nImage{" +
                 "\n\timageId= " + imageId +
                 "\n\timageSiteLocation= " + imageSiteLocation +
-                "\n\timageServerLocation= " + imageServerLocation +
+                "\n\timage= " + image +
                 "\n\timagePriority= " + imagePriority +
                 "\n\tcreatedDate= " + createdDate +
                 "\n\tupdatedDate= " + updatedDate +

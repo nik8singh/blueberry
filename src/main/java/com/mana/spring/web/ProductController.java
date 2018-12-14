@@ -1,6 +1,6 @@
 package com.mana.spring.web;
 
-import com.mana.spring.domain.Product;
+import com.mana.spring.dto.ImageDTO;
 import com.mana.spring.dto.ProductDTO;
 import com.mana.spring.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,11 +47,11 @@ public class ProductController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "delete", method = RequestMethod.DELETE)
-    public ResponseEntity deleteProduct(@RequestBody ProductDTO productDTO) {
-        productService.deleteProduct(productDTO);
-        return new ResponseEntity(HttpStatus.OK);
-    }
+//    @RequestMapping(value = "delete", method = RequestMethod.DELETE)
+//    public ResponseEntity deleteProduct(@RequestBody ProductDTO productDTO) {
+//        productService.deleteProduct(productDTO);
+//        return new ResponseEntity(HttpStatus.OK);
+//    }
 
 
 }

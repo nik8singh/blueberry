@@ -10,7 +10,7 @@ public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shop_id")
-    private Long shopId;
+    private long shopId;
 
     @Column(name = "shop_name")
     private String shopName;
@@ -53,11 +53,11 @@ public class Shop {
         this.shopAddress = shopAddress;
     }
 
-        public Long getShopId() {
+    public long getShopId() {
             return shopId;
     }
 
-    public void setShopId(Long shopId) {
+    public void setShopId(long shopId) {
         this.shopId = shopId;
     }
 

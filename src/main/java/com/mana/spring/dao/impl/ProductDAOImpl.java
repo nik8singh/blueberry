@@ -18,7 +18,7 @@ public class ProductDAOImpl implements ProductDAO {
         hibernateTemplate.save(product);
     }
 
-    public void updateProduct(Product product) { hibernateTemplate.update(product); }
+    public void updateProduct(Product product) { hibernateTemplate.merge(product); }
 
     public void deleteProduct(Product product) {
         hibernateTemplate.delete(product);

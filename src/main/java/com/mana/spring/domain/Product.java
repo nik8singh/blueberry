@@ -15,7 +15,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
-    private Long productId;
+    private long productId;
 
     @Column(name = "product_name")
     private String productName;
@@ -48,10 +48,10 @@ public class Product {
     private boolean productOnFeatured;
 
     @Column(name = "product_published")
-    private String productPublished;
+    private boolean productPublished;
 
     @Column(name = "product_expense")
-    private String productExpense;
+    private double productExpense;
 
     @Column(name = "product_accept_coupon")
     private boolean productAcceptCoupon;
@@ -104,11 +104,11 @@ public class Product {
     public Product() {
     }
 
-    public Long getProductId() {
+    public long getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(long productId) {
         this.productId = productId;
     }
 
@@ -192,19 +192,19 @@ public class Product {
         this.productOnFeatured = productOnFeatured;
     }
 
-    public String getProductPublished() {
+    public boolean getProductPublished() {
         return productPublished;
     }
 
-    public void setProductPublished(String productPublished) {
+    public void setProductPublished(boolean productPublished) {
         this.productPublished = productPublished;
     }
 
-    public String getProductExpense() {
+    public double getProductExpense() {
         return productExpense;
     }
 
-    public void setProductExpense(String productExpense) {
+    public void setProductExpense(double productExpense) {
         this.productExpense = productExpense;
     }
 

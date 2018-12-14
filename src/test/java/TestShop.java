@@ -44,7 +44,7 @@ public class TestShop {
     public void addShop() {
         ShopDTO shopDTO = new ShopDTO();
         shopDTO.setShopName("GWL - London");
-        shopDTO.setShopDescription("New Show In London");
+        shopDTO.setShopDescription("New ShoTestShopw In London");
         shopDTO.setBoothNumber("542");
         shopDTO.setShopStartDate(new Date());
         shopDTO.setShopEndDate(new Date());

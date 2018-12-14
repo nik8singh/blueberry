@@ -72,7 +72,7 @@ public class TestMapping {
         System.out.println(add);
 
         for (Iterator<User> iterator = add.getUser().iterator(); iterator.hasNext(); ) {
-            if (iterator.next().getUserId().equals(user.getUserId())) {
+            if (iterator.next().getUserId() == user.getUserId()) {
                 iterator.remove();
                 break;
             }
@@ -80,7 +80,7 @@ public class TestMapping {
 
         for (Iterator<Address> iterator = user.getAddresses().iterator(); iterator.hasNext(); ) {
             Address a = iterator.next();
-            if (a.getAddressId().equals(add.getAddressId())) {
+            if (a.getAddressId() == add.getAddressId()) {
                 iterator.remove();
                 break;
             }

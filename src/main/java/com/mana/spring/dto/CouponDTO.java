@@ -1,7 +1,5 @@
 package com.mana.spring.dto;
 
-import com.mana.spring.domain.Coupon;
-
 import java.util.Date;
 
 public class CouponDTO {

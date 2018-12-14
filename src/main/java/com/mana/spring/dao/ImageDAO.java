@@ -11,6 +11,7 @@ public interface ImageDAO {
     void updateImage(Image image);
     void deleteImage(Image image);
     List getImagesBySiteLocation (String imageSiteLocation);
-    List getImagesByProduct (Product product);
+    List getImagesByProduct (Long productId);
+    List getImageByProductPriority(Image image);
 
 }

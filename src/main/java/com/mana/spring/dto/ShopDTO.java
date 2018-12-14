@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class ShopDTO {
 
-    private Long shopId;
+    private long shopId;
 
     private String shopName;
 
@@ -16,7 +16,7 @@ public class ShopDTO {
 
     private Date shopEndDate;
 
-    private Long addressId;
+    private long addressId;
 
     private String addressFullname;
 
@@ -32,11 +32,11 @@ public class ShopDTO {
 
     private String addressCountry;
 
-    public Long getShopId() {
+    public long getShopId() {
         return shopId;
     }
 
-    public void setShopId(Long shopId) {
+    public void setShopId(long shopId) {
         this.shopId = shopId;
     }
 
@@ -80,11 +80,11 @@ public class ShopDTO {
         this.shopEndDate = shopEndDate;
     }
 
-    public Long getAddressId() {
+    public long getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(Long addressId) {
+    public void setAddressId(long addressId) {
         this.addressId = addressId;
     }
 

@@ -15,7 +15,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long userId;
+    private long userId;
 
     @Column(name = "user_firstname")
     private String userFirstName;
@@ -51,27 +51,11 @@ public class User {
     public User() {
     }
 
-    public User(String userFirstName, String userLastName, String userEmail, String userPassword) {
-        this.userFirstName = userFirstName;
-        this.userLastName = userLastName;
-        this.userEmail = userEmail;
-        this.userPassword = userPassword;
-    }
-
-    public User(String userFirstName, String userLastName, String userEmail, String userPassword, String authorizationLevel, Set<Address> addresses) {
-        this.userFirstName = userFirstName;
-        this.userLastName = userLastName;
-        this.userEmail = userEmail;
-        this.userPassword = userPassword;
-        this.authorizationLevel = authorizationLevel;
-        this.addresses = addresses;
-    }
-
-    public Long getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

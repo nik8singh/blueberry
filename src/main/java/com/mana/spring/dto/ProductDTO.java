@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ProductDTO {
 
-    private Long productId;
+    private long productId;
 
     private String productName;
 
@@ -26,9 +26,11 @@ public class ProductDTO {
 
     private boolean productOnFeatured;
 
-    private String productPublished;
+    private boolean productPublished;
 
-    private String productExpense;
+    private double productExpense;
+
+    private long jewelryTypeId;
 
     private String jewelryTypeName;
 
@@ -45,33 +47,11 @@ public class ProductDTO {
     public ProductDTO() {
     }
 
-    public ProductDTO(Long productId, String productName, String productDescription, double productWeight, String weightUnit, double productPrice, String productSku, String productCurrency, int productQuantity, String productQuantityType, boolean productOnFeatured, String productPublished, String productExpense, String jewelryTypeName, String jewelryTypeDescription, boolean productAcceptCoupon, ArrayList<GemstoneDTO> gemstones, ArrayList<MetalDTO> metals, ArrayList<ImageDTO> images) {
-        this.productId = productId;
-        this.productName = productName;
-        this.productDescription = productDescription;
-        this.productWeight = productWeight;
-        this.weightUnit = weightUnit;
-        this.productPrice = productPrice;
-        this.productSku = productSku;
-        this.productCurrency = productCurrency;
-        this.productQuantity = productQuantity;
-        this.productQuantityType = productQuantityType;
-        this.productOnFeatured = productOnFeatured;
-        this.productPublished = productPublished;
-        this.productExpense = productExpense;
-        this.jewelryTypeName = jewelryTypeName;
-        this.jewelryTypeDescription = jewelryTypeDescription;
-        this.productAcceptCoupon = productAcceptCoupon;
-        this.gemstones = gemstones;
-        this.metals = metals;
-        this.images = images;
-    }
-
-    public Long getProductId() {
+    public long getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(long productId) {
         this.productId = productId;
     }
 
@@ -155,19 +135,11 @@ public class ProductDTO {
         this.productOnFeatured = productOnFeatured;
     }
 
-    public String getProductPublished() {
-        return productPublished;
-    }
-
-    public void setProductPublished(String productPublished) {
-        this.productPublished = productPublished;
-    }
-
-    public String getProductExpense() {
+    public double getProductExpense() {
         return productExpense;
     }
 
-    public void setProductExpense(String productExpense) {
+    public void setProductExpense(double productExpense) {
         this.productExpense = productExpense;
     }
 
@@ -217,6 +189,22 @@ public class ProductDTO {
 
     public void setImages(ArrayList<ImageDTO> images) {
         this.images = images;
+    }
+
+    public boolean isProductPublished() {
+        return productPublished;
+    }
+
+    public void setProductPublished(boolean productPublished) {
+        this.productPublished = productPublished;
+    }
+
+    public long getJewelryTypeId() {
+        return jewelryTypeId;
+    }
+
+    public void setJewelryTypeId(long jewelryTypeId) {
+        this.jewelryTypeId = jewelryTypeId;
     }
 
     @Override

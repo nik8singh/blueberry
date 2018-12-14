@@ -33,8 +33,13 @@ public class ImageDAOImpl implements ImageDAO {
         return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Image img where img.imageSiteLocation= :siteLocation ").setParameter("siteLocation", imageSiteLocation).list();
     }
 
-    public List getImagesByProduct(Product product) {
-        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Image img where img.product= :product ").setParameter("product", product).list();
+    public List getImagesByProduct(Long productId) {
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Image img where img.product.productId= :product ").setParameter("product", productId).list();
+
+    }
+
+    public List getImageByProductPriority(Image image) {
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Image img where img.product.productId= :product and img.imagePriority= :priority").setParameter("product", image.getProduct().getProductId()).setParameter("priority",image.getImagePriority()).list();
 
     }
 }
