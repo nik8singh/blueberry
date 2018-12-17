@@ -5,6 +5,8 @@ import com.mana.spring.domain.Metal;
 import com.mana.spring.dto.MetalDTO;
 import com.mana.spring.dto.ProductListDTO;
 import com.mana.spring.service.MetalService;
+import com.mana.spring.util.ConverterDAOtoDTO;
+import com.mana.spring.util.ConverterDTOtoDAO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,20 +21,20 @@ public class MetalServiceImpl implements MetalService {
 
     public ArrayList<MetalDTO> getMetals() {
         ArrayList<Metal> metals = (ArrayList<Metal>) metalDAO.listMetals();
-        return daoListToDtoList(metals);
+        return ConverterDAOtoDTO.metalListDaoToDto(metals);
     }
 
     public ArrayList<MetalDTO> getActiveMetals() {
         ArrayList<Metal> metals = (ArrayList<Metal>) metalDAO.listActiveMetals();
-        return daoListToDtoList(metals);
+        return ConverterDAOtoDTO.metalListDaoToDto(metals);
     }
 
     public void addMetal(MetalDTO metalDTO) {
-        metalDAO.saveMetal(dtoToDao(metalDTO));
+        metalDAO.saveMetal(ConverterDTOtoDAO.metalDtoToDao(metalDTO));
     }
 
     public void updateMetal(MetalDTO metalDTO) {
-        metalDAO.updateMetal(dtoToDao(metalDTO));
+        metalDAO.updateMetal(ConverterDTOtoDAO.metalDtoToDao(metalDTO));
     }
 
 //    public void deleteMetal(MetalDTO metalDTO) {
@@ -44,38 +46,6 @@ public class MetalServiceImpl implements MetalService {
         ProductListDTO productListDTO = new ProductListDTO();
         BeanUtils.copyProperties(metal, productListDTO);
         return productListDTO;
-    }
-
-
-    public ArrayList<MetalDTO> daoListToDtoList(ArrayList<Metal> metals){
-
-        ArrayList<MetalDTO> metalDTOS = new ArrayList<MetalDTO>();
-
-        for (Metal metal : metals) {
-            metalDTOS.add(daoToDto(metal));
-        }
-
-        return metalDTOS;
-    }
-
-    public MetalDTO daoToDto(Metal metal) {
-
-        // to copy to
-        MetalDTO target = new MetalDTO();
-
-        BeanUtils.copyProperties(metal, target);
-        return target;
-
-    }
-
-    public Metal dtoToDao(MetalDTO metalDTO) {
-
-        // to copy to
-        Metal target = new Metal();
-
-        BeanUtils.copyProperties(metalDTO, target);
-        return target;
-
     }
 
 

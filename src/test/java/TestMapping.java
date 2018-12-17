@@ -66,40 +66,40 @@ public class TestMapping {
 
     @Test
     public void removeUserAddress() {
-
-        User user = userController.getAllUsers().get(0);
-        Address add = user.getAddresses().iterator().next();
-        System.out.println(add);
-
-        for (Iterator<User> iterator = add.getUser().iterator(); iterator.hasNext(); ) {
-            if (iterator.next().getUserId() == user.getUserId()) {
-                iterator.remove();
-                break;
-            }
-        }
-
-        for (Iterator<Address> iterator = user.getAddresses().iterator(); iterator.hasNext(); ) {
-            Address a = iterator.next();
-            if (a.getAddressId() == add.getAddressId()) {
-                iterator.remove();
-                break;
-            }
-        }
-
-        System.out.println(user);
-
-        userController.updateUser(user);
+//
+//        User user = userController.getAllUsers().get(0);
+//        Address add = user.getAddresses().iterator().next();
+//        System.out.println(add);
+//
+//        for (Iterator<User> iterator = add.getUser().iterator(); iterator.hasNext(); ) {
+//            if (iterator.next().getUserId() == user.getUserId()) {
+//                iterator.remove();
+//                break;
+//            }
+//        }
+//
+//        for (Iterator<Address> iterator = user.getAddresses().iterator(); iterator.hasNext(); ) {
+//            Address a = iterator.next();
+//            if (a.getAddressId() == add.getAddressId()) {
+//                iterator.remove();
+//                break;
+//            }
+//        }
+//
+//        System.out.println(user);
+//
+//        userController.updateUser(user);
 
     }
 
     @Test
     public void deletingUserShouldNotDeleteAddress() {
-        List<User> users = userController.getAllUsers();
-        for (User a : users) {
-            System.out.println(a);
-            userController.deleteUser(a);
-            break;
-        }
+//        List<User> users = userController.getAllUsers();
+//        for (User a : users) {
+//            System.out.println(a);
+//            userController.deleteUser(a);
+//            break;
+//        }
 
 
     }

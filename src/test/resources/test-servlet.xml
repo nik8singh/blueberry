@@ -80,6 +80,10 @@
     <bean id="imageDAO" class="com.mana.spring.dao.impl.ImageDAOImpl"/>
     <bean id="imageController" class="com.mana.spring.web.ImageController"/>
 
+    <bean id="cartItemService" class="com.mana.spring.service.impl.CartItemServiceImpl"/>
+    <bean id="cartItemDAO" class="com.mana.spring.dao.impl.CartItemDAOImpl"/>
+    <bean id="cartItemController" class="com.mana.spring.web.CartItemController"/>
+
     <bean id="hibernateTemplate"
           class="org.springframework.orm.hibernate5.HibernateTemplate">
         <property name="sessionFactory">

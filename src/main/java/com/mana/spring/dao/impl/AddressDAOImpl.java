@@ -26,10 +26,21 @@ public class AddressDAOImpl implements AddressDAO {
 
     public void deleteAddress(Address address) {
 
-        hibernateTemplate.delete(address);
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("UPDATE com.mana.spring.domain.Address met SET met.active = :active where met.addressId= :id").setParameter("id", address.getAddressId()).setParameter("active", false).executeUpdate();
     }
 
     public List listAddress() {
         return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Address met ORDER BY met.createdDate").list();
     }
+
+    public List getAddressByEmail(String email) {
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Address met where met.user.userEmail= :email").setParameter("email", email).list();
+    }
+
+    public Address getAddress(long addressId) {
+        return (Address) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Address met where met.addressId= :id").setParameter("id", addressId).list().get(0);
+
+    }
+
+
 }

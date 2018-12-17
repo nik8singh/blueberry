@@ -1,11 +1,11 @@
 package com.mana.spring.service.impl;
 
 import com.mana.spring.dao.ShopDAO;
-import com.mana.spring.domain.Address;
 import com.mana.spring.domain.Shop;
 import com.mana.spring.dto.ShopDTO;
 import com.mana.spring.service.ShopService;
-import org.springframework.beans.BeanUtils;
+import com.mana.spring.util.ConverterDAOtoDTO;
+import com.mana.spring.util.ConverterDTOtoDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
@@ -19,64 +19,19 @@ public class ShopServiceImpl implements ShopService {
 
     public ArrayList<ShopDTO> getShops() {
         ArrayList<Shop> shops = (ArrayList<Shop>) shopDAO.listShop();
-        return daoListToDtoList(shops);
+        return ConverterDAOtoDTO.shopListDaoToDto(shops);
     }
 
     public void addShop(ShopDTO shopDTO) {
-        shopDAO.saveShop(dtoToDao(shopDTO));
+        shopDAO.saveShop(ConverterDTOtoDAO.shopDtoToDao(shopDTO));
     }
 
     public void updateShop(ShopDTO shopDTO) {
-        shopDAO.updateShop(dtoToDao(shopDTO));
+        shopDAO.updateShop(ConverterDTOtoDAO.shopDtoToDao(shopDTO));
     }
 
     public ShopDTO getShop(ShopDTO shopDTO) {
-        return daoToDto(shopDAO.getShop(shopDTO.getShopName()));
+        return ConverterDAOtoDTO.shopDaoToDto(shopDAO.getShop(shopDTO.getShopName()));
     }
-
-//    public void deleteShop(Shop shop) {
-//        shopDAO.deleteShop(shop);
-//    }
-
-
-    public ArrayList<ShopDTO> daoListToDtoList(ArrayList<Shop> shops){
-
-        ArrayList<ShopDTO> shopDTOS = new ArrayList<ShopDTO>();
-
-        for (Shop shop : shops) {
-            shopDTOS.add(daoToDto(shop));
-        }
-
-        return shopDTOS;
-    }
-
-    public ShopDTO daoToDto(Shop shop) {
-
-        ShopDTO target = new ShopDTO();
-        Address address = shop.getShopAddress();
-        BeanUtils.copyProperties(shop, target);
-        BeanUtils.copyProperties(address, target);
-        return target;
-
-    }
-
-    public Shop dtoToDao(ShopDTO shopDTO) {
-
-        Address address = new Address();
-
-        BeanUtils.copyProperties(shopDTO, address);
-
-        Shop target = new Shop();
-
-        BeanUtils.copyProperties(shopDTO, target);
-
-        target.setShopAddress(address);
-
-        return target;
-
-    }
-
-
-
 
 }

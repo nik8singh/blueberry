@@ -1,11 +1,11 @@
 package com.mana.spring.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "address")
@@ -37,7 +37,10 @@ public class Address {
     @Column(name = "address_country")
     private String addressCountry;
 
-    @Column(name = "created_date", columnDefinition = "TIMESTAMP")
+    @Column(name = "active")
+    private boolean active;
+
+    @Column(name = "created_date", columnDefinition = "TIMESTAMP", updatable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createdDate;
 
@@ -45,9 +48,12 @@ public class Address {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "addresses", fetch = FetchType.EAGER)
-    private Set<User> user = new HashSet<User>(0);
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "userId")
+    private User user;
 
     @JsonIgnore
     @OneToOne(mappedBy ="shopAddress")
@@ -148,20 +154,28 @@ public class Address {
         this.updatedDate = updatedDate;
     }
 
-    public Set<User> getUser() {
-        return user;
-    }
-
-    public void setUser(Set<User> user) {
-        this.user = user;
-    }
-
     public Shop getShopAddress() {
         return shopAddress;
     }
 
     public void setShopAddress(Shop shopAddress) {
         this.shopAddress = shopAddress;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override

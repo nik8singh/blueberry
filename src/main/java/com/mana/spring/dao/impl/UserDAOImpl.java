@@ -18,13 +18,23 @@ public class UserDAOImpl implements UserDAO {
         hibernateTemplate.save(user);
     }
 
-    public void updateUser(User user) { hibernateTemplate.update(user); }
+    public void updateUser(User user) {
+        hibernateTemplate.update(user);
+    }
 
-    public void deleteUser(User user) {
-        hibernateTemplate.delete(user);
+    public void deleteUser(String email) {
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("UPDATE com.mana.spring.domain.User met SET met.deleted = :del where met.userEmail= :email").setParameter("email", email).setParameter("del", true).executeUpdate();
     }
 
     public List listUser() {
         return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.User met ORDER BY met.createdDate").list();
+    }
+
+    public User getUserByEmail(String email) {
+        return (User) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.User met where met.userEmail= :email").setParameter("email", email).list().get(0);
+    }
+
+    public void updatePassword(User user) {
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("UPDATE com.mana.spring.domain.User met SET met.userPassword = :newPassword WHERE met.userEmail= :email").setParameter("email", user.getUserEmail()).setParameter("newPassword", user.getUserPassword()).executeUpdate();
     }
 }

@@ -1,16 +1,19 @@
 package com.mana.spring.service;
 
-import com.mana.spring.domain.Address;
+import com.mana.spring.dto.AddressDTO;
 
 import java.util.ArrayList;
 
 public interface AddressService {
 
-    ArrayList<Address> getAddresses();
+    ArrayList<AddressDTO> getAddresses();
 
-    void addAddress(Address address);
+    void addAddress(AddressDTO addressDTO);
 
-    void updateAddress(Address address);
+    void updateAddress(AddressDTO addressDTO);
 
-    void deleteAddress(Address address);
+    void deleteAddress(AddressDTO addressDTO);
+
+    ArrayList<AddressDTO> getAddressByUserEmail(String userEmail);
+
 }

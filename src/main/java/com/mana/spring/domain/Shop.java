@@ -27,7 +27,7 @@ public class Shop {
     @Column(name = "shop_end_date")
     private Date shopEndDate;
 
-    @Column(name = "created_date")
+    @Column(name = "created_date", updatable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createdDate;
 

@@ -13,4 +13,9 @@ public interface AddressDAO {
     void deleteAddress(Address address);
 
     List listAddress();
+
+    List getAddressByEmail(String email);
+
+    Address getAddress(long addressId);
+
 }

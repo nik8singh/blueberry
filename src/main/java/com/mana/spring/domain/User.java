@@ -1,6 +1,8 @@
 package com.mana.spring.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -32,7 +34,10 @@ public class User {
     @Column(name = "auth")
     private String authorizationLevel;
 
-    @Column(name = "created_date")
+    @Column(name = "deleted")
+    private boolean deleted;
+
+    @Column(name = "created_date", updatable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createdDate;
 
@@ -40,13 +45,17 @@ public class User {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_address",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "address_id")}
-    )
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "addressId")
     private Set<Address> addresses = new HashSet<Address>(0);
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "cartItemId")
+    private Set<CartItem> cartItems = new HashSet<CartItem>(0);
 
     public User() {
     }
@@ -123,18 +132,27 @@ public class User {
         this.addresses = addresses;
     }
 
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
     @Override
     public String toString() {
         return "\nUser{" +
-                "\n\tuserId= " + userId +
-                "\n\tuserFirstName= " + userFirstName +
-                "\n\tuserLastName= " + userLastName +
-                "\n\tuserEmail= " + userEmail +
-                "\n\tuserPassword= " + userPassword +
-                "\n\tauthorizationLevel= " + authorizationLevel +
-                "\n\tcreatedDate= " + createdDate +
-                "\n\tupdatedDate= " + updatedDate +
-                "\n\taddresses= " + addresses +
+                "\nuserId=" + userId +
+                "\n userFirstName='" + userFirstName + '\'' +
+                "\n userLastName='" + userLastName + '\'' +
+                "\n userEmail='" + userEmail + '\'' +
+                "\n userPassword='" + userPassword + '\'' +
+                "\n authorizationLevel='" + authorizationLevel + '\'' +
+                "\n deleted=" + deleted +
+                "\n createdDate=" + createdDate +
+                "\n updatedDate=" + updatedDate +
+                "\n addresses=" + addresses +
                 '}';
     }
 }

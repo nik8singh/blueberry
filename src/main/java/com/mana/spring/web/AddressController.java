@@ -1,6 +1,7 @@
 package com.mana.spring.web;
 
 import com.mana.spring.domain.Address;
+import com.mana.spring.dto.AddressDTO;
 import com.mana.spring.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,28 +19,37 @@ public class AddressController {
 
     @RequestMapping(value = "all", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    ArrayList<Address> getAllAddresss() {
+    ArrayList<AddressDTO> getAllAddresss() {
         return addressService.getAddresses();
     }
 
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public ResponseEntity saveAddress(@RequestBody Address address) {
-        addressService.addAddress(address);
-        return new ResponseEntity(address, HttpStatus.OK);
+    public ResponseEntity saveAddress(@RequestBody AddressDTO addressDTO) {
+        addressService.addAddress(addressDTO);
+        return new ResponseEntity(addressDTO, HttpStatus.OK);
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public ResponseEntity updateAddress(@RequestBody Address address) {
-        addressService.updateAddress(address);
+    public ResponseEntity updateAddress(@RequestBody AddressDTO addressDTO) {
+        addressService.updateAddress(addressDTO);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.DELETE)
-    public ResponseEntity deleteAddress(@RequestBody Address address) {
-        System.out.println("delete requested for " + address.getAddressId());
-        addressService.deleteAddress(address);
+    public ResponseEntity deleteAddress(@RequestBody AddressDTO addressDTO) {
+        addressService.deleteAddress(addressDTO);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @RequestMapping(value = "get", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    ArrayList<AddressDTO> getAddressByUserEmail(@RequestBody String email) {
+        return addressService.getAddressByUserEmail(email);
+    }
+
+
+
+
 
 
 }

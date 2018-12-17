@@ -10,7 +10,11 @@ public interface UserDAO {
 
     void updateUser(User user);
 
-    void deleteUser(User user);
+    void deleteUser(String email);
 
     List listUser();
+
+    User getUserByEmail(String email);
+
+    void updatePassword(User user);
 }

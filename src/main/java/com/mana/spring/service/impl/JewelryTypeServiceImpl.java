@@ -5,6 +5,8 @@ import com.mana.spring.domain.JewelryType;
 import com.mana.spring.dto.JewelryTypeDTO;
 import com.mana.spring.dto.ProductListDTO;
 import com.mana.spring.service.JewelryTypeService;
+import com.mana.spring.util.ConverterDAOtoDTO;
+import com.mana.spring.util.ConverterDTOtoDAO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,16 +22,16 @@ public class JewelryTypeServiceImpl implements JewelryTypeService {
     public ArrayList<JewelryTypeDTO> getJewelryTypes() {
 
         ArrayList<JewelryType> jewelryTypes = (ArrayList<JewelryType>) jewelryTypeDAO.listJewelryType();
-        return daoListToDtoList(jewelryTypes);
+        return ConverterDAOtoDTO.jewelryTypeListDaoToDto(jewelryTypes);
 
     }
 
     public void addJewelryType(JewelryTypeDTO jewelryTypeDTO) {
-        jewelryTypeDAO.saveJewelryType(dtoToDao(jewelryTypeDTO));
+        jewelryTypeDAO.saveJewelryType(ConverterDTOtoDAO.jewelryTypeDtoToDao(jewelryTypeDTO));
     }
 
     public void updateJewelryType(JewelryTypeDTO jewelryTypeDTO) {
-        jewelryTypeDAO.updateJewelryType(dtoToDao(jewelryTypeDTO));
+        jewelryTypeDAO.updateJewelryType(ConverterDTOtoDAO.jewelryTypeDtoToDao(jewelryTypeDTO));
     }
 
 //    public void deleteJewelryType(JewelryTypeDTO jewelryTypeDTO) {
@@ -38,7 +40,7 @@ public class JewelryTypeServiceImpl implements JewelryTypeService {
 
     public ArrayList<JewelryTypeDTO> getActiveJewelryTypes() {
         ArrayList<JewelryType> jewelryTypes = (ArrayList<JewelryType>) jewelryTypeDAO.listActiveJewelryTypes();
-        return daoListToDtoList(jewelryTypes);
+        return ConverterDAOtoDTO.jewelryTypeListDaoToDto(jewelryTypes);
     }
 
     public ProductListDTO getJewelryTypeProducts(JewelryTypeDTO jewelryTypeDTO) {
@@ -48,36 +50,9 @@ public class JewelryTypeServiceImpl implements JewelryTypeService {
         return productListDTO;
     }
 
-    public ArrayList<JewelryTypeDTO> daoListToDtoList(ArrayList<JewelryType> jewelryTypes){
 
-        ArrayList<JewelryTypeDTO> jewelryTypeDTOS = new ArrayList<JewelryTypeDTO>();
 
-        for (JewelryType jewelryType : jewelryTypes) {
-            jewelryTypeDTOS.add(daoToDto(jewelryType));
-        }
 
-        return jewelryTypeDTOS;
-    }
-
-    public JewelryTypeDTO daoToDto(JewelryType jewelryType) {
-
-        // to copy to
-        JewelryTypeDTO target = new JewelryTypeDTO();
-
-        BeanUtils.copyProperties(jewelryType, target);
-        return target;
-
-    }
-
-    public JewelryType dtoToDao(JewelryTypeDTO jewelryTypeDTO) {
-
-        // to copy to
-        JewelryType target = new JewelryType();
-
-        BeanUtils.copyProperties(jewelryTypeDTO, target);
-        return target;
-
-    }
 
 
 }

@@ -1,6 +1,5 @@
 package com.mana.spring.web;
 
-import com.mana.spring.domain.Gemstone;
 import com.mana.spring.domain.Product;
 import com.mana.spring.dto.GemstoneDTO;
 import com.mana.spring.service.GemstoneService;
@@ -55,7 +54,8 @@ public class GemstoneController {
 //    }
 
     @RequestMapping(value = "gemstone", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody Set<Product> getGemstoneProducts(@RequestBody GemstoneDTO gemstoneDTO) {
+    public @ResponseBody
+    Set<Product> getGemstoneProducts(@RequestBody GemstoneDTO gemstoneDTO) {
 
         return gemstoneService.getGemstoneProducts(gemstoneDTO).getProducts();
     }

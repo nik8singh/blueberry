@@ -56,7 +56,7 @@ public class Product {
     @Column(name = "product_accept_coupon")
     private boolean productAcceptCoupon;
 
-    @Column(name = "created_date")
+    @Column(name = "created_date", updatable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createdDate;
 
@@ -99,6 +99,12 @@ public class Product {
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "imageId")
     private Set<Image> images = new HashSet<Image>(0);
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.EAGER)
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "cartItemId")
+    private Set<CartItem> cartItems = new HashSet<CartItem>(0);
 
 
     public Product() {

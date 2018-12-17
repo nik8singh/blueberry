@@ -24,7 +24,7 @@ public class Image {
     @Column(name = "image_priority")
     private int imagePriority;
 
-    @Column(name = "created_date")
+    @Column(name = "created_date", updatable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createdDate;
 

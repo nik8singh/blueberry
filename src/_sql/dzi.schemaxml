@@ -6,13 +6,13 @@
 <canvas zoom="100">
 <tables>
 <table name="product" view="colnames">
-<left>624</left>
-<top>156</top>
+<left>626</left>
+<top>72</top>
 <width>181</width>
 <height>360</height>
 <sql_create_table>CREATE TABLE `product` (
   `product_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `product_name` varchar(20) DEFAULT NULL,
+  `product_name` varchar(255) DEFAULT NULL,
   `product_description` varchar(255) DEFAULT NULL,
   `product_jewelry_type` bigint(20) DEFAULT NULL,
   `product_weight` double DEFAULT '0',
@@ -24,7 +24,7 @@
   `product_quantity_type` varchar(50) DEFAULT 'unit',
   `product_onfeatured` bit(1) DEFAULT b'0',
   `product_published` bit(1) DEFAULT b'0',
-  `product_expense` bigint(20) DEFAULT NULL,
+  `product_expense` double DEFAULT '0',
   `product_accept_coupon` bit(1) DEFAULT b'1',
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -32,7 +32,7 @@
   UNIQUE KEY `product_sku` (`product_sku`),
   KEY `fk_jewelry_type_product` (`product_jewelry_type`),
   CONSTRAINT `fk_jewelry_type_product` FOREIGN KEY (`product_jewelry_type`) REFERENCES `jewelry_type` (`jewelry_type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="gemstone" view="colnames">
 <left>63</left>
@@ -41,9 +41,9 @@
 <height>180</height>
 <sql_create_table>CREATE TABLE `gemstone` (
   `gemstone_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `gemstone_name` varchar(20) NOT NULL,
-  `gemstone_description` varchar(255) NOT NULL DEFAULT 'not available',
-  `active` bit(1) NOT NULL DEFAULT b'1',
+  `gemstone_name` varchar(20) DEFAULT NULL,
+  `gemstone_description` varchar(255) DEFAULT 'not available',
+  `active` bit(1) DEFAULT b'1',
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`gemstone_id`)
@@ -65,11 +65,11 @@
   KEY `fk_product_gemstone` (`product_id`),
   CONSTRAINT `fk_gemstone_product` FOREIGN KEY (`gemstone_id`) REFERENCES `gemstone` (`gemstone_id`),
   CONSTRAINT `fk_product_gemstone` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="address" view="colnames">
 <left>827</left>
-<top>478</top>
+<top>479</top>
 <width>147</width>
 <height>265</height>
 <sql_create_table>CREATE TABLE `address` (
@@ -81,15 +81,18 @@
   `address_state` varchar(100) DEFAULT NULL,
   `address_zipcode` varchar(20) DEFAULT NULL,
   `address_country` varchar(255) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
   `active` bit(1) NOT NULL DEFAULT b'1',
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`address_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1</sql_create_table>
+  PRIMARY KEY (`address_id`),
+  KEY `fk_user_address` (`user_id`),
+  CONSTRAINT `fk_user_address` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="user" view="colnames">
-<left>1248</left>
-<top>80</top>
+<left>1214</left>
+<top>497</top>
 <width>132</width>
 <height>214</height>
 <sql_create_table>CREATE TABLE `user` (
@@ -99,11 +102,12 @@
   `user_email` varchar(100) NOT NULL,
   `user_password` varchar(100) DEFAULT NULL,
   `auth` varchar(20) NOT NULL,
+  `deleted` bit(1) DEFAULT b'0',
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_email` (`user_email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="jewelry_type" view="colnames">
 <left>412</left>
@@ -112,9 +116,9 @@
 <height>180</height>
 <sql_create_table>CREATE TABLE `jewelry_type` (
   `jewelry_type_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `jewelry_type_name` varchar(20) NOT NULL,
-  `jewelry_type_description` varchar(255) NOT NULL DEFAULT 'not available',
-  `active` bit(1) NOT NULL DEFAULT b'1',
+  `jewelry_type_name` varchar(20) DEFAULT NULL,
+  `jewelry_type_description` varchar(255) DEFAULT 'not available',
+  `active` bit(1) DEFAULT b'1',
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`jewelry_type_id`)
@@ -127,13 +131,13 @@
 <height>180</height>
 <sql_create_table>CREATE TABLE `metal` (
   `metal_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `metal_name` varchar(20) NOT NULL,
+  `metal_name` varchar(20) DEFAULT NULL,
   `metal_description` varchar(255) DEFAULT 'not available',
-  `active` bit(1) NOT NULL DEFAULT b'1',
+  `active` bit(1) DEFAULT b'1',
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`metal_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="metal_product" view="colnames">
 <left>347</left>
@@ -151,7 +155,7 @@
   KEY `fk_metal_product` (`metal_id`),
   CONSTRAINT `fk_metal_product` FOREIGN KEY (`metal_id`) REFERENCES `metal` (`metal_id`),
   CONSTRAINT `fk_product_metal` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="coupon" view="colnames">
 <left>58</left>
@@ -185,29 +189,30 @@
   PRIMARY KEY (`image_id`),
   KEY `fk_product_image` (`product_id`),
   CONSTRAINT `fk_product_image` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1</sql_create_table>
 </table>
-<table name="cartItems" view="colnames">
-<left>830</left>
-<top>47</top>
+<table name="cartItem" view="colnames">
+<left>1048</left>
+<top>37</top>
 <width>142</width>
 <height>180</height>
-<sql_create_table>CREATE TABLE `cartitems` (
-  `cartItems_id` bigint(20) NOT NULL AUTO_INCREMENT,
+<sql_create_table>CREATE TABLE `cartitem` (
+  `cartItem_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) NOT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   `product_quantity` bigint(20) DEFAULT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`cartItems_id`),
-  KEY `fk_cartitems_product` (`user_id`),
-  CONSTRAINT `fk_cartitems_product` FOREIGN KEY (`user_id`) REFERENCES `product` (`product_id`),
-  CONSTRAINT `fk_cartitems_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+  PRIMARY KEY (`cartItem_id`),
+  KEY `fk_cartitem_user` (`user_id`),
+  KEY `fk_cartitem_product` (`product_id`),
+  CONSTRAINT `fk_cartitem_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`),
+  CONSTRAINT `fk_cartitem_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="shop" view="colnames">
-<left>661</left>
-<top>577</top>
+<left>662</left>
+<top>534</top>
 <width>142</width>
 <height>231</height>
 <sql_create_table>CREATE TABLE `shop` (
@@ -225,27 +230,9 @@
   CONSTRAINT `fk_address_show` FOREIGN KEY (`shop_address`) REFERENCES `address` (`address_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1</sql_create_table>
 </table>
-<table name="user_address" view="colnames">
-<left>1084</left>
-<top>443</top>
-<width>140</width>
-<height>163</height>
-<sql_create_table>CREATE TABLE `user_address` (
-  `user_address_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) NOT NULL,
-  `address_id` bigint(20) NOT NULL,
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`user_address_id`),
-  KEY `fk_address_user` (`address_id`),
-  KEY `fk_user_address` (`user_id`),
-  CONSTRAINT `fk_address_user` FOREIGN KEY (`address_id`) REFERENCES `address` (`address_id`),
-  CONSTRAINT `fk_user_address` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1</sql_create_table>
-</table>
 <table name="invoice" view="colnames">
-<left>997</left>
-<top>192</top>
+<left>998</left>
+<top>330</top>
 <width>145</width>
 <height>214</height>
 <sql_create_table>CREATE TABLE `invoice` (
