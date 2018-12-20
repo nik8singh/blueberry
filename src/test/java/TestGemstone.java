@@ -1,11 +1,5 @@
-import com.mana.spring.domain.Gemstone;
-import com.mana.spring.domain.JewelryType;
-import com.mana.spring.domain.Metal;
 import com.mana.spring.dto.GemstoneDTO;
 import com.mana.spring.web.GemstoneController;
-import com.mana.spring.web.JewelryTypeController;
-import com.mana.spring.web.MetalController;
-import com.mana.spring.web.ProductController;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,15 +38,15 @@ public class TestGemstone {
         // call gemstoneController.getAllActiveGemstones()
     }
 
-    @Test
-    public void getGemstoneProduct() {
-        GemstoneDTO gemstoneDTO = new GemstoneDTO();
-        gemstoneDTO.setGemstoneName("ruby");
-        System.out.println();
-        System.out.println(gemstoneController.getGemstoneProducts(gemstoneDTO));
-
-        // call gemstoneController.getGemstoneProducts(gemstoneDTO)
-    }
+//    @Test
+//    public void getGemstoneProduct() {
+//        GemstoneDTO gemstoneDTO = new GemstoneDTO();
+//        gemstoneDTO.setGemstoneName("ruby");
+//        System.out.println();
+//        System.out.println(gemstoneController.getGemstoneProducts(gemstoneDTO));
+//
+//        // call gemstoneController.getGemstoneProducts(gemstoneDTO)
+//    }
 
     @Test
     public void addNewGemstones() {
@@ -71,12 +65,14 @@ public class TestGemstone {
     @Test
     public void updateGemstone(){
         GemstoneDTO gemstoneDTO = new GemstoneDTO();
-        gemstoneDTO.setGemstoneId(47L);
-        gemstoneDTO.setGemstoneName("TestingNewAdd");
-        gemstoneDTO.setGemstoneDescription("Testing update to inactive");
-        gemstoneDTO.setGemstoneActive(false);
+        gemstoneDTO.setGemstoneId(24L);
+        gemstoneDTO.setGemstoneName("emerald");
+        gemstoneDTO.setGemstoneDescription("Green Gemstone");
+        gemstoneDTO.setGemstoneActive(true);
         System.out.println();
-        System.out.println(gemstoneController.updateGemstone(gemstoneDTO));
+        gemstoneController.updateGemstone(gemstoneDTO);
+
+//        System.out.println(gemstoneController.getGemstoneProducts(gemstoneDTO));
 
         // call gemstoneController.updateGemstone(gemstoneDTO)
     }

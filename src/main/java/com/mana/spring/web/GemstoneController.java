@@ -53,12 +53,12 @@ public class GemstoneController {
 //        return new ResponseEntity(HttpStatus.OK);
 //    }
 
-    @RequestMapping(value = "gemstone", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody
-    Set<Product> getGemstoneProducts(@RequestBody GemstoneDTO gemstoneDTO) {
-
-        return gemstoneService.getGemstoneProducts(gemstoneDTO).getProducts();
-    }
+//    @RequestMapping(value = "gemstone", method = RequestMethod.GET, produces = "application/json")
+//    public @ResponseBody
+//    Set<Product> getGemstoneProducts(@RequestBody GemstoneDTO gemstoneDTO) {
+//
+//        return gemstoneService.getGemstoneProducts(gemstoneDTO).getProducts();
+//    }
 
 
 }

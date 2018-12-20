@@ -41,15 +41,15 @@ public class TestMetal {
         // call metalController.getAllActiveMetals()
     }
 
-    @Test
-    public void getMetalProduct() {
-        MetalDTO metalDTO = new MetalDTO();
-        metalDTO.setMetalName("gold");
-        System.out.println();
-        System.out.println(metalController.getMetalProducts(metalDTO));
-
-        // call metalController.getMetalProducts(metalDTO)
-    }
+//    @Test
+//    public void getMetalProduct() {
+//        MetalDTO metalDTO = new MetalDTO();
+//        metalDTO.setMetalName("gold");
+//        System.out.println();
+//        System.out.println(metalController.getMetalProducts(metalDTO));
+//
+//        // call metalController.getMetalProducts(metalDTO)
+//    }
 
     @Test
     public void addNewGemstones() {

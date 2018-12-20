@@ -24,6 +24,9 @@ public class Coupon {
     @Column(name = "coupon_end_date")
     private Date couponEndDate;
 
+    @Column(name = "active")
+    private boolean active;
+
     @Column(name = "created_date", updatable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createdDate;
@@ -33,13 +36,6 @@ public class Coupon {
     private Date updatedDate;
 
     public Coupon() {
-    }
-
-    public Coupon(String couponName, double couponDiscountPercent, Date couponStartDate, Date couponEndDate) {
-        this.couponName = couponName;
-        this.couponDiscountPercent = couponDiscountPercent;
-        this.couponStartDate = couponStartDate;
-        this.couponEndDate = couponEndDate;
     }
 
     public long getCouponId() {
@@ -98,16 +94,25 @@ public class Coupon {
         this.updatedDate = updatedDate;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     @Override
     public String toString() {
-        return "Coupon{" +
-                "couponId=" + couponId +
-                ", couponName='" + couponName + '\'' +
-                ", couponDiscountPercent=" + couponDiscountPercent +
-                ", couponStartDate=" + couponStartDate +
-                ", couponEndDate=" + couponEndDate +
-                ", createdDate=" + createdDate +
-                ", updatedDate=" + updatedDate +
+        return "\nCoupon{" +
+                "\ncouponId=" + couponId +
+                "\n couponName='" + couponName + '\'' +
+                "\n couponDiscountPercent=" + couponDiscountPercent +
+                "\n couponStartDate=" + couponStartDate +
+                "\n couponEndDate=" + couponEndDate +
+                "\n active=" + active +
+                "\n createdDate=" + createdDate +
+                "\n updatedDate=" + updatedDate +
                 '}';
     }
 }

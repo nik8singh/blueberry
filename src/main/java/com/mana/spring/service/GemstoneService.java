@@ -1,7 +1,7 @@
 package com.mana.spring.service;
 
 import com.mana.spring.dto.GemstoneDTO;
-import com.mana.spring.dto.ProductListDTO;
+import com.mana.spring.dto.ProductDTO;
 
 import java.util.ArrayList;
 
@@ -17,5 +17,5 @@ public interface GemstoneService {
 
     //    void deleteGemstone(Gemstone gemstone);
 
-    ProductListDTO getGemstoneProducts(GemstoneDTO gemstoneDTO);
+    ArrayList<ProductDTO> getGemstoneProducts(GemstoneDTO gemstoneDTO);
 }

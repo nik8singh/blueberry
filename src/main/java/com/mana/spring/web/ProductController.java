@@ -1,6 +1,5 @@
 package com.mana.spring.web;
 
-import com.mana.spring.dto.ImageDTO;
 import com.mana.spring.dto.ProductDTO;
 import com.mana.spring.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;

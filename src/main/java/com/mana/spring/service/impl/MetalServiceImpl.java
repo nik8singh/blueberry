@@ -3,7 +3,6 @@ package com.mana.spring.service.impl;
 import com.mana.spring.dao.MetalDAO;
 import com.mana.spring.domain.Metal;
 import com.mana.spring.dto.MetalDTO;
-import com.mana.spring.dto.ProductListDTO;
 import com.mana.spring.service.MetalService;
 import com.mana.spring.util.ConverterDAOtoDTO;
 import com.mana.spring.util.ConverterDTOtoDAO;
@@ -41,12 +40,12 @@ public class MetalServiceImpl implements MetalService {
 //        metalDAO.deleteMetal(dtoToDao(metalDTO));
 //    }
 
-    public ProductListDTO getMetalProducts(MetalDTO metalDTO) {
-        Metal metal = metalDAO.getMetal(metalDTO.getMetalName());
-        ProductListDTO productListDTO = new ProductListDTO();
-        BeanUtils.copyProperties(metal, productListDTO);
-        return productListDTO;
-    }
+//    public ProductListDTO getMetalProducts(MetalDTO metalDTO) {
+//        Metal metal = metalDAO.getMetal(metalDTO.getMetalName());
+//        ProductListDTO productListDTO = new ProductListDTO();
+//        BeanUtils.copyProperties(metal, productListDTO);
+//        return productListDTO;
+//    }
 
 
 }

@@ -3,7 +3,6 @@ package com.mana.spring.service.impl;
 import com.mana.spring.dao.JewelryTypeDAO;
 import com.mana.spring.domain.JewelryType;
 import com.mana.spring.dto.JewelryTypeDTO;
-import com.mana.spring.dto.ProductListDTO;
 import com.mana.spring.service.JewelryTypeService;
 import com.mana.spring.util.ConverterDAOtoDTO;
 import com.mana.spring.util.ConverterDTOtoDAO;
@@ -43,12 +42,12 @@ public class JewelryTypeServiceImpl implements JewelryTypeService {
         return ConverterDAOtoDTO.jewelryTypeListDaoToDto(jewelryTypes);
     }
 
-    public ProductListDTO getJewelryTypeProducts(JewelryTypeDTO jewelryTypeDTO) {
-        JewelryType metal = jewelryTypeDAO.getJewelryType(jewelryTypeDTO.getJewelryTypeName());
-        ProductListDTO productListDTO = new ProductListDTO();
-        BeanUtils.copyProperties(metal, productListDTO);
-        return productListDTO;
-    }
+//    public ProductListDTO getJewelryTypeProducts(JewelryTypeDTO jewelryTypeDTO) {
+//        JewelryType metal = jewelryTypeDAO.getJewelryType(jewelryTypeDTO.getJewelryTypeName());
+//        ProductListDTO productListDTO = new ProductListDTO();
+//        BeanUtils.copyProperties(metal, productListDTO);
+//        return productListDTO;
+//    }
 
 
 

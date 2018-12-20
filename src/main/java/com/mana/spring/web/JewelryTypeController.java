@@ -52,8 +52,8 @@ public class JewelryTypeController {
 //        return new ResponseEntity(HttpStatus.OK);
 //    }
 
-    @RequestMapping(value = "jewelryType", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody Set<Product> getJewelryTypeProducts(JewelryTypeDTO jewelryTypeDTO) {
-        return jewelryTypeService.getJewelryTypeProducts(jewelryTypeDTO).getProducts();
-    }
+//    @RequestMapping(value = "jewelryType", method = RequestMethod.GET, produces = "application/json")
+//    public @ResponseBody Set<Product> getJewelryTypeProducts(JewelryTypeDTO jewelryTypeDTO) {
+//        return jewelryTypeService.getJewelryTypeProducts(jewelryTypeDTO).getProducts();
+//    }
 }

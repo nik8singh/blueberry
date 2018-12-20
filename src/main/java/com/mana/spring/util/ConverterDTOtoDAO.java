@@ -214,4 +214,10 @@ public class ConverterDTOtoDAO {
 
         return target;
     }
+
+    public static Coupon couponDtoToDao(CouponDTO couponDTO) {
+        Coupon coupon = new Coupon();
+        BeanUtils.copyProperties(couponDTO, coupon);
+        return coupon;
+    }
 }

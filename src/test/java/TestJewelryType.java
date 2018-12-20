@@ -38,15 +38,15 @@ public class TestJewelryType {
         // call jewelryTypeController.getAllActiveJewelryTypes()
     }
 
-    @Test
-    public void getJewelryTypeProducts() {
-        JewelryTypeDTO jewelryTypeDTO = new JewelryTypeDTO();
-        jewelryTypeDTO.setJewelryTypeName("belts");
-        System.out.println();
-        System.out.println(jewelryTypeController.getJewelryTypeProducts(jewelryTypeDTO));
-
-        // call jewelryTypeController.getJewelryTypeProducts(jewelryTypeDTO)
-    }
+//    @Test
+//    public void getJewelryTypeProducts() {
+//        JewelryTypeDTO jewelryTypeDTO = new JewelryTypeDTO();
+//        jewelryTypeDTO.setJewelryTypeName("belts");
+//        System.out.println();
+//        System.out.println(jewelryTypeController.getJewelryTypeProducts(jewelryTypeDTO));
+//
+//        // call jewelryTypeController.getJewelryTypeProducts(jewelryTypeDTO)
+//    }
 
     @Test
     public void addNewJewelryType() {

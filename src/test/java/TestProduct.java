@@ -47,13 +47,13 @@ public class TestProduct {
         gemstoneDTO = new GemstoneDTO();
         gemstoneDTO.setGemstoneId(47L);
         gemstoneDTOS.add(gemstoneDTO);
-        product.setGemstones(gemstoneDTOS);
+        product.setGemstoneDTOS(gemstoneDTOS);
 
         ArrayList<MetalDTO> metalDTOS = new ArrayList<MetalDTO>();
         MetalDTO metalDTO = new MetalDTO();
         metalDTO.setMetalId(10L);
         metalDTOS.add(metalDTO);
-        product.setMetals(metalDTOS);
+        product.setMetalDTOS(metalDTOS);
 
         productController.saveProduct(product);
     }
@@ -85,7 +85,7 @@ public class TestProduct {
         gemstoneDTO = new GemstoneDTO();
         gemstoneDTO.setGemstoneId(47L);
         gemstoneDTOS.add(gemstoneDTO);
-        product.setGemstones(gemstoneDTOS);
+        product.setGemstoneDTOS(gemstoneDTOS);
 
         ArrayList<MetalDTO> metalDTOS = new ArrayList<MetalDTO>();
         MetalDTO metalDTO = new MetalDTO();
@@ -94,7 +94,7 @@ public class TestProduct {
         metalDTO = new MetalDTO();
         metalDTO.setMetalId(4L);
         metalDTOS.add(metalDTO);
-        product.setMetals(metalDTOS);
+        product.setMetalDTOS(metalDTOS);
 
         productController.updateProduct(product);
     }

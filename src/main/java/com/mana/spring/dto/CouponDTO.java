@@ -13,31 +13,20 @@ public class CouponDTO {
 
     private Date couponEndDate;
 
+    private boolean active;
+
     private boolean status;
 
     public CouponDTO() {
     }
 
-    public CouponDTO(long couponId, String couponName, double couponDiscountPercent, Date couponStartDate, Date couponEndDate) {
-        this.couponId = couponId;
-        this.couponName = couponName;
-        this.couponDiscountPercent = couponDiscountPercent;
-        this.couponStartDate = couponStartDate;
-        this.couponEndDate = couponEndDate;
-        updateStatus();
-    }
-
-    public void updateStatus() {
+    private void updateStatus() {
         Date today = new Date();
 
         if (couponStartDate.after(today))
             status = false;
         else {
-
-            if (couponEndDate.before(today))
-                status = false;
-            else
-                status = true;
+            status = !couponEndDate.before(today);
         }
 
     }
@@ -72,7 +61,7 @@ public class CouponDTO {
 
     public void setCouponStartDate(Date couponStartDate) {
         this.couponStartDate = couponStartDate;
-        if(couponEndDate != null)
+        if (couponEndDate != null)
             updateStatus();
     }
 
@@ -82,7 +71,7 @@ public class CouponDTO {
 
     public void setCouponEndDate(Date couponEndDate) {
         this.couponEndDate = couponEndDate;
-        if(couponStartDate != null)
+        if (couponStartDate != null)
             updateStatus();
     }
 
@@ -94,6 +83,14 @@ public class CouponDTO {
         this.status = status;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     @Override
     public String toString() {
         return "\n\nCoupon{" +
@@ -102,6 +99,7 @@ public class CouponDTO {
                 "\n\tcouponDiscountPercent= " + couponDiscountPercent +
                 "\n\tcouponStartDate= " + couponStartDate +
                 "\n\tcouponEndDate= " + couponEndDate +
+                "\n\tactive= " + active +
                 "\n\tstatus= " + status +
                 "\n}";
     }

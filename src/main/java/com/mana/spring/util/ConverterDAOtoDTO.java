@@ -54,6 +54,9 @@ public class ConverterDAOtoDTO {
         GemstoneDTO target = new GemstoneDTO();
 
         BeanUtils.copyProperties(gemstone, target);
+
+        System.out.println(target);
+
         return target;
 
     }
@@ -256,6 +259,12 @@ public class ConverterDAOtoDTO {
         BeanUtils.copyProperties(invoice.getUser(), targetUser);
         target.setUserDTO(targetUser);
 
+        return target;
+    }
+
+    public static CouponDTO couponDaoToDto(Coupon coupon) {
+        CouponDTO target = new CouponDTO();
+        BeanUtils.copyProperties(coupon, target);
         return target;
     }
 }

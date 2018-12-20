@@ -1,7 +1,6 @@
 package com.mana.spring.service;
 
 import com.mana.spring.dto.MetalDTO;
-import com.mana.spring.dto.ProductListDTO;
 
 import java.util.ArrayList;
 
@@ -17,5 +16,5 @@ public interface MetalService {
 
 //  void deleteMetal(MetalDTO metalDTO);
 
-    ProductListDTO getMetalProducts(MetalDTO metalDTO);
+//    ProductListDTO getMetalProducts(MetalDTO metalDTO);
 }

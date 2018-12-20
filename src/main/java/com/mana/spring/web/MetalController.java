@@ -50,11 +50,11 @@ public class MetalController {
 //        return new ResponseEntity(HttpStatus.OK);
 //    }
 
-    @RequestMapping(value = "metal", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody Set<Product> getMetalProducts(MetalDTO metalDTO) {
-
-        return metalService.getMetalProducts(metalDTO).getProducts();
-    }
+//    @RequestMapping(value = "metal", method = RequestMethod.GET, produces = "application/json")
+//    public @ResponseBody Set<Product> getMetalProducts(MetalDTO metalDTO) {
+//
+//        return metalService.getMetalProducts(metalDTO).getProducts();
+//    }
 
 
 

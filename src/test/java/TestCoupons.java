@@ -1,9 +1,5 @@
-import com.mana.spring.domain.Gemstone;
-import com.mana.spring.domain.JewelryType;
-import com.mana.spring.domain.Metal;
 import com.mana.spring.dto.CouponDTO;
-import com.mana.spring.web.*;
-import org.junit.Assert;
+import com.mana.spring.web.CouponController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,21 +17,35 @@ public class TestCoupons {
     private CouponController couponController;
 
     @Test
-    public void getAllGemstones() {
+    public void getList() {
         List<CouponDTO> C = couponController.getAllCoupons();
-        System.out.println();
         System.out.println(C);
     }
 
     @Test
-    public void addGemstones() {
+    public void addNew() {
         CouponDTO couponDTO = new CouponDTO();
         couponDTO.setCouponName("test add");
         couponDTO.setCouponDiscountPercent(5.5);
         couponDTO.setCouponEndDate(new Date());
         couponDTO.setCouponStartDate(new Date());
         couponController.saveCoupon(couponDTO);
-        System.out.println();
+    }
+
+    @Test
+    public void update() {
+        CouponDTO couponDTO = new CouponDTO();
+        couponDTO.setCouponId(6L);
+        couponDTO.setCouponName("Mid term unit test");
+        couponController.updateCoupon(couponDTO);
+    }
+
+    @Test
+    public void delete() {
+        CouponDTO couponDTO = new CouponDTO();
+        couponDTO.setCouponId(5L);
+        couponDTO.setCouponName("test add");
+        couponController.deleteCoupon(couponDTO);
     }
 
 

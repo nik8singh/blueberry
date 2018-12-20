@@ -13,4 +13,6 @@ public interface CouponService {
     void updateCoupon(CouponDTO coupon);
 
     void deleteCoupon(CouponDTO coupon);
+
+    CouponDTO getCoupon(long couponId);
 }

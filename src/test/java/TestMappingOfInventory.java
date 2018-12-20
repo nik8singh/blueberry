@@ -16,13 +16,13 @@ public class TestMappingOfInventory {
     @Test
     public void getProductGemstones() {
         System.out.println();
-        System.out.println(productController.getAllProducts().iterator().next().getGemstones());
+        System.out.println(productController.getAllProducts().iterator().next().getGemstoneDTOS());
     }
 
     @Test
     public void getProductMetal() {
         System.out.println();
-        System.out.println(productController.getAllProducts().iterator().next().getMetals());
+        System.out.println(productController.getAllProducts().iterator().next().getMetalDTOS());
     }
 
     @Test

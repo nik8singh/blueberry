@@ -38,7 +38,7 @@ public class TestImage {
     @Test
     public void getProductImage() {
 
-        ArrayList<ImageDTO> imageDTOS = productController.getProduct(7L).getImages();
+        ArrayList<ImageDTO> imageDTOS = productController.getProduct(7L).getImageDTOS();
 
         for (ImageDTO imageDTO: imageDTOS) {
 
