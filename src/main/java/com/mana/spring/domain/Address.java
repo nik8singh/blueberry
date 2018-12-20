@@ -56,22 +56,14 @@ public class Address {
     private User user;
 
     @JsonIgnore
-    @OneToOne(mappedBy ="shopAddress")
+    @OneToOne(mappedBy = "shopAddress")
     private Shop shopAddress;
 
-    public Address() {
-    }
+    @JsonIgnore
+    @OneToOne(mappedBy = "shippingAddress")
+    private Invoice invoiceAddress;
 
-    public Address(String addressFullname, String addressLineOne, String addressLineTwo, String addressCity, String addressState, String addressZipcode, String addressCountry, Date createdDate, Date updatedDate) {
-        this.addressFullname = addressFullname;
-        this.addressLineOne = addressLineOne;
-        this.addressLineTwo = addressLineTwo;
-        this.addressCity = addressCity;
-        this.addressState = addressState;
-        this.addressZipcode = addressZipcode;
-        this.addressCountry = addressCountry;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
+    public Address() {
     }
 
     public long getAddressId() {
@@ -178,17 +170,25 @@ public class Address {
         this.active = active;
     }
 
+    public Invoice getInvoiceAddress() {
+        return invoiceAddress;
+    }
+
+    public void setInvoiceAddress(Invoice invoiceAddress) {
+        this.invoiceAddress = invoiceAddress;
+    }
+
     @Override
     public String toString() {
         return "\n\t\tAddress{ " +
                 "\n\t\taddressId= " + addressId +
-                "\n\t\taddressFullname= " + addressFullname+
-                "\n\t\taddressLineOne= " + addressLineOne+
+                "\n\t\taddressFullname= " + addressFullname +
+                "\n\t\taddressLineOne= " + addressLineOne +
                 "\n\t\taddressLineTwo= " + addressLineTwo +
                 "\n\t\taddressCity= " + addressCity +
                 "\n\t\taddressState= " + addressState +
                 "\n\t\taddressZipcode= " + addressZipcode +
-                "\n\t\taddressCountry= " + addressCountry  +
+                "\n\t\taddressCountry= " + addressCountry +
                 "\n\t\tcreatedDate= " + createdDate +
                 "\n\t\tupdatedDate= " + updatedDate +
                 "\n\t\t}";

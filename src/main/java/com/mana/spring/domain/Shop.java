@@ -54,7 +54,7 @@ public class Shop {
     }
 
     public long getShopId() {
-            return shopId;
+        return shopId;
     }
 
     public void setShopId(long shopId) {

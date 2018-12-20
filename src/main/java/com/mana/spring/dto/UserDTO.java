@@ -1,6 +1,7 @@
 package com.mana.spring.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mana.spring.domain.CartItem;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,6 +25,10 @@ public class UserDTO {
     private boolean deleted;
 
     private Set<AddressDTO> addressesDto = new HashSet<AddressDTO>(0);
+
+    private Set<InvoiceDTO> invoiceDTOS = new HashSet<InvoiceDTO>(0);
+
+    private Set<CartItemDTO> cartItemDTOS = new HashSet<CartItemDTO>(0);
 
     public UserDTO() {
     }
@@ -92,6 +97,22 @@ public class UserDTO {
         this.deleted = deleted;
     }
 
+    public Set<InvoiceDTO> getInvoiceDTOS() {
+        return invoiceDTOS;
+    }
+
+    public void setInvoiceDTOS(Set<InvoiceDTO> invoiceDTOS) {
+        this.invoiceDTOS = invoiceDTOS;
+    }
+
+    public Set<CartItemDTO> getCartItemDTOS() {
+        return cartItemDTOS;
+    }
+
+    public void setCartItemDTOS(Set<CartItemDTO> cartItemDTOS) {
+        this.cartItemDTOS = cartItemDTOS;
+    }
+
     @Override
     public String toString() {
         return "\nUserDTO{" +
@@ -103,6 +124,8 @@ public class UserDTO {
                 "\n authorizationLevel='" + authorizationLevel + '\'' +
                 "\n deleted=" + deleted +
                 "\n addressesDto=" + addressesDto +
+                "\n invoiceDTOS=" + invoiceDTOS +
+                "\n cartItemDTOS=" + cartItemDTOS +
                 '}';
     }
 }

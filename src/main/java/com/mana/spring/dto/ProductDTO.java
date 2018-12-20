@@ -38,11 +38,15 @@ public class ProductDTO {
 
     private boolean productAcceptCoupon;
 
-    private ArrayList<GemstoneDTO> gemstones;
+    private ArrayList<GemstoneDTO> gemstoneDTOS;
 
-    private ArrayList<MetalDTO> metals;
+    private ArrayList<MetalDTO> metalDTOS;
 
-    private ArrayList<ImageDTO> images;
+    private ArrayList<ImageDTO> imageDTOS;
+
+    private ArrayList<CartItemDTO> cartItemDTOS;
+
+    private ArrayList<PurchaseDTO> purchaseDTOS;
 
     public ProductDTO() {
     }
@@ -135,6 +139,14 @@ public class ProductDTO {
         this.productOnFeatured = productOnFeatured;
     }
 
+    public boolean isProductPublished() {
+        return productPublished;
+    }
+
+    public void setProductPublished(boolean productPublished) {
+        this.productPublished = productPublished;
+    }
+
     public double getProductExpense() {
         return productExpense;
     }
@@ -143,12 +155,12 @@ public class ProductDTO {
         this.productExpense = productExpense;
     }
 
-    public boolean isProductAcceptCoupon() {
-        return productAcceptCoupon;
+    public long getJewelryTypeId() {
+        return jewelryTypeId;
     }
 
-    public void setProductAcceptCoupon(boolean productAcceptCoupon) {
-        this.productAcceptCoupon = productAcceptCoupon;
+    public void setJewelryTypeId(long jewelryTypeId) {
+        this.jewelryTypeId = jewelryTypeId;
     }
 
     public String getJewelryTypeName() {
@@ -167,44 +179,52 @@ public class ProductDTO {
         this.jewelryTypeDescription = jewelryTypeDescription;
     }
 
-    public ArrayList<GemstoneDTO> getGemstones() {
-        return gemstones;
+    public boolean isProductAcceptCoupon() {
+        return productAcceptCoupon;
     }
 
-    public void setGemstones(ArrayList<GemstoneDTO> gemstones) {
-        this.gemstones = gemstones;
+    public void setProductAcceptCoupon(boolean productAcceptCoupon) {
+        this.productAcceptCoupon = productAcceptCoupon;
     }
 
-    public ArrayList<MetalDTO> getMetals() {
-        return metals;
+    public ArrayList<GemstoneDTO> getGemstoneDTOS() {
+        return gemstoneDTOS;
     }
 
-    public void setMetals(ArrayList<MetalDTO> metals) {
-        this.metals = metals;
+    public void setGemstoneDTOS(ArrayList<GemstoneDTO> gemstoneDTOS) {
+        this.gemstoneDTOS = gemstoneDTOS;
     }
 
-    public ArrayList<ImageDTO> getImages() {
-        return images;
+    public ArrayList<MetalDTO> getMetalDTOS() {
+        return metalDTOS;
     }
 
-    public void setImages(ArrayList<ImageDTO> images) {
-        this.images = images;
+    public void setMetalDTOS(ArrayList<MetalDTO> metalDTOS) {
+        this.metalDTOS = metalDTOS;
     }
 
-    public boolean isProductPublished() {
-        return productPublished;
+    public ArrayList<ImageDTO> getImageDTOS() {
+        return imageDTOS;
     }
 
-    public void setProductPublished(boolean productPublished) {
-        this.productPublished = productPublished;
+    public void setImageDTOS(ArrayList<ImageDTO> imageDTOS) {
+        this.imageDTOS = imageDTOS;
     }
 
-    public long getJewelryTypeId() {
-        return jewelryTypeId;
+    public ArrayList<CartItemDTO> getCartItemDTOS() {
+        return cartItemDTOS;
     }
 
-    public void setJewelryTypeId(long jewelryTypeId) {
-        this.jewelryTypeId = jewelryTypeId;
+    public void setCartItemDTOS(ArrayList<CartItemDTO> cartItemDTOS) {
+        this.cartItemDTOS = cartItemDTOS;
+    }
+
+    public ArrayList<PurchaseDTO> getPurchaseDTOS() {
+        return purchaseDTOS;
+    }
+
+    public void setPurchaseDTOS(ArrayList<PurchaseDTO> purchaseDTOS) {
+        this.purchaseDTOS = purchaseDTOS;
     }
 
     @Override
@@ -226,9 +246,9 @@ public class ProductDTO {
                 "\n\tproductAcceptCoupon=" + productAcceptCoupon +
                 "\n\tjewelryTypeName='" + jewelryTypeName + '\'' +
                 "\n\tjewelryTypeDescription='" + jewelryTypeDescription + '\'' +
-                "\n\tgemstones=" + gemstones +
-                "\n\tmetals=" + metals +
-                "\n\timages=" + images +
+                "\n\tgemstoneDTOS=" + gemstoneDTOS +
+                "\n\tmetalDTOS=" + metalDTOS +
+                "\n\timages=" + imageDTOS +
                 "\n\t}";
     }
 }

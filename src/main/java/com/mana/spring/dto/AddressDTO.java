@@ -24,6 +24,8 @@ public class AddressDTO {
 
     private ShopDTO shopDTO;
 
+    private InvoiceDTO invoiceDTO;
+
     public long getAddressId() {
         return addressId;
     }
@@ -112,6 +114,14 @@ public class AddressDTO {
         this.active = active;
     }
 
+    public InvoiceDTO getInvoiceDTO() {
+        return invoiceDTO;
+    }
+
+    public void setInvoiceDTO(InvoiceDTO invoiceDTO) {
+        this.invoiceDTO = invoiceDTO;
+    }
+
     @Override
     public String toString() {
         return "\nAddressDTO{" +
@@ -126,6 +136,7 @@ public class AddressDTO {
                 "\n active=" + active +
                 "\n userDTO=" + userDTO +
                 "\n shopDTO=" + shopDTO +
+                "\n invoiceDTO=" + invoiceDTO +
                 '}';
     }
 }

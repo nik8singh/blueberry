@@ -106,6 +106,12 @@ public class Product {
             property = "cartItemId")
     private Set<CartItem> cartItems = new HashSet<CartItem>(0);
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.EAGER)
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "purchaseId")
+    private Set<Purchase> purchases = new HashSet<Purchase>(0);
+
 
     public Product() {
     }
@@ -198,14 +204,6 @@ public class Product {
         this.productOnFeatured = productOnFeatured;
     }
 
-    public boolean getProductPublished() {
-        return productPublished;
-    }
-
-    public void setProductPublished(boolean productPublished) {
-        this.productPublished = productPublished;
-    }
-
     public double getProductExpense() {
         return productExpense;
     }
@@ -270,6 +268,26 @@ public class Product {
         this.productAcceptCoupon = productAcceptCoupon;
     }
 
+    public boolean isProductPublished() {
+        return productPublished;
+    }
+
+    public Set<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(Set<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
+
+    public Set<Purchase> getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(Set<Purchase> purchases) {
+        this.purchases = purchases;
+    }
+
     @Override
     public String toString() {
         return "\nProduct{" +
@@ -289,8 +307,8 @@ public class Product {
                 "\n\tcreatedDate= " + createdDate +
                 "\n\tupdatedDate= " + updatedDate +
                 "\n\tproductAcceptCoupon= " + productAcceptCoupon +
-//                ", productJewelryType=" + productJewelryType +
-//                ", gemstones=" + gemstones +
+                "\n\tproductJewelryType=" + productJewelryType +
+                "\n\tgemstones=" + gemstones +
                 '}';
     }
 }

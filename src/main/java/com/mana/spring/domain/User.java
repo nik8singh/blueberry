@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "user")
-@JsonIgnoreProperties({ "userPassword"})
+@JsonIgnoreProperties({"userPassword"})
 public class User {
 
     @Id
@@ -50,6 +50,12 @@ public class User {
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "addressId")
     private Set<Address> addresses = new HashSet<Address>(0);
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "invoiceId")
+    private Set<Invoice> invoices = new HashSet<Invoice>(0);
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     @JsonIdentityInfo(
@@ -140,6 +146,22 @@ public class User {
         this.deleted = deleted;
     }
 
+    public Set<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(Set<Invoice> invoices) {
+        this.invoices = invoices;
+    }
+
+    public Set<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(Set<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
+
     @Override
     public String toString() {
         return "\nUser{" +
@@ -153,6 +175,8 @@ public class User {
                 "\n createdDate=" + createdDate +
                 "\n updatedDate=" + updatedDate +
                 "\n addresses=" + addresses +
+                "\n cartItems=" + cartItems +
+                "\n invoices=" + invoices +
                 '}';
     }
 }

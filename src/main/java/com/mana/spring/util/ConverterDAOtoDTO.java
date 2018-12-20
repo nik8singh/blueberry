@@ -14,6 +14,7 @@ public class ConverterDAOtoDTO {
 
         UserDTO userDTO = new UserDTO();
         ShopDTO shopDTO = new ShopDTO();
+        InvoiceDTO invoiceDTO = new InvoiceDTO();
 
         // to copy to
         AddressDTO target = new AddressDTO();
@@ -26,6 +27,11 @@ public class ConverterDAOtoDTO {
         if (address.getUser() != null) {
             BeanUtils.copyProperties(address.getUser(), userDTO);
             target.setUserDTO(userDTO);
+        }
+
+        if (address.getInvoiceAddress() != null) {
+            BeanUtils.copyProperties(address.getInvoiceAddress(), invoiceDTO);
+            target.setInvoiceDTO(invoiceDTO);
         }
 
         return target;
@@ -108,6 +114,8 @@ public class ConverterDAOtoDTO {
         ArrayList<GemstoneDTO> gemstoneDTOs = new ArrayList<GemstoneDTO>();
         ArrayList<MetalDTO> metalDTOs = new ArrayList<MetalDTO>();
         ArrayList<ImageDTO> imageDTOs = new ArrayList<ImageDTO>();
+        ArrayList<CartItemDTO> cartItemDTOS = new ArrayList<CartItemDTO>();
+        ArrayList<PurchaseDTO> purchaseDTOS = new ArrayList<PurchaseDTO>();
 
         BeanUtils.copyProperties(product, target);
         BeanUtils.copyProperties(product.getProductJewelryType(), target);
@@ -124,9 +132,25 @@ public class ConverterDAOtoDTO {
             for (Image sourceImage : product.getImages())
                 imageDTOs.add(imageDaoToDto(sourceImage));
 
-        target.setGemstones(gemstoneDTOs);
-        target.setMetals(metalDTOs);
-        target.setImages(imageDTOs);
+        if (product.getCartItems() != null)
+            for (CartItem sourceCart : product.getCartItems()) {
+                CartItemDTO targetCart = new CartItemDTO();
+                BeanUtils.copyProperties(sourceCart, targetCart);
+                cartItemDTOS.add(targetCart);
+            }
+
+        if (product.getPurchases() != null)
+            for (Purchase sourcePurchase : product.getPurchases()) {
+                PurchaseDTO targetPurchase = new PurchaseDTO();
+                BeanUtils.copyProperties(sourcePurchase, targetPurchase);
+                purchaseDTOS.add(targetPurchase);
+            }
+
+        target.setGemstoneDTOS(gemstoneDTOs);
+        target.setMetalDTOS(metalDTOs);
+        target.setImageDTOS(imageDTOs);
+        target.setCartItemDTOS(cartItemDTOS);
+        target.setPurchaseDTOS(purchaseDTOS);
 
         return target;
 
@@ -156,8 +180,12 @@ public class ConverterDAOtoDTO {
     public static UserDTO userDaoToDto(User user) {
 
         Set<Address> addresses = user.getAddresses();
+        Set<CartItem> cartItems = user.getCartItems();
+        Set<Invoice> invoices = user.getInvoices();
 
         Set<AddressDTO> addressDTOS = new HashSet<AddressDTO>();
+        Set<CartItemDTO> cartItemDTOS = new HashSet<CartItemDTO>();
+        Set<InvoiceDTO> invoiceDTOS = new HashSet<InvoiceDTO>();
 
         // to copy to
         UserDTO target = new UserDTO();
@@ -165,12 +193,23 @@ public class ConverterDAOtoDTO {
 
         if (addresses != null)
             for (Address address : addresses) {
-
                 AddressDTO targetAdd = new AddressDTO();
                 BeanUtils.copyProperties(address, targetAdd);
                 addressDTOS.add(targetAdd);
             }
 
+        if (cartItems != null)
+            for (CartItem cartItem : cartItems) {
+                cartItemDTOS.add(cartItemDaoToDto(cartItem));
+            }
+
+        if (invoices != null)
+            for (Invoice invoice : invoices) {
+                invoiceDTOS.add(invoiceDaoToDto(invoice));
+            }
+
+        target.setCartItemDTOS(cartItemDTOS);
+        target.setInvoiceDTOS(invoiceDTOS);
         target.setAddressesDto(addressDTOS);
 
         return target;
@@ -184,7 +223,38 @@ public class ConverterDAOtoDTO {
         BeanUtils.copyProperties(cartItem, target);
 
         target.setProductDTO(productDaoToDto(cartItem.getProduct()));
-        target.setUserDTO(userDaoToDto(cartItem.getUser()));
+
+        UserDTO targetUser = new UserDTO();
+        BeanUtils.copyProperties(cartItem.getUser(), targetUser);
+
+        target.setUserDTO(targetUser);
+
+        return target;
+    }
+
+    public static InvoiceDTO invoiceDaoToDto(Invoice invoice) {
+
+        ArrayList<PurchaseDTO> purchaseDTOS = new ArrayList<PurchaseDTO>();
+
+        // to copy to
+        InvoiceDTO target = new InvoiceDTO();
+        BeanUtils.copyProperties(invoice, target);
+
+        target.setShippingAddressDTO(addressDaoToDto(invoice.getShippingAddress()));
+
+        if (invoice.getPurchases() != null)
+            for (Purchase sourcePurchase : invoice.getPurchases()) {
+
+                PurchaseDTO purchaseDTO = new PurchaseDTO();
+
+                BeanUtils.copyProperties(sourcePurchase, purchaseDTO);
+                purchaseDTO.setProductDTO(productDaoToDto(sourcePurchase.getProduct()));
+                purchaseDTOS.add(purchaseDTO);
+            }
+
+        UserDTO targetUser = new UserDTO();
+        BeanUtils.copyProperties(invoice.getUser(), targetUser);
+        target.setUserDTO(targetUser);
 
         return target;
     }
