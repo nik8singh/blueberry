@@ -1,7 +1,6 @@
 package com.mana.spring.service;
 
 import com.mana.spring.domain.User;
-import com.mana.spring.dto.UserDTO;
 
 import java.util.ArrayList;
 
@@ -9,16 +8,16 @@ public interface UserService {
 
     ArrayList<User> getUsers();
 
-    void addUser(UserDTO userDTO);
+    void addUser(User user);
 
-    void updateUser(UserDTO userDTO);
+    void updateUser(User user);
 
-    void deleteUser(UserDTO userDTO);
+    void deleteUser(User user);
 
-    void updatePassword(UserDTO userDTO);
+    void updatePassword(User user);
 
-    UserDTO getUserByEmail(String email);
+    User getUserByEmail(String email);
 
-    void addAddress(UserDTO userDTO);
+    void addAddress(User user);
 
 }

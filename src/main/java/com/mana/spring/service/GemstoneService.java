@@ -1,21 +1,20 @@
 package com.mana.spring.service;
 
-import com.mana.spring.dto.GemstoneDTO;
-import com.mana.spring.dto.ProductDTO;
+import com.mana.spring.domain.Gemstone;
 
 import java.util.ArrayList;
 
 public interface GemstoneService {
 
-    ArrayList<GemstoneDTO> getGemstones();
+    ArrayList<Gemstone> getGemstones();
 
-    ArrayList<GemstoneDTO> getActiveGemstones();
+    ArrayList<Gemstone> getActiveGemstones();
 
-    void addGemstone(GemstoneDTO gemstoneDTO);
+    void addGemstone(Gemstone gemstone);
 
-    void updateGemstone(GemstoneDTO gemstoneDTO);
+    void updateGemstone(Gemstone gemstone);
 
-    //    void deleteGemstone(Gemstone gemstone);
+    void deleteGemstone(Gemstone gemstone);
 
-    ArrayList<ProductDTO> getGemstoneProducts(GemstoneDTO gemstoneDTO);
+    Gemstone getGemstoneById(long gemstoneId);
 }

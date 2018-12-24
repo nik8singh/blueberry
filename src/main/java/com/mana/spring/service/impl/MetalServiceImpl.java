@@ -18,34 +18,33 @@ public class MetalServiceImpl implements MetalService {
     @Autowired
     private MetalDAO metalDAO;
 
-    public ArrayList<MetalDTO> getMetals() {
+    public ArrayList<Metal> getMetals() {
         ArrayList<Metal> metals = (ArrayList<Metal>) metalDAO.listMetals();
-        return ConverterDAOtoDTO.metalListDaoToDto(metals);
+        return metals;
     }
 
-    public ArrayList<MetalDTO> getActiveMetals() {
+    public ArrayList<Metal> getActiveMetals() {
         ArrayList<Metal> metals = (ArrayList<Metal>) metalDAO.listActiveMetals();
-        return ConverterDAOtoDTO.metalListDaoToDto(metals);
+        return metals;
     }
 
-    public void addMetal(MetalDTO metalDTO) {
-        metalDAO.saveMetal(ConverterDTOtoDAO.metalDtoToDao(metalDTO));
+    public void addMetal(Metal metal) {
+        metalDAO.saveMetal(metal);
     }
 
-    public void updateMetal(MetalDTO metalDTO) {
-        metalDAO.updateMetal(ConverterDTOtoDAO.metalDtoToDao(metalDTO));
+    public void updateMetal(Metal metal) {
+
+
+        // get from DB then update
+
+        metalDAO.updateMetal(metal);
     }
 
-//    public void deleteMetal(MetalDTO metalDTO) {
+    public void deleteMetal(Metal metal) {
 //        metalDAO.deleteMetal(dtoToDao(metalDTO));
-//    }
+    }
 
-//    public ProductListDTO getMetalProducts(MetalDTO metalDTO) {
-//        Metal metal = metalDAO.getMetal(metalDTO.getMetalName());
-//        ProductListDTO productListDTO = new ProductListDTO();
-//        BeanUtils.copyProperties(metal, productListDTO);
-//        return productListDTO;
-//    }
-
-
+    public Metal getMetal(Metal metal) {
+        return null;
+    }
 }

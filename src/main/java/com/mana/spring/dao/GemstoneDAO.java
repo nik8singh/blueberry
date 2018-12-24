@@ -12,5 +12,5 @@ public interface GemstoneDAO {
 //    void deleteGemstone(Gemstone gemstone);
     List listGemstones();
     List listActiveGemstones();
-    Gemstone getGemstone(String gemstoneName);
+    Gemstone getGemstone(long gemstoneId);
 }

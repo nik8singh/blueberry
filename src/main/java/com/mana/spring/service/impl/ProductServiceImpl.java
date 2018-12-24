@@ -36,6 +36,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public void updateProduct(ProductDTO productDTO) {
+
+
         ProductDTO originalProductDTO = getProduct(productDTO.getProductId());
         BeanUtils.copyProperties(productDTO, originalProductDTO);
 

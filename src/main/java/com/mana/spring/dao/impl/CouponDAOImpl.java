@@ -22,10 +22,6 @@ public class CouponDAOImpl implements CouponDAO {
         hibernateTemplate.update(coupon);
     }
 
-    public void deleteCoupon(Coupon coupon) {
-        hibernateTemplate.delete(coupon);
-    }
-
     public List listCoupon() {
         return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Coupon").list();
     }

@@ -52,10 +52,7 @@ public class ConverterDAOtoDTO {
 
         // to copy to
         GemstoneDTO target = new GemstoneDTO();
-
         BeanUtils.copyProperties(gemstone, target);
-
-        System.out.println(target);
 
         return target;
 
@@ -124,8 +121,11 @@ public class ConverterDAOtoDTO {
         BeanUtils.copyProperties(product.getProductJewelryType(), target);
 
         if (product.getGemstones() != null)
-            for (Gemstone sourceGem : product.getGemstones())
-                gemstoneDTOs.add(gemstoneDaoToDto(sourceGem));
+            for (Gemstone sourceGem : product.getGemstones()) {
+                GemstoneDTO targetGem = new GemstoneDTO();
+                BeanUtils.copyProperties(sourceGem, targetGem);
+                gemstoneDTOs.add(targetGem);
+            }
 
         if (product.getMetals() != null)
             for (Metal sourceMetal : product.getMetals())

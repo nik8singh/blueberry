@@ -1,3 +1,4 @@
+import com.mana.spring.domain.Coupon;
 import com.mana.spring.dto.CouponDTO;
 import com.mana.spring.web.CouponController;
 import org.junit.Test;
@@ -18,23 +19,23 @@ public class TestCoupons {
 
     @Test
     public void getList() {
-        List<CouponDTO> C = couponController.getAllCoupons();
+        List<Coupon> C = couponController.getAllCoupons();
         System.out.println(C);
     }
 
     @Test
     public void addNew() {
-        CouponDTO couponDTO = new CouponDTO();
-        couponDTO.setCouponName("test add");
-        couponDTO.setCouponDiscountPercent(5.5);
-        couponDTO.setCouponEndDate(new Date());
-        couponDTO.setCouponStartDate(new Date());
-        couponController.saveCoupon(couponDTO);
+        Coupon coupon = new Coupon();
+        coupon.setCouponName("Xmas");
+        coupon.setCouponDiscountPercent(5.5);
+        coupon.setCouponEndDate(new Date());
+        coupon.setCouponStartDate(new Date());
+        couponController.saveCoupon(coupon);
     }
 
     @Test
     public void update() {
-        CouponDTO couponDTO = new CouponDTO();
+        Coupon couponDTO = new Coupon();
         couponDTO.setCouponId(6L);
         couponDTO.setCouponName("Mid term unit test");
         couponController.updateCoupon(couponDTO);
@@ -42,7 +43,7 @@ public class TestCoupons {
 
     @Test
     public void delete() {
-        CouponDTO couponDTO = new CouponDTO();
+        Coupon couponDTO = new Coupon();
         couponDTO.setCouponId(5L);
         couponDTO.setCouponName("test add");
         couponController.deleteCoupon(couponDTO);

@@ -2,10 +2,7 @@ package com.mana.spring.service.impl;
 
 import com.mana.spring.dao.CartItemDAO;
 import com.mana.spring.domain.CartItem;
-import com.mana.spring.dto.CartItemDTO;
 import com.mana.spring.service.CartItemService;
-import com.mana.spring.util.ConverterDAOtoDTO;
-import com.mana.spring.util.ConverterDTOtoDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
@@ -17,36 +14,27 @@ public class CartItemServiceImpl implements CartItemService {
     @Autowired
     private CartItemDAO cartItemDAO;
 
-    public void addToCart(CartItemDTO cartItemDTO) {
-
-        CartItem cartItem = ConverterDTOtoDAO.cartItemDtoToDao(cartItemDTO);
-        System.out.println(cartItem);
-
+    public void addToCart(CartItem cartItem) {
         cartItemDAO.save(cartItem);
 
     }
 
-    public void removeFromCart(CartItemDTO cartItemDTO) {
+    public void removeFromCart(CartItem cartItem) {
 
-        cartItemDAO.delete(ConverterDTOtoDAO.cartItemDtoToDao(cartItemDTO));
+        cartItemDAO.delete(cartItem);
     }
 
-    public void updateCartItem(CartItemDTO cartItemDTO) {
-        CartItem cartItem = cartItemDAO.cartItemByProductAndUser(ConverterDTOtoDAO.cartItemDtoToDao(cartItemDTO));
-        cartItem.setProductQuantity(cartItemDTO.getProductQuantity());
-        cartItem.setCreatedDate(null);
-        cartItem.setUpdatedDate(null);
-        cartItemDAO.update(cartItem);
+    public void updateCartItem(CartItem cartItem) {
+        CartItem cartItemFromDb = cartItemDAO.cartItemByProductAndUser(cartItem);
+        cartItemFromDb.setProductQuantity(cartItem.getProductQuantity());
+        cartItemFromDb.setCreatedDate(null);
+        cartItemFromDb.setUpdatedDate(null);
+        cartItemDAO.update(cartItemFromDb);
     }
 
-    public ArrayList<CartItemDTO> getUserCart(String email) {
-        ArrayList<CartItemDTO> cartItemDTOS = new ArrayList<CartItemDTO>();
+    public ArrayList<CartItem> getUserCart(String email) {
         ArrayList<CartItem> cartItems = (ArrayList<CartItem>) cartItemDAO.listUserCartItems(email);
-
-        for (CartItem cartItem : cartItems)
-            cartItemDTOS.add(ConverterDAOtoDTO.cartItemDaoToDto(cartItem));
-
-        return cartItemDTOS;
+        return cartItems;
     }
 
 

@@ -1,18 +1,18 @@
 package com.mana.spring.service;
 
-import com.mana.spring.dto.CouponDTO;
+import com.mana.spring.domain.Coupon;
 
 import java.util.ArrayList;
 
 public interface CouponService {
 
-    ArrayList<CouponDTO> getCoupons();
+    ArrayList<Coupon> getCoupons();
 
-    void addCoupon(CouponDTO coupon);
+    void addCoupon(Coupon coupon);
 
-    void updateCoupon(CouponDTO coupon);
+    void updateCoupon(Coupon coupon);
 
-    void deleteCoupon(CouponDTO coupon);
+    void deleteCoupon(Coupon coupon);
 
-    CouponDTO getCoupon(long couponId);
+    Coupon getCoupon(long couponId);
 }

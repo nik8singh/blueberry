@@ -11,8 +11,6 @@ public interface CouponDAO {
 
     void updateCoupon(Coupon coupon);
 
-    void deleteCoupon(Coupon coupon);
-
     List listCoupon();
 
     Coupon getCoupon(long couponId);

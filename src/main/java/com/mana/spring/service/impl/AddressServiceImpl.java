@@ -2,10 +2,7 @@ package com.mana.spring.service.impl;
 
 import com.mana.spring.dao.AddressDAO;
 import com.mana.spring.domain.Address;
-import com.mana.spring.dto.AddressDTO;
 import com.mana.spring.service.AddressService;
-import com.mana.spring.util.ConverterDAOtoDTO;
-import com.mana.spring.util.ConverterDTOtoDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
@@ -17,41 +14,44 @@ public class AddressServiceImpl implements AddressService {
     @Autowired
     private AddressDAO addressDAO;
 
-    public ArrayList<AddressDTO> getAddresses() {
+    public ArrayList<Address> getAddresses() {
         return null;
     }
 
-    public void addAddress(AddressDTO addressDTO) {
+    public void addAddress(Address address) {
 
-        addressDAO.saveAddress(ConverterDTOtoDAO.addressDtoToDao(addressDTO));
-
-    }
-
-    public void updateAddress(AddressDTO addressDTO) {
-
-        addressDAO.updateAddress(ConverterDTOtoDAO.addressDtoToDao(addressDTO));
+        addressDAO.saveAddress(address);
 
     }
 
-    public void deleteAddress(AddressDTO addressDTO) {
-        Address address = ConverterDTOtoDAO.addressDtoToDao(addressDTO);
+    public void updateAddress(Address address) {
+
+        Address addressFromDb = addressDAO.getAddress(address.getAddressId());
+        addressFromDb.setAddressFullname(address.getAddressFullname());
+        addressFromDb.setAddressLineOne(address.getAddressLineOne());
+        addressFromDb.setAddressLineTwo(address.getAddressLineTwo());
+        addressFromDb.setAddressCity(address.getAddressCity());
+        addressFromDb.setAddressState(address.getAddressState());
+        addressFromDb.setAddressCountry(address.getAddressCountry());
+        addressFromDb.setAddressZipcode(address.getAddressZipcode());
+        addressFromDb.setCreatedDate(null);
+        addressFromDb.setUpdatedDate(null);
+        addressDAO.updateAddress(addressFromDb);
+
+    }
+
+    public void deleteAddress(Address address) {
         addressDAO.deleteAddress(address);
     }
 
-    public AddressDTO getAddress(long addressId) {
-        AddressDTO addressDTO = ConverterDAOtoDTO.addressDaoToDto(addressDAO.getAddress(addressId));
-        return addressDTO;
+    public Address getAddress(long addressId) {
+        Address address = addressDAO.getAddress(addressId);
+        return address;
     }
 
-    public ArrayList<AddressDTO> getAddressByUserEmail(String userEmail) {
+    public ArrayList<Address> getAddressByUserEmail(String userEmail) {
         ArrayList<Address> addresses = (ArrayList<Address>) addressDAO.getAddressByEmail(userEmail);
-        ArrayList<AddressDTO> addressDTOS = new ArrayList<AddressDTO>();
-
-        for (Address address : addresses) {
-            addressDTOS.add(ConverterDAOtoDTO.addressDaoToDto(address));
-        }
-
-        return addressDTOS;
+        return addresses;
     }
 
 

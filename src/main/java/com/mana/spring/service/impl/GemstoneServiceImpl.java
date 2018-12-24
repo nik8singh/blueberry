@@ -2,13 +2,7 @@ package com.mana.spring.service.impl;
 
 import com.mana.spring.dao.GemstoneDAO;
 import com.mana.spring.domain.Gemstone;
-import com.mana.spring.domain.Product;
-import com.mana.spring.dto.GemstoneDTO;
-import com.mana.spring.dto.ProductDTO;
 import com.mana.spring.service.GemstoneService;
-import com.mana.spring.util.ConverterDAOtoDTO;
-import com.mana.spring.util.ConverterDTOtoDAO;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
@@ -20,46 +14,38 @@ public class GemstoneServiceImpl implements GemstoneService {
     @Autowired
     private GemstoneDAO gemstoneDAO;
 
-    public ArrayList<GemstoneDTO> getGemstones() {
+    public ArrayList<Gemstone> getGemstones() {
         ArrayList<Gemstone> gemstones = (ArrayList<Gemstone>) gemstoneDAO.listGemstones();
-        return ConverterDAOtoDTO.gemstoneListDaoToDto(gemstones);
+        return gemstones;
     }
 
-    public ArrayList<GemstoneDTO> getActiveGemstones() {
+    public ArrayList<Gemstone> getActiveGemstones() {
 
         ArrayList<Gemstone> gemstones = (ArrayList<Gemstone>) gemstoneDAO.listActiveGemstones();
-        return ConverterDAOtoDTO.gemstoneListDaoToDto(gemstones);
+        return gemstones;
 
     }
 
-    public void addGemstone(GemstoneDTO gemstoneDTO) {
+    public void addGemstone(Gemstone gemstone) {
 
-        gemstoneDAO.saveGemstone(ConverterDTOtoDAO.gemstoneDtoToDao(gemstoneDTO));
+        gemstoneDAO.saveGemstone(gemstone);
     }
 
-    public void updateGemstone(GemstoneDTO gemstoneDTO) {
-
-        ArrayList<ProductDTO> productDTOS = getGemstoneProducts(gemstoneDTO);
-
-        GemstoneDTO modifiedGemstone = new GemstoneDTO();
-
-        BeanUtils.copyProperties(gemstoneDTO, modifiedGemstone);
-        modifiedGemstone.setProductDTOS(productDTOS);
-
-        gemstoneDAO.updateGemstone(ConverterDTOtoDAO.gemstoneDtoToDao(modifiedGemstone));
+    public void updateGemstone(Gemstone gemstone) {
+        Gemstone gemstoneFromDb = gemstoneDAO.getGemstone(gemstone.getGemstoneId());
+        gemstoneFromDb.setGemstoneName(gemstone.getGemstoneName());
+        gemstoneFromDb.setGemstoneDescription(gemstone.getGemstoneDescription());
+        gemstoneFromDb.setCreatedDate(null);
+        gemstoneFromDb.setUpdatedDate(null);
+        gemstoneDAO.saveGemstone(gemstoneFromDb);
     }
 
-    public  ArrayList<ProductDTO> getGemstoneProducts(GemstoneDTO gemstoneDTO) {
-        Gemstone gem = gemstoneDAO.getGemstone(gemstoneDTO.getGemstoneName());
-        ArrayList<ProductDTO> productDTOS = new ArrayList<ProductDTO>();
-
-        for(Product product: gem.getProducts()) {
-            Product product1 = new Product();
-            BeanUtils.copyProperties(product, product1);
-
-            productDTOS.add(ConverterDAOtoDTO.productDaoToDto(product1));
-        }
-        return productDTOS;
+    public Gemstone getGemstoneById(long gemstoneId) {
+        Gemstone gemstone = gemstoneDAO.getGemstone(gemstoneId);
+        return gemstone;
     }
 
+    public void deleteGemstone(Gemstone gemstone) {
+
+    }
 }

@@ -1,17 +1,17 @@
 package com.mana.spring.service;
 
-import com.mana.spring.dto.ShopDTO;
+import com.mana.spring.domain.Shop;
 
 import java.util.ArrayList;
 
 public interface ShopService {
-    ArrayList<ShopDTO> getShops();
+    ArrayList<Shop> getShops();
 
-    void addShop(ShopDTO shopDTO);
+    void addShop(Shop shop);
 
-    void updateShop(ShopDTO shopDTO);
+    void updateShop(Shop shop);
 
-//    void deleteShop(Shop shop);
+    void deleteShop(Shop shop);
 
-    ShopDTO getShop(ShopDTO shopDTO);
+    Shop getShop(Shop shop);
 }

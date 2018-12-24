@@ -18,40 +18,34 @@ public class JewelryTypeServiceImpl implements JewelryTypeService {
     @Autowired
     private JewelryTypeDAO jewelryTypeDAO;
 
-    public ArrayList<JewelryTypeDTO> getJewelryTypes() {
+    public ArrayList<JewelryType> getJewelryTypes() {
 
         ArrayList<JewelryType> jewelryTypes = (ArrayList<JewelryType>) jewelryTypeDAO.listJewelryType();
-        return ConverterDAOtoDTO.jewelryTypeListDaoToDto(jewelryTypes);
+        return jewelryTypes;
 
     }
 
-    public void addJewelryType(JewelryTypeDTO jewelryTypeDTO) {
-        jewelryTypeDAO.saveJewelryType(ConverterDTOtoDAO.jewelryTypeDtoToDao(jewelryTypeDTO));
+    public void addJewelryType(JewelryType jewelryType) {
+        jewelryTypeDAO.saveJewelryType(jewelryType);
     }
 
-    public void updateJewelryType(JewelryTypeDTO jewelryTypeDTO) {
-        jewelryTypeDAO.updateJewelryType(ConverterDTOtoDAO.jewelryTypeDtoToDao(jewelryTypeDTO));
+    public void updateJewelryType(JewelryType jewelryType) {
+
+        // get from DB then update
+
+        jewelryTypeDAO.updateJewelryType(jewelryType);
     }
 
-//    public void deleteJewelryType(JewelryTypeDTO jewelryTypeDTO) {
+    public void deleteJewelryType(JewelryType jewelryType) {
 //        jewelryTypeDAO.deleteJewelryType(jewelryType);
-//    }
-
-    public ArrayList<JewelryTypeDTO> getActiveJewelryTypes() {
-        ArrayList<JewelryType> jewelryTypes = (ArrayList<JewelryType>) jewelryTypeDAO.listActiveJewelryTypes();
-        return ConverterDAOtoDTO.jewelryTypeListDaoToDto(jewelryTypes);
     }
 
-//    public ProductListDTO getJewelryTypeProducts(JewelryTypeDTO jewelryTypeDTO) {
-//        JewelryType metal = jewelryTypeDAO.getJewelryType(jewelryTypeDTO.getJewelryTypeName());
-//        ProductListDTO productListDTO = new ProductListDTO();
-//        BeanUtils.copyProperties(metal, productListDTO);
-//        return productListDTO;
-//    }
+    public ArrayList<JewelryType> getActiveJewelryTypes() {
+        ArrayList<JewelryType> jewelryTypes = (ArrayList<JewelryType>) jewelryTypeDAO.listActiveJewelryTypes();
+        return jewelryTypes;
+    }
 
-
-
-
-
-
+    public JewelryType getJewelryType(JewelryType jewelryType) {
+        return null;
+    }
 }

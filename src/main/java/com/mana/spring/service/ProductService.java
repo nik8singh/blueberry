@@ -1,21 +1,21 @@
 package com.mana.spring.service;
 
-import com.mana.spring.dto.ProductDTO;
+import com.mana.spring.domain.Product;
 
 import java.util.ArrayList;
 
 public interface ProductService {
 
-    ArrayList<ProductDTO> getProducts();
+    ArrayList<Product> getProducts();
 
-    void addProduct(ProductDTO productDTO);
+    void addProduct(Product product);
 
-    void updateProduct(ProductDTO productDTO);
+    void updateProduct(Product product);
 
-//    void deleteProduct(ProductDTO productDTO);
+    void deleteProduct(Product product);
 
-    ArrayList<ProductDTO> getAvailableProducts();
+    ArrayList<Product> getAvailableProducts();
 
-    ProductDTO getProduct(Long productId);
+    Product getProduct(Long productId);
 }
 

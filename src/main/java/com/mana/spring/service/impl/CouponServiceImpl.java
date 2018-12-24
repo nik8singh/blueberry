@@ -2,10 +2,7 @@ package com.mana.spring.service.impl;
 
 import com.mana.spring.dao.CouponDAO;
 import com.mana.spring.domain.Coupon;
-import com.mana.spring.dto.CouponDTO;
 import com.mana.spring.service.CouponService;
-import com.mana.spring.util.ConverterDAOtoDTO;
-import com.mana.spring.util.ConverterDTOtoDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
@@ -17,34 +14,32 @@ public class CouponServiceImpl implements CouponService {
     @Autowired
     private CouponDAO couponDAO;
 
-    public ArrayList<CouponDTO> getCoupons() {
+    public ArrayList<Coupon> getCoupons() {
 
-
-        ArrayList<Coupon> coupons = (ArrayList<Coupon>) couponDAO.listCoupon();
-
-        ArrayList<CouponDTO> couponDTOs = new ArrayList<CouponDTO>();
-
-        for (Coupon source : coupons) {
-            couponDTOs.add(ConverterDAOtoDTO.couponDaoToDto(source));
-        }
-
-        return couponDTOs;
+        return (ArrayList<Coupon>) couponDAO.listCoupon();
     }
 
-    public void addCoupon(CouponDTO couponDTO) {
-        couponDAO.saveCoupon(ConverterDTOtoDAO.couponDtoToDao(couponDTO));
+    public void addCoupon(Coupon coupon) {
+        coupon.setActive(true);
+        couponDAO.saveCoupon(coupon);
     }
 
-    public void updateCoupon(CouponDTO couponDTO) {
-        couponDAO.updateCoupon(ConverterDTOtoDAO.couponDtoToDao(couponDTO));
+    public void updateCoupon(Coupon coupon) {
+        Coupon couponFromDb = couponDAO.getCoupon(coupon.getCouponId());
+        couponFromDb.setCouponName(coupon.getCouponName());
+        couponFromDb.setCouponStartDate(coupon.getCouponStartDate());
+        couponFromDb.setCouponEndDate(coupon.getCouponEndDate());
+        couponFromDb.setCouponDiscountPercent(coupon.getCouponDiscountPercent());
+        couponFromDb.setCreatedDate(null);
+        couponFromDb.setUpdatedDate(null);
+        couponDAO.updateCoupon(couponFromDb);
     }
 
-    public CouponDTO getCoupon(long couponId) {
-        return ConverterDAOtoDTO.couponDaoToDto(couponDAO.getCoupon(couponId));
+    public Coupon getCoupon(long couponId) {
+        return couponDAO.getCoupon(couponId);
     }
 
-    public void deleteCoupon(CouponDTO couponDTO) {
-        Coupon coupon = ConverterDTOtoDAO.couponDtoToDao(couponDTO);
+    public void deleteCoupon(Coupon coupon) {
         coupon.setActive(false);
         couponDAO.updateCoupon(coupon);
     }
