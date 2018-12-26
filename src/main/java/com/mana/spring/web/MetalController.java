@@ -18,31 +18,31 @@ public class MetalController {
 
     @Autowired
     public MetalService metalService;
-
-    @RequestMapping(value = "all", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody
-    ArrayList<MetalDTO> getAllMetals() {
-        return metalService.getMetals();
-    }
-
-    @RequestMapping(value = "allactive", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody
-    ArrayList<MetalDTO> getAllActiveMetals() {
-        return metalService.getActiveMetals();
-    }
-
-
-    @RequestMapping(value = "save", method = RequestMethod.POST)
-    public ResponseEntity saveMetal(@RequestBody MetalDTO metalDTO) {
-        metalService.addMetal(metalDTO);
-        return new ResponseEntity(metalDTO, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "update", method = RequestMethod.POST)
-    public ResponseEntity updateMetal(@RequestBody MetalDTO metalDTO) {
-        metalService.updateMetal(metalDTO);
-        return new ResponseEntity(HttpStatus.OK);
-    }
+//
+//    @RequestMapping(value = "all", method = RequestMethod.GET, produces = "application/json")
+//    public @ResponseBody
+//    ArrayList<MetalDTO> getAllMetals() {
+//        return metalService.getMetals();
+//    }
+//
+//    @RequestMapping(value = "allactive", method = RequestMethod.GET, produces = "application/json")
+//    public @ResponseBody
+//    ArrayList<MetalDTO> getAllActiveMetals() {
+//        return metalService.getActiveMetals();
+//    }
+//
+//
+//    @RequestMapping(value = "save", method = RequestMethod.POST)
+//    public ResponseEntity saveMetal(@RequestBody MetalDTO metalDTO) {
+//        metalService.addMetal(metalDTO);
+//        return new ResponseEntity(metalDTO, HttpStatus.OK);
+//    }
+//
+//    @RequestMapping(value = "update", method = RequestMethod.POST)
+//    public ResponseEntity updateMetal(@RequestBody MetalDTO metalDTO) {
+//        metalService.updateMetal(metalDTO);
+//        return new ResponseEntity(HttpStatus.OK);
+//    }
 
 //    @RequestMapping(value = "delete", method = RequestMethod.DELETE)
 //    public ResponseEntity deleteMetal(@RequestBody Metal metal) {

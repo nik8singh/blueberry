@@ -13,37 +13,37 @@ public class TestMappingOfInventory {
     private ProductController productController;
 
 
-    @Test
-    public void getProductGemstones() {
-        System.out.println();
-        System.out.println(productController.getAllProducts().iterator().next().getGemstoneDTOS());
-    }
-
-    @Test
-    public void getProductMetal() {
-        System.out.println();
-        System.out.println(productController.getAllProducts().iterator().next().getMetalDTOS());
-    }
-
-    @Test
-    public void getProductJewelryType() {
-        System.out.println();
-        System.out.println(productController.getAllProducts().iterator().next().getJewelryTypeName());
-    }
-
-    /*
-     *  Products ===============
-     * */
-    @Test
-    public void getAvailableProducts() {
-        System.out.println();
-        System.out.println(productController.getAvailableProducts());
-    }
-
-    @Test
-    public void getProduct() {
-        System.out.println();
-        System.out.println(productController.getProduct(7L));
-    }
+//    @Test
+//    public void getProductGemstones() {
+//        System.out.println();
+//        System.out.println(productController.getAllProducts().iterator().next().getGemstoneDTOS());
+//    }
+//
+//    @Test
+//    public void getProductMetal() {
+//        System.out.println();
+//        System.out.println(productController.getAllProducts().iterator().next().getMetalDTOS());
+//    }
+//
+//    @Test
+//    public void getProductJewelryType() {
+//        System.out.println();
+//        System.out.println(productController.getAllProducts().iterator().next().getJewelryTypeName());
+//    }
+//
+//    /*
+//     *  Products ===============
+//     * */
+//    @Test
+//    public void getAvailableProducts() {
+//        System.out.println();
+//        System.out.println(productController.getAvailableProducts());
+//    }
+//
+//    @Test
+//    public void getProduct() {
+//        System.out.println();
+//        System.out.println(productController.getProduct(7L));
+//    }
 
 }

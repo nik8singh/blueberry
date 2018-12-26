@@ -17,5 +17,5 @@ public interface CouponDAO {
 
     List listInactiveCoupon();
 
-    Coupon getCoupon(long couponId);
+    Coupon getCoupon(String couponName);
 }

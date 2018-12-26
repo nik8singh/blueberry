@@ -18,32 +18,32 @@ public class JewelryTypeController {
     @Autowired
     public JewelryTypeService jewelryTypeService;
 
-    @RequestMapping(value = "all",method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody
-    ArrayList<JewelryTypeDTO> getAllJewelryType() {
-        return jewelryTypeService.getJewelryTypes();
-    }
-
-    @RequestMapping(value = "allactive", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody
-    ArrayList<JewelryTypeDTO> getAllActiveJewelryTypes() {
-
-        return jewelryTypeService.getActiveJewelryTypes();
-    }
-
-    @RequestMapping(value = "save",method = RequestMethod.POST)
-    public ResponseEntity saveJewelryType(@RequestBody JewelryTypeDTO jewelryTypeDTO) {
-
-        jewelryTypeService.addJewelryType(jewelryTypeDTO);
-        return new ResponseEntity(jewelryTypeDTO, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "update",method = RequestMethod.POST)
-    public ResponseEntity updateJewelryType(@RequestBody JewelryTypeDTO jewelryTypeDTO) {
-
-        jewelryTypeService.updateJewelryType(jewelryTypeDTO);
-        return new ResponseEntity(HttpStatus.OK);
-    }
+//    @RequestMapping(value = "all",method = RequestMethod.GET, produces = "application/json")
+//    public @ResponseBody
+//    ArrayList<JewelryTypeDTO> getAllJewelryType() {
+//        return jewelryTypeService.getJewelryTypes();
+//    }
+//
+//    @RequestMapping(value = "allactive", method = RequestMethod.GET, produces = "application/json")
+//    public @ResponseBody
+//    ArrayList<JewelryTypeDTO> getAllActiveJewelryTypes() {
+//
+//        return jewelryTypeService.getActiveJewelryTypes();
+//    }
+//
+//    @RequestMapping(value = "save",method = RequestMethod.POST)
+//    public ResponseEntity saveJewelryType(@RequestBody JewelryTypeDTO jewelryTypeDTO) {
+//
+//        jewelryTypeService.addJewelryType(jewelryTypeDTO);
+//        return new ResponseEntity(jewelryTypeDTO, HttpStatus.OK);
+//    }
+//
+//    @RequestMapping(value = "update",method = RequestMethod.POST)
+//    public ResponseEntity updateJewelryType(@RequestBody JewelryTypeDTO jewelryTypeDTO) {
+//
+//        jewelryTypeService.updateJewelryType(jewelryTypeDTO);
+//        return new ResponseEntity(HttpStatus.OK);
+//    }
 
 //    @RequestMapping(value = "delete",method = RequestMethod.DELETE)
 //    public ResponseEntity deleteJewelryType(@RequestBody JewelryTypeDTO jewelryTypeDTO) {

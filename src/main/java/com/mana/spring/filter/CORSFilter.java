@@ -1,26 +1,40 @@
 package com.mana.spring.filter;
 
-import org.springframework.stereotype.Component;
-
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
 public class  CORSFilter implements Filter {
 
+    public CORSFilter() {
+    }
+
     public void init(FilterConfig filterConfig) throws ServletException {
 
     }
 
-    public void doFilter(ServletRequest request, ServletResponse response,
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
                          FilterChain chain) throws IOException, ServletException {
-        HttpServletResponse res = (HttpServletResponse) response;
-        res.setHeader("Access-Control-Allow-Origin", "*");
-        res.setHeader("Access-Control-Allow-Methods","POST, GET, OPTIONS, DELETE");
-        res.setHeader("Access-Control-Allow-Headers", "X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept");
-        res.setHeader("Access-Control-Max-Age", "1728000");
-        chain.doFilter(request, res);
+
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        System.out.println("CORSFilter HTTP Request: " + request.getMethod());
+
+        // Authorize (allow) all domains to consume the content
+        ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Origin", "*");
+        ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Methods","GET, OPTIONS, HEAD, PUT, POST");
+
+        HttpServletResponse resp = (HttpServletResponse) servletResponse;
+
+        // For HTTP OPTIONS verb/method reply with ACCEPTED status code -- per CORS handshake
+        if (request.getMethod().equals("OPTIONS")) {
+            resp.setStatus(HttpServletResponse.SC_ACCEPTED);
+            return;
+        }
+
+        // pass the request along the filter chain
+        chain.doFilter(request, servletResponse);
     }
 
     public void destroy() {

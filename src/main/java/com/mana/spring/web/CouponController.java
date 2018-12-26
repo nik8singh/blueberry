@@ -19,7 +19,8 @@ public class CouponController {
     @Autowired
     public CouponService couponService;
 
-    @RequestMapping(value = "all", method = RequestMethod.GET, produces = "application/json")
+
+    @RequestMapping(value = "adm/all", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     ArrayList<Coupon> getAllCoupons() {
         return couponService.getCoupons();

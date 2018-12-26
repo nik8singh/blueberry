@@ -34,9 +34,9 @@ public class GemstoneDAOImpl implements GemstoneDAO {
         return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Gemstone gem where gem.gemstoneActive= :active ORDER BY gem.createdDate").setParameter("active", true).list();
     }
 
-    public Gemstone getGemstone(long gemstoneId) {
+    public Gemstone getGemstone(String gemstoneName) {
 
-        return (Gemstone) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Gemstone gem where gem.gemstoneId= :id ").setParameter("id", gemstoneId).list().get(0);
+        return (Gemstone) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Gemstone gem where gem.gemstoneName= :name ").setParameter("name", gemstoneName).list().get(0);
 
     }
 }

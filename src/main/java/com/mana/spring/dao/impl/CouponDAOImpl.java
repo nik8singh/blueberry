@@ -34,7 +34,7 @@ public class CouponDAOImpl implements CouponDAO {
         return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Coupon c where c.active = :ac").setParameter("ac", false).list();
     }
 
-    public Coupon getCoupon(long couponId) {
-        return (Coupon) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Coupon c where c.couponId = :id").setParameter("id", couponId).list().get(0);
+    public Coupon getCoupon(String couponName) {
+        return (Coupon) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Coupon c where c.couponName = :name").setParameter("name", couponName).list().get(0);
     }
 }

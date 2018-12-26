@@ -33,75 +33,75 @@ public class TestMapping {
 //        System.out.println(shops);
 //    }
 
-    @Test
-    public void getShop() {
-        ShopDTO shopDTO = new ShopDTO();
-        shopDTO.setShopName("GDL");
-        shopController.getShop(shopDTO);
-        System.out.println();
-//        System.out.println(shops);
-    }
+//    @Test
+//    public void getShop() {
+//        ShopDTO shopDTO = new ShopDTO();
+//        shopDTO.setShopName("GDL");
+//        shopController.getShop(shopDTO);
+//        System.out.println();
+////        System.out.println(shops);
+//    }
+////
+////    @Test
+////    public void deleteShopShouldNotDeleteAddress() {
+////
+////        Shop shop = new Shop();
+////        shop.setShopId(13L);
+////        Address address = new Address();
+////        address.setAddressId(14L);
+////        shop.setShopAddress(address);
+////        shopController.deleteShop(shop);
+////        List<Shop> shops = shopController.getAllShops();
+////        System.out.println();
+////        System.out.println(shops);
+////
+////    }
 //
 //    @Test
-//    public void deleteShopShouldNotDeleteAddress() {
-//
-//        Shop shop = new Shop();
-//        shop.setShopId(13L);
-//        Address address = new Address();
-//        address.setAddressId(14L);
-//        shop.setShopAddress(address);
-//        shopController.deleteShop(shop);
-//        List<Shop> shops = shopController.getAllShops();
+//    public void getAllUsers() {
+//        List<User> users = userController.getAllUsers();
 //        System.out.println();
-//        System.out.println(shops);
+//        System.out.println(users);
+//    }
+//
+//    @Test
+//    public void removeUserAddress() {
+////
+////        User user = userController.getAllUsers().get(0);
+////        Address add = user.getAddresses().iterator().next();
+////        System.out.println(add);
+////
+////        for (Iterator<User> iterator = add.getUser().iterator(); iterator.hasNext(); ) {
+////            if (iterator.next().getUserId() == user.getUserId()) {
+////                iterator.remove();
+////                break;
+////            }
+////        }
+////
+////        for (Iterator<Address> iterator = user.getAddresses().iterator(); iterator.hasNext(); ) {
+////            Address a = iterator.next();
+////            if (a.getAddressId() == add.getAddressId()) {
+////                iterator.remove();
+////                break;
+////            }
+////        }
+////
+////        System.out.println(user);
+////
+////        userController.updateUser(user);
 //
 //    }
-
-    @Test
-    public void getAllUsers() {
-        List<User> users = userController.getAllUsers();
-        System.out.println();
-        System.out.println(users);
-    }
-
-    @Test
-    public void removeUserAddress() {
 //
-//        User user = userController.getAllUsers().get(0);
-//        Address add = user.getAddresses().iterator().next();
-//        System.out.println(add);
+//    @Test
+//    public void deletingUserShouldNotDeleteAddress() {
+////        List<User> users = userController.getAllUsers();
+////        for (User a : users) {
+////            System.out.println(a);
+////            userController.deleteUser(a);
+////            break;
+////        }
 //
-//        for (Iterator<User> iterator = add.getUser().iterator(); iterator.hasNext(); ) {
-//            if (iterator.next().getUserId() == user.getUserId()) {
-//                iterator.remove();
-//                break;
-//            }
-//        }
 //
-//        for (Iterator<Address> iterator = user.getAddresses().iterator(); iterator.hasNext(); ) {
-//            Address a = iterator.next();
-//            if (a.getAddressId() == add.getAddressId()) {
-//                iterator.remove();
-//                break;
-//            }
-//        }
-//
-//        System.out.println(user);
-//
-//        userController.updateUser(user);
-
-    }
-
-    @Test
-    public void deletingUserShouldNotDeleteAddress() {
-//        List<User> users = userController.getAllUsers();
-//        for (User a : users) {
-//            System.out.println(a);
-//            userController.deleteUser(a);
-//            break;
-//        }
-
-
-    }
+//    }
 
 }
