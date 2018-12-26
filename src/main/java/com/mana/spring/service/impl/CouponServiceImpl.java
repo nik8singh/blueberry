@@ -19,6 +19,14 @@ public class CouponServiceImpl implements CouponService {
         return (ArrayList<Coupon>) couponDAO.listCoupon();
     }
 
+    public ArrayList<Coupon> getActiveCoupons() {
+        return null;
+    }
+
+    public ArrayList<Coupon> getInactiveCoupons() {
+        return null;
+    }
+
     public void addCoupon(Coupon coupon) {
         coupon.setActive(true);
         couponDAO.saveCoupon(coupon);

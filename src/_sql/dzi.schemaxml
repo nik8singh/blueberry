@@ -9,7 +9,7 @@
 <left>626</left>
 <top>72</top>
 <width>181</width>
-<height>306</height>
+<height>360</height>
 <sql_create_table>CREATE TABLE `product` (
   `product_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `product_name` varchar(255) DEFAULT NULL,
@@ -35,10 +35,10 @@
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="gemstone" view="colnames">
-<left>64</left>
-<top>247</top>
+<left>63</left>
+<top>246</top>
 <width>171</width>
-<height>175</height>
+<height>180</height>
 <sql_create_table>CREATE TABLE `gemstone` (
   `gemstone_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `gemstone_name` varchar(20) DEFAULT NULL,
@@ -53,7 +53,7 @@
 <left>321</left>
 <top>228</top>
 <width>169</width>
-<height>158</height>
+<height>163</height>
 <sql_create_table>CREATE TABLE `gemstone_product` (
   `gemstone_product_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `gemstone_id` bigint(20) NOT NULL,
@@ -65,13 +65,13 @@
   KEY `fk_product_gemstone` (`product_id`),
   CONSTRAINT `fk_gemstone_product` FOREIGN KEY (`gemstone_id`) REFERENCES `gemstone` (`gemstone_id`),
   CONSTRAINT `fk_product_gemstone` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="address" view="colnames">
 <left>827</left>
 <top>479</top>
 <width>147</width>
-<height>277</height>
+<height>265</height>
 <sql_create_table>CREATE TABLE `address` (
   `address_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `address_fullname` varchar(255) DEFAULT NULL,
@@ -94,7 +94,7 @@
 <left>1214</left>
 <top>497</top>
 <width>132</width>
-<height>226</height>
+<height>214</height>
 <sql_create_table>CREATE TABLE `user` (
   `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_firstname` varchar(100) NOT NULL,
@@ -113,7 +113,7 @@
 <left>412</left>
 <top>599</top>
 <width>189</width>
-<height>175</height>
+<height>180</height>
 <sql_create_table>CREATE TABLE `jewelry_type` (
   `jewelry_type_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `jewelry_type_name` varchar(20) DEFAULT NULL,
@@ -128,7 +128,7 @@
 <left>100</left>
 <top>449</top>
 <width>147</width>
-<height>175</height>
+<height>180</height>
 <sql_create_table>CREATE TABLE `metal` (
   `metal_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `metal_name` varchar(20) DEFAULT NULL,
@@ -143,7 +143,7 @@
 <left>347</left>
 <top>415</top>
 <width>145</width>
-<height>158</height>
+<height>163</height>
 <sql_create_table>CREATE TABLE `metal_product` (
   `metal_product_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) NOT NULL,
@@ -161,23 +161,24 @@
 <left>58</left>
 <top>23</top>
 <width>191</width>
-<height>192</height>
+<height>197</height>
 <sql_create_table>CREATE TABLE `coupon` (
   `coupon_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `coupon_name` varchar(255) NOT NULL,
   `coupon_discount_percent` double(20,5) NOT NULL,
+  `active` bit(1) DEFAULT b'1',
   `coupon_start_date` datetime DEFAULT NULL,
   `coupon_end_date` datetime DEFAULT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`coupon_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="image" view="colnames">
 <left>313</left>
 <top>22</top>
-<width>159</width>
-<height>192</height>
+<width>176</width>
+<height>197</height>
 <sql_create_table>CREATE TABLE `image` (
   `image_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `image_site_location` varchar(255) NOT NULL,
@@ -192,10 +193,10 @@
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="cartItem" view="colnames">
-<left>1050</left>
-<top>56</top>
+<left>1048</left>
+<top>37</top>
 <width>142</width>
-<height>175</height>
+<height>180</height>
 <sql_create_table>CREATE TABLE `cartitem` (
   `cartItem_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) NOT NULL,
@@ -214,7 +215,7 @@
 <left>662</left>
 <top>534</top>
 <width>142</width>
-<height>226</height>
+<height>231</height>
 <sql_create_table>CREATE TABLE `shop` (
   `shop_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `shop_name` varchar(255) NOT NULL,
@@ -232,9 +233,9 @@
 </table>
 <table name="invoice" view="colnames">
 <left>998</left>
-<top>338</top>
+<top>330</top>
 <width>145</width>
-<height>209</height>
+<height>214</height>
 <sql_create_table>CREATE TABLE `invoice` (
   `invoice_id` bigint(20) NOT NULL,
   `user_id` bigint(20) DEFAULT NULL,
@@ -252,10 +253,10 @@
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="purchase" view="colnames">
-<left>832</left>
-<top>250</top>
-<width>142</width>
-<height>175</height>
+<left>829</left>
+<top>238</top>
+<width>145</width>
+<height>180</height>
 <sql_create_table>CREATE TABLE `purchase` (
   `purchase_id` bigint(20) NOT NULL,
   `product_id` bigint(20) DEFAULT NULL,

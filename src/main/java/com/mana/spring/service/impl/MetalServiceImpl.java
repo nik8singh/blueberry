@@ -2,11 +2,7 @@ package com.mana.spring.service.impl;
 
 import com.mana.spring.dao.MetalDAO;
 import com.mana.spring.domain.Metal;
-import com.mana.spring.dto.MetalDTO;
 import com.mana.spring.service.MetalService;
-import com.mana.spring.util.ConverterDAOtoDTO;
-import com.mana.spring.util.ConverterDTOtoDAO;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;

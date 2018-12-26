@@ -2,6 +2,7 @@ package com.mana.spring.service.impl;
 
 import com.mana.spring.dao.UserDAO;
 import com.mana.spring.domain.Address;
+import com.mana.spring.domain.Shop;
 import com.mana.spring.domain.User;
 import com.mana.spring.dto.AddressDTO;
 import com.mana.spring.dto.UserDTO;
@@ -26,45 +27,43 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    public void addUser(UserDTO userDTO) {
-        userDAO.saveUser(ConverterDTOtoDAO.userDtoToDao(userDTO));
+    public void addUser(User user) {
+        userDAO.saveUser(user);
     }
 
-    public void updateUser(UserDTO userDTO) {
+    public void updateUser(User user) {
 
-        User user = userDAO.getUserByEmail(userDTO.getUserEmail());
-        if (userDTO.getUserFirstName() != null)
-            user.setUserFirstName(userDTO.getUserFirstName());
-        if (userDTO.getUserLastName() != null)
-            user.setUserLastName(userDTO.getUserLastName());
-        if (userDTO.getAuthorizationLevel() != null)
-            user.setAuthorizationLevel(userDTO.getAuthorizationLevel());
+        User userFromdb = userDAO.getUserByEmail(user.getUserEmail());
+        if (user.getUserFirstName() != null)
+            userFromdb.setUserFirstName(user.getUserFirstName());
+        if (user.getUserLastName() != null)
+            userFromdb.setUserLastName(user.getUserLastName());
+        if (user.getAuthorizationLevel() != null)
+            userFromdb.setAuthorizationLevel(user.getAuthorizationLevel());
         user.setCreatedDate(null);
         user.setUpdatedDate(null);
         System.out.println("Ready to update : " + user);
         userDAO.updateUser(user);
     }
 
-    public void deleteUser(UserDTO userDTO) {
-        userDAO.deleteUser(userDTO.getUserEmail());
+    public void deleteUser(User user) {
+        userDAO.deleteUser(user.getUserEmail());
     }
 
-    public void updatePassword(UserDTO userDTO) {
-        userDAO.updatePassword(ConverterDTOtoDAO.userDtoToDao(userDTO));
+    public void updatePassword(User user) {
+        userDAO.updatePassword(user);
     }
 
-    public void addAddress(UserDTO userDTO) {
+    public void addAddress(User user) {
 
         // original
-        User user = userDAO.getUserByEmail(userDTO.getUserEmail());
+        User userFromDB = userDAO.getUserByEmail(user.getUserEmail());
         Set<Address> addresses = user.getAddresses();
 
         // add new to original
-        for (AddressDTO addressDTO : userDTO.getAddressesDto()) {
-            Address target = new Address();
-            BeanUtils.copyProperties(addressDTO, target);
-            target.setUser(user);
-            addresses.add(target);
+        for (Address address : user.getAddresses()) {
+            address.setUser(user);
+            addresses.add(address);
         }
 
         // save new to original
@@ -79,15 +78,15 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    public UserDTO getUserByEmail(String email) {
-        UserDTO userDTO = ConverterDAOtoDTO.userDaoToDto(userDAO.getUserByEmail(email));
-        Set<AddressDTO> addresses = userDTO.getAddressesDto();
+    public User getUserByEmail(String email) {
+        User user =userDAO.getUserByEmail(email);
+        Set<Address> addresses = user.getAddresses();
 
-        for (AddressDTO addressDTO : addresses)
-            if (!addressDTO.isActive())
-                addresses.remove(addressDTO);
+        for (Address address : addresses)
+            if (!address.isActive())
+                addresses.remove(address);
 
-        return userDTO;
+        return user;
     }
 
 

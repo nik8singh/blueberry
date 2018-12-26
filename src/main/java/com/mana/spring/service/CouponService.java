@@ -8,6 +8,10 @@ public interface CouponService {
 
     ArrayList<Coupon> getCoupons();
 
+    ArrayList<Coupon> getActiveCoupons();
+
+    ArrayList<Coupon> getInactiveCoupons();
+
     void addCoupon(Coupon coupon);
 
     void updateCoupon(Coupon coupon);

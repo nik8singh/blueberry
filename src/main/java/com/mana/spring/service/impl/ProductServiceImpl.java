@@ -2,11 +2,7 @@ package com.mana.spring.service.impl;
 
 import com.mana.spring.dao.ProductDAO;
 import com.mana.spring.domain.Product;
-import com.mana.spring.dto.ProductDTO;
 import com.mana.spring.service.ProductService;
-import com.mana.spring.util.ConverterDAOtoDTO;
-import com.mana.spring.util.ConverterDTOtoDAO;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
@@ -18,48 +14,33 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductDAO productDAO;
 
-    public ArrayList<ProductDTO> getProducts() {
+    public ArrayList<Product> getProducts() {
 
         ArrayList<Product> products = (ArrayList<Product>) productDAO.listProduct();
-        ArrayList<ProductDTO> productDTOs = new ArrayList<ProductDTO>();
-
-        for (Product product : products) {
-            productDTOs.add(ConverterDAOtoDTO.productDaoToDto(product));
-        }
-
-        return productDTOs;
+        return products;
     }
 
-    public void addProduct(ProductDTO productDTO) {
-        Product product = ConverterDTOtoDAO.productDtoToDao(productDTO);
+    public void addProduct(Product product) {
         productDAO.saveProduct(product);
     }
 
-    public void updateProduct(ProductDTO productDTO) {
+    public void updateProduct(Product product) {
 
-
-        ProductDTO originalProductDTO = getProduct(productDTO.getProductId());
-        BeanUtils.copyProperties(productDTO, originalProductDTO);
-
-        Product modifiedProduct = ConverterDTOtoDAO.productDtoToDao(originalProductDTO);
-
-        productDAO.updateProduct(modifiedProduct);
+        productDAO.updateProduct(product);
     }
 
-    public ArrayList<ProductDTO> getAvailableProducts() {
-        ArrayList<ProductDTO> productDTOs = new ArrayList<ProductDTO>();
+    public ArrayList<Product> getAvailableProducts() {
         ArrayList<Product> products = (ArrayList<Product>) productDAO.listAvailableProducts();
 
-        for (Product source : products) {
-            ProductDTO target = ConverterDAOtoDTO.productDaoToDto(source);
-            productDTOs.add(target);
-        }
-
-        return productDTOs;
+        return products;
     }
 
-    public ProductDTO getProduct(Long productId) {
+    public Product getProduct(Long productId) {
         Product product = productDAO.getProduct(productId);
-        return ConverterDAOtoDTO.productDaoToDto(product);
+        return product;
+    }
+
+    public void deleteProduct(Product product) {
+
     }
 }
