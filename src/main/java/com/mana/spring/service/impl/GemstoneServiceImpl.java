@@ -32,17 +32,17 @@ public class GemstoneServiceImpl implements GemstoneService {
     }
 
     public void updateGemstone(Gemstone gemstone) {
-        Gemstone gemstoneFromDb = gemstoneDAO.getGemstone(gemstone.getGemstoneId());
-        gemstoneFromDb.setGemstoneName(gemstone.getGemstoneName());
-        gemstoneFromDb.setGemstoneDescription(gemstone.getGemstoneDescription());
-        gemstoneFromDb.setCreatedDate(null);
-        gemstoneFromDb.setUpdatedDate(null);
-        gemstoneDAO.saveGemstone(gemstoneFromDb);
+//        Gemstone gemstoneFromDb = gemstoneDAO.getGemstone(gemstone.getGemstoneId());
+//        gemstoneFromDb.setGemstoneName(gemstone.getGemstoneName());
+//        gemstoneFromDb.setGemstoneDescription(gemstone.getGemstoneDescription());
+//        gemstoneFromDb.setCreatedDate(null);
+//        gemstoneFromDb.setUpdatedDate(null);
+//        gemstoneDAO.saveGemstone(gemstoneFromDb);
     }
 
     public Gemstone getGemstoneById(long gemstoneId) {
-        Gemstone gemstone = gemstoneDAO.getGemstone(gemstoneId);
-        return gemstone;
+//        Gemstone gemstone = gemstoneDAO.getGemstone(gemstoneId);
+        return null;
     }
 
     public void deleteGemstone(Gemstone gemstone) {
