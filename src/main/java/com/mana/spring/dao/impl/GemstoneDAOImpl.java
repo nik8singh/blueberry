@@ -22,21 +22,40 @@ public class GemstoneDAOImpl implements GemstoneDAO {
         hibernateTemplate.update(gemstone);
     }
 
-//    public void deleteGemstone(Gemstone gemstone) {
-//        hibernateTemplate.delete(gemstone);
-//    }
+    public Gemstone getGemstone(String gemstoneName, boolean requireProducts) {
 
-    public List listGemstones() {
-        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Gemstone gem ORDER BY gem.createdDate").list();
+        Gemstone gemstone = (Gemstone) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Gemstone gem where gem.gemstoneName= :name ").setParameter("name", gemstoneName).uniqueResult();
+
+
+        // this will force Hibernate to execute the query that will join with the gemstone's products and populate the appropriate information into the user object.
+        if (requireProducts)
+            hibernateTemplate.initialize(gemstone.getProducts());
+
+        return gemstone;
+
     }
 
-    public List listActiveGemstones() {
-        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Gemstone gem where gem.gemstoneActive= :active ORDER BY gem.createdDate").setParameter("active", true).list();
+    public void deactivateGemstone(String gemstoneName) {
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("update com.mana.spring.domain.Gemstone gem set gem.gemstoneActive = false where gem.gemstoneName= :name ").setParameter("name", gemstoneName).executeUpdate();
     }
 
-    public Gemstone getGemstone(String gemstoneName) {
+    public List listActiveGemstones(int start, int end) {
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Gemstone gem where gem.gemstoneActive=true ORDER BY gem.createdDate").setFirstResult(start).setMaxResults(end).list();
 
-        return (Gemstone) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Gemstone gem where gem.gemstoneName= :name ").setParameter("name", gemstoneName).list().get(0);
+    }
 
+    public List listInactiveGemstones(int start, int end) {
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Gemstone gem where gem.gemstoneActive=false ORDER BY gem.createdDate").setFirstResult(start).setMaxResults(end).list();
+    }
+
+    public Gemstone getGemstoneById(long gemstoneId) {
+        Gemstone gemstone = (Gemstone) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Gemstone gem where gem.gemstoneId= :id ").setParameter("id", gemstoneId).uniqueResult();
+        hibernateTemplate.initialize(gemstone.getProducts());
+
+        return gemstone;
+    }
+
+    public long count(boolean active) {
+        return (Long) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("select count(*) from com.mana.spring.domain.Gemstone gem where gem.gemstoneActive = :ac").setParameter("ac", active).uniqueResult();
     }
 }

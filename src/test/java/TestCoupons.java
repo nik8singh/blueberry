@@ -31,7 +31,7 @@ public class TestCoupons {
 
     @Test
     public void getCoupon() {
-        System.out.println(couponController.getCoupon("Xmas"));
+        System.out.println(couponController.getCoupon("test"));
     }
 
     @Test

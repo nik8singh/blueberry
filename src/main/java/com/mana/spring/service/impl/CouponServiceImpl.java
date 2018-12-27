@@ -81,7 +81,7 @@ public class CouponServiceImpl implements CouponService {
         CouponListDTO couponListDTO = new CouponListDTO();
         couponListDTO.setCount(count);
         couponListDTO.setCurrentPageNumber(pageNumber);
-        couponListDTO.setTotalPages((int) Math.ceil((double) count / 4));
+        couponListDTO.calculateAndSetTotalPages();
 
         return couponListDTO;
     }

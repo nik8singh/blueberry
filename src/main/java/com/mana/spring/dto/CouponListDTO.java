@@ -1,15 +1,13 @@
 package com.mana.spring.dto;
 
 import com.mana.spring.domain.Coupon;
+import com.mana.spring.util.Pagination;
 
 import java.util.ArrayList;
 
-public class CouponListDTO {
+public class CouponListDTO extends Pagination {
 
     private ArrayList<Coupon> coupons;
-    private long count;
-    private int totalPages;
-    private int currentPageNumber;
 
     public CouponListDTO() {
     }
@@ -20,30 +18,6 @@ public class CouponListDTO {
 
     public void setCoupons(ArrayList<Coupon> coupons) {
         this.coupons = coupons;
-    }
-
-    public long getCount() {
-        return count;
-    }
-
-    public void setCount(long count) {
-        this.count = count;
-    }
-
-    public int getTotalPages() {
-        return totalPages;
-    }
-
-    public void setTotalPages(int totalPages) {
-        this.totalPages = totalPages;
-    }
-
-    public int getCurrentPageNumber() {
-        return currentPageNumber;
-    }
-
-    public void setCurrentPageNumber(int currentPageNumber) {
-        this.currentPageNumber = currentPageNumber;
     }
 
     @Override

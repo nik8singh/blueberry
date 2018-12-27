@@ -10,11 +10,15 @@ public interface MetalDAO {
 
     void updateMetal(Metal metal);
 
-//    void deleteMetal(Metal metal);
+    void deactivateMetal(String metalName);
 
-    List listMetals();
+    List listActiveMetals(int start, int end);
 
-    List listActiveMetals();
+    List listInactiveMetals(int start, int end);
 
-    Metal getMetal(String metalName);
+    Metal getMetal(String metalName, boolean requireProducts);
+
+    Metal getMetalById(long metalId);
+
+    long count(boolean active);
 }

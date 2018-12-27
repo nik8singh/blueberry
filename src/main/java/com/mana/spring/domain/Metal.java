@@ -34,7 +34,7 @@ public class Metal {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "metal_product",
             joinColumns = {@JoinColumn(name = "metal_id")},

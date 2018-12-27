@@ -34,7 +34,7 @@ public class Gemstone {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "gemstone_product",
             joinColumns = {@JoinColumn(name = "gemstone_id")},
