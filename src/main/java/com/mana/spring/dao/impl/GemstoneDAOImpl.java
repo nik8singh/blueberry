@@ -40,12 +40,12 @@ public class GemstoneDAOImpl implements GemstoneDAO {
     }
 
     public List listActiveGemstones(int start, int end) {
-        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Gemstone gem where gem.gemstoneActive=true ORDER BY gem.createdDate").setFirstResult(start).setMaxResults(end).list();
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Gemstone gem where gem.gemstoneActive=true").setFirstResult(start).setMaxResults(end).list();
 
     }
 
     public List listInactiveGemstones(int start, int end) {
-        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Gemstone gem where gem.gemstoneActive=false ORDER BY gem.createdDate").setFirstResult(start).setMaxResults(end).list();
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Gemstone gem where gem.gemstoneActive=false").setFirstResult(start).setMaxResults(end).list();
     }
 
     public Gemstone getGemstoneById(long gemstoneId) {

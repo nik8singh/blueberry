@@ -21,7 +21,7 @@ public class TestGemstone {
     @Test
     public void getActiveGemstones() {
 
-        System.out.println(gemstoneController.getAllActiveGemstones(1));
+        System.out.println(gemstoneController.getAllActiveGemstones(4));
 
     }
 
@@ -31,28 +31,27 @@ public class TestGemstone {
     }
 
     @Test
-    public void getGemstoneProducts() { // Should fail because of lazy fetch type
+    public void getGemstoneProducts() {
+        // Should fail because of lazy fetch type
         System.out.println(gemstoneController.getGemstone("ruby").getProducts());
     }
 
 
     @Test
     public void addNewGemstones() {
-
         Gemstone gemstone = new Gemstone();
-        gemstone.setGemstoneName("Unit Test");
-        gemstone.setGemstoneDescription("Test test test");
+        gemstone.setGemstoneName("HJDHFI");
+        gemstone.setGemstoneDescription("Test HHH");
         gemstone.setGemstoneActive(true);
         System.out.println(gemstoneController.saveGemstone(gemstone));
-
     }
 
     @Test
     public void updateGemstone() {
         Gemstone gemstone = new Gemstone();
-        gemstone.setGemstoneId(24L);
-        gemstone.setGemstoneName("emerald");
-        gemstone.setGemstoneDescription("A Green Gemstone");
+        gemstone.setGemstoneId(29L);
+        gemstone.setGemstoneName("amber");
+        gemstone.setGemstoneDescription("A Fire Gemstone");
         gemstone.setGemstoneActive(true);
         System.out.println();
         gemstoneController.updateGemstone(gemstone);

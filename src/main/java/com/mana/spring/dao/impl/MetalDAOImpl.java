@@ -28,17 +28,17 @@ public class MetalDAOImpl implements MetalDAO {
     }
 
     public List listActiveMetals(int start, int end) {
-        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Metal met where met.metalActive= true ORDER BY met.createdDate").setFirstResult(start).setMaxResults(end).list();
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Metal met where met.metalActive= true").setFirstResult(start).setMaxResults(end).list();
 
     }
 
     public List listInactiveMetals(int start, int end) {
-        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Metal met where met.metalActive= false ORDER BY met.createdDate").setFirstResult(start).setMaxResults(end).list();
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Metal met where met.metalActive= false").setFirstResult(start).setMaxResults(end).list();
 
     }
 
     public Metal getMetal(String metalName, boolean requireProducts) {
-        Metal metal = (Metal) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Metal gem where gem.metalName= :name ").setParameter("name", metalName).uniqueResult();
+        Metal metal = (Metal) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Metal met where met.metalName= :name ").setParameter("name", metalName).uniqueResult();
 
         if (requireProducts)
             hibernateTemplate.initialize(metal.getProducts());
@@ -47,11 +47,13 @@ public class MetalDAOImpl implements MetalDAO {
     }
 
     public Metal getMetalById(long metalId) {
-        return null;
+        Metal metal = (Metal) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Metal met where met.metalId= :id ").setParameter("id", metalId).uniqueResult();
+        hibernateTemplate.initialize(metal.getProducts());
+        return metal;
     }
 
     public long count(boolean active) {
-        return 0;
+        return (Long) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("select count(*) from com.mana.spring.domain.Metal met where met.metalActive = :ac").setParameter("ac", active).uniqueResult();
     }
 
 }

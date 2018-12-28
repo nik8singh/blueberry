@@ -1,13 +1,10 @@
-import com.mana.spring.dto.JewelryTypeDTO;
+import com.mana.spring.domain.JewelryType;
 import com.mana.spring.web.JewelryTypeController;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.List;
 
 @ContextConfiguration({"classpath:test-servlet.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -16,65 +13,50 @@ public class TestJewelryType {
     @Autowired
     private JewelryTypeController jewelryTypeController;
 
-//    @Test
-//    public void getAllJewelryTypes() {
-//        List<JewelryTypeDTO> jewelryTypeDTOS = jewelryTypeController.getAllJewelryType();
-//        System.out.println();
-//        System.out.println(jewelryTypeDTOS);
-//
-//        //call jewelryTypeController.getAllJewelryType()
-//    }
-//
-//    @Test
-//    public void getActiveJewelryTypes() {
-//        List<JewelryTypeDTO> jewelryTypeDTOS = jewelryTypeController.getAllActiveJewelryTypes();
-//
-//        for(JewelryTypeDTO jewelryType : jewelryTypeDTOS)
-//            Assert.assertTrue(jewelryType.isJewelryTypeActive());
-//
-//        System.out.println();
-//        System.out.println(jewelryTypeDTOS);
-//
-//        // call jewelryTypeController.getAllActiveJewelryTypes()
-//    }
-//
-////    @Test
-////    public void getJewelryTypeProducts() {
-////        JewelryTypeDTO jewelryTypeDTO = new JewelryTypeDTO();
-////        jewelryTypeDTO.setJewelryTypeName("belts");
-////        System.out.println();
-////        System.out.println(jewelryTypeController.getJewelryTypeProducts(jewelryTypeDTO));
-////
-////        // call jewelryTypeController.getJewelryTypeProducts(jewelryTypeDTO)
-////    }
-//
-//    @Test
-//    public void addNewJewelryType() {
-//
-//        JewelryTypeDTO jewelryTypeDTO = new JewelryTypeDTO();
-//        jewelryTypeDTO.setJewelryTypeName("TestingNewAdd");
-//        jewelryTypeDTO.setJewelryTypeDescription("Test test test");
-//        jewelryTypeDTO.setJewelryTypeActive(true);
-//
-//        System.out.println();
-//        System.out.println(jewelryTypeController.saveJewelryType(jewelryTypeDTO));
-//
-//        // call jewelryTypeController.saveJewelryType(jewelryTypeDTO)
-//    }
-//
-//    @Test
-//    public void updateJewelryType(){
-//        JewelryTypeDTO jewelryTypeDTO = new JewelryTypeDTO();
-//        jewelryTypeDTO.setJewelryTypeId(14L);
-//        jewelryTypeDTO.setJewelryTypeName("TestingNewAdd");
-//        jewelryTypeDTO.setJewelryTypeDescription("Testing update to inactive");
-//        jewelryTypeDTO.setJewelryTypeActive(false);
-//        System.out.println();
-//        System.out.println(jewelryTypeController.updateJewelryType(jewelryTypeDTO));
-//
-//        // call metalController.updateMetal(metalDTO)
-//    }
+    @Test
+    public void getAllInactiveJewelryTypes() {
+        System.out.println(jewelryTypeController.getAllInactiveJewelryTypes(1));
+    }
 
+    @Test
+    public void getActiveJewelryTypes() {
+        System.out.println(jewelryTypeController.getAllActiveJewelryTypes(1));
+    }
+
+    @Test
+    public void getJewelryType() {
+        System.out.println(jewelryTypeController.getJewelryType("necklaces"));
+    }
+
+    @Test
+    public void getJewelryTypeProducts() {
+        // Should fail because of lazy fetch type
+        System.out.println(jewelryTypeController.getJewelryType("necklaces").getProducts());
+    }
+
+    @Test
+    public void addNewJewelryType() {
+        JewelryType jewelryType = new JewelryType();
+        jewelryType.setJewelryTypeName("jewelryTypeGHGIGI");
+        jewelryType.setJewelryTypeDescription("Test jewelryType GRGSD");
+        jewelryType.setJewelryTypeActive(true);
+        System.out.println(jewelryTypeController.saveJewelryType(jewelryType));
+    }
+
+    @Test
+    public void updateJewelryType() {
+        JewelryType jewelryType = new JewelryType();
+        jewelryType.setJewelryTypeId(8L);
+        jewelryType.setJewelryTypeName("necklaces");
+        jewelryType.setJewelryTypeDescription("Rings for neck");
+        jewelryType.setJewelryTypeActive(true);
+        jewelryTypeController.updateJewelryType(jewelryType);
+    }
+
+    @Test
+    public void deactivateJewelryType() {
+        System.out.println(jewelryTypeController.deactivateJewelryType("TestingNewAdd"));
+    }
 
 
 }

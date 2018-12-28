@@ -2,11 +2,9 @@ package com.mana.spring.service.impl;
 
 import com.mana.spring.dao.JewelryTypeDAO;
 import com.mana.spring.domain.JewelryType;
-import com.mana.spring.dto.JewelryTypeDTO;
+import com.mana.spring.dto.JewelryTypeListDTO;
 import com.mana.spring.service.JewelryTypeService;
-import com.mana.spring.util.ConverterDAOtoDTO;
-import com.mana.spring.util.ConverterDTOtoDAO;
-import org.springframework.beans.BeanUtils;
+import com.mana.spring.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
@@ -18,34 +16,49 @@ public class JewelryTypeServiceImpl implements JewelryTypeService {
     @Autowired
     private JewelryTypeDAO jewelryTypeDAO;
 
-    public ArrayList<JewelryType> getJewelryTypes() {
+    public JewelryTypeListDTO getActiveJewelryTypes(int pageNumber) {
+        int size = Pagination.getPageSize();
+        JewelryTypeListDTO jewelryTypeListDTO = createListDTO(pageNumber, true);
+        jewelryTypeListDTO.setJewelryTypes((ArrayList<JewelryType>) jewelryTypeDAO.listActiveJewelryType((pageNumber - 1) * size, size));
+        return jewelryTypeListDTO;
+    }
 
-        ArrayList<JewelryType> jewelryTypes = (ArrayList<JewelryType>) jewelryTypeDAO.listJewelryType();
-        return jewelryTypes;
-
+    public JewelryTypeListDTO getInactiveJewelryTypes(int pageNumber) {
+        int size = Pagination.getPageSize();
+        JewelryTypeListDTO jewelryTypeListDTO = createListDTO(pageNumber, false);
+        jewelryTypeListDTO.setJewelryTypes((ArrayList<JewelryType>) jewelryTypeDAO.listInactiveJewelryTypes((pageNumber - 1) * size, size));
+        return jewelryTypeListDTO;
     }
 
     public void addJewelryType(JewelryType jewelryType) {
         jewelryTypeDAO.saveJewelryType(jewelryType);
+
     }
 
     public void updateJewelryType(JewelryType jewelryType) {
-
-        // get from DB then update
-
-        jewelryTypeDAO.updateJewelryType(jewelryType);
+        JewelryType jewelryTypeFromDb = jewelryTypeDAO.getJewelryTypeById((jewelryType.getJewelryTypeId()));
+        jewelryTypeFromDb.setJewelryTypeName(jewelryType.getJewelryTypeName());
+        jewelryTypeFromDb.setJewelryTypeDescription(jewelryType.getJewelryTypeDescription());
+        jewelryTypeFromDb.setJewelryTypeActive(jewelryType.isJewelryTypeActive());
+        jewelryTypeFromDb.setCreatedDate(null);
+        jewelryTypeFromDb.setUpdatedDate(null);
+        jewelryTypeDAO.updateJewelryType(jewelryTypeFromDb);
     }
 
-    public void deleteJewelryType(JewelryType jewelryType) {
-//        jewelryTypeDAO.deleteJewelryType(jewelryType);
+    public void deactivateJewelryType(String jewelryTypeName) {
+        jewelryTypeDAO.deactivateJewelryType(jewelryTypeName);
     }
 
-    public ArrayList<JewelryType> getActiveJewelryTypes() {
-        ArrayList<JewelryType> jewelryTypes = (ArrayList<JewelryType>) jewelryTypeDAO.listActiveJewelryTypes();
-        return jewelryTypes;
+    public JewelryType getJewelryType(String jewelryTypeName) {
+        return jewelryTypeDAO.getJewelryType(jewelryTypeName, false);
     }
 
-    public JewelryType getJewelryType(JewelryType jewelryType) {
-        return null;
+    private JewelryTypeListDTO createListDTO(int pageNumber, boolean active) {
+        long count = jewelryTypeDAO.count(active);
+        JewelryTypeListDTO jewelryTypeListDTO = new JewelryTypeListDTO();
+        jewelryTypeListDTO.setCount(count);
+        jewelryTypeListDTO.setCurrentPageNumber(pageNumber);
+        jewelryTypeListDTO.calculateAndSetTotalPages();
+        return jewelryTypeListDTO;
     }
 }

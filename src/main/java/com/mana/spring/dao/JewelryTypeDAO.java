@@ -7,10 +7,19 @@ import java.util.List;
 public interface JewelryTypeDAO {
 
     void saveJewelryType(JewelryType jewelryType);
+
     void updateJewelryType(JewelryType jewelryType);
-//    void deleteJewelryType(JewelryType jewelryType);
-    List listJewelryType();
-    List listActiveJewelryTypes();
-    JewelryType getJewelryType(String jewelryTypeName);
+
+    void deactivateJewelryType(String jewelryTypeName);
+
+    List listActiveJewelryType(int start, int end);
+
+    List listInactiveJewelryTypes(int start, int end);
+
+    JewelryType getJewelryType(String jewelryTypeName, boolean requireProducts);
+
+    JewelryType getJewelryTypeById(long jewelryTypeId);
+
+    long count(boolean active);
 
 }

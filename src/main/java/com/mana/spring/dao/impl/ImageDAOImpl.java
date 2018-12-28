@@ -2,7 +2,6 @@ package com.mana.spring.dao.impl;
 
 import com.mana.spring.dao.ImageDAO;
 import com.mana.spring.domain.Image;
-import com.mana.spring.domain.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 
@@ -19,27 +18,32 @@ public class ImageDAOImpl implements ImageDAO {
         hibernateTemplate.save(image);
     }
 
-    public void updateImage(Image image) {
-
-        hibernateTemplate.update(image);
+    public void updateImageName(Image image) {
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("update com.mana.spring.domain.Image img set img.imageName=:name where img.imageId= :id ").setParameter("id", image.getImageId()).setParameter("name", image.getImageName()).executeUpdate();
     }
 
-    public void deleteImage(Image image) {
-
-        hibernateTemplate.delete(image);
+    public void deleteImageByProductAndPriority(long productId, int imagePriority) {
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("delete com.mana.spring.domain.Image img where img.product.productId = :id and img.imagePriority=:priority").setParameter("id", productId).setParameter("priority", imagePriority).executeUpdate();
     }
 
-    public List getImagesBySiteLocation(String imageSiteLocation) {
-        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Image img where img.imageSiteLocation= :siteLocation ").setParameter("siteLocation", imageSiteLocation).list();
+    public void deleteImageByPanelAndPriority(String panelName, int imagePriority) {
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("delete com.mana.spring.domain.Image img where img.imagePanelName = :panelName and img.imagePriority=:priority").setParameter("panelName", panelName).setParameter("priority", imagePriority).executeUpdate();
     }
 
-    public List getImagesByProduct(Long productId) {
-        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Image img where img.product.productId= :product ").setParameter("product", productId).list();
-
+    public Image getImage(String imageName) {
+        return (Image) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Image img where img.imageName = :name").setParameter("name", imageName).uniqueResult();
     }
 
-    public List getImageByProductPriority(Image image) {
-        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Image img where img.product.productId= :product and img.imagePriority= :priority").setParameter("product", image.getProduct().getProductId()).setParameter("priority",image.getImagePriority()).list();
-
+    public List getImagesByPage(String pageName) {
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Image img where img.imagePageName = :name").setParameter("name", pageName).list();
     }
+
+    public List getImagesByPanel(String panelName) {
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Image img where img.imagePanelName = :name").setParameter("name", panelName).list();
+    }
+
+    public long getProductImagesCount(long productId) {
+        return (Long) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("select count(*) from com.mana.spring.domain.Image img where img.product.productId = :id").setParameter("id", productId).uniqueResult();
+    }
+
 }

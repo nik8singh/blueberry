@@ -1,22 +1,23 @@
 package com.mana.spring.service;
 
 import com.mana.spring.domain.Image;
-import com.mana.spring.domain.Product;
 
 import java.util.ArrayList;
 
 public interface ImageService {
 
-    ArrayList<Image> getProductImages(Product product);
+    Image getImage(String imageName);
 
-    ArrayList<Image> getSiteImages(String siteLocation);
+    ArrayList<Image> getImagesByPage(String pageName);
+
+    ArrayList<Image> getImagesByPanel(String panelName);
 
     void addImage(Image image);
 
     void updateImage(Image image);
 
-    void deleteImage(Image image);
+    void deleteImageByProductPriority(long productId, int imagePriority);
 
-    void deleteImageByProductPriority(Image image);
+    void deleteImageByPanelPriority(String panelName, int imagePriority);
 
 }

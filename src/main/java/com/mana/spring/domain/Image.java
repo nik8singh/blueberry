@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.Date;
 
 @Entity
@@ -15,8 +16,14 @@ public class Image {
     @Column(name = "image_id")
     private long imageId;
 
-    @Column(name = "image_site_location")
-    private String imageSiteLocation;
+    @Column(name = "image_name")
+    private String imageName;
+
+    @Column(name = "image_panel_name")
+    private String imagePanelName;
+
+    @Column(name = "image_page_name")
+    private String imagePageName;
 
     @Column(name = "image")
     private byte[] image;
@@ -32,7 +39,7 @@ public class Image {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -50,12 +57,36 @@ public class Image {
         this.imageId = imageId;
     }
 
-    public String getImageSiteLocation() {
-        return imageSiteLocation;
+    public String getImageName() {
+        return imageName;
     }
 
-    public void setImageSiteLocation(String imageSiteLocation) {
-        this.imageSiteLocation = imageSiteLocation;
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public String getImagePanelName() {
+        return imagePanelName;
+    }
+
+    public void setImagePanelName(String imagePanelName) {
+        this.imagePanelName = imagePanelName;
+    }
+
+    public String getImagePageName() {
+        return imagePageName;
+    }
+
+    public void setImagePageName(String imagePageName) {
+        this.imagePageName = imagePageName;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     public int getImagePriority() {
@@ -90,23 +121,18 @@ public class Image {
         this.product = product;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
     @Override
     public String toString() {
         return "\nImage{" +
-                "\n\timageId= " + imageId +
-                "\n\timageSiteLocation= " + imageSiteLocation +
-                "\n\timage= " + image +
-                "\n\timagePriority= " + imagePriority +
-                "\n\tcreatedDate= " + createdDate +
-                "\n\tupdatedDate= " + updatedDate +
+                "\nimageId=" + imageId +
+                "\n\tImageName='" + imageName + '\'' +
+                "\n\timagePanelName='" + imagePanelName + '\'' +
+                "\n\timagePageName='" + imagePageName + '\'' +
+                "\n\timage=" + Arrays.toString(image) +
+                "\n\timagePriority=" + imagePriority +
+                "\n\tcreatedDate=" + createdDate +
+                "\n\tupdatedDate=" + updatedDate +
+                "\n\tproduct=" + product +
                 '}';
     }
 }

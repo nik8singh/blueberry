@@ -24,14 +24,14 @@ public class CouponServiceImpl implements CouponService {
     public CouponListDTO getActiveCoupons(int pageNumber) {
         int size  = Pagination.getPageSize();
         CouponListDTO couponListDTO = createListDTO(pageNumber, true);
-        couponListDTO.setCoupons((ArrayList<Coupon>) couponDAO.listActiveCoupon((pageNumber - 1) * size, pageNumber * size));
+        couponListDTO.setCoupons((ArrayList<Coupon>) couponDAO.listActiveCoupon((pageNumber - 1) * size, size));
         return couponListDTO;
     }
 
     public CouponListDTO getInactiveCoupons(int pageNumber) {
         int size  = Pagination.getPageSize();
         CouponListDTO couponListDTO = createListDTO(pageNumber, false);
-        couponListDTO.setCoupons((ArrayList<Coupon>) couponDAO.listInactiveCoupon((pageNumber - 1) * size, pageNumber * size));
+        couponListDTO.setCoupons((ArrayList<Coupon>) couponDAO.listInactiveCoupon((pageNumber - 1) * size, size));
         return couponListDTO;
     }
 

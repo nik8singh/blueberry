@@ -4,14 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "jewelry_type")
 public class JewelryType {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "jewelry_type_id")
     private long jewelryTypeId;
 
@@ -32,7 +34,7 @@ public class JewelryType {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productJewelryType", fetch = FetchType.EAGER)//, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productJewelryType", fetch = FetchType.LAZY)
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "productId")
@@ -40,16 +42,7 @@ public class JewelryType {
 
     public JewelryType() {
     }
-
-    public JewelryType(String jewelryTypeName, String jewelryTypeDescription, boolean jewelryTypeActive, Date createdDate, Date updatedDate, Set<Product> products) {
-        this.jewelryTypeName = jewelryTypeName;
-        this.jewelryTypeDescription = jewelryTypeDescription;
-        this.jewelryTypeActive = jewelryTypeActive;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
-        this.products = products;
-    }
-
+    
     public long getJewelryTypeId() {
         return jewelryTypeId;
     }

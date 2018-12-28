@@ -19,14 +19,14 @@ public class GemstoneServiceImpl implements GemstoneService {
     public GemstoneListDTO getActiveGemstones(int pageNumber) {
         int size = Pagination.getPageSize();
         GemstoneListDTO gemstoneListDTO = createListDTO(pageNumber, true);
-        gemstoneListDTO.setGemstones((ArrayList<Gemstone>) gemstoneDAO.listActiveGemstones((pageNumber - 1) * size, pageNumber * size));
+        gemstoneListDTO.setGemstones((ArrayList<Gemstone>) gemstoneDAO.listActiveGemstones((pageNumber - 1) * size, size));
         return gemstoneListDTO;
     }
 
     public GemstoneListDTO getInactiveGemstones(int pageNumber) {
         int size = Pagination.getPageSize();
         GemstoneListDTO gemstoneListDTO = createListDTO(pageNumber, false);
-        gemstoneListDTO.setGemstones((ArrayList<Gemstone>) gemstoneDAO.listInactiveGemstones((pageNumber - 1) * size, pageNumber * size));
+        gemstoneListDTO.setGemstones((ArrayList<Gemstone>) gemstoneDAO.listInactiveGemstones((pageNumber - 1) * size, size));
         return gemstoneListDTO;
     }
 
@@ -47,9 +47,10 @@ public class GemstoneServiceImpl implements GemstoneService {
         Gemstone gemstoneFromDb = gemstoneDAO.getGemstoneById(gemstone.getGemstoneId());
         gemstoneFromDb.setGemstoneName(gemstone.getGemstoneName());
         gemstoneFromDb.setGemstoneDescription(gemstone.getGemstoneDescription());
+        gemstoneFromDb.setGemstoneActive(gemstone.isGemstoneActive());
         gemstoneFromDb.setCreatedDate(null);
         gemstoneFromDb.setUpdatedDate(null);
-        gemstoneDAO.saveGemstone(gemstoneFromDb);
+        gemstoneDAO.updateGemstone(gemstoneFromDb);
     }
 
     private GemstoneListDTO createListDTO(int pageNumber, boolean active) {

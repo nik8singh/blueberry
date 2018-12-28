@@ -1,59 +1,60 @@
 package com.mana.spring.web;
 
-import com.mana.spring.domain.Product;
-import com.mana.spring.dto.JewelryTypeDTO;
+import com.mana.spring.domain.JewelryType;
+import com.mana.spring.dto.JewelryTypeListDTO;
 import com.mana.spring.service.JewelryTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Set;
-
 @RestController
-@RequestMapping("/jewelryType")
+@RequestMapping("/jt")
 public class JewelryTypeController {
 
     @Autowired
     public JewelryTypeService jewelryTypeService;
 
-//    @RequestMapping(value = "all",method = RequestMethod.GET, produces = "application/json")
-//    public @ResponseBody
-//    ArrayList<JewelryTypeDTO> getAllJewelryType() {
-//        return jewelryTypeService.getJewelryTypes();
-//    }
-//
-//    @RequestMapping(value = "allactive", method = RequestMethod.GET, produces = "application/json")
-//    public @ResponseBody
-//    ArrayList<JewelryTypeDTO> getAllActiveJewelryTypes() {
-//
-//        return jewelryTypeService.getActiveJewelryTypes();
-//    }
-//
-//    @RequestMapping(value = "save",method = RequestMethod.POST)
-//    public ResponseEntity saveJewelryType(@RequestBody JewelryTypeDTO jewelryTypeDTO) {
-//
-//        jewelryTypeService.addJewelryType(jewelryTypeDTO);
-//        return new ResponseEntity(jewelryTypeDTO, HttpStatus.OK);
-//    }
-//
-//    @RequestMapping(value = "update",method = RequestMethod.POST)
-//    public ResponseEntity updateJewelryType(@RequestBody JewelryTypeDTO jewelryTypeDTO) {
-//
-//        jewelryTypeService.updateJewelryType(jewelryTypeDTO);
-//        return new ResponseEntity(HttpStatus.OK);
-//    }
+    @RequestMapping(value = "cus/list/active/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    JewelryTypeListDTO getAllActiveJewelryTypes(@PathVariable int pageNumber) {
 
-//    @RequestMapping(value = "delete",method = RequestMethod.DELETE)
-//    public ResponseEntity deleteJewelryType(@RequestBody JewelryTypeDTO jewelryTypeDTO) {
-//
-//        jewelryTypeService.deleteJewelryType(jewelryTypeDTO);
-//        return new ResponseEntity(HttpStatus.OK);
-//    }
+        return jewelryTypeService.getActiveJewelryTypes(pageNumber);
+    }
 
-//    @RequestMapping(value = "jewelryType", method = RequestMethod.GET, produces = "application/json")
-//    public @ResponseBody Set<Product> getJewelryTypeProducts(JewelryTypeDTO jewelryTypeDTO) {
-//        return jewelryTypeService.getJewelryTypeProducts(jewelryTypeDTO).getProducts();
-//    }
+    @RequestMapping(value = "cus/list/inactive/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    JewelryTypeListDTO getAllInactiveJewelryTypes(@PathVariable int pageNumber) {
+
+        return jewelryTypeService.getInactiveJewelryTypes(pageNumber);
+    }
+
+
+    @RequestMapping(value = "cus/jt/{name}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    JewelryType getJewelryType(@PathVariable String name) {
+
+        return jewelryTypeService.getJewelryType(name);
+    }
+
+    @RequestMapping(value = "adm/save", method = RequestMethod.POST)
+    public ResponseEntity saveJewelryType(@RequestBody JewelryType metal) {
+
+        jewelryTypeService.addJewelryType(metal);
+        return new ResponseEntity(metal, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "adm/update", method = RequestMethod.POST)
+    public ResponseEntity updateJewelryType(@RequestBody JewelryType metal) {
+
+        jewelryTypeService.updateJewelryType(metal);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "adm/deactivate/{name}", method = RequestMethod.DELETE)
+    public ResponseEntity deactivateJewelryType(@PathVariable String name) {
+
+        jewelryTypeService.deactivateJewelryType(name);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

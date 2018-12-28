@@ -49,15 +49,6 @@ public class Gemstone {
     public Gemstone() {
     }
 
-    public Gemstone(String gemstoneName, String gemstoneDescription, boolean gemstoneActive, Date createdDate, Date updatedDate, Set<Product> products) {
-        this.gemstoneName = gemstoneName;
-        this.gemstoneDescription = gemstoneDescription;
-        this.gemstoneActive = gemstoneActive;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
-        this.products = products;
-    }
-
     public long getGemstoneId() {
         return gemstoneId;
     }

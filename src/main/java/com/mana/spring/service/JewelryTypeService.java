@@ -1,20 +1,19 @@
 package com.mana.spring.service;
 
 import com.mana.spring.domain.JewelryType;
-import com.mana.spring.dto.JewelryTypeDTO;
-
-import java.util.ArrayList;
+import com.mana.spring.dto.JewelryTypeListDTO;
 
 public interface JewelryTypeService {
-    ArrayList<JewelryType> getJewelryTypes();
+
+    JewelryTypeListDTO getActiveJewelryTypes(int pageNumber);
+
+    JewelryTypeListDTO getInactiveJewelryTypes(int pageNumber);
 
     void addJewelryType(JewelryType jewelryType);
 
     void updateJewelryType(JewelryType jewelryType);
 
-    void deleteJewelryType(JewelryType jewelryType);
+    void deactivateJewelryType(String jewelryTypeName);
 
-    ArrayList<JewelryType> getActiveJewelryTypes();
-
-    JewelryType getJewelryType(JewelryType jewelryType);
+    JewelryType getJewelryType(String jewelryTypeName);
 }
