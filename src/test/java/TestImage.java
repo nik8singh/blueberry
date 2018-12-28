@@ -1,3 +1,4 @@
+import com.mana.spring.domain.Image;
 import com.mana.spring.dto.ImageDTO;
 import com.mana.spring.web.ImageController;
 import com.mana.spring.web.ProductController;
@@ -17,79 +18,73 @@ public class TestImage {
     @Autowired
     private ImageController imageController;
 
-    @Autowired
-    private ProductController productController;
+    @Test
+    public void addProductImage() {
 
-//    @Test
-//    public void addProductImage() {
-//
-//        File file = new File("D:\\Desktop\\Logo.png");
-//
-//        ImageDTO imageDTO = new ImageDTO();
-//
-//        imageDTO.setFile(file);
-//        imageDTO.setImagePriority(2);
-//        imageDTO.setImageSiteLocation("product");
-//        imageDTO.setProductId(7L);
-//
-//        imageController.saveImage(imageDTO);
-//    }
-//
-//    @Test
-//    public void getProductImage() {
-//
-//        ArrayList<ImageDTO> imageDTOS = productController.getProduct(7L).getImageDTOS();
-//
-//        for (ImageDTO imageDTO: imageDTOS) {
-//
-//            System.out.println("Image");
-//            System.out.println(imageDTO.getImageId());
-//            System.out.println(imageDTO.getImage());
-//            System.out.println(imageDTO.getProductId());
-//            System.out.println(imageDTO.getImagePriority());
-//            System.out.println(imageDTO.getImageSiteLocation());
-//        }
-//    }
-//    @Test
-//    public void removeProductImage() {
-//
-//        ImageDTO imageDTO = new ImageDTO();
-//
-//        imageDTO.setImagePriority(2);
-//        imageDTO.setProductId(7L);
-//        imageController.deleteImageByProductAndPriority(imageDTO);
-//
-//    }
-//
-//    @Test
-//    public void addSiteImage() {
-//
-//        File file = new File("D:\\Desktop\\Logo.png");
-//
-//        ImageDTO imageDTO = new ImageDTO();
-//
-//        imageDTO.setFile(file);
-//        imageDTO.setImagePriority(1);
-//        imageDTO.setImageSiteLocation("Main page slider");
-//
-//        imageController.saveImage(imageDTO);
-//    }
-//
-//    @Test
-//    public void getSiteImage() {
-//
-//        ArrayList<ImageDTO> imageDTOS = imageController.getSiteImage("Main page slider");
-//
-//        for (ImageDTO imageDTO: imageDTOS) {
-//
-//            System.out.println("Image: ");
-//            System.out.println(imageDTO.getImageId());
-//            System.out.println(imageDTO.getImage());
-//            System.out.println(imageDTO.getProductId());
-//            System.out.println(imageDTO.getImagePriority());
-//            System.out.println(imageDTO.getImageSiteLocation());
-//        }
-//    }
+        File file = new File("\\\\ahs\\ahsfiles\\Users\\AHS-CO\\Nikhil.Singh\\My Pictures\\Goku_91.jpg");
+
+        ImageDTO imageDTO = new ImageDTO();
+
+        imageDTO.setFile(file);
+        imageDTO.setImagePriority(2);
+        imageDTO.setImageName("tester many gems image from left side");
+        imageDTO.setProductId(7L);
+
+        imageController.saveImage(imageDTO);
+    }
+
+
+    @Test
+    public void addPanelImage() {
+
+        File file = new File("\\\\ahs\\ahsfiles\\Users\\AHS-CO\\Nikhil.Singh\\My Pictures\\Halloween.jpg");
+
+        ImageDTO imageDTO = new ImageDTO();
+
+        imageDTO.setFile(file);
+        imageDTO.setImagePriority(1);
+        imageDTO.setImageName("Info image");
+        imageDTO.setImagePanelName("Information");
+        imageDTO.setImagePageName("Home Page");
+
+        imageController.saveImage(imageDTO);
+    }
+
+    @Test
+    public void getImage() {
+        System.out.println(imageController.getImage("Scooby image for home page"));
+    }
+
+    @Test
+    public void getAllPanelImage() {
+        System.out.println(imageController.getPanelImages("Home Page Slider"));
+    }
+
+    @Test
+    public void getPageImage() {
+        System.out.println(imageController.getPageImages("Home Page"));
+    }
+
+    @Test
+    public void updateImageName() {
+
+        Image image = new Image();
+
+        image.setImageId(1L);
+        image.setImageName("Gem image while wearing");
+
+        imageController.updateImage(image);
+    }
+
+    @Test
+    public void deleteProductImage() {
+        imageController.deleteImageByProductAndPriority(7L,1);
+    }
+
+    @Test
+    public void deletePanelImage() {
+        imageController.deleteImageByPanelAndPriority("Home Page Slider",1);
+    }
 
 
 

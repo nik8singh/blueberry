@@ -7,7 +7,11 @@ public class ImageDTO {
 
     private long imageId;
 
-    private String imageSiteLocation;
+    private String imageName;
+
+    private String imagePanelName;
+
+    private String imagePageName;
 
     private byte[] image;
 
@@ -20,6 +24,29 @@ public class ImageDTO {
     public ImageDTO() {
     }
 
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public String getImagePanelName() {
+        return imagePanelName;
+    }
+
+    public void setImagePanelName(String imagePanelName) {
+        this.imagePanelName = imagePanelName;
+    }
+
+    public String getImagePageName() {
+        return imagePageName;
+    }
+
+    public void setImagePageName(String imagePageName) {
+        this.imagePageName = imagePageName;
+    }
 
     public long getImageId() {
         return imageId;
@@ -27,14 +54,6 @@ public class ImageDTO {
 
     public void setImageId(long imageId) {
         this.imageId = imageId;
-    }
-
-    public String getImageSiteLocation() {
-        return imageSiteLocation;
-    }
-
-    public void setImageSiteLocation(String imageSiteLocation) {
-        this.imageSiteLocation = imageSiteLocation;
     }
 
     public int getImagePriority() {

@@ -1,6 +1,7 @@
 package com.mana.spring.service;
 
 import com.mana.spring.domain.Image;
+import com.mana.spring.dto.ImageDTO;
 
 import java.util.ArrayList;
 
@@ -12,11 +13,11 @@ public interface ImageService {
 
     ArrayList<Image> getImagesByPanel(String panelName);
 
-    void addImage(Image image);
+    void addImage(ImageDTO imageDTO);
 
     void updateImage(Image image);
 
-    void deleteImageByProductPriority(long productId, int imagePriority);
+    boolean deleteImageByProductPriority(long productId, int imagePriority);
 
     void deleteImageByPanelPriority(String panelName, int imagePriority);
 
