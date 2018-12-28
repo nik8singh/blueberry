@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v11.11 (64 bit)
-MySQL - 5.5.5-10.1.32-MariaDB : Database - dzi
+MySQL - 5.5.5-10.1.35-MariaDB : Database - dzi
 *********************************************************************
 */
 
@@ -78,11 +78,11 @@ CREATE TABLE `coupon` (
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`coupon_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 /*Data for the table `coupon` */
 
-insert  into `coupon`(`coupon_id`,`coupon_name`,`coupon_discount_percent`,`active`,`coupon_start_date`,`coupon_end_date`,`created_date`,`updated_date`) values (1,'Diwali',10.00000,'','2018-01-01 09:11:33','2018-02-01 09:11:43','2018-10-01 15:28:33','2018-10-02 09:11:51'),(2,'New years',25.00000,'','2018-10-01 00:00:00','2019-01-01 00:00:00','2018-10-01 15:30:37','2018-10-18 11:34:01'),(3,'test',10.00000,'','2018-08-01 00:00:00','2018-08-29 00:00:00','2018-10-18 15:52:35','2018-10-18 15:52:35'),(4,'2nd test',5.00000,'','2018-11-01 00:00:00','2018-11-30 00:00:00','2018-10-18 15:53:06','2018-10-18 15:53:06'),(5,'test add',0.00000,'\0',NULL,NULL,'2018-11-04 19:20:07','2018-12-20 12:54:11'),(6,'Mid term unit test',5.90000,'','2018-12-01 11:34:33','2019-01-01 11:34:37','2018-12-20 11:08:54','2018-12-20 11:34:42');
+insert  into `coupon`(`coupon_id`,`coupon_name`,`coupon_discount_percent`,`active`,`coupon_start_date`,`coupon_end_date`,`created_date`,`updated_date`) values (1,'Diwali',10.00000,'','2018-01-01 09:11:33','2018-02-01 09:11:43','2018-10-01 15:28:33','2018-10-02 09:11:51'),(2,'New years',25.00000,'','2018-10-01 00:00:00','2019-01-01 00:00:00','2018-10-01 15:30:37','2018-10-18 11:34:01'),(3,'test',10.00000,'','2018-08-01 00:00:00','2018-08-29 00:00:00','2018-10-18 15:52:35','2018-10-18 15:52:35'),(5,'test add',0.00000,'\0',NULL,NULL,'2018-11-04 19:20:07','2018-12-20 12:54:11'),(6,'Final UT',5.00000,'','2018-01-17 23:29:06','2019-07-01 23:29:06','2018-12-20 11:08:54','2018-12-26 23:29:07'),(8,'Xmas',5.50000,'','2018-12-20 18:14:29','2018-12-20 18:14:29','2018-12-20 18:14:29','2018-12-20 18:14:29'),(9,'2017',15.00000,'\0','2017-02-17 23:24:14','2017-11-17 23:24:14','2018-12-26 23:24:14','2018-12-26 23:24:14'),(10,'2019',15.00000,'\0','2019-02-17 23:24:28','2019-11-17 23:24:28','2018-12-26 23:24:28','2018-12-26 23:24:28'),(11,'2018',15.00000,'','2018-02-17 23:24:40','2019-01-31 23:24:40','2018-12-26 23:24:40','2018-12-26 23:24:40');
 
 /*Table structure for table `gemstone` */
 
@@ -96,11 +96,11 @@ CREATE TABLE `gemstone` (
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`gemstone_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
 
 /*Data for the table `gemstone` */
 
-insert  into `gemstone`(`gemstone_id`,`gemstone_name`,`gemstone_description`,`active`,`created_date`,`updated_date`) values (24,'emerald','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(25,'rainbow moonlight','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(26,'black onix','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(27,'ruby','Red Gemstone','','2018-08-30 10:37:12','2018-12-20 15:18:13'),(28,'agate','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(29,'amber','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(30,'amethyst','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(31,'blue sapphire','Blue color stone','','2018-08-30 10:37:12','2018-10-01 14:15:59'),(32,'chalcedony','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(33,'citrine','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(34,'coral','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(35,'druzy','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(36,'labradorite','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(37,'lapis','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(38,'lemon topaz','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(39,'mystic topaz','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(40,'pearl','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(41,'roxk crustal','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(42,'star ruby','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(43,'sunstone','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(44,'turquoise','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(45,'test','test','\0','2018-12-13 22:01:02','2018-12-13 22:03:04'),(46,'Test inactive','not available','\0','2018-11-03 17:00:19','2018-11-03 17:00:31'),(47,'tester','tester Gemstone','','2018-12-13 22:01:02','2018-12-20 15:19:15');
+insert  into `gemstone`(`gemstone_id`,`gemstone_name`,`gemstone_description`,`active`,`created_date`,`updated_date`) values (24,'emerald','A Green Gemstone','','2018-08-30 10:37:12','2018-12-27 21:31:42'),(25,'rainbow moonlight','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(26,'black onix','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(27,'ruby','Red Gemstone','','2018-08-30 10:37:12','2018-12-20 15:18:13'),(28,'agate','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(29,'amber','A Fire Gemstone','','2018-08-30 10:37:12','2018-12-27 21:45:50'),(30,'amethyst','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(31,'blue sapphire','Blue color stone','','2018-08-30 10:37:12','2018-10-01 14:15:59'),(32,'chalcedony','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(33,'citrine','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(34,'coral','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(35,'druzy','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(36,'labradorite','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(37,'lapis','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(38,'lemon topaz','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(39,'mystic topaz','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(40,'pearl','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(41,'roxk crustal','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(42,'star ruby','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(43,'sunstone','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(44,'turquoise','not available','','2018-08-30 10:37:12','2018-08-30 10:37:12'),(45,'test','test','\0','2018-12-13 22:01:02','2018-12-13 22:03:04'),(46,'Test inactive','not available','\0','2018-11-03 17:00:19','2018-11-03 17:00:31'),(47,'tester','tester Gemstone','\0','2018-12-13 22:01:02','2018-12-27 21:32:00'),(48,'HJDHFI','Test HHH','','2018-12-27 21:31:16','2018-12-27 21:31:16');
 
 /*Table structure for table `gemstone_product` */
 
@@ -117,11 +117,11 @@ CREATE TABLE `gemstone_product` (
   KEY `fk_product_gemstone` (`product_id`),
   CONSTRAINT `fk_gemstone_product` FOREIGN KEY (`gemstone_id`) REFERENCES `gemstone` (`gemstone_id`),
   CONSTRAINT `fk_product_gemstone` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 /*Data for the table `gemstone_product` */
 
-insert  into `gemstone_product`(`gemstone_product_id`,`gemstone_id`,`product_id`,`created_date`,`updated_date`) values (8,24,7,'2018-08-30 14:34:20','2018-08-30 14:34:20'),(15,45,24,'2018-12-13 22:07:12','2018-12-13 22:07:12'),(17,45,25,'2018-12-13 22:08:52','2018-12-13 22:08:52'),(19,45,27,'2018-12-13 22:14:28','2018-12-13 22:14:28');
+insert  into `gemstone_product`(`gemstone_product_id`,`gemstone_id`,`product_id`,`created_date`,`updated_date`) values (15,45,24,'2018-12-13 22:07:12','2018-12-13 22:07:12'),(17,45,25,'2018-12-13 22:08:52','2018-12-13 22:08:52'),(19,45,27,'2018-12-13 22:14:28','2018-12-13 22:14:28'),(20,24,7,'2018-12-20 17:45:04','2018-12-20 17:45:04'),(21,27,7,'2018-12-27 21:27:39','2018-12-27 21:27:39'),(22,27,14,'2018-12-27 21:27:47','2018-12-27 21:27:47'),(23,27,25,'2018-12-27 21:27:58','2018-12-27 21:27:58');
 
 /*Table structure for table `hibernate_sequence` */
 
@@ -141,7 +141,9 @@ DROP TABLE IF EXISTS `image`;
 
 CREATE TABLE `image` (
   `image_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `image_site_location` varchar(255) NOT NULL,
+  `image_name` varchar(255) DEFAULT NULL,
+  `image_panel_name` varchar(255) DEFAULT NULL,
+  `image_page_name` varchar(255) DEFAULT NULL,
   `image` longblob NOT NULL,
   `product_id` bigint(20) DEFAULT NULL,
   `image_priority` tinyint(3) unsigned DEFAULT '0',
@@ -188,11 +190,11 @@ CREATE TABLE `jewelry_type` (
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`jewelry_type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 /*Data for the table `jewelry_type` */
 
-insert  into `jewelry_type`(`jewelry_type_id`,`jewelry_type_name`,`jewelry_type_description`,`active`,`created_date`,`updated_date`) values (1,'banbles','not available','','2018-08-30 11:02:07','2018-08-30 11:02:07'),(2,'belts','not available','','2018-08-30 11:02:07','2018-08-30 11:02:07'),(3,'bracelets','not available','','2018-08-30 11:02:07','2018-08-30 11:02:07'),(4,'buckles','not available','','2018-08-30 11:02:07','2018-08-30 11:02:07'),(5,'cuff-links','not available','','2018-08-30 11:02:07','2018-08-30 11:02:07'),(6,'cuffs','not available','','2018-08-30 11:02:07','2018-08-30 11:02:07'),(7,'earrings','not available','','2018-08-30 11:02:07','2018-08-30 11:02:07'),(8,'necklaces','not available','','2018-08-30 11:02:07','2018-08-30 14:26:19'),(9,'pendents','not available','','2018-08-30 11:02:07','2018-08-30 11:02:07'),(10,'rings','not available','','2018-08-30 11:02:07','2018-08-30 11:02:07'),(11,'sets','not available','','2018-08-30 11:02:07','2018-08-30 11:02:07'),(12,'specials','not available','','2018-08-30 11:02:07','2018-08-30 11:02:07'),(13,'Test','Test','\0','2018-12-13 22:01:02','2018-12-13 22:01:47'),(14,'TestingNewAdd','Testing update to inactive','\0','2018-11-12 16:51:07','2018-11-12 16:52:18');
+insert  into `jewelry_type`(`jewelry_type_id`,`jewelry_type_name`,`jewelry_type_description`,`active`,`created_date`,`updated_date`) values (1,'bangels','Rings for wrist','','2018-08-30 11:02:07','2018-12-27 23:05:19'),(2,'belts','not available','','2018-08-30 11:02:07','2018-08-30 11:02:07'),(3,'bracelets','not available','','2018-08-30 11:02:07','2018-08-30 11:02:07'),(4,'buckles','not available','','2018-08-30 11:02:07','2018-08-30 11:02:07'),(5,'cuff-links','not available','','2018-08-30 11:02:07','2018-08-30 11:02:07'),(6,'cuffs','not available','','2018-08-30 11:02:07','2018-08-30 11:02:07'),(7,'earrings','not available','','2018-08-30 11:02:07','2018-08-30 11:02:07'),(8,'necklaces','Rings for neck','','2018-08-30 11:02:07','2018-12-27 23:05:35'),(9,'pendents','not available','','2018-08-30 11:02:07','2018-08-30 11:02:07'),(10,'rings','not available','','2018-08-30 11:02:07','2018-08-30 11:02:07'),(11,'sets','not available','','2018-08-30 11:02:07','2018-08-30 11:02:07'),(12,'specials','not available','','2018-08-30 11:02:07','2018-08-30 11:02:07'),(13,'Test','Test','\0','2018-12-13 22:01:02','2018-12-13 22:01:47'),(14,'TestingNewAdd','Testing update to inactive','\0','2018-11-12 16:51:07','2018-12-27 23:05:58'),(15,'jewelryTypeGHGIGI','Test jewelryType GRGSD','','2018-12-27 23:03:46','2018-12-27 23:03:46');
 
 /*Table structure for table `metal` */
 
@@ -206,11 +208,11 @@ CREATE TABLE `metal` (
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`metal_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 /*Data for the table `metal` */
 
-insert  into `metal`(`metal_id`,`metal_name`,`metal_description`,`active`,`created_date`,`updated_date`) values (1,'Gold','not available','\0','2018-12-13 22:01:02','2018-12-13 22:03:29'),(2,'platinum','not available','','2018-08-30 11:05:30','2018-08-30 11:05:30'),(3,'palladium','not available','','2018-08-30 11:05:30','2018-08-30 11:05:30'),(4,'Silver','not available','\0','2018-12-13 22:01:02','2018-12-13 22:03:26'),(5,'cobalt','not available','','2018-08-30 11:05:30','2018-08-30 11:05:30'),(6,'tungsten','not available','','2018-08-30 11:05:30','2018-08-30 11:05:30'),(7,'titanium','not available','','2018-08-30 11:05:30','2018-08-30 11:05:30'),(8,'stainless steel','not available','','2018-08-30 11:05:30','2018-08-30 11:05:30'),(9,'TestingNewAdd','Testing update to inactive','\0','2018-11-12 16:07:50','2018-11-12 16:08:42'),(10,'test','not available','','2018-12-13 22:05:47','2018-12-13 22:05:47');
+insert  into `metal`(`metal_id`,`metal_name`,`metal_description`,`active`,`created_date`,`updated_date`) values (1,'Gold','not available','\0','2018-12-13 22:01:02','2018-12-13 22:03:29'),(2,'platinum','not available','','2018-08-30 11:05:30','2018-08-30 11:05:30'),(3,'palladium','not available','','2018-08-30 11:05:30','2018-08-30 11:05:30'),(4,'silver','grey sparkly thing','','2018-12-13 22:01:02','2018-12-27 22:05:52'),(5,'cobalt','not available','','2018-08-30 11:05:30','2018-08-30 11:05:30'),(6,'tungsten','not available','','2018-08-30 11:05:30','2018-08-30 11:05:30'),(7,'titanium','not available','','2018-08-30 11:05:30','2018-08-30 11:05:30'),(8,'stainless steel','not available','','2018-08-30 11:05:30','2018-08-30 11:05:30'),(9,'TestingNewAdd','Testing update to inactive','\0','2018-11-12 16:07:50','2018-11-12 16:08:42'),(10,'test','not available','\0','2018-12-13 22:05:47','2018-12-27 22:06:36'),(11,'MetalGHGIGI','Test HHH','','2018-12-27 22:03:22','2018-12-27 22:03:22');
 
 /*Table structure for table `metal_product` */
 
