@@ -1,4 +1,5 @@
-import com.mana.spring.dto.ShopDTO;
+import com.mana.spring.domain.Address;
+import com.mana.spring.domain.Shop;
 import com.mana.spring.web.ShopController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,48 +17,54 @@ public class TestShop {
     private ShopController shopController;
 
 
-//    @Test
-//    public void getAllShops() {
-//        List<ShopDTO> shopsDtos = shopController.getAllShops();
-//        System.out.println();
-//        System.out.println(shopsDtos);
-//    }
-//
-//    @Test
-//    public void getShop() {
-//        ShopDTO shopDTO = new ShopDTO();
-//        shopDTO.setShopName("GDL");
-//        System.out.println();
-//        System.out.println(shopController.getShop(shopDTO));
-//    }
-//
-//    @Test
-//    public void updateShop() {
-//        ShopDTO shopDTO = new ShopDTO();
-//        shopDTO.setShopName("GDL");
-//        shopDTO = shopController.getShop(shopDTO);
-//        shopDTO.setShopDescription("Vegas Show testing update");
-//        shopController.updateShop(shopDTO);
-//    }
-//
-//    @Test
-//    public void addShop() {
-//        ShopDTO shopDTO = new ShopDTO();
-//        shopDTO.setShopName("GWL - London");
-//        shopDTO.setShopDescription("New ShoTestShopw In London");
-//        shopDTO.setBoothNumber("542");
-//        shopDTO.setShopStartDate(new Date());
-//        shopDTO.setShopEndDate(new Date());
-//        shopDTO.setAddressFullname("New Address for Shop");
-//        shopDTO.setAddressLineOne("23rd St");
-//        shopDTO.setAddressLineTwo("BLD 23");
-//        shopDTO.setAddressCity("London");
-//        shopDTO.setAddressState("London state");
-//        shopDTO.setAddressCountry("UK");
-//        shopDTO.setAddressZipcode("110086A");
-//        shopController.saveShop(shopDTO);
-//
-//    }
+    @Test
+    public void getAllShops() {
+        List<Shop> shops = shopController.getAllShops();
+        System.out.println(shops);
+    }
+
+    @Test
+    public void getShop() {
+        System.out.println(shopController.getShop("GDL"));
+    }
+
+    @Test
+    public void updateShop() {
+
+        Shop shop = shopController.getShop("Stones of worlds");
+
+        shop.setShopDescription("SoW gem shop");
+        Address address = shop.getShopAddress();
+        address.setAddressFullname("Convention center");
+        address.setAddressZipcode("54534");
+        address.setAddressLineTwo("458th sthih");
+        shop.setShopAddress(address);
+        shopController.updateShop(shop);
+    }
+
+    @Test
+    public void addShop() {
+        Shop shop = new Shop();
+        shop.setShopName("GWL - London");
+        shop.setShopDescription("New ShoTestShopw In London");
+        shop.setBoothNumber("542");
+        shop.setShopStartDate(new Date());
+        shop.setShopEndDate(new Date());
+
+        Address address = new Address();
+        address.setAddressFullname("235 pearl st Address for Shop");
+        address.setAddressLineOne("212t St");
+        address.setAddressLineTwo("BLD 253");
+        address.setAddressCity("Tuscon");
+        address.setAddressState("AZ");
+        address.setAddressCountry("USA");
+        address.setAddressZipcode("57895");
+
+        shop.setShopAddress(address);
+
+        shopController.saveShop(shop);
+
+    }
 
 
 }

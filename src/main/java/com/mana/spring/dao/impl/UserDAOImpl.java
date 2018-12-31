@@ -14,27 +14,40 @@ public class UserDAOImpl implements UserDAO {
     @Autowired
     private HibernateTemplate hibernateTemplate;
 
+    public List listUser(int start, int end) {
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.User").setFirstResult(start).setMaxResults(end).list();
+    }
+
+    public User getUserByEmail(String email) {
+        return (User) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.User us where us.userEmail= :email").setParameter("email", email).uniqueResult();
+    }
+
+    public User getUserCart(String email) {
+        User user = getUserByEmail(email);
+        hibernateTemplate.initialize(user.getCartItems());
+        return user;
+    }
+
+    public User getUserInvoices(String email) {
+        User user = getUserByEmail(email);
+        hibernateTemplate.initialize(user.getInvoices());
+        return user;
+    }
+
     public void saveUser(User user) {
         hibernateTemplate.save(user);
+    }
+
+    public void deleteUser(String email) {
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("UPDATE com.mana.spring.domain.User met SET met.deleted = true where met.userEmail= :email").setParameter("email", email).executeUpdate();
     }
 
     public void updateUser(User user) {
         hibernateTemplate.update(user);
     }
 
-    public void deleteUser(String email) {
-        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("UPDATE com.mana.spring.domain.User met SET met.deleted = :del where met.userEmail= :email").setParameter("email", email).setParameter("del", true).executeUpdate();
-    }
-
-    public List listUser() {
-        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.User met ORDER BY met.createdDate").list();
-    }
-
-    public User getUserByEmail(String email) {
-        return (User) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.User met where met.userEmail= :email").setParameter("email", email).list().get(0);
-    }
-
     public void updatePassword(User user) {
-        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("UPDATE com.mana.spring.domain.User met SET met.userPassword = :newPassword WHERE met.userEmail= :email").setParameter("email", user.getUserEmail()).setParameter("newPassword", user.getUserPassword()).executeUpdate();
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("UPDATE com.mana.spring.domain.User us SET us.userPassword = :newPassword WHERE us.userEmail= :email").setParameter("email", user.getUserEmail()).setParameter("newPassword", user.getUserPassword()).executeUpdate();
     }
+
 }

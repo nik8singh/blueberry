@@ -15,14 +15,14 @@ public class GemstoneController {
     @Autowired
     public GemstoneService gemstoneService;
 
-    @RequestMapping(value = "cus/list/active/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "vis/list/active/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     GemstoneListDTO getAllActiveGemstones(@PathVariable int pageNumber) {
 
         return gemstoneService.getActiveGemstones(pageNumber);
     }
 
-    @RequestMapping(value = "cus/list/inactive/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "adm/list/inactive/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     GemstoneListDTO getAllInactiveGemstones(@PathVariable int pageNumber) {
 
@@ -30,7 +30,7 @@ public class GemstoneController {
     }
 
 
-    @RequestMapping(value = "cus/gemstone/{name}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "vis/gemstone/{name}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Gemstone getGemstone(@PathVariable String name) {
 

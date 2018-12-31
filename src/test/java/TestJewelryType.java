@@ -39,7 +39,6 @@ public class TestJewelryType {
         JewelryType jewelryType = new JewelryType();
         jewelryType.setJewelryTypeName("jewelryTypeGHGIGI");
         jewelryType.setJewelryTypeDescription("Test jewelryType GRGSD");
-        jewelryType.setJewelryTypeActive(true);
         System.out.println(jewelryTypeController.saveJewelryType(jewelryType));
     }
 

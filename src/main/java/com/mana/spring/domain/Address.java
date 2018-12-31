@@ -48,7 +48,7 @@ public class Address {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -56,12 +56,8 @@ public class Address {
     private User user;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "shopAddress")
+    @OneToOne(mappedBy = "shopAddress", fetch = FetchType.LAZY)
     private Shop shopAddress;
-
-    @JsonIgnore
-    @OneToOne(mappedBy = "shippingAddress")
-    private Invoice invoiceAddress;
 
     public Address() {
     }
@@ -168,14 +164,6 @@ public class Address {
 
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    public Invoice getInvoiceAddress() {
-        return invoiceAddress;
-    }
-
-    public void setInvoiceAddress(Invoice invoiceAddress) {
-        this.invoiceAddress = invoiceAddress;
     }
 
     @Override

@@ -10,9 +10,7 @@ public interface AddressDAO {
 
     void updateAddress(Address address);
 
-    void deleteAddress(Address address);
-
-    List listAddress();
+    void deactivateAddress(long id);
 
     List getAddressByEmail(String email);
 

@@ -24,19 +24,19 @@ public class ImageController {
         return new ResponseEntity(imageDTO, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "cus/image/{name}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "vis/image/{name}", method = RequestMethod.GET, produces = "application/json")
     public Image getImage(@PathVariable String name) {
         return imageService.getImage(name);
     }
 
 
-    @RequestMapping(value = "cus/list/page/{pageName}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "vis/list/page/{pageName}", method = RequestMethod.GET, produces = "application/json")
     public ArrayList<Image> getPageImages(@PathVariable String pageName) {
 
         return imageService.getImagesByPage(pageName);
     }
 
-    @RequestMapping(value = "cus/list/panel/{panelName}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "vis/list/panel/{panelName}", method = RequestMethod.GET, produces = "application/json")
     public ArrayList<Image> getPanelImages(@PathVariable String panelName) {
 
         return imageService.getImagesByPanel(panelName);

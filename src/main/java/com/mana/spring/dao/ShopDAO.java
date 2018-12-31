@@ -10,9 +10,14 @@ public interface ShopDAO {
 
     void updateShop(Shop shop);
 
-//    void deleteShop(Shop shop);
+    void deleteShop(String shopName);
+
+    Shop getShop(String shopName);
+
+    Shop getById(long shopId);
 
     List listShop();
 
-    Shop getShop(String shopName);
+    List listUpcomingShop();
+
 }

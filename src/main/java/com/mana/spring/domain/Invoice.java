@@ -34,10 +34,6 @@ public class Invoice {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "shipping_address")
-    private Address shippingAddress;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIdentityInfo(
@@ -102,14 +98,6 @@ public class Invoice {
         this.updatedDate = updatedDate;
     }
 
-    public Address getShippingAddress() {
-        return shippingAddress;
-    }
-
-    public void setShippingAddress(Address shippingAddress) {
-        this.shippingAddress = shippingAddress;
-    }
-
     public User getUser() {
         return user;
     }
@@ -135,7 +123,6 @@ public class Invoice {
                 "\n invoiceAmount=" + invoiceAmount +
                 "\n createdDate=" + createdDate +
                 "\n updatedDate=" + updatedDate +
-                "\n shippingAddress=" + shippingAddress +
                 "\n user=" + user +
                 "\n purchases=" + purchases +
                 '}';

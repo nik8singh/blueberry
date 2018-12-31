@@ -39,7 +39,7 @@ public class GemstoneServiceImpl implements GemstoneService {
     }
 
     public void addGemstone(Gemstone gemstone) {
-
+        gemstone.setGemstoneActive(true);
         gemstoneDAO.saveGemstone(gemstone);
     }
 

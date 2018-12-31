@@ -6,9 +6,15 @@ import java.util.ArrayList;
 
 public interface UserService {
 
-    ArrayList<User> getUsers();
+    ArrayList<User> getUsers(int pageNumber);
 
-    void addUser(User user);
+    User getUserByEmail(String email);
+
+    User getUserCart(String email);
+
+    User getUserInvoices(String email);
+
+    void registerUser(User user);
 
     void updateUser(User user);
 
@@ -16,8 +22,8 @@ public interface UserService {
 
     void updatePassword(User user);
 
-    User getUserByEmail(String email);
-
     void addAddress(User user);
+
+
 
 }

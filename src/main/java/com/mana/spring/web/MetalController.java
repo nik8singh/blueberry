@@ -15,7 +15,7 @@ public class MetalController {
     @Autowired
     public MetalService metalService;
 
-    @RequestMapping(value = "cus/list/active/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "vis/list/active/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     MetalListDTO getAllActiveMetals(@PathVariable int pageNumber) {
 
@@ -30,7 +30,7 @@ public class MetalController {
     }
 
 
-    @RequestMapping(value = "cus/metal/{name}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "vis/metal/{name}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Metal getMetal(@PathVariable String name) {
 

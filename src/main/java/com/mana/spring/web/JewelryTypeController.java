@@ -15,7 +15,7 @@ public class JewelryTypeController {
     @Autowired
     public JewelryTypeService jewelryTypeService;
 
-    @RequestMapping(value = "cus/list/active/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "vis/list/active/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     JewelryTypeListDTO getAllActiveJewelryTypes(@PathVariable int pageNumber) {
 
@@ -30,7 +30,7 @@ public class JewelryTypeController {
     }
 
 
-    @RequestMapping(value = "cus/jt/{name}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "vis/jt/{name}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     JewelryType getJewelryType(@PathVariable String name) {
 

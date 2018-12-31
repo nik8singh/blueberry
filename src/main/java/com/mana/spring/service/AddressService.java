@@ -6,13 +6,13 @@ import java.util.ArrayList;
 
 public interface AddressService {
 
-    ArrayList<Address> getAddresses();
-
     void addAddress(Address address);
 
     void updateAddress(Address address);
 
-    void deleteAddress(Address address);
+    void deactivateAddress(long id);
+
+    Address getAddress(long addressId);
 
     ArrayList<Address> getAddressByUserEmail(String userEmail);
 

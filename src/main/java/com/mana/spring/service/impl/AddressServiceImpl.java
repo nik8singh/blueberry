@@ -14,14 +14,9 @@ public class AddressServiceImpl implements AddressService {
     @Autowired
     private AddressDAO addressDAO;
 
-    public ArrayList<Address> getAddresses() {
-        return null;
-    }
-
     public void addAddress(Address address) {
-
+        address.setActive(true);
         addressDAO.saveAddress(address);
-
     }
 
     public void updateAddress(Address address) {
@@ -40,18 +35,16 @@ public class AddressServiceImpl implements AddressService {
 
     }
 
-    public void deleteAddress(Address address) {
-        addressDAO.deleteAddress(address);
+    public void deactivateAddress(long id) {
+        addressDAO.deactivateAddress(id);
     }
 
     public Address getAddress(long addressId) {
-        Address address = addressDAO.getAddress(addressId);
-        return address;
+        return addressDAO.getAddress(addressId);
     }
 
     public ArrayList<Address> getAddressByUserEmail(String userEmail) {
-        ArrayList<Address> addresses = (ArrayList<Address>) addressDAO.getAddressByEmail(userEmail);
-        return addresses;
+        return (ArrayList<Address>) addressDAO.getAddressByEmail(userEmail);
     }
 
 

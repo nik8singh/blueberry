@@ -7,11 +7,13 @@ import java.util.ArrayList;
 public interface ShopService {
     ArrayList<Shop> getShops();
 
+    ArrayList<Shop> getUpcomingAndOngoingShops();
+
     void addShop(Shop shop);
 
     void updateShop(Shop shop);
 
-    void deleteShop(Shop shop);
+    void deleteShop(String shopName);
 
-    Shop getShop(Shop shop);
+    Shop getShop(String shopName);
 }

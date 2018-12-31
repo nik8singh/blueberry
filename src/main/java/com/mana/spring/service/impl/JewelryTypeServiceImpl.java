@@ -31,6 +31,7 @@ public class JewelryTypeServiceImpl implements JewelryTypeService {
     }
 
     public void addJewelryType(JewelryType jewelryType) {
+        jewelryType.setJewelryTypeActive(true);
         jewelryTypeDAO.saveJewelryType(jewelryType);
 
     }

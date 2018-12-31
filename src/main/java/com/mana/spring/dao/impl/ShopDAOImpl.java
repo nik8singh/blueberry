@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -15,28 +16,29 @@ public class ShopDAOImpl implements ShopDAO {
     private HibernateTemplate hibernateTemplate;
 
     public void saveShop(Shop shop) {
-        try {
-            hibernateTemplate.save(shop);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        hibernateTemplate.save(shop);
     }
 
     public void updateShop(Shop shop) {
-        try {
-            hibernateTemplate.update(shop);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        hibernateTemplate.update(shop);
     }
 
-//    public void deleteShop(Shop shop) {
-//        try {
-//            hibernateTemplate.delete(shop);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public void deleteShop(String shopName) {
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("delete com.mana.spring.domain.Shop sh where sh.shopName = :name").setParameter("name", shopName).executeUpdate();
+
+
+    }
+
+    public Shop getById(long shopId) {
+        return (Shop) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Shop sh where sh.shopId = :id").setParameter("id", shopId).uniqueResult();
+
+    }
+
+    public List listUpcomingShop() {
+
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Shop shop where shop.shopEndDate <=:todayDate ORDER BY shop.shopStartDate").setParameter("todayDate", new Date()).list();
+    }
 
     public List listShop() {
 

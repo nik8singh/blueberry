@@ -31,6 +31,7 @@ public class MetalServiceImpl implements MetalService {
     }
 
     public void addMetal(Metal metal) {
+        metal.setMetalActive(true);
         metalDAO.saveMetal(metal);
     }
 

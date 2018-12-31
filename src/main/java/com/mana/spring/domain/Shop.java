@@ -35,22 +35,11 @@ public class Shop {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "shop_address")
     private Address shopAddress;
 
     public Shop() {
-    }
-
-    public Shop(String shopName, String shopDescription, String boothNumber, Date shopStartDate, Date shopEndDate, Date createdDate, Date updatedDate, Address shopAddress) {
-        this.shopName = shopName;
-        this.shopDescription = shopDescription;
-        this.boothNumber = boothNumber;
-        this.shopStartDate = shopStartDate;
-        this.shopEndDate = shopEndDate;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
-        this.shopAddress = shopAddress;
     }
 
     public long getShopId() {

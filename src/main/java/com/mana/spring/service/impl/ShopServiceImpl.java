@@ -15,8 +15,7 @@ public class ShopServiceImpl implements ShopService {
     private ShopDAO shopDAO;
 
     public ArrayList<Shop> getShops() {
-        ArrayList<Shop> shops = (ArrayList<Shop>) shopDAO.listShop();
-        return shops;
+        return (ArrayList<Shop>) shopDAO.listShop();
     }
 
     public void addShop(Shop shop) {
@@ -24,14 +23,20 @@ public class ShopServiceImpl implements ShopService {
     }
 
     public void updateShop(Shop shop) {
+
         shopDAO.updateShop(shop);
     }
 
-    public Shop getShop(Shop shop) {
-        return shopDAO.getShop(shop.getShopName());
+    public Shop getShop(String shopName) {
+        return shopDAO.getShop(shopName);
     }
 
-    public void deleteShop(Shop shop) {
+    public void deleteShop(String shopName) {
+        shopDAO.deleteShop(shopName);
 
+    }
+
+    public ArrayList<Shop> getUpcomingAndOngoingShops() {
+        return (ArrayList<Shop>) shopDAO.listUpcomingShop();
     }
 }

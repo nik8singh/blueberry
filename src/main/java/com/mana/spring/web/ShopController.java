@@ -1,5 +1,6 @@
 package com.mana.spring.web;
 
+import com.mana.spring.domain.Shop;
 import com.mana.spring.dto.ShopDTO;
 import com.mana.spring.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,34 +17,37 @@ public class ShopController {
     @Autowired
     public ShopService shopService;
 
-//    @RequestMapping(value = "all", method = RequestMethod.GET, produces = "application/json")
-//    public @ResponseBody
-//    ArrayList<ShopDTO> getAllShops() {
-//        return shopService.getShops();
-//    }
-//
-//    @RequestMapping(value = "save", method = RequestMethod.POST)
-//    public ResponseEntity saveShop(@RequestBody ShopDTO shopDTO) {
-//        shopService.addShop(shopDTO);
-//        return new ResponseEntity(shopDTO, HttpStatus.OK);
-//    }
-//
-//    @RequestMapping(value = "update", method = RequestMethod.POST)
-//    public ResponseEntity updateShop(@RequestBody ShopDTO shopDTO) {
-//        shopService.updateShop(shopDTO);
-//        return new ResponseEntity(HttpStatus.OK);
-//    }
-//
-////    @RequestMapping(value = "delete", method = RequestMethod.DELETE)
-////    public ResponseEntity deleteShop(@RequestBody ShopDTO shopDTO) {
-////        shopService.deleteShop(shopDTO);
-////        return new ResponseEntity(HttpStatus.OK);
-////    }
-//
-//    @RequestMapping(value = "shop", method = RequestMethod.GET, produces = "application/json")
-//    public @ResponseBody
-//    ShopDTO getShop(@RequestBody ShopDTO shopDTO) {
-//        return shopService.getShop(shopDTO);
-//    }
+    @RequestMapping(value = "vis/list", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody ArrayList<Shop> getAllShops() {
+        return shopService.getShops();
+    }
+
+    @RequestMapping(value = "vis/list/upcoming", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody ArrayList<Shop> getUpcomingAndOngoingShops() {
+        return shopService.getUpcomingAndOngoingShops();
+    }
+
+    @RequestMapping(value = "adm/save", method = RequestMethod.POST)
+    public ResponseEntity saveShop(@RequestBody Shop shop) {
+        shopService.addShop(shop);
+        return new ResponseEntity(shop, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "adm/update", method = RequestMethod.POST)
+    public ResponseEntity updateShop(@RequestBody Shop shop) {
+        shopService.updateShop(shop);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "adm/delete/{shopName}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteShop(@PathVariable String shopName) {
+        shopService.deleteShop(shopName);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "vis/shop/{shopName}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody Shop getShop(@PathVariable String shopName) {
+        return shopService.getShop(shopName);
+    }
 
 }

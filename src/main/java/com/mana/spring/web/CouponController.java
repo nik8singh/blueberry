@@ -15,7 +15,6 @@ public class CouponController {
     @Autowired
     public CouponService couponService;
 
-
     @RequestMapping(value = "adm/list/active/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     CouponListDTO getActiveCoupons(@PathVariable int pageNumber) {
@@ -46,7 +45,7 @@ public class CouponController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "acus/coupon/{name}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "cus/coupon/{name}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Coupon getCoupon(@PathVariable String name) {
         return couponService.getCoupon(name);
