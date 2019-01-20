@@ -1,6 +1,7 @@
 package com.mana.spring.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -29,6 +30,7 @@ public class User {
     private String userEmail;
 
     @Column(name = "user_password")
+    @JsonIgnore
     private String userPassword;
 
     @Column(name = "auth")
@@ -57,7 +59,7 @@ public class User {
             property = "invoiceId")
     private Set<Invoice> invoices = new HashSet<Invoice>(0);
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "cartItemId")
@@ -174,9 +176,9 @@ public class User {
                 "\n deleted=" + deleted +
                 "\n createdDate=" + createdDate +
                 "\n updatedDate=" + updatedDate +
-                "\n addresses=" + addresses +
-                "\n cartItems=" + cartItems +
-                "\n invoices=" + invoices +
+//                "\n addresses=" + addresses +
+//                "\n cartItems=" + cartItems +
+//                "\n invoices=" + invoices +
                 '}';
     }
 }

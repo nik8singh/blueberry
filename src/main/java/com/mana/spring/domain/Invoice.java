@@ -1,6 +1,7 @@
 package com.mana.spring.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -17,14 +18,51 @@ public class Invoice {
     @Column(name = "invoice_id")
     private long invoiceId;
 
+    @Column(name = "square_invoice_id")
+    private long squareInvoiceId;
+
     @Column(name = "tax_percent")
     private double taxPercent;
 
     @Column(name = "tax_amount")
     private double taxAmount;
 
+    @Column(name = "coupon_name")
+    private String couponName;
+
+    @Column(name = "coupon_percent")
+    @JsonIgnore
+    private String couponPercent;
+
+    @Column(name = "coupon_amount")
+    private double couponAmount;
+
+    @Column(name = "shipping_address")
+    private String shippingAddress;
+
+    @Column(name = "shipping_amount")
+    private double shippingAmount;
+
     @Column(name = "invoice_amount")
     private double invoiceAmount;
+
+    @Column(name = "tracking_number")
+    private long trackingNumber;
+
+    @Column(name = "message")
+    private String message;
+
+    @Column(name = "refunded")
+    @JsonIgnore
+    private boolean refunded;
+
+    @Column(name = "completed")
+    @JsonIgnore
+    private boolean completed;
+
+    @Column(name = "refund_requested")
+    @JsonIgnore
+    private boolean refundRequested;
 
     @Column(name = "created_date", columnDefinition = "TIMESTAMP", updatable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
@@ -34,14 +72,15 @@ public class Invoice {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;
 
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "userId")
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "invoice", fetch = FetchType.LAZY)
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "purchaseId")
@@ -56,6 +95,14 @@ public class Invoice {
 
     public void setInvoiceId(long invoiceId) {
         this.invoiceId = invoiceId;
+    }
+
+    public long getSquareInvoiceId() {
+        return squareInvoiceId;
+    }
+
+    public void setSquareInvoiceId(long squareInvoiceId) {
+        this.squareInvoiceId = squareInvoiceId;
     }
 
     public double getTaxPercent() {
@@ -74,12 +121,84 @@ public class Invoice {
         this.taxAmount = taxAmount;
     }
 
+    public String getCouponName() {
+        return couponName;
+    }
+
+    public void setCouponName(String couponName) {
+        this.couponName = couponName;
+    }
+
+    public double getCouponAmount() {
+        return couponAmount;
+    }
+
+    public void setCouponAmount(double couponAmount) {
+        this.couponAmount = couponAmount;
+    }
+
+    public String getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(String shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+
+    public double getShippingAmount() {
+        return shippingAmount;
+    }
+
+    public void setShippingAmount(double shippingAmount) {
+        this.shippingAmount = shippingAmount;
+    }
+
     public double getInvoiceAmount() {
         return invoiceAmount;
     }
 
     public void setInvoiceAmount(double invoiceAmount) {
         this.invoiceAmount = invoiceAmount;
+    }
+
+    public long getTrackingNumber() {
+        return trackingNumber;
+    }
+
+    public void setTrackingNumber(long trackingNumber) {
+        this.trackingNumber = trackingNumber;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public boolean isRefunded() {
+        return refunded;
+    }
+
+    public void setRefunded(boolean refunded) {
+        this.refunded = refunded;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
+    public boolean isRefundRequested() {
+        return refundRequested;
+    }
+
+    public void setRefundRequested(boolean refundRequested) {
+        this.refundRequested = refundRequested;
     }
 
     public Date getCreatedDate() {
@@ -114,17 +233,36 @@ public class Invoice {
         this.purchases = purchases;
     }
 
+    public String getCouponPercent() {
+        return couponPercent;
+    }
+
+    public void setCouponPercent(String couponPercent) {
+        this.couponPercent = couponPercent;
+    }
+
     @Override
     public String toString() {
         return "\nInvoice{" +
                 "\ninvoiceId=" + invoiceId +
-                "\n taxPercent=" + taxPercent +
-                "\n taxAmount=" + taxAmount +
-                "\n invoiceAmount=" + invoiceAmount +
-                "\n createdDate=" + createdDate +
-                "\n updatedDate=" + updatedDate +
-                "\n user=" + user +
-                "\n purchases=" + purchases +
+                "\nsquareInvoiceId=" + squareInvoiceId +
+                "\ntaxPercent=" + taxPercent +
+                "\ntaxAmount=" + taxAmount +
+                "\ncouponName='" + couponName + '\'' +
+                "\ncouponPercent=" + couponPercent +
+                "\ncouponAmount=" + couponAmount +
+                "\nshippingAddress='" + shippingAddress + '\'' +
+                "\nshippingAmount=" + shippingAmount +
+                "\ninvoiceAmount=" + invoiceAmount +
+                "\ntrackingNumber=" + trackingNumber +
+                "\nmessage='" + message + '\'' +
+                "\nrefunded=" + refunded +
+                "\ncompleted=" + completed +
+                "\nrefundRequested=" + refundRequested +
+                "\ncreatedDate=" + createdDate +
+                "\nupdatedDate=" + updatedDate +
+                "\nuser=" + user +
+                "\npurchases=" + purchases +
                 '}';
     }
 }

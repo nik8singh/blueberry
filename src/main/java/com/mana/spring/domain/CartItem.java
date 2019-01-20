@@ -95,8 +95,8 @@ public class CartItem {
         return "\nCartItem{" +
                 "\ncartItemId=" + cartItemId +
                 "\n productQuantity='" + productQuantity + '\'' +
-                "\n user=" + user +
-                "\n product=" + product +
+//                "\n user=" + user +
+//                "\n product=" + product +
                 "\n createdDate=" + createdDate +
                 "\n updatedDate=" + updatedDate +
                 '}';

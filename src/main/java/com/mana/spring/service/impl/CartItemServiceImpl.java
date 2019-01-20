@@ -16,11 +16,9 @@ public class CartItemServiceImpl implements CartItemService {
 
     public void addToCart(CartItem cartItem) {
         cartItemDAO.save(cartItem);
-
     }
 
     public void removeFromCart(CartItem cartItem) {
-
         cartItemDAO.delete(cartItem);
     }
 
@@ -36,6 +34,4 @@ public class CartItemServiceImpl implements CartItemService {
         ArrayList<CartItem> cartItems = (ArrayList<CartItem>) cartItemDAO.listUserCartItems(email);
         return cartItems;
     }
-
-
 }

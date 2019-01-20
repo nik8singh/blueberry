@@ -16,7 +16,9 @@ public interface UserDAO {
 
     void saveUser(User user);
 
-    void deleteUser(String email);
+    void deactivateUser(String email);
+
+    void activateUser(String email);
 
     void updateUser(User user);
 

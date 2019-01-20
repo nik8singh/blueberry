@@ -15,4 +15,5 @@ public interface CartItemDAO {
     List listUserCartItems(String email);
 
     CartItem cartItemByProductAndUser(CartItem cartItem);
+
 }

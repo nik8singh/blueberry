@@ -28,10 +28,14 @@ public class CartItemDAOImpl implements CartItemDAO {
     }
 
     public List listUserCartItems(String email) {
-        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.CartItem met where met.user.userEmail= :email").setParameter("email", email).list();
+        List<CartItem> carts= hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.CartItem cart where cart.user.userEmail= :email").setParameter("email", email).list();
+        for (CartItem c : carts)
+            hibernateTemplate.initialize(c.getProduct());
+
+        return carts;
     }
 
     public CartItem cartItemByProductAndUser(CartItem cartItem) {
-        return (CartItem) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.CartItem met where met.user.userEmail= :email AND met.product.productId=:productId").setParameter("email", cartItem.getUser().getUserEmail()).setParameter("productId",cartItem.getProduct().getProductId()).list().get(0);
+        return (CartItem) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.CartItem cart where cart.user.userEmail= :email AND cart.product.productId=:productId").setParameter("email", cartItem.getUser().getUserEmail()).setParameter("productId",cartItem.getProduct().getProductId()).uniqueResult();
     }
 }

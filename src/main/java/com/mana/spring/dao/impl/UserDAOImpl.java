@@ -38,8 +38,12 @@ public class UserDAOImpl implements UserDAO {
         hibernateTemplate.save(user);
     }
 
-    public void deleteUser(String email) {
-        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("UPDATE com.mana.spring.domain.User met SET met.deleted = true where met.userEmail= :email").setParameter("email", email).executeUpdate();
+    public void deactivateUser(String email) {
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("UPDATE com.mana.spring.domain.User us SET us.deleted = true where us.userEmail= :email").setParameter("email", email).executeUpdate();
+    }
+
+    public void activateUser(String email) {
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("UPDATE com.mana.spring.domain.User us SET us.deleted = false where us.userEmail= :email").setParameter("email", email).executeUpdate();
     }
 
     public void updateUser(User user) {

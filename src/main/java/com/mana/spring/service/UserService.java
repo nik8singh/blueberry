@@ -1,5 +1,7 @@
 package com.mana.spring.service;
 
+import com.mana.spring.domain.CartItem;
+import com.mana.spring.domain.Invoice;
 import com.mana.spring.domain.User;
 
 import java.util.ArrayList;
@@ -10,20 +12,16 @@ public interface UserService {
 
     User getUserByEmail(String email);
 
-    User getUserCart(String email);
+    ArrayList<CartItem> getUserCart(String email);
 
-    User getUserInvoices(String email);
+    ArrayList<Invoice>  getUserInvoices(String email);
 
-    void registerUser(User user);
+    boolean registerUser(User user);
 
     void updateUser(User user);
 
-    void deleteUser(User user);
+    void deactivateUser(User user);
 
     void updatePassword(User user);
-
-    void addAddress(User user);
-
-
 
 }

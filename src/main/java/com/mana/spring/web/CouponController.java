@@ -6,19 +6,28 @@ import com.mana.spring.service.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+//@Controller
 @RequestMapping("/coupon")
 public class CouponController {
 
     @Autowired
     public CouponService couponService;
 
-    @RequestMapping(value = "adm/list/active/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "adm/list/active/{p}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    CouponListDTO getActiveCoupons(@PathVariable int pageNumber) {
-        return couponService.getActiveCoupons(pageNumber);
+    CouponListDTO getActiveCoupons(@PathVariable int p) {
+        return couponService.getActiveCoupons(p);
+    }
+
+
+    @RequestMapping(value = "adm/list/active", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    CouponListDTO getCoupons() {
+        return couponService.getActiveCoupons(1);
     }
 
     @RequestMapping(value = "adm/list/inactive/{pageNumber}", method = RequestMethod.GET, produces = "application/json")

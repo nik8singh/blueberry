@@ -84,6 +84,12 @@
     <bean id="cartItemDAO" class="com.mana.spring.dao.impl.CartItemDAOImpl"/>
     <bean id="cartItemController" class="com.mana.spring.web.CartItemController"/>
 
+    <bean id="purchaseDAO" class="com.mana.spring.dao.impl.PurchaseDAOImpl"/>
+
+    <bean id="invoiceService" class="com.mana.spring.service.impl.InvoiceServiceImpl"/>
+    <bean id="invoiceDAO" class="com.mana.spring.dao.impl.InvoiceDAOImpl"/>
+    <bean id="invoiceController" class="com.mana.spring.web.InvoiceController"/>
+
     <bean id="hibernateTemplate"
           class="org.springframework.orm.hibernate5.HibernateTemplate">
         <property name="sessionFactory">

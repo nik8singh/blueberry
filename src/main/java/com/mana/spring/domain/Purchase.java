@@ -15,10 +15,13 @@ public class Purchase {
     @Column(name = "purchase_id")
     private long purchaseId;
 
+    @Column(name = "product_amount")
+    private double productAmount;
+
     @Column(name = "product_quantity")
     private int productQuantity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -91,13 +94,22 @@ public class Purchase {
         this.updatedDate = updatedDate;
     }
 
+    public double getProductAmount() {
+        return productAmount;
+    }
+
+    public void setProductAmount(double productAmount) {
+        this.productAmount = productAmount;
+    }
+
     @Override
     public String toString() {
         return "\nPurchase{" +
                 "\npurchaseId=" + purchaseId +
                 "\n productQuantity=" + productQuantity +
+                "\nproductAmount=" +productAmount +
                 "\n product=" + product +
-                "\n invoice=" + invoice +
+//                "\n invoice=" + invoice +
                 "\n createdDate=" + createdDate +
                 "\n updatedDate=" + updatedDate +
                 '}';

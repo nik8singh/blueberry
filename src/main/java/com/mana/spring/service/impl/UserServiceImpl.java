@@ -1,21 +1,15 @@
 package com.mana.spring.service.impl;
 
 import com.mana.spring.dao.UserDAO;
-import com.mana.spring.domain.Address;
-import com.mana.spring.domain.Shop;
+import com.mana.spring.domain.CartItem;
+import com.mana.spring.domain.Invoice;
 import com.mana.spring.domain.User;
-import com.mana.spring.dto.AddressDTO;
-import com.mana.spring.dto.UserDTO;
 import com.mana.spring.service.UserService;
-import com.mana.spring.util.ConverterDAOtoDTO;
-import com.mana.spring.util.ConverterDTOtoDAO;
-import org.springframework.beans.BeanUtils;
+import com.mana.spring.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 @Transactional
 public class UserServiceImpl implements UserService {
@@ -24,106 +18,63 @@ public class UserServiceImpl implements UserService {
     private UserDAO userDAO;
 
     public ArrayList<User> getUsers(int pageNumber) {
-        return null;
+        int size = Pagination.getPageSize();
+        ArrayList<User> users = (ArrayList<User>) userDAO.listUser((pageNumber - 1) * size, size);
+        return users;
     }
 
     public User getUserByEmail(String email) {
-        return null;
+        return userDAO.getUserByEmail(email);
     }
 
-    public User getUserCart(String email) {
-        return null;
+    public ArrayList<CartItem> getUserCart(String email) {
+        ArrayList<CartItem> cartItems = new ArrayList<CartItem>();
+        cartItems.addAll(userDAO.getUserCart(email).getCartItems());
+        return cartItems;
     }
 
-    public User getUserInvoices(String email) {
-        return null;
+    public ArrayList<Invoice> getUserInvoices(String email) {
+        ArrayList<Invoice> invoices = new ArrayList<Invoice>();
+        invoices.addAll(userDAO.getUserInvoices(email).getInvoices());
+        return invoices;
     }
 
-    public void registerUser(User user) {
-
+    // returns true if new user
+    public boolean registerUser(User user) {
+        User checkIfUserExists = userDAO.getUserByEmail(user.getUserEmail());
+        if (checkIfUserExists != null) {
+            checkIfUserExists.setUserLastName(user.getUserLastName());
+            checkIfUserExists.setUserFirstName(user.getUserFirstName());
+            checkIfUserExists.setUserPassword(user.getUserPassword());
+            checkIfUserExists.setDeleted(false);
+            checkIfUserExists.setAuthorizationLevel("client");
+            checkIfUserExists.setCreatedDate(null);
+            checkIfUserExists.setUpdatedDate(null);
+            userDAO.updatePassword(checkIfUserExists);
+            return false;
+        }
+        user.setAuthorizationLevel("client");
+        userDAO.saveUser(user);
+        return true;
     }
 
     public void updateUser(User user) {
-
+        User currentUser = userDAO.getUserByEmail(user.getUserEmail());
+        currentUser.setUserFirstName(user.getUserFirstName());
+        currentUser.setUserLastName(user.getUserLastName());
+        currentUser.setCreatedDate(null);
+        currentUser.setUpdatedDate(null);
+        userDAO.updateUser(currentUser);
     }
 
-    public void deleteUser(User user) {
+    public void deactivateUser(User user) {
+        userDAO.deactivateUser(user.getUserEmail());
 
     }
 
     public void updatePassword(User user) {
+        userDAO.updatePassword(user);
 
     }
-
-    public void addAddress(User user) {
-
-    }
-
-    //    public ArrayList<User> getUsers() {
-//        return null;
-//    }
-//
-//    public void addUser(User user) {
-//        userDAO.saveUser(user);
-//    }
-//
-//    public void updateUser(User user) {
-//
-//        User userFromdb = userDAO.getUserByEmail(user.getUserEmail());
-//        if (user.getUserFirstName() != null)
-//            userFromdb.setUserFirstName(user.getUserFirstName());
-//        if (user.getUserLastName() != null)
-//            userFromdb.setUserLastName(user.getUserLastName());
-//        if (user.getAuthorizationLevel() != null)
-//            userFromdb.setAuthorizationLevel(user.getAuthorizationLevel());
-//        user.setCreatedDate(null);
-//        user.setUpdatedDate(null);
-//        System.out.println("Ready to update : " + user);
-//        userDAO.updateUser(user);
-//    }
-//
-//    public void deleteUser(User user) {
-//        userDAO.deleteUser(user.getUserEmail());
-//    }
-//
-//    public void updatePassword(User user) {
-//        userDAO.updatePassword(user);
-//    }
-//
-//    public void addAddress(User user) {
-//
-//        // original
-//        User userFromDB = userDAO.getUserByEmail(user.getUserEmail());
-//        Set<Address> addresses = user.getAddresses();
-//
-//        // add new to original
-//        for (Address address : user.getAddresses()) {
-//            address.setUser(user);
-//            addresses.add(address);
-//        }
-//
-//        // save new to original
-//        user.setAddresses(addresses);
-//        user.setCreatedDate(null);
-//        user.setUpdatedDate(null);
-//
-//        System.out.println("Saving user: " + user);
-//
-//
-//        userDAO.updateUser(user);
-//
-//    }
-//
-//    public User getUserByEmail(String email) {
-//        User user =userDAO.getUserByEmail(email);
-//        Set<Address> addresses = user.getAddresses();
-//
-//        for (Address address : addresses)
-//            if (!address.isActive())
-//                addresses.remove(address);
-//
-//        return user;
-//    }
-
 
 }
