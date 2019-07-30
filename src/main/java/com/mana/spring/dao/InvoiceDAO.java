@@ -8,7 +8,7 @@ public interface InvoiceDAO {
 
     Invoice saveInvoice(Invoice invoice);
 
-    void updateInvoice(Invoice invoice);
+    Invoice updateInvoice(Invoice invoice);
 
     Invoice getByInvoiceNumber(long invoiceNumber);
 

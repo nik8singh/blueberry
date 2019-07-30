@@ -1,12 +1,12 @@
 package com.mana.spring.service.impl;
 
 import com.mana.spring.dao.InvoiceDAO;
-import com.mana.spring.dao.PurchaseDAO;
 import com.mana.spring.domain.CartItem;
 import com.mana.spring.domain.Invoice;
 import com.mana.spring.domain.Purchase;
 import com.mana.spring.dto.InvoiceListDTO;
 import com.mana.spring.service.CartItemService;
+import com.mana.spring.service.CouponService;
 import com.mana.spring.service.InvoiceService;
 import com.mana.spring.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +23,10 @@ public class InvoiceServiceImpl implements InvoiceService {
     private InvoiceDAO invoiceDAO;
 
     @Autowired
-    private PurchaseDAO purchaseDAO;
+    private CartItemService cartItemService;
 
     @Autowired
-    private CartItemService cartItemService;
+    private CouponService couponService;
 
 
     public InvoiceListDTO getCompletedInvoices(int pageNumber) {
@@ -54,40 +54,32 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     public Invoice createInvoice(Invoice invoice) {
+        return invoiceDAO.saveInvoice(createTempInvoice(invoice));
+    }
 
-        Invoice invoiceDb;
-        long totalAmount = 0;
-        Set<Purchase> purchases = new HashSet<Purchase>();
-        ArrayList<CartItem> cartItems = cartItemService.getUserCart(invoice.getUser().getUserEmail());
-
-        for (CartItem item : cartItems) {
-            Purchase purchase = new Purchase();
-            purchase.setProduct(item.getProduct());
-            purchase.setProductQuantity(item.getProductQuantity());
-            totalAmount+=(item.getProduct().getProductPrice()*item.getProductQuantity());
-            purchase.setProductAmount(item.getProduct().getProductPrice());
-            purchase.setInvoice(invoice);
-            purchases.add(purchase);
-        }
-        invoice.setPurchases(purchases);
-
-        /*
-
-         more calculations need to be done her
-
-         */
-
-
-       return invoiceDAO.saveInvoice(invoice);
+    public Invoice confirmOrder(Invoice invoice) {
+        return createTempInvoice(invoice);
     }
 
     public void completeInvoice(Invoice invoice) {
+
         Invoice invoiceDb = invoiceDAO.getById(invoice);
         invoiceDb.setCompleted(true);
         invoiceDb.setTrackingNumber(invoice.getTrackingNumber());
-        invoiceDb.setSquareInvoiceId(invoice.getSquareInvoiceId());
 
         invoiceDAO.updateInvoice(invoiceDb);
+    }
+
+    public Invoice makePayment(Invoice invoice) {
+
+        // make payment using third party API
+
+        Invoice invoiceDb = invoiceDAO.getById(invoice);
+        invoiceDb.setPaymentMade(true);
+        invoiceDb.setSquareInvoiceId(invoice.getSquareInvoiceId());
+
+        return invoiceDAO.updateInvoice(invoiceDb);
+
     }
 
     public void refundInvoice(Invoice invoice) {
@@ -126,5 +118,37 @@ public class InvoiceServiceImpl implements InvoiceService {
         return invoiceListDTO;
     }
 
+
+    private Invoice createTempInvoice(Invoice invoice) {
+        double totalAmount = 0;
+        Set<Purchase> purchases = new HashSet<Purchase>();
+        ArrayList<CartItem> cartItems = cartItemService.getUserCart(invoice.getUser().getUserEmail());
+
+        for (CartItem item : cartItems) {
+            Purchase purchase = new Purchase();
+            purchase.setProduct(item.getProduct());
+            purchase.setProductQuantity(item.getProductQuantity());
+            totalAmount += (item.getProduct().getProductPrice() * item.getProductQuantity());
+            purchase.setProductAmount(item.getProduct().getProductPrice());
+            purchase.setInvoice(invoice);
+            purchases.add(purchase);
+        }
+        invoice.setPurchases(purchases);
+
+        // add tax?
+        // add shipping amount ?
+
+        //  coupon amount ?
+        double couponPercent = couponService.getCoupon(invoice.getCouponName()).getCouponDiscountPercent();
+        double couponAmount = couponPercent / 100;
+        couponAmount *= totalAmount;
+        totalAmount -= couponAmount;
+
+        invoice.setInvoiceAmount(totalAmount);
+        invoice.setCouponAmount(couponAmount);
+        invoice.setCouponPercent(couponPercent);
+
+        return invoice;
+    }
 
 }

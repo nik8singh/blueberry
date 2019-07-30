@@ -3,6 +3,8 @@ package com.mana.spring.domain;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -32,7 +34,7 @@ public class Invoice {
 
     @Column(name = "coupon_percent")
     @JsonIgnore
-    private String couponPercent;
+    private double couponPercent;
 
     @Column(name = "coupon_amount")
     private double couponAmount;
@@ -53,25 +55,26 @@ public class Invoice {
     private String message;
 
     @Column(name = "refunded")
-    @JsonIgnore
     private boolean refunded;
 
     @Column(name = "completed")
-    @JsonIgnore
     private boolean completed;
 
     @Column(name = "refund_requested")
-    @JsonIgnore
     private boolean refundRequested;
 
-    @Column(name = "created_date", columnDefinition = "TIMESTAMP", updatable = false)
+    @Column(name = "payment_made")
+    private boolean paymentMade;
+
+    @CreationTimestamp
+    @Column(name = "created_date", updatable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createdDate;
 
-    @Column(name = "updated_date", columnDefinition = "TIMESTAMP")
+    @UpdateTimestamp
+    @Column(name = "updated_date")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -233,12 +236,20 @@ public class Invoice {
         this.purchases = purchases;
     }
 
-    public String getCouponPercent() {
+    public double getCouponPercent() {
         return couponPercent;
     }
 
-    public void setCouponPercent(String couponPercent) {
+    public void setCouponPercent(double couponPercent) {
         this.couponPercent = couponPercent;
+    }
+
+    public boolean isPaymentMade() {
+        return paymentMade;
+    }
+
+    public void setPaymentMade(boolean paymentMade) {
+        this.paymentMade = paymentMade;
     }
 
     @Override
@@ -263,6 +274,7 @@ public class Invoice {
                 "\nupdatedDate=" + updatedDate +
                 "\nuser=" + user +
                 "\npurchases=" + purchases +
+                "\npaymentMade=" + paymentMade +
                 '}';
     }
 }

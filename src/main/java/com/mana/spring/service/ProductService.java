@@ -1,20 +1,27 @@
 package com.mana.spring.service;
 
 import com.mana.spring.domain.Product;
-
-import java.util.ArrayList;
+import com.mana.spring.dto.ProductListDTO;
 
 public interface ProductService {
 
-    ArrayList<Product> getProducts();
+    ProductListDTO getAllProducts(int pageNumber);
+
+    ProductListDTO getFeaturedProducts();
+
+    ProductListDTO getInStockProducts(int pageNumber);
+
+    ProductListDTO getNonPublishedProducts(int pageNumber);
+
+    ProductListDTO getPublishedProducts(int pageNumber);
+
+    ProductListDTO getOutOfStockProducts(int pageNumber);
+
+    ProductListDTO getFilteredProducts(int pageNumber);
 
     void addProduct(Product product);
 
     void updateProduct(Product product);
-
-    void deleteProduct(Product product);
-
-    ArrayList<Product> getAvailableProducts();
 
     Product getProduct(Long productId);
 }

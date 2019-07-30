@@ -2,6 +2,8 @@ package com.mana.spring.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -32,10 +34,12 @@ public class CartItem {
             property = "productId")
     private Product product;
 
+    @CreationTimestamp
     @Column(name = "created_date", updatable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createdDate;
 
+    @UpdateTimestamp
     @Column(name = "updated_date")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;

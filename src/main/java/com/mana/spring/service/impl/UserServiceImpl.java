@@ -47,13 +47,12 @@ public class UserServiceImpl implements UserService {
             checkIfUserExists.setUserFirstName(user.getUserFirstName());
             checkIfUserExists.setUserPassword(user.getUserPassword());
             checkIfUserExists.setDeleted(false);
-            checkIfUserExists.setAuthorizationLevel("client");
             checkIfUserExists.setCreatedDate(null);
             checkIfUserExists.setUpdatedDate(null);
             userDAO.updatePassword(checkIfUserExists);
             return false;
         }
-        user.setAuthorizationLevel("client");
+        user.setAuthorizationLevel("customer");
         userDAO.saveUser(user);
         return true;
     }

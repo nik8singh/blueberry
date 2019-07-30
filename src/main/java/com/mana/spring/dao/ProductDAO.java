@@ -6,15 +6,28 @@ import java.util.List;
 
 public interface ProductDAO {
 
-    void saveProduct(Product product);
+    Product getProduct(Long productId, boolean requireListOtherData);
 
-    void updateProduct(Product product);
+    Product saveProduct(Product product);
 
-    void deleteProduct(Product product);
+    Product updateProduct(Product product);
 
-    List listProduct();
+    List listAllProducts(int start, int end);
 
-    List listAvailableProducts();
+    List listFeaturedProducts();
 
-    Product getProduct(Long productId);
+    List listInStockProducts(int start, int end);
+
+    List listNonPublishedProducts(int start, int end);
+
+    List listPublishedProducts(int start, int end);
+
+    List listOutOfStockProducts(int start, int end);
+
+    long countAll();
+
+    long countInStock(boolean inStock);
+
+    long countPublished(boolean published);
+
 }

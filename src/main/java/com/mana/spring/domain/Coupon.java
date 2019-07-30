@@ -1,5 +1,8 @@
 package com.mana.spring.domain;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -19,18 +22,22 @@ public class Coupon {
     private double couponDiscountPercent;
 
     @Column(name = "coupon_start_date")
+    @Temporal(value = TemporalType.TIMESTAMP)
     private Date couponStartDate;
 
     @Column(name = "coupon_end_date")
+    @Temporal(value = TemporalType.TIMESTAMP)
     private Date couponEndDate;
 
     @Column(name = "active")
     private boolean active;
 
+    @CreationTimestamp
     @Column(name = "created_date", updatable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createdDate;
 
+    @UpdateTimestamp
     @Column(name = "updated_date")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;

@@ -24,20 +24,34 @@ public class TestShop {
     }
 
     @Test
+    public void getAllUpcomingAndOngoingShops() {
+        List<Shop> shops = shopController.getUpcomingAndOngoingShops();
+        System.out.println(shops);
+    }
+
+    @Test
     public void getShop() {
-        System.out.println(shopController.getShop("GDL"));
+        System.out.println(shopController.getShop("GWL - London"));
+    }
+
+    @Test
+    public void deleteShop() {
+        System.out.println(shopController.deleteShop("TO BE DELETED"));
     }
 
     @Test
     public void updateShop() {
 
-        Shop shop = shopController.getShop("Stones of worlds");
+        Shop shop = shopController.getShop("GWL - London");
 
-        shop.setShopDescription("SoW gem shop");
+        shop.setShopDescription("GWL - USA");
         Address address = shop.getShopAddress();
         address.setAddressFullname("Convention center");
         address.setAddressZipcode("54534");
-        address.setAddressLineTwo("458th sthih");
+        address.setAddressLineTwo("458th Ave");
+        address.setAddressCity("LA");
+        address.setAddressState("Cali");
+        address.setAddressCountry("USA");
         shop.setShopAddress(address);
         shopController.updateShop(shop);
     }
@@ -45,20 +59,20 @@ public class TestShop {
     @Test
     public void addShop() {
         Shop shop = new Shop();
-        shop.setShopName("GWL - London");
-        shop.setShopDescription("New ShoTestShopw In London");
-        shop.setBoothNumber("542");
+        shop.setShopName("TO BE DELETED");
+        shop.setShopDescription("VT show");
+        shop.setBoothNumber("254");
         shop.setShopStartDate(new Date());
         shop.setShopEndDate(new Date());
 
         Address address = new Address();
-        address.setAddressFullname("235 pearl st Address for Shop");
+        address.setAddressFullname("DELETED GWL");
         address.setAddressLineOne("212t St");
         address.setAddressLineTwo("BLD 253");
-        address.setAddressCity("Tuscon");
-        address.setAddressState("AZ");
+        address.setAddressCity("Essex");
+        address.setAddressState("VT");
         address.setAddressCountry("USA");
-        address.setAddressZipcode("57895");
+        address.setAddressZipcode("1057895");
 
         shop.setShopAddress(address);
 

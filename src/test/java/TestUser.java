@@ -1,5 +1,4 @@
 import com.mana.spring.domain.User;
-import com.mana.spring.dto.UserDTO;
 import com.mana.spring.web.UserController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,16 +22,16 @@ public class TestUser {
     @Test
     public void getUser() {
 
-        System.out.println(userController.getUserByEmail("nik8singh@gmail.com"));
+        System.out.println(userController.getUserByEmail("nscoder8@gmail.com"));
     }
 
     @Test
     public void addNewUser() {
         User user = new User();
-        user.setUserFirstName("Kelly");
-        user.setUserLastName("Smith");
-        user.setUserEmail("ksmith@gmail.com");
-        user.setUserPassword("Welcome10");
+        user.setUserFirstName("John");
+        user.setUserLastName("Doe");
+        user.setUserEmail("JDoe@gmail.com");
+        user.setUserPassword("Welcome2");
 
         userController.registerUser(user);
     }
@@ -42,8 +41,8 @@ public class TestUser {
         User user = new User();
         user.setUserFirstName("Bob");
         user.setUserLastName("Kearns");
-        user.setUserEmail("yyfyi@.com");
-        user.setUserPassword("Welcome110");
+        user.setUserEmail("JDoe@gmail.com");
+        user.setUserPassword("Welcome2");
 
         userController.registerUser(user);
     }
@@ -51,7 +50,7 @@ public class TestUser {
     @Test
     public void deleteUser() {
         User user = new User();
-        user.setUserEmail("yyfyi@.com");
+        user.setUserEmail("JDoe@gmail.com");
 
         userController.deleteUser(user);
     }
@@ -60,9 +59,9 @@ public class TestUser {
     @Test
     public void updateUser() {
         User user = new User();
-        user.setUserFirstName("Nikhil");
-        user.setUserLastName("Singh");
-        user.setUserEmail("nik8singh@gmail.com");
+        user.setUserFirstName("John");
+        user.setUserLastName("Doe");
+        user.setUserEmail("JDoe@gmail.com");
         userController.updateUser(user);
     }
 
@@ -70,7 +69,7 @@ public class TestUser {
     @Test
     public void updateUserPW() {
         User user = new User();
-        user.setUserEmail("nik8singh@gmail.com");
+        user.setUserEmail("JDoe@gmail.com");
         user.setUserPassword("MyPassword121");
         userController.updatePassword(user);
     }

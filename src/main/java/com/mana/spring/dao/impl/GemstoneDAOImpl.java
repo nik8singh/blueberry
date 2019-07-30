@@ -26,7 +26,6 @@ public class GemstoneDAOImpl implements GemstoneDAO {
 
         Gemstone gemstone = (Gemstone) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Gemstone gem where gem.gemstoneName= :name ").setParameter("name", gemstoneName).uniqueResult();
 
-
         // this will force Hibernate to execute the query that will join with the gemstone's products and populate the appropriate information into the user object.
         if (requireProducts)
             hibernateTemplate.initialize(gemstone.getProducts());

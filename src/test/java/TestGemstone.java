@@ -21,7 +21,7 @@ public class TestGemstone {
     @Test
     public void getActiveGemstones() {
 
-        System.out.println(gemstoneController.getAllActiveGemstones(4));
+        System.out.println(gemstoneController.getAllActiveGemstones(1));
 
     }
 
@@ -40,8 +40,8 @@ public class TestGemstone {
     @Test
     public void addNewGemstones() {
         Gemstone gemstone = new Gemstone();
-        gemstone.setGemstoneName("HJDHFI");
-        gemstone.setGemstoneDescription("Test HHH");
+        gemstone.setGemstoneName("Unit Test");
+        gemstone.setGemstoneDescription("Testing unit test on 4/7/2019 8:21 PM");
         gemstone.setGemstoneActive(true);
         System.out.println(gemstoneController.saveGemstone(gemstone));
     }
@@ -49,9 +49,9 @@ public class TestGemstone {
     @Test
     public void updateGemstone() {
         Gemstone gemstone = new Gemstone();
-        gemstone.setGemstoneId(29L);
-        gemstone.setGemstoneName("amber");
-        gemstone.setGemstoneDescription("A Fire Gemstone");
+        gemstone.setGemstoneId(51L);
+        gemstone.setGemstoneName("Test Gem");
+        gemstone.setGemstoneDescription("A Testing Gemstone");
         gemstone.setGemstoneActive(true);
         System.out.println();
         gemstoneController.updateGemstone(gemstone);
@@ -59,7 +59,7 @@ public class TestGemstone {
 
     @Test
     public void deactivateGemstone() {
-        System.out.println(gemstoneController.deactivateGemstone("tester"));
+        System.out.println(gemstoneController.deactivateGemstone("Test inactive"));
     }
 
 

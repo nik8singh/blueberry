@@ -25,7 +25,7 @@ public class TestJewelryType {
 
     @Test
     public void getJewelryType() {
-        System.out.println(jewelryTypeController.getJewelryType("necklaces"));
+        System.out.println(jewelryTypeController.getJewelryType("Toe Ring"));
     }
 
     @Test
@@ -37,8 +37,8 @@ public class TestJewelryType {
     @Test
     public void addNewJewelryType() {
         JewelryType jewelryType = new JewelryType();
-        jewelryType.setJewelryTypeName("jewelryTypeGHGIGI");
-        jewelryType.setJewelryTypeDescription("Test jewelryType GRGSD");
+        jewelryType.setJewelryTypeName("Head Ring ");
+        jewelryType.setJewelryTypeDescription("It's a ring but for Head");
         System.out.println(jewelryTypeController.saveJewelryType(jewelryType));
     }
 
@@ -47,14 +47,14 @@ public class TestJewelryType {
         JewelryType jewelryType = new JewelryType();
         jewelryType.setJewelryTypeId(8L);
         jewelryType.setJewelryTypeName("necklaces");
-        jewelryType.setJewelryTypeDescription("Rings for neck");
+        jewelryType.setJewelryTypeDescription("It's a ring but for neck");
         jewelryType.setJewelryTypeActive(true);
         jewelryTypeController.updateJewelryType(jewelryType);
     }
 
     @Test
     public void deactivateJewelryType() {
-        System.out.println(jewelryTypeController.deactivateJewelryType("TestingNewAdd"));
+        System.out.println(jewelryTypeController.deactivateJewelryType("Head Ring "));
     }
 
 

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.io.Serializable;
 import java.util.List;
 
 
@@ -21,8 +20,9 @@ public class InvoiceDAOImpl implements InvoiceDAO {
         return invoice;
     }
 
-    public void updateInvoice(Invoice invoice) {
+    public Invoice updateInvoice(Invoice invoice) {
         hibernateTemplate.update(invoice);
+        return invoice;
     }
 
     public Invoice getByInvoiceNumber(long invoiceNumber) {

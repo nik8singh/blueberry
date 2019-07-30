@@ -1,15 +1,9 @@
-import com.mana.spring.dto.GemstoneDTO;
-import com.mana.spring.dto.MetalDTO;
-import com.mana.spring.dto.ProductDTO;
 import com.mana.spring.web.ImageController;
 import com.mana.spring.web.ProductController;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.ArrayList;
 
 @ContextConfiguration({"classpath:test-servlet.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)

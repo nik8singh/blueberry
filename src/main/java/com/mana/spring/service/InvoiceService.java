@@ -3,8 +3,6 @@ package com.mana.spring.service;
 import com.mana.spring.domain.Invoice;
 import com.mana.spring.dto.InvoiceListDTO;
 
-import java.util.ArrayList;
-
 public interface InvoiceService {
 
     InvoiceListDTO getCompletedInvoices(int pageNumber);
@@ -21,10 +19,14 @@ public interface InvoiceService {
 
     Invoice createInvoice(Invoice invoice);
 
+    Invoice confirmOrder(Invoice invoice);
+
     void completeInvoice(Invoice invoice);
 
     void refundInvoice(Invoice invoice);
 
     void requestRefund(Invoice invoice);
+
+    Invoice makePayment(Invoice invoice);
 
 }

@@ -22,7 +22,7 @@ public class TestCartItems {
         Product product = new Product();
 
         product.setProductId(24L);
-        user.setUserId(3L);
+        user.setUserId(1L);
 
         cartItem.setProductQuantity(2);
         cartItem.setProduct(product);

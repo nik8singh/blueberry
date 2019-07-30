@@ -1,7 +1,5 @@
 package com.mana.spring.dto;
 
-import java.util.ArrayList;
-
 public class GemstoneDTO {
 
     private long gemstoneId;
@@ -11,8 +9,6 @@ public class GemstoneDTO {
     private String gemstoneDescription;
 
     private boolean gemstoneActive;
-
-    private ArrayList<ProductDTO> productDTOS;
 
     public GemstoneDTO() {
     }
@@ -49,14 +45,6 @@ public class GemstoneDTO {
         this.gemstoneActive = gemstoneActive;
     }
 
-    public ArrayList<ProductDTO> getProductDTOS() {
-        return productDTOS;
-    }
-
-    public void setProductDTOS(ArrayList<ProductDTO> productDTOS) {
-        this.productDTOS = productDTOS;
-    }
-
     @Override
     public String toString() {
         return "\n\tGemstoneDTO{" +
@@ -64,7 +52,6 @@ public class GemstoneDTO {
                 "\n\t\tgemstoneName='" + gemstoneName + '\'' +
                 "\n\t\tgemstoneDescription='" + gemstoneDescription + '\'' +
                 "\n\t\tgemstoneActive='" + gemstoneActive + '\'' +
-                "\n\t\tproductDTOS='" + productDTOS + '\'' +
                 "\n\t}";
     }
 }

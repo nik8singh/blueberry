@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Calendar;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @ContextConfiguration({"classpath:test-servlet.xml"})
@@ -31,74 +33,71 @@ public class TestCoupons {
 
     @Test
     public void getCoupon() {
-        System.out.println(couponController.getCoupon("test"));
+        System.out.println(couponController.getCoupon("Winter2018"));
     }
 
     @Test
-    public void addNewPast() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(2017, 01, 17);
-        Date date = cal.getTime();
+    public void addNewPast() throws ParseException {
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = formatter.parse("2017-5-01");
         Coupon coupon = new Coupon();
-        coupon.setCouponName("2017");
+        coupon.setCouponName("Summer2017");
         coupon.setCouponDiscountPercent(15);
         coupon.setCouponStartDate(date);
-        cal.set(2017, 10, 17);
-        date = cal.getTime();
+        date = formatter.parse("2017-7-31");
         coupon.setCouponEndDate(date);
         couponController.saveCoupon(coupon);
     }
 
     @Test
-    public void addNewFuture() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(2019, 01, 17);
-        Date date = cal.getTime();
+    public void addNewFuture() throws ParseException {
+
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = formatter.parse("2019-12-01");
         Coupon coupon = new Coupon();
-        coupon.setCouponName("2019");
-        coupon.setCouponDiscountPercent(15);
+        coupon.setCouponName("Winter2019");
+        coupon.setCouponDiscountPercent(20);
+        System.out.println("start: " + date);
         coupon.setCouponStartDate(date);
-        cal.set(2019, 10, 17);
-        date = cal.getTime();
+        date = formatter.parse("2020-4-01");
+        System.out.println("end: " + date);
         coupon.setCouponEndDate(date);
         couponController.saveCoupon(coupon);
     }
 
     @Test
-    public void addNewPresent() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(2018, 01, 17);
-        Date date = cal.getTime();
+    public void addNewPresent() throws ParseException {
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = formatter.parse("2018-12-01");
         Coupon coupon = new Coupon();
-        coupon.setCouponName("2018");
-        coupon.setCouponDiscountPercent(15);
+        coupon.setCouponName("Winter2018");
+        coupon.setCouponDiscountPercent(20);
+        System.out.println("start: " + date);
         coupon.setCouponStartDate(date);
-        cal.set(2018, 12, 31);
-        date = cal.getTime();
+        date = formatter.parse("2019-5-01");
+        System.out.println("end: " + date);
         coupon.setCouponEndDate(date);
         couponController.saveCoupon(coupon);
     }
 
     @Test
-    public void update() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(2018, 00, 17);
-        Date date = cal.getTime();
+    public void update() throws ParseException {
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = formatter.parse("2019-5-01");
 
         Coupon coupon = new Coupon();
-        coupon.setCouponId(6L);
-        coupon.setCouponName("Final UT");
-        coupon.setCouponDiscountPercent(5);
+        coupon.setCouponId(1L);
+        coupon.setCouponName("Summer2019");
+        coupon.setCouponDiscountPercent(20);
         coupon.setCouponStartDate(date);
-        cal.set(2019, 5, 31);
-        date = cal.getTime();
+        date = formatter.parse("2019-8-31");
         coupon.setCouponEndDate(date);
         couponController.updateCoupon(coupon);
     }
 
     @Test
     public void delete() {
-        couponController.deleteCoupon("2nd test");
+        couponController.deleteCoupon("Winter2019");
     }
 
 

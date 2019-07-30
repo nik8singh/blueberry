@@ -25,7 +25,7 @@ public class TestMetal {
 
     @Test
     public void getMetal() {
-        System.out.println(metalController.getMetal("Gold"));
+        System.out.println(metalController.getMetal("silver"));
     }
 
     @Test
@@ -34,29 +34,27 @@ public class TestMetal {
         System.out.println(metalController.getMetal("Gold").getProducts());
     }
 
-
     @Test
     public void addNewMetal() {
         Metal metal = new Metal();
-        metal.setMetalName("MetalGHGIGI");
-        metal.setMetalDescription("Test HHH");
-        metal.setMetalActive(true);
+        metal.setMetalName("Test Metal");
+        metal.setMetalDescription("This is a test metal added on 4/7/2019 9:32 PM");
         System.out.println(metalController.saveMetal(metal));
     }
 
     @Test
     public void updateMetal() {
         Metal metal = new Metal();
-        metal.setMetalId(4L);
+        metal.setMetalId(4);
         metal.setMetalName("silver");
-        metal.setMetalDescription("grey sparkly thing");
+        metal.setMetalDescription("Silver metal is used in many coins, sometimes alongside gold while it is more abundant than gold, it is much less abundant as a native metal. As one of the seven metals of antiquity, silver has had an enduring role in most human cultures.");
         metal.setMetalActive(true);
         metalController.updateMetal(metal);
     }
 
     @Test
     public void deactivateMetal() {
-        System.out.println(metalController.deactivateMetal("test"));
+        System.out.println(metalController.deactivateMetal("Test Inactive Metal"));
     }
 
 

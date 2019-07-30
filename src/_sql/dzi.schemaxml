@@ -6,280 +6,281 @@
 <canvas zoom="100">
 <tables>
 <table name="product" view="colnames">
-<left>626</left>
-<top>72</top>
+<left>458</left>
+<top>151</top>
 <width>181</width>
-<height>360</height>
+<height>380</height>
 <sql_create_table>CREATE TABLE `product` (
   `product_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `product_name` varchar(255) DEFAULT NULL,
   `product_description` varchar(255) DEFAULT NULL,
   `product_jewelry_type` bigint(20) DEFAULT NULL,
   `product_weight` double DEFAULT '0',
-  `weight_unit` varchar(50) DEFAULT 'kg',
+  `weight_unit` varchar(255) DEFAULT 'kg',
   `product_price` double DEFAULT '0',
   `product_sku` varchar(255) DEFAULT NULL,
-  `price_currency` varchar(50) DEFAULT NULL,
-  `product_quantity` bigint(20) DEFAULT '0',
-  `product_quantity_type` varchar(50) DEFAULT 'unit',
+  `price_currency` varchar(255) DEFAULT NULL,
+  `product_quantity` int(20) DEFAULT '0',
+  `product_quantity_type` varchar(255) DEFAULT 'Unit',
   `product_onfeatured` bit(1) DEFAULT b'0',
   `product_published` bit(1) DEFAULT b'0',
   `product_expense` double DEFAULT '0',
   `product_accept_coupon` bit(1) DEFAULT b'1',
+  `active` bit(1) DEFAULT b'0',
+  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`product_id`),
-  UNIQUE KEY `product_sku` (`product_sku`),
-  KEY `fk_jewelry_type_product` (`product_jewelry_type`),
-  CONSTRAINT `fk_jewelry_type_product` FOREIGN KEY (`product_jewelry_type`) REFERENCES `jewelry_type` (`jewelry_type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1</sql_create_table>
+  UNIQUE KEY `UK_c5wu6de1jqnqhi87qmqcdsox5` (`product_sku`),
+  KEY `FK7iqu86l56x3vrrae1lg1tujnu` (`product_jewelry_type`),
+  CONSTRAINT `FK7iqu86l56x3vrrae1lg1tujnu` FOREIGN KEY (`product_jewelry_type`) REFERENCES `jewelry_type` (`jewelry_type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="coupon" view="colnames">
+<left>43</left>
+<top>426</top>
+<width>191</width>
+<height>214</height>
+<sql_create_table>CREATE TABLE `coupon` (
+  `coupon_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `coupon_name` varchar(255) NOT NULL,
+  `coupon_discount_percent` double NOT NULL,
+  `coupon_start_date` datetime DEFAULT NULL,
+  `coupon_end_date` datetime DEFAULT NULL,
+  `active` bit(1) DEFAULT b'1',
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`coupon_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="gemstone_product" view="colnames">
+<left>237</left>
+<top>22</top>
+<width>171</width>
+<height>165</height>
+<sql_create_table>CREATE TABLE `gemstone_product` (
+  `gemstone_product_id` bigint(20) NOT NULL,
+  `gemstone_id` bigint(20) NOT NULL,
+  `product_id` bigint(20) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`gemstone_product_id`),
+  KEY `fk_product_gemstone` (`product_id`),
+  KEY `fk_gemstone_product` (`gemstone_id`),
+  CONSTRAINT `fk_gemstone_product` FOREIGN KEY (`gemstone_id`) REFERENCES `gemstone` (`gemstone_id`),
+  CONSTRAINT `fk_product_gemstone` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="gemstone" view="colnames">
-<left>63</left>
-<top>246</top>
+<left>29</left>
+<top>21</top>
 <width>171</width>
 <height>180</height>
 <sql_create_table>CREATE TABLE `gemstone` (
   `gemstone_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `gemstone_name` varchar(20) DEFAULT NULL,
+  `gemstone_name` varchar(255) NOT NULL,
   `gemstone_description` varchar(255) DEFAULT 'not available',
+  `active` bit(1) NOT NULL DEFAULT b'1',
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`gemstone_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="image" view="colnames">
+<left>275</left>
+<top>412</top>
+<width>158</width>
+<height>231</height>
+<sql_create_table>CREATE TABLE `image` (
+  `image_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `image` tinyblob NOT NULL,
+  `image_name` varchar(255) DEFAULT NULL,
+  `image_page_name` varchar(255) DEFAULT NULL,
+  `image_panel_name` varchar(255) DEFAULT NULL,
+  `image_priority` int(11) unsigned DEFAULT '0',
+  `product_id` bigint(20) DEFAULT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`image_id`),
+  KEY `FKgpextbyee3uk9u6o2381m7ft1` (`product_id`),
+  CONSTRAINT `FKgpextbyee3uk9u6o2381m7ft1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="jewelry_type" view="colnames">
+<left>663</left>
+<top>543</top>
+<width>189</width>
+<height>180</height>
+<sql_create_table>CREATE TABLE `jewelry_type` (
+  `jewelry_type_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `jewelry_type_name` varchar(255) NOT NULL,
+  `jewelry_type_description` varchar(255) DEFAULT 'not available',
+  `active` bit(1) NOT NULL DEFAULT b'1',
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`jewelry_type_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="metal_product" view="colnames">
+<left>242</left>
+<top>212</top>
+<width>159</width>
+<height>165</height>
+<sql_create_table>CREATE TABLE `metal_product` (
+  `metal_product_id` bigint(20) NOT NULL,
+  `product_id` bigint(20) NOT NULL,
+  `metal_id` bigint(20) NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`metal_product_id`),
+  KEY `fk_metal_product` (`metal_id`),
+  KEY `fk_product_metal` (`product_id`),
+  CONSTRAINT `fk_metal_product` FOREIGN KEY (`metal_id`) REFERENCES `metal` (`metal_id`),
+  CONSTRAINT `fk_product_metal` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="metal" view="colnames">
+<left>37</left>
+<top>210</top>
+<width>147</width>
+<height>180</height>
+<sql_create_table>CREATE TABLE `metal` (
+  `metal_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `metal_name` varchar(255) NOT NULL,
+  `metal_description` varchar(255) DEFAULT 'not available',
   `active` bit(1) DEFAULT b'1',
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`gemstone_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1</sql_create_table>
-</table>
-<table name="gemstone_product" view="colnames">
-<left>321</left>
-<top>228</top>
-<width>169</width>
-<height>163</height>
-<sql_create_table>CREATE TABLE `gemstone_product` (
-  `gemstone_product_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `gemstone_id` bigint(20) NOT NULL,
-  `product_id` bigint(20) NOT NULL,
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`gemstone_product_id`),
-  KEY `fk_gemstone_product` (`gemstone_id`),
-  KEY `fk_product_gemstone` (`product_id`),
-  CONSTRAINT `fk_gemstone_product` FOREIGN KEY (`gemstone_id`) REFERENCES `gemstone` (`gemstone_id`),
-  CONSTRAINT `fk_product_gemstone` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1</sql_create_table>
+  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`metal_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="address" view="colnames">
-<left>1391</left>
-<top>275</top>
+<left>1204</left>
+<top>146</top>
 <width>147</width>
-<height>261</height>
+<height>282</height>
 <sql_create_table>CREATE TABLE `address` (
   `address_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `address_fullname` varchar(255) DEFAULT NULL,
   `address_lineone` varchar(255) DEFAULT NULL,
   `address_linetwo` varchar(255) DEFAULT NULL,
-  `address_city` varchar(100) DEFAULT NULL,
-  `address_state` varchar(100) DEFAULT NULL,
-  `address_zipcode` varchar(20) DEFAULT NULL,
+  `address_city` varchar(255) DEFAULT NULL,
+  `address_state` varchar(255) DEFAULT NULL,
   `address_country` varchar(255) DEFAULT NULL,
+  `address_zipcode` varchar(255) DEFAULT NULL,
+  `active` bit(1) DEFAULT b'1',
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` bigint(20) DEFAULT NULL,
-  `active` bit(1) NOT NULL DEFAULT b'1',
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`address_id`),
-  KEY `fk_user_address` (`user_id`),
-  CONSTRAINT `fk_user_address` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1</sql_create_table>
+  KEY `FKda8tuywtf0gb6sedwk7la1pgi` (`user_id`),
+  CONSTRAINT `FKda8tuywtf0gb6sedwk7la1pgi` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1</sql_create_table>
 </table>
-<table name="user" view="colnames">
-<left>1217</left>
-<top>297</top>
-<width>149</width>
-<height>214</height>
-<sql_create_table>CREATE TABLE `user` (
-  `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_firstname` varchar(100) NOT NULL,
-  `user_lastname` varchar(100) NOT NULL,
-  `user_email` varchar(100) NOT NULL,
-  `user_password` varchar(100) DEFAULT NULL,
-  `auth` varchar(20) NOT NULL,
-  `deleted` bit(1) DEFAULT b'0',
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`user_id`),
-  UNIQUE KEY `user_email` (`user_email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1</sql_create_table>
-</table>
-<table name="jewelry_type" view="colnames">
-<left>413</left>
-<top>597</top>
-<width>189</width>
-<height>180</height>
-<sql_create_table>CREATE TABLE `jewelry_type` (
-  `jewelry_type_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `jewelry_type_name` varchar(20) DEFAULT NULL,
-  `jewelry_type_description` varchar(255) DEFAULT 'not available',
-  `active` bit(1) DEFAULT b'1',
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`jewelry_type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1</sql_create_table>
-</table>
-<table name="metal" view="colnames">
-<left>100</left>
-<top>449</top>
-<width>147</width>
-<height>180</height>
-<sql_create_table>CREATE TABLE `metal` (
-  `metal_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `metal_name` varchar(20) DEFAULT NULL,
-  `metal_description` varchar(255) DEFAULT 'not available',
-  `active` bit(1) DEFAULT b'1',
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`metal_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1</sql_create_table>
-</table>
-<table name="metal_product" view="colnames">
-<left>347</left>
-<top>415</top>
-<width>145</width>
-<height>163</height>
-<sql_create_table>CREATE TABLE `metal_product` (
-  `metal_product_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `product_id` bigint(20) NOT NULL,
-  `metal_id` bigint(20) NOT NULL,
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`metal_product_id`),
-  KEY `fk_product_metal` (`product_id`),
-  KEY `fk_metal_product` (`metal_id`),
-  CONSTRAINT `fk_metal_product` FOREIGN KEY (`metal_id`) REFERENCES `metal` (`metal_id`),
-  CONSTRAINT `fk_product_metal` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1</sql_create_table>
-</table>
-<table name="coupon" view="colnames">
-<left>58</left>
-<top>23</top>
-<width>191</width>
-<height>197</height>
-<sql_create_table>CREATE TABLE `coupon` (
-  `coupon_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `coupon_name` varchar(255) NOT NULL,
-  `coupon_discount_percent` double(20,5) NOT NULL,
-  `active` bit(1) DEFAULT b'1',
-  `coupon_start_date` datetime DEFAULT NULL,
-  `coupon_end_date` datetime DEFAULT NULL,
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`coupon_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1</sql_create_table>
-</table>
-<table name="image" view="colnames">
-<left>313</left>
-<top>22</top>
-<width>176</width>
-<height>197</height>
-<sql_create_table>CREATE TABLE `image` (
-  `image_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `image_name` varchar(255) DEFAULT NULL,
-  `image_panel_name` varchar(255) DEFAULT NULL,
-  `image_page_name` varchar(255) DEFAULT NULL,
-  `image` longblob NOT NULL,
-  `product_id` bigint(20) DEFAULT NULL,
-  `image_priority` tinyint(3) unsigned DEFAULT '0',
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`image_id`),
-  KEY `fk_product_image` (`product_id`),
-  CONSTRAINT `fk_product_image` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
-</table>
-<table name="cartItem" view="colnames">
-<left>1052</left>
-<top>54</top>
+<table name="cartitem" view="colnames">
+<left>876</left>
+<top>100</top>
 <width>142</width>
 <height>180</height>
 <sql_create_table>CREATE TABLE `cartitem` (
   `cartItem_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `product_id` bigint(20) NOT NULL,
+  `product_quantity` int(20) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
-  `product_quantity` bigint(20) DEFAULT NULL,
+  `product_id` bigint(20) DEFAULT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`cartItem_id`),
-  KEY `fk_cartitem_user` (`user_id`),
-  KEY `fk_cartitem_product` (`product_id`),
-  CONSTRAINT `fk_cartitem_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`),
-  CONSTRAINT `fk_cartitem_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1</sql_create_table>
-</table>
-<table name="shop" view="colnames">
-<left>1229</left>
-<top>50</top>
-<width>141</width>
-<height>231</height>
-<sql_create_table>CREATE TABLE `shop` (
-  `shop_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `shop_name` varchar(255) NOT NULL,
-  `shop_desrciption` varchar(255) NOT NULL,
-  `shop_address` bigint(20) NOT NULL,
-  `booth_number` varchar(20) DEFAULT NULL,
-  `shop_start_date` date DEFAULT NULL,
-  `shop_end_date` date DEFAULT NULL,
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`shop_id`),
-  KEY `fk_address_show` (`shop_address`),
-  CONSTRAINT `fk_address_show` FOREIGN KEY (`shop_address`) REFERENCES `address` (`address_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1</sql_create_table>
+  KEY `FKooxi9arvo8vhlfsr505ycpvyq` (`product_id`),
+  KEY `FKb7nmvd7khu97ipwyg47hkt5gk` (`user_id`),
+  CONSTRAINT `FKb7nmvd7khu97ipwyg47hkt5gk` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
+  CONSTRAINT `FKooxi9arvo8vhlfsr505ycpvyq` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="invoice" view="colnames">
-<left>1017</left>
-<top>280</top>
-<width>150</width>
+<left>867</left>
+<top>332</top>
+<width>149</width>
 <height>407</height>
 <sql_create_table>CREATE TABLE `invoice` (
   `invoice_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) DEFAULT NULL,
+  `invoice_amount` double DEFAULT NULL,
+  `coupon_name` varchar(255) DEFAULT NULL,
+  `coupon_percent` double DEFAULT NULL,
+  `completed` bit(1) DEFAULT NULL,
+  `payment_made` bit(1) DEFAULT NULL,
+  `message` varchar(255) DEFAULT NULL,
+  `coupon_amount` double DEFAULT NULL,
+  `refund_requested` bit(1) DEFAULT NULL,
+  `refunded` bit(1) DEFAULT NULL,
+  `shipping_address` varchar(255) DEFAULT NULL,
+  `shipping_amount` double DEFAULT NULL,
   `square_invoice_id` bigint(20) DEFAULT NULL,
-  `tax_percent` double DEFAULT '0',
   `tax_amount` double DEFAULT '0',
-  `coupon_name` varchar(250) DEFAULT NULL,
-  `coupon_percent` double DEFAULT '0',
-  `coupon_amount` double DEFAULT '0',
-  `shipping_address` varchar(250) DEFAULT NULL,
-  `shipping_amount` double DEFAULT '0',
-  `invoice_amount` double DEFAULT '0',
-  `tracking_number` bigint(250) DEFAULT NULL,
-  `message` varchar(250) DEFAULT NULL,
-  `refunded` bit(1) DEFAULT b'0',
-  `completed` bit(1) DEFAULT b'0',
-  `refund_requested` bit(1) DEFAULT b'0',
+  `tax_percent` double DEFAULT '0',
+  `tracking_number` bigint(20) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`invoice_id`),
-  KEY `fk_user_invoice` (`user_id`),
-  CONSTRAINT `fk_user_invoice` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+  KEY `FKjunvl5maki3unqdvljk31kns3` (`user_id`),
+  CONSTRAINT `FKjunvl5maki3unqdvljk31kns3` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 <table name="purchase" view="colnames">
-<left>837</left>
-<top>229</top>
-<width>145</width>
-<height>180</height>
+<left>701</left>
+<top>236</top>
+<width>142</width>
+<height>197</height>
 <sql_create_table>CREATE TABLE `purchase` (
   `purchase_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `product_id` bigint(20) DEFAULT NULL,
   `product_amount` double DEFAULT NULL,
-  `product_quantity` double DEFAULT '0',
+  `product_quantity` int(11) DEFAULT '0',
   `invoice_id` bigint(20) DEFAULT NULL,
-  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `product_id` bigint(20) DEFAULT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`purchase_id`),
-  KEY `fk_invoice_product` (`invoice_id`),
-  KEY `fk_product_purchase` (`product_id`),
-  CONSTRAINT `fk_purchase_invoice` FOREIGN KEY (`invoice_id`) REFERENCES `invoice` (`invoice_id`),
-  CONSTRAINT `fk_purchase_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
+  KEY `FK5n94soa9xj2uema1977txr8j9` (`invoice_id`),
+  KEY `FK3s4jktret4nl7m8yhfc8mfrn5` (`product_id`),
+  CONSTRAINT `FK3s4jktret4nl7m8yhfc8mfrn5` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`),
+  CONSTRAINT `FK5n94soa9xj2uema1977txr8j9` FOREIGN KEY (`invoice_id`) REFERENCES `invoice` (`invoice_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="shop" view="colnames">
+<left>1039</left>
+<top>12</top>
+<width>142</width>
+<height>236</height>
+<sql_create_table>CREATE TABLE `shop` (
+  `shop_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `shop_name` varchar(255) DEFAULT NULL,
+  `shop_desrciption` varchar(255) DEFAULT NULL,
+  `shop_address` bigint(20) DEFAULT NULL,
+  `booth_number` varchar(255) DEFAULT NULL,
+  `shop_start_date` datetime DEFAULT NULL,
+  `shop_end_date` datetime DEFAULT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`shop_id`),
+  KEY `FKk68lmw22p8nagwvkygx9t830t` (`shop_address`),
+  CONSTRAINT `FKk68lmw22p8nagwvkygx9t830t` FOREIGN KEY (`shop_address`) REFERENCES `address` (`address_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="user" view="colnames">
+<left>1041</left>
+<top>263</top>
+<width>139</width>
+<height>231</height>
+<sql_create_table>CREATE TABLE `user` (
+  `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_firstname` varchar(255) DEFAULT NULL,
+  `user_lastname` varchar(255) DEFAULT NULL,
+  `user_email` varchar(255) DEFAULT NULL,
+  `user_password` varchar(255) DEFAULT NULL,
+  `auth` varchar(255) DEFAULT NULL,
+  `deleted` bit(1) DEFAULT b'0',
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
 </table>
 </tables>

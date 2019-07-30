@@ -37,7 +37,7 @@ public class ShopDAOImpl implements ShopDAO {
 
     public List listUpcomingShop() {
 
-        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Shop shop where shop.shopEndDate <=:todayDate ORDER BY shop.shopStartDate").setParameter("todayDate", new Date()).list();
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Shop shop where shop.shopEndDate >=:todayDate ORDER BY shop.shopStartDate").setParameter("todayDate", new Date()).list();
     }
 
     public List listShop() {

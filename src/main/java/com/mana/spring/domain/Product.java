@@ -2,6 +2,8 @@ package com.mana.spring.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -56,22 +58,24 @@ public class Product {
     @Column(name = "product_accept_coupon")
     private boolean productAcceptCoupon;
 
+    @CreationTimestamp
     @Column(name = "created_date", updatable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createdDate;
 
+    @UpdateTimestamp
     @Column(name = "updated_date")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "product_jewelry_type")
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "jewelryTypeId")
     private JewelryType productJewelryType;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany()
     @JoinTable(
             name = "gemstone_product",
             joinColumns = {@JoinColumn(name = "product_id")},
@@ -82,7 +86,7 @@ public class Product {
             property = "gemstoneId")
     private Set<Gemstone> gemstones = new HashSet<Gemstone>(0);
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany()
     @JoinTable(
             name = "metal_product",
             joinColumns = {@JoinColumn(name = "product_id")},
@@ -92,21 +96,21 @@ public class Product {
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "metalId")
     private Set<Metal> metals = new HashSet<Metal>(0);
-    
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.EAGER)
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "imageId")
     private Set<Image> images = new HashSet<Image>(0);
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "cartItemId")
     private Set<CartItem> cartItems = new HashSet<CartItem>(0);
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "purchaseId")
@@ -204,12 +208,28 @@ public class Product {
         this.productOnFeatured = productOnFeatured;
     }
 
+    public boolean isProductPublished() {
+        return productPublished;
+    }
+
+    public void setProductPublished(boolean productPublished) {
+        this.productPublished = productPublished;
+    }
+
     public double getProductExpense() {
         return productExpense;
     }
 
     public void setProductExpense(double productExpense) {
         this.productExpense = productExpense;
+    }
+
+    public boolean isProductAcceptCoupon() {
+        return productAcceptCoupon;
+    }
+
+    public void setProductAcceptCoupon(boolean productAcceptCoupon) {
+        this.productAcceptCoupon = productAcceptCoupon;
     }
 
     public Date getCreatedDate() {
@@ -258,18 +278,6 @@ public class Product {
 
     public void setImages(Set<Image> images) {
         this.images = images;
-    }
-
-    public boolean isProductAcceptCoupon() {
-        return productAcceptCoupon;
-    }
-
-    public void setProductAcceptCoupon(boolean productAcceptCoupon) {
-        this.productAcceptCoupon = productAcceptCoupon;
-    }
-
-    public boolean isProductPublished() {
-        return productPublished;
     }
 
     public Set<CartItem> getCartItems() {

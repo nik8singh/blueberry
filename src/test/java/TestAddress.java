@@ -15,7 +15,7 @@ public class TestAddress {
 
     @Test
     public void getAddressesByEmail(){
-        System.out.println(addressController.getAddressByUserEmail("yyfyi@.com"));
+        System.out.println(addressController.getAddressByUserEmail("nscoder8@gmail.com"));
     }
 
     @Test
@@ -28,7 +28,7 @@ public class TestAddress {
         address.setAddressCountry("USA");
         address.setAddressZipcode("05452");
         User user = new User();
-        user.setUserId(3L);
+        user.setUserId(1L);
         address.setUser(user);
 
         addressController.saveAddress(address);
@@ -37,7 +37,7 @@ public class TestAddress {
     @Test
     public void updateUserAddress(){
         Address address = new Address();
-        address.setAddressId(22L);
+        address.setAddressId(5L);
         address.setAddressFullname("Williston Office");
         address.setAddressLineOne("289 Hurricane Ln");
         address.setAddressCity("Williston");
@@ -51,6 +51,6 @@ public class TestAddress {
     @Test
     public void deleteUserAddress(){
 
-        addressController.deactivateAddress(20L);
+        addressController.deactivateAddress(6L);
     }
 }

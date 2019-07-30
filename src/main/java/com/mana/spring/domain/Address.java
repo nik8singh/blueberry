@@ -3,6 +3,8 @@ package com.mana.spring.domain;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -40,10 +42,12 @@ public class Address {
     @Column(name = "active")
     private boolean active;
 
+    @CreationTimestamp
     @Column(name = "created_date", columnDefinition = "TIMESTAMP", updatable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createdDate;
 
+    @UpdateTimestamp
     @Column(name = "updated_date", columnDefinition = "TIMESTAMP")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;
