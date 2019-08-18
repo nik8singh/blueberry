@@ -47,7 +47,7 @@ public class Gemstone {
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "productId")
-    private Set<Product> products = new HashSet<Product>(0);
+    private Set<Product> products = new HashSet<>(0);
 
 
     public Gemstone() {

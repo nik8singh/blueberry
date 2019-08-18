@@ -2,6 +2,7 @@ package com.mana.spring.service;
 
 import com.mana.spring.domain.Product;
 import com.mana.spring.dto.ProductListDTO;
+import com.mana.spring.dto.ProductRepoFilter;
 
 public interface ProductService {
 
@@ -9,7 +10,7 @@ public interface ProductService {
 
     ProductListDTO getFeaturedProducts();
 
-    ProductListDTO getInStockProducts(int pageNumber);
+    ProductListDTO getInStockProducts(int pageNumber, ProductRepoFilter repoFilter);
 
     ProductListDTO getNonPublishedProducts(int pageNumber);
 
@@ -24,5 +25,7 @@ public interface ProductService {
     void updateProduct(Product product);
 
     Product getProduct(Long productId);
+
+    Product getProductByName(String name);
 }
 

@@ -1,11 +1,9 @@
 package com.mana.spring.util;
 
-import com.mana.spring.domain.*;
-import com.mana.spring.dto.*;
+import com.mana.spring.domain.Image;
+import com.mana.spring.domain.Product;
+import com.mana.spring.dto.ImageDTO;
 import org.springframework.beans.BeanUtils;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class ConverterDTOtoDAO {
 

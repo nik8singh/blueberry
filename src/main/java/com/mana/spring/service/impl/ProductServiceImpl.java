@@ -3,6 +3,7 @@ package com.mana.spring.service.impl;
 import com.mana.spring.dao.ProductDAO;
 import com.mana.spring.domain.Product;
 import com.mana.spring.dto.ProductListDTO;
+import com.mana.spring.dto.ProductRepoFilter;
 import com.mana.spring.service.ProductService;
 import com.mana.spring.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,14 @@ public class ProductServiceImpl implements ProductService {
         return productListDTO;
     }
 
-    public ProductListDTO getInStockProducts(int pageNumber) {
+    public ProductListDTO getInStockProducts(int pageNumber, ProductRepoFilter repoFilter) {
         int size = Pagination.getPageSize();
         ProductListDTO productListDTO = createListDTO(pageNumber, productDAO.countInStock(true));
-        productListDTO.setProducts((ArrayList<Product>) productDAO.listInStockProducts((pageNumber - 1) * size, size));
+        productListDTO.setProducts((ArrayList<Product>) productDAO.listInStockProducts((pageNumber - 1) * size, size, repoFilter));
+
+
+
+
         return productListDTO;
     }
 
@@ -78,6 +83,7 @@ public class ProductServiceImpl implements ProductService {
         productFromDb.setProductQuantity(updatedProduct.getProductQuantity());
         productFromDb.setProductQuantityType(updatedProduct.getProductQuantityType());
         productFromDb.setProductOnFeatured(updatedProduct.isProductOnFeatured());
+        productFromDb.setProductPublished(updatedProduct.isProductPublished());
         productFromDb.setProductExpense(updatedProduct.getProductExpense());
         productFromDb.setProductAcceptCoupon(updatedProduct.isProductAcceptCoupon());
 
@@ -92,6 +98,10 @@ public class ProductServiceImpl implements ProductService {
 
     public Product getProduct(Long productId) {
         return productDAO.getProduct(productId, true); // true to keep fetch type EAGER
+    }
+
+    public Product getProductByName(String name) {
+        return productDAO.getProductByName(name, true); // true to keep fetch type EAGER
     }
 
 

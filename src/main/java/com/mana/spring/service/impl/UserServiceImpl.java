@@ -4,12 +4,15 @@ import com.mana.spring.dao.UserDAO;
 import com.mana.spring.domain.CartItem;
 import com.mana.spring.domain.Invoice;
 import com.mana.spring.domain.User;
+import com.mana.spring.domain.UserAuthority;
 import com.mana.spring.service.UserService;
 import com.mana.spring.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Transactional
 public class UserServiceImpl implements UserService {
@@ -19,8 +22,7 @@ public class UserServiceImpl implements UserService {
 
     public ArrayList<User> getUsers(int pageNumber) {
         int size = Pagination.getPageSize();
-        ArrayList<User> users = (ArrayList<User>) userDAO.listUser((pageNumber - 1) * size, size);
-        return users;
+        return (ArrayList<User>) userDAO.listUser((pageNumber - 1) * size, size);
     }
 
     public User getUserByEmail(String email) {
@@ -28,19 +30,15 @@ public class UserServiceImpl implements UserService {
     }
 
     public ArrayList<CartItem> getUserCart(String email) {
-        ArrayList<CartItem> cartItems = new ArrayList<CartItem>();
-        cartItems.addAll(userDAO.getUserCart(email).getCartItems());
-        return cartItems;
+        return new ArrayList<>(userDAO.getUserCart(email).getCartItems());
     }
 
     public ArrayList<Invoice> getUserInvoices(String email) {
-        ArrayList<Invoice> invoices = new ArrayList<Invoice>();
-        invoices.addAll(userDAO.getUserInvoices(email).getInvoices());
-        return invoices;
+        return new ArrayList<>(userDAO.getUserInvoices(email).getInvoices());
     }
 
     // returns true if new user
-    public boolean registerUser(User user) {
+    public boolean registerUser(User user, boolean admin) {
         User checkIfUserExists = userDAO.getUserByEmail(user.getUserEmail());
         if (checkIfUserExists != null) {
             checkIfUserExists.setUserLastName(user.getUserLastName());
@@ -52,7 +50,15 @@ public class UserServiceImpl implements UserService {
             userDAO.updatePassword(checkIfUserExists);
             return false;
         }
-        user.setAuthorizationLevel("customer");
+        Set<UserAuthority> auths = new HashSet<>();
+        UserAuthority auth = new UserAuthority(user, false);
+        auths.add(auth);
+        if(admin)
+        {
+            auth = new UserAuthority(user,true);
+            auths.add(auth);
+        }
+        user.setUserAuthorities(auths);
         userDAO.saveUser(user);
         return true;
     }

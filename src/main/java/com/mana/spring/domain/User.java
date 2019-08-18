@@ -35,11 +35,14 @@ public class User {
     @JsonIgnore
     private String userPassword;
 
-    @Column(name = "auth")
-    private String authorizationLevel;
-
     @Column(name = "deleted")
     private boolean deleted;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "authorityId")
+    private Set<UserAuthority> userAuthorities = new HashSet<>(0);
 
     @CreationTimestamp
     @Column(name = "created_date", updatable = false)
@@ -55,19 +58,19 @@ public class User {
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "addressId")
-    private Set<Address> addresses = new HashSet<Address>(0);
+    private Set<Address> addresses = new HashSet<>(0);
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "invoiceId")
-    private Set<Invoice> invoices = new HashSet<Invoice>(0);
+    private Set<Invoice> invoices = new HashSet<>(0);
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "cartItemId")
-    private Set<CartItem> cartItems = new HashSet<CartItem>(0);
+    private Set<CartItem> cartItems = new HashSet<>(0);
 
     public User() {
     }
@@ -110,14 +113,6 @@ public class User {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
-    }
-
-    public String getAuthorizationLevel() {
-        return authorizationLevel;
-    }
-
-    public void setAuthorizationLevel(String authorizationLevel) {
-        this.authorizationLevel = authorizationLevel;
     }
 
     public Date getCreatedDate() {
@@ -168,6 +163,14 @@ public class User {
         this.cartItems = cartItems;
     }
 
+    public Set<UserAuthority> getUserAuthorities() {
+        return userAuthorities;
+    }
+
+    public void setUserAuthorities(Set<UserAuthority> userAuthorities) {
+        this.userAuthorities = userAuthorities;
+    }
+
     @Override
     public String toString() {
         return "\nUser{" +
@@ -176,8 +179,8 @@ public class User {
                 "\n userLastName='" + userLastName + '\'' +
                 "\n userEmail='" + userEmail + '\'' +
                 "\n userPassword='" + userPassword + '\'' +
-                "\n authorizationLevel='" + authorizationLevel + '\'' +
                 "\n deleted=" + deleted +
+                "\n userAuthorities=" + userAuthorities +
                 "\n createdDate=" + createdDate +
                 "\n updatedDate=" + updatedDate +
 //                "\n addresses=" + addresses +

@@ -43,7 +43,17 @@ public class UserController {
 
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public ResponseEntity registerUser(@RequestBody User user) {
-        boolean newUser = userService.registerUser(user);
+        boolean newUser = userService.registerUser(user, false);
+        // newUser is false if account was deactivated in past
+        if (newUser)
+            return new ResponseEntity(newUser, HttpStatus.OK);
+        else
+            return new ResponseEntity(newUser, HttpStatus.FOUND);
+    }
+
+    @RequestMapping(value = "adm/save", method = RequestMethod.POST)
+    public ResponseEntity registerAdminUser(@RequestBody User user) {
+        boolean newUser = userService.registerUser(user, true);
         // newUser is false if account was deactivated in past
         if (newUser)
             return new ResponseEntity(newUser, HttpStatus.OK);
@@ -67,5 +77,10 @@ public class UserController {
     public ResponseEntity updatePassword(@RequestBody User user) {
         userService.updatePassword(user);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/unauth", method = RequestMethod.GET)
+    public ResponseEntity sendAuth() {
+        return new ResponseEntity(HttpStatus.UNAUTHORIZED);
     }
 }

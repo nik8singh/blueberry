@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -20,30 +21,38 @@ public class Product {
     private long productId;
 
     @Column(name = "product_name")
+//    @NotEmpty(message = "Please provide a name")
     private String productName;
 
     @Column(name = "product_description")
+//    @NotEmpty(message = "Please provide description")
     private String productDescription;
 
     @Column(name = "product_weight")
+//    @DecimalMin(value = "0.001", message = "Product Weight cannot be less than 0.001")
     private double productWeight;
 
     @Column(name = "weight_unit")
+//    @NotEmpty(message = "Please provide weight unit")
     private String weightUnit;
 
     @Column(name = "product_price")
+//    @DecimalMin(value = "1", message = "Product Price cannot be less than 1")
     private double productPrice;
 
     @Column(name = "product_sku", unique = true)
     private String productSku;
 
     @Column(name = "price_currency")
+//    @NotEmpty(message = "Please provide Currency Type")
     private String productCurrency;
 
     @Column(name = "product_quantity")
+//    @Min(value = 0, message = "Quantity cannot be less than 0")
     private int productQuantity;
 
     @Column(name = "product_quantity_type")
+//    @NotEmpty(message = "Please provide Quantity Type")
     private String productQuantityType;
 
     @Column(name = "product_onfeatured")
@@ -53,6 +62,7 @@ public class Product {
     private boolean productPublished;
 
     @Column(name = "product_expense")
+//    @DecimalMin(value = "0.001", message = "Product Price cannot be less than 0.001")
     private double productExpense;
 
     @Column(name = "product_accept_coupon")
@@ -84,7 +94,7 @@ public class Product {
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "gemstoneId")
-    private Set<Gemstone> gemstones = new HashSet<Gemstone>(0);
+    private Set<Gemstone> gemstones = new HashSet<>(0);
 
     @ManyToMany()
     @JoinTable(
@@ -95,26 +105,26 @@ public class Product {
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "metalId")
-    private Set<Metal> metals = new HashSet<Metal>(0);
+    private Set<Metal> metals = new HashSet<>(0);
 
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "imageId")
-    private Set<Image> images = new HashSet<Image>(0);
+    private Set<Image> images = new HashSet<>(0);
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "cartItemId")
-    private Set<CartItem> cartItems = new HashSet<CartItem>(0);
+    private Set<CartItem> cartItems = new HashSet<>(0);
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "purchaseId")
-    private Set<Purchase> purchases = new HashSet<Purchase>(0);
+    private Set<Purchase> purchases = new HashSet<>(0);
 
 
     public Product() {
@@ -297,6 +307,117 @@ public class Product {
     }
 
     @Override
+    public boolean equals(Object o) {
+        // self check
+        if (this == o)
+            return true;
+
+        // null check
+        if (o == null) {
+            System.out.println("Equals failed: object null");
+            return false;
+        }
+        // type check and cast
+        if (getClass() != o.getClass()) {
+            System.out.println("Equals failed: object not same type \nActual: " + getClass() + "\nExpected: " + o.getClass());
+            return false;
+        }
+
+        Product product = (Product) o;
+
+        Set<Long> expectedGems = new HashSet<>();
+        for (Gemstone gem : getGemstones())
+            expectedGems.add(gem.getGemstoneId());
+
+        Set<Long> expectedMetals = new HashSet<>();
+        for (Metal met : getMetals())
+            expectedMetals.add(met.getMetalId());
+
+        Set<Long> actualGems = new HashSet<>();
+        for (Gemstone gem : product.getGemstones())
+            actualGems.add(gem.getGemstoneId());
+
+        Set<Long> actualMetals = new HashSet<>();
+        for (Metal met : product.getMetals())
+            actualMetals.add(met.getMetalId());
+
+        boolean flag = true;
+
+        if (!Objects.equals(getProductId(), product.getProductId())) {
+            System.out.println("Equals failed: Product Id \nActual: " + getProductId() + "\nExpected: " + product.getProductId());
+            flag = false;
+        }
+        if (!Objects.equals(getProductName(), product.getProductName())) {
+            System.out.println("Equals failed: Product Name ");
+            flag = false;
+        }
+        if (!Objects.equals(getProductDescription(), product.getProductDescription())) {
+            System.out.println("Equals failed: Product Description  \nActual: " + getProductName() + "\nExpected: " + product.getProductName());
+            flag = false;
+        }
+        if (!Objects.equals(getProductWeight(), product.getProductWeight())) {
+            System.out.println("Equals failed: Product Weight  \nActual: " + getProductWeight() + "\nExpected: " + product.getProductWeight());
+            flag = false;
+        }
+        if (!Objects.equals(getWeightUnit(), product.getWeightUnit())) {
+            System.out.println("Equals failed: Product Weight Unit  \nActual: " + getWeightUnit() + "\nExpected: " + product.getWeightUnit());
+            flag = false;
+        }
+        if (!Objects.equals(getProductPrice(), product.getProductPrice())) {
+            System.out.println("Equals failed: Product Price  \nActual: " + getProductPrice() + "\nExpected: " + product.getProductPrice());
+            flag = false;
+        }
+        if (!Objects.equals(getProductCurrency(), product.getProductCurrency())) {
+            System.out.println("Equals failed: Product Currency  \nActual: " + getProductCurrency() + "\nExpected: " + product.getProductCurrency());
+            flag = false;
+        }
+        if (!Objects.equals(getProductSku(), product.getProductSku())) {
+            System.out.println("Equals failed: Product Sku  \nActual: " + getProductSku() + "\nExpected: " + product.getProductSku());
+            flag = false;
+        }
+        if (!Objects.equals(getProductQuantity(), product.getProductQuantity())) {
+            System.out.println("Equals failed: Product Quantity  \nActual: " + getProductQuantity() + "\nExpected: " + product.getProductQuantity());
+            flag = false;
+        }
+        if (!Objects.equals(getProductQuantityType(), product.getProductQuantityType())) {
+            System.out.println("Equals failed: Product Quantity Type  \nActual: " + getProductQuantityType() + "\nExpected: " + product.getProductQuantityType());
+            flag = false;
+        }
+        if (!Objects.equals(isProductOnFeatured(), product.isProductOnFeatured())) {
+            System.out.println("Equals failed: Product On Featured  \nActual: " + isProductOnFeatured() + "\nExpected: " + product.isProductOnFeatured());
+            flag = false;
+        }
+        if (!Objects.equals(isProductPublished(), product.isProductPublished())) {
+            System.out.println("Equals failed: Product Published  \nActual: " + isProductPublished() + "\nExpected: " + product.isProductPublished());
+            flag = false;
+        }
+        if (!Objects.equals(getProductExpense(), product.getProductExpense())) {
+            System.out.println("Equals failed: Product Expense  \nActual: " + getProductExpense() + "\nExpected: " + product.getProductExpense());
+            flag = false;
+        }
+        if (!Objects.equals(isProductAcceptCoupon(), product.isProductAcceptCoupon())) {
+            System.out.println("Equals failed: Product Accept Coupon  \nActual: " + isProductAcceptCoupon() + "\nExpected: " + product.isProductAcceptCoupon());
+            flag = false;
+        }
+        if (!Objects.equals(getProductJewelryType().getJewelryTypeId(), product.getProductJewelryType().getJewelryTypeId())) {
+            System.out.println("Equals failed: Product Jewelry Type ID  \nActual: " + getProductJewelryType().getJewelryTypeId() + "\nExpected: " + product.getProductJewelryType().getJewelryTypeId());
+            flag = false;
+        }
+        if (!actualMetals.containsAll(expectedMetals)) {
+            System.out.println("Equals failed: Product Metal IDs  \nActual: " + actualMetals + "\nExpected: " + expectedMetals);
+            flag = false;
+        }
+        if (!actualGems.containsAll(expectedGems)) {
+            System.out.println("Equals failed: Product Gemstone IDs  \nActual: " + actualGems + "\nExpected: " + expectedGems);
+            flag = false;
+        }
+
+        return flag;
+
+    }
+
+
+    @Override
     public String toString() {
         return "\nProduct{" +
                 "\n\tproductId= " + productId +
@@ -315,8 +436,10 @@ public class Product {
                 "\n\tcreatedDate= " + createdDate +
                 "\n\tupdatedDate= " + updatedDate +
                 "\n\tproductAcceptCoupon= " + productAcceptCoupon +
-                "\n\tproductJewelryType=" + productJewelryType +
-                "\n\tgemstones=" + gemstones +
+//                "\n\tproductJewelryType=" + productJewelryType +
+//                "\n\tgemstones=" + gemstones +
                 '}';
     }
+
+
 }

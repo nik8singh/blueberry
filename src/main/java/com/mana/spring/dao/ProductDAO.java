@@ -1,6 +1,7 @@
 package com.mana.spring.dao;
 
 import com.mana.spring.domain.Product;
+import com.mana.spring.dto.ProductRepoFilter;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface ProductDAO {
 
     List listFeaturedProducts();
 
-    List listInStockProducts(int start, int end);
+    List listInStockProducts(int start, int end, ProductRepoFilter repoFilter);
 
     List listNonPublishedProducts(int start, int end);
 
@@ -24,10 +25,14 @@ public interface ProductDAO {
 
     List listOutOfStockProducts(int start, int end);
 
+    List listFilteredProducts(int start, int end);
+
     long countAll();
 
     long countInStock(boolean inStock);
 
     long countPublished(boolean published);
+
+    Product getProductByName(String name, boolean requireListOtherData);
 
 }

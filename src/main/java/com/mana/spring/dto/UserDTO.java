@@ -1,7 +1,6 @@
 package com.mana.spring.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mana.spring.domain.CartItem;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,11 +23,11 @@ public class UserDTO {
 
     private boolean deleted;
 
-    private Set<AddressDTO> addressesDto = new HashSet<AddressDTO>(0);
+    private Set<AddressDTO> addressesDto = new HashSet<>(0);
 
-    private Set<InvoiceDTO> invoiceDTOS = new HashSet<InvoiceDTO>(0);
+    private Set<InvoiceDTO> invoiceDTOS = new HashSet<>(0);
 
-    private Set<CartItemDTO> cartItemDTOS = new HashSet<CartItemDTO>(0);
+    private Set<CartItemDTO> cartItemDTOS = new HashSet<>(0);
 
     public UserDTO() {
     }

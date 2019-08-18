@@ -1,7 +1,6 @@
 package com.mana.spring.web;
 
 import com.mana.spring.domain.Shop;
-import com.mana.spring.dto.ShopDTO;
 import com.mana.spring.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
