@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProductDAO {
 
-    Product getProduct(Long productId, boolean requireListOtherData);
+    Product getProduct(Long productId);
 
     Product saveProduct(Product product);
 
@@ -33,6 +33,6 @@ public interface ProductDAO {
 
     long countPublished(boolean published);
 
-    Product getProductByName(String name, boolean requireListOtherData);
+    Product getProductByName(String name);
 
 }

@@ -36,9 +36,6 @@ public class ProductServiceImpl implements ProductService {
         ProductListDTO productListDTO = createListDTO(pageNumber, productDAO.countInStock(true));
         productListDTO.setProducts((ArrayList<Product>) productDAO.listInStockProducts((pageNumber - 1) * size, size, repoFilter));
 
-
-
-
         return productListDTO;
     }
 
@@ -72,7 +69,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public void updateProduct(Product updatedProduct) {
-        Product productFromDb = productDAO.getProduct(updatedProduct.getProductId(), true); // true to keep fetch type EAGER
+        Product productFromDb = productDAO.getProduct(updatedProduct.getProductId()); // true to keep fetch type EAGER
         productFromDb.setProductName(updatedProduct.getProductName());
         productFromDb.setProductDescription(updatedProduct.getProductDescription());
         productFromDb.setProductWeight(updatedProduct.getProductWeight());
@@ -97,13 +94,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public Product getProduct(Long productId) {
-        return productDAO.getProduct(productId, true); // true to keep fetch type EAGER
+        return productDAO.getProduct(productId); // true to keep fetch type EAGER
     }
 
     public Product getProductByName(String name) {
-        return productDAO.getProductByName(name, true); // true to keep fetch type EAGER
+        return productDAO.getProductByName(name); // true to keep fetch type EAGER
     }
-
 
     private ProductListDTO createListDTO(int pageNumber, long count) {
         ProductListDTO productListDTO = new ProductListDTO();

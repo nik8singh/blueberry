@@ -1,6 +1,7 @@
 package com.mana.spring.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -71,11 +72,13 @@ public class Product {
     @CreationTimestamp
     @Column(name = "created_date", updatable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
+    @JsonIgnore
     private Date createdDate;
 
     @UpdateTimestamp
     @Column(name = "updated_date")
     @Temporal(value = TemporalType.TIMESTAMP)
+    @JsonIgnore
     private Date updatedDate;
 
     @ManyToOne()
@@ -118,12 +121,14 @@ public class Product {
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "cartItemId")
+    @JsonIgnore
     private Set<CartItem> cartItems = new HashSet<>(0);
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "purchaseId")
+    @JsonIgnore
     private Set<Purchase> purchases = new HashSet<>(0);
 
 

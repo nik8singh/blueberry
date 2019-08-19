@@ -18,7 +18,7 @@ public class ProductController {
     public ProductService productService;
 
 
-    @RequestMapping(value = "vis/product/{id}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "vis/p/{id}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Product getProduct(@PathVariable Long id) {
 

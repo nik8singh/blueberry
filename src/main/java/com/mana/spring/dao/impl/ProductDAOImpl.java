@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
@@ -17,14 +18,10 @@ public class ProductDAOImpl implements ProductDAO {
     private HibernateTemplate hibernateTemplate;
 
 
-    public Product getProduct(Long productId, boolean requireListOtherData) {
+    public Product getProduct(Long productId) {
 
         Product product = (Product) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product p where p.productId= :id ").setParameter("id", productId).uniqueResult();
-
-        // this will force Hibernate to execute the query that will join with the product's other lists and populate the appropriate information into the user object.
-        if (requireListOtherData)
-            makeItEager(product);
-
+        makeItEager(product);
         return product;
     }
 
@@ -39,11 +36,16 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     public List listAllProducts(int start, int end) {
-        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product").setFirstResult(start).setMaxResults(end).list();
+        List data = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product").setFirstResult(start).setMaxResults(end).list();
+        makeItEager(data);
+        return data;
     }
 
     public List listFeaturedProducts() {
-        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product p where p.productOnFeatured = true").list();
+
+        List data =  hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product p where p.productOnFeatured = true").list();
+        makeItEager(data);
+        return data;
     }
 
     public List listInStockProducts(int start, int end, ProductRepoFilter repoFilter) {
@@ -59,53 +61,61 @@ public class ProductDAOImpl implements ProductDAO {
 //                "group by p " +
 //                "having count (distinct p)="+repoFilter.getProductGemstones().size();
 
-        if(repoFilter.getProductGemstones() != null) {
+        if (repoFilter.getProductGemstones() != null) {
             repoQuery += "AND g in :gemstones ";
         }
 
-        if(repoFilter.getProductMetals() != null) {
+        if (repoFilter.getProductMetals() != null) {
             repoQuery += "AND m in :metals ";
         }
         if (repoFilter.getProductJewelryTypes() != null)
             repoQuery += "AND p.productJewelryType =:JT ";
 
-        System.out.println("repoQuery: "+repoQuery);
+        System.out.println("repoQuery: " + repoQuery);
 
         Query query = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(repoQuery);
         query.setFirstResult(start).setMaxResults(end);
 
-        if(repoFilter.getProductGemstones() != null) {
-            query.setParameterList("gemstones",repoFilter.getProductGemstones());
+        if (repoFilter.getProductGemstones() != null) {
+            query.setParameterList("gemstones", repoFilter.getProductGemstones());
         }
 
-        if(repoFilter.getProductMetals() != null) {
-            query.setParameterList("metals",repoFilter.getProductMetals());
+        if (repoFilter.getProductMetals() != null) {
+            query.setParameterList("metals", repoFilter.getProductMetals());
         }
 
         if (repoFilter.getProductJewelryTypes() != null)
             query.setParameter("JT", repoFilter.getProductJewelryTypes());
 
-        List<Product>ps =query.list();
+        List<Product> ps = query.list();
 
-        System.out.println("Size: "+ps.size());
+        makeItEager(ps);
 
         return ps;
 
     }
 
     public List listNonPublishedProducts(int start, int end) {
-        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product  p where p.productPublished = false").setFirstResult(start).setMaxResults(end).list();
+        List data = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product  p where p.productPublished = false").setFirstResult(start).setMaxResults(end).list();
+
+        makeItEager(data);
+        return data;
     }
 
     public List listPublishedProducts(int start, int end) {
-        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product  p where p.productPublished = true ").setFirstResult(start).setMaxResults(end).list();
+        List data =  hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product  p where p.productPublished = true ").setFirstResult(start).setMaxResults(end).list();
+
+        makeItEager(data);
+        return data;
     }
 
     public List listOutOfStockProducts(int start, int end) {
-        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product  p where p.productQuantity <= 0").setFirstResult(start).setMaxResults(end).list();
+        List data = (ArrayList<Product>) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product  p where p.productQuantity <= 0").setFirstResult(start).setMaxResults(end).list();
+        makeItEager(data);
+        return data;
+
     }
 
-    @Override
     public List listFilteredProducts(int start, int end) {
         return null;
     }
@@ -127,12 +137,9 @@ public class ProductDAOImpl implements ProductDAO {
 
     }
 
-    public Product getProductByName(String name, boolean requireListOtherData) {
+    public Product getProductByName(String name) {
         Product product = (Product) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product p where p.productName= :name ").setParameter("name", name).uniqueResult();
-
-        // this will force Hibernate to execute the query that will join with the product's other lists and populate the appropriate information into the user object.
-        if (requireListOtherData)
-            makeItEager(product);
+        makeItEager(product);
 
         return product;
     }
@@ -143,6 +150,11 @@ public class ProductDAOImpl implements ProductDAO {
         hibernateTemplate.initialize(product.getImages());
         hibernateTemplate.initialize(product.getProductJewelryType());
         hibernateTemplate.initialize(product.getPurchases());
+    }
+
+    private void makeItEager(List<Product> product) {
+        for (Product p : product)
+            makeItEager(p);
     }
 
 }
