@@ -17,7 +17,7 @@ public interface ProductDAO {
 
     List listFeaturedProducts();
 
-    List listInStockProducts(int start, int end, ProductRepoFilter repoFilter);
+    List listInStockProducts(int start, int end);
 
     List listNonPublishedProducts(int start, int end);
 
@@ -25,13 +25,15 @@ public interface ProductDAO {
 
     List listOutOfStockProducts(int start, int end);
 
-    List listFilteredProducts(int start, int end);
+    List listFilteredProducts(int start, int end, ProductRepoFilter repoFilter);
 
     long countAll();
 
     long countInStock(boolean inStock);
 
     long countPublished(boolean published);
+
+    long countFiltered(ProductRepoFilter repoFilter);
 
     Product getProductByName(String name);
 

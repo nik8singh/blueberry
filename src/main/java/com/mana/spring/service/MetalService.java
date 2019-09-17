@@ -9,9 +9,9 @@ public interface MetalService {
 
     MetalListDTO getInactiveMetals(int pageNumber);
 
-    void addMetal(Metal metal);
+    Metal addMetal(Metal metal);
 
-    void updateMetal(Metal metal);
+    Metal updateMetal(Metal metal);
 
     void deactivateMetal(String metalName);
 

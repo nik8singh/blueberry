@@ -9,9 +9,9 @@ public interface JewelryTypeService {
 
     JewelryTypeListDTO getInactiveJewelryTypes(int pageNumber);
 
-    void addJewelryType(JewelryType jewelryType);
+    JewelryType addJewelryType(JewelryType jewelryType);
 
-    void updateJewelryType(JewelryType jewelryType);
+    JewelryType updateJewelryType(JewelryType jewelryType);
 
     void deactivateJewelryType(String jewelryTypeName);
 

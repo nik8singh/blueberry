@@ -8,17 +8,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/image")
 public class ImageController {
 
+
     @Autowired
     public ImageService imageService;
 
     @RequestMapping(value = "adm/save", method = RequestMethod.POST)
-    public ResponseEntity saveImage(@RequestBody ImageDTO imageDTO) {
+    public ResponseEntity saveImage(@Valid @RequestBody ImageDTO imageDTO) {
 
         imageService.addImage(imageDTO);
         return new ResponseEntity(imageDTO, HttpStatus.OK);
@@ -43,7 +45,7 @@ public class ImageController {
     }
 
     @RequestMapping(value = "adm/update", method = RequestMethod.POST)
-    public ResponseEntity updateImage(@RequestBody Image image) {
+    public ResponseEntity updateImage(@Valid @RequestBody Image image) {
 
         imageService.updateImage(image);
         return new ResponseEntity(HttpStatus.OK);

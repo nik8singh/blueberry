@@ -38,19 +38,18 @@ public class GemstoneServiceImpl implements GemstoneService {
         return gemstoneDAO.getGemstone(gemstoneName, false); // false to keep fetch type LAZY
     }
 
-    public void addGemstone(Gemstone gemstone) {
+    public Gemstone addGemstone(Gemstone gemstone) {
         gemstone.setGemstoneActive(true);
-        gemstoneDAO.saveGemstone(gemstone);
+       return gemstoneDAO.saveGemstone(gemstone);
     }
 
-    public void updateGemstone(Gemstone gemstone) {
+    public Gemstone updateGemstone(Gemstone gemstone) {
         Gemstone gemstoneFromDb = gemstoneDAO.getGemstoneById(gemstone.getGemstoneId());
         gemstoneFromDb.setGemstoneName(gemstone.getGemstoneName());
         gemstoneFromDb.setGemstoneDescription(gemstone.getGemstoneDescription());
-        gemstoneFromDb.setGemstoneActive(gemstone.isGemstoneActive());
         gemstoneFromDb.setCreatedDate(null);
         gemstoneFromDb.setUpdatedDate(null);
-        gemstoneDAO.updateGemstone(gemstoneFromDb);
+        return gemstoneDAO.updateGemstone(gemstoneFromDb);
     }
 
     private GemstoneListDTO createListDTO(int pageNumber, boolean active) {

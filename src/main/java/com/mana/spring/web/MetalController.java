@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/metal")
 public class MetalController {
@@ -22,7 +24,7 @@ public class MetalController {
         return metalService.getActiveMetals(pageNumber);
     }
 
-    @RequestMapping(value = "cus/list/inactive/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "adm/list/inactive/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     MetalListDTO getAllInactiveMetals(@PathVariable int pageNumber) {
 
@@ -38,20 +40,18 @@ public class MetalController {
     }
 
     @RequestMapping(value = "adm/save", method = RequestMethod.POST)
-    public ResponseEntity saveMetal(@RequestBody Metal metal) {
+    public Metal saveMetal(@Valid @RequestBody Metal metal) {
 
-        metalService.addMetal(metal);
-        return new ResponseEntity(metal, HttpStatus.OK);
+        return metalService.addMetal(metal);
     }
 
     @RequestMapping(value = "adm/update", method = RequestMethod.POST)
-    public ResponseEntity updateMetal(@RequestBody Metal metal) {
+    public Metal updateMetal(@Valid @RequestBody Metal metal) {
 
-        metalService.updateMetal(metal);
-        return new ResponseEntity(HttpStatus.OK);
+        return  metalService.updateMetal(metal);
     }
 
-    @RequestMapping(value = "adm/deactivate/{name}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "adm/deactivate/{name}", method = RequestMethod.POST)
     public ResponseEntity deactivateMetal(@PathVariable String name) {
 
         metalService.deactivateMetal(name);

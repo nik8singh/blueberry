@@ -14,12 +14,14 @@ public class GemstoneDAOImpl implements GemstoneDAO {
     @Autowired
     private HibernateTemplate hibernateTemplate;
 
-    public void saveGemstone(Gemstone gemstone) {
+    public Gemstone saveGemstone(Gemstone gemstone) {
         hibernateTemplate.save(gemstone);
+        return gemstone;
     }
 
-    public void updateGemstone(Gemstone gemstone) {
+    public Gemstone updateGemstone(Gemstone gemstone) {
         hibernateTemplate.update(gemstone);
+        return gemstone;
     }
 
     public Gemstone getGemstone(String gemstoneName, boolean requireProducts) {

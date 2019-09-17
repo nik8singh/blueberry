@@ -31,10 +31,10 @@ public class ProductServiceImpl implements ProductService {
         return productListDTO;
     }
 
-    public ProductListDTO getInStockProducts(int pageNumber, ProductRepoFilter repoFilter) {
+    public ProductListDTO getInStockProducts(int pageNumber) {
         int size = Pagination.getPageSize();
         ProductListDTO productListDTO = createListDTO(pageNumber, productDAO.countInStock(true));
-        productListDTO.setProducts((ArrayList<Product>) productDAO.listInStockProducts((pageNumber - 1) * size, size, repoFilter));
+        productListDTO.setProducts((ArrayList<Product>) productDAO.listInStockProducts((pageNumber - 1) * size, size));
 
         return productListDTO;
     }
@@ -60,15 +60,19 @@ public class ProductServiceImpl implements ProductService {
         return productListDTO;
     }
 
-    public ProductListDTO getFilteredProducts(int pageNumber) {
-        return null;
+    public ProductListDTO getFilteredProducts(int pageNumber, ProductRepoFilter repoFilter) {
+        int size = Pagination.getPageSize();
+        ProductListDTO productListDTO = createListDTO(pageNumber, productDAO.countFiltered(repoFilter));
+        productListDTO.setProducts((ArrayList<Product>) productDAO.listFilteredProducts((pageNumber - 1) * size, size,repoFilter ));
+
+        return productListDTO;
     }
 
-    public void addProduct(Product product) {
-        productDAO.saveProduct(product);
+    public Product addProduct(Product product) {
+        return productDAO.saveProduct(product);
     }
 
-    public void updateProduct(Product updatedProduct) {
+    public Product updateProduct(Product updatedProduct) {
         Product productFromDb = productDAO.getProduct(updatedProduct.getProductId()); // true to keep fetch type EAGER
         productFromDb.setProductName(updatedProduct.getProductName());
         productFromDb.setProductDescription(updatedProduct.getProductDescription());
@@ -90,7 +94,7 @@ public class ProductServiceImpl implements ProductService {
 
         productFromDb.setCreatedDate(null);
         productFromDb.setUpdatedDate(null);
-        productDAO.updateProduct(productFromDb);
+        return productDAO.updateProduct(productFromDb);
     }
 
     public Product getProduct(Long productId) {

@@ -48,7 +48,93 @@ public class ProductDAOImpl implements ProductDAO {
         return data;
     }
 
-    public List listInStockProducts(int start, int end, ProductRepoFilter repoFilter) {
+    public List listInStockProducts(int start, int end) {
+        List data = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product p where p.productQuantity > 0").setFirstResult(start).setMaxResults(end).list();
+        makeItEager(data);
+        return data;
+    }
+
+    public List listNonPublishedProducts(int start, int end) {
+        List data = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product  p where p.productPublished = false").setFirstResult(start).setMaxResults(end).list();
+
+        makeItEager(data);
+        return data;
+    }
+
+    public List listPublishedProducts(int start, int end) {
+        List data =  hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product  p where p.productPublished = true ").setFirstResult(start).setMaxResults(end).list();
+
+        makeItEager(data);
+        return data;
+    }
+
+    public List listOutOfStockProducts(int start, int end) {
+        List data = (ArrayList<Product>) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product  p where p.productQuantity <= 0").setFirstResult(start).setMaxResults(end).list();
+        makeItEager(data);
+        return data;
+
+    }
+
+    public List listFilteredProducts(int start, int end, ProductRepoFilter repoFilter) {
+        List data = (ArrayList<Product>) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product  p where p.productQuantity > 0 and p.productJewelryType = :jt").setParameter("jt",repoFilter.getProductJewelryTypes()).setFirstResult(start).setMaxResults(end).list();
+        makeItEager(data);
+        return data;
+
+//        Query  query = filterQuery(repoFilter);
+//
+//        query.setFirstResult(start).setMaxResults(end);
+//
+//        List<Product> ps = query.list();
+//
+//        makeItEager(ps);
+//
+//        return ps;
+    }
+
+    public long countAll() {
+        return (Long) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("select count(*) from com.mana.spring.domain.Product").uniqueResult();
+    }
+
+    public long countInStock(boolean inStock) {
+
+        if (inStock)
+            return (Long) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("select count(*) from com.mana.spring.domain.Product p where p.productQuantity > 0").uniqueResult();
+        else
+            return (Long) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("select count(*) from com.mana.spring.domain.Product p where p.productQuantity <= 0").uniqueResult();
+    }
+
+    public long countPublished(boolean published) {
+
+        return (Long) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("select count(*) from com.mana.spring.domain.Product p where p.productOnFeatured = :pub").setParameter("pub", published).uniqueResult();
+
+    }
+
+    public long countFiltered(ProductRepoFilter repoFilter){
+        return 5;
+
+    }
+
+    public Product getProductByName(String name) {
+        Product product = (Product) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product p where p.productName= :name ").setParameter("name", name).uniqueResult();
+        makeItEager(product);
+
+        return product;
+    }
+
+    private void makeItEager(Product product) {
+        hibernateTemplate.initialize(product.getGemstones());
+        hibernateTemplate.initialize(product.getMetals());
+        hibernateTemplate.initialize(product.getImages());
+        hibernateTemplate.initialize(product.getProductJewelryType());
+        hibernateTemplate.initialize(product.getPurchases());
+    }
+
+    private void makeItEager(List<Product> product) {
+        for (Product p : product)
+            makeItEager(p);
+    }
+
+    private Query filterQuery(ProductRepoFilter repoFilter){
 
         String repoQuery = "select distinct p from Product p " +
                 "JOIN p.gemstones g " +
@@ -74,7 +160,6 @@ public class ProductDAOImpl implements ProductDAO {
         System.out.println("repoQuery: " + repoQuery);
 
         Query query = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(repoQuery);
-        query.setFirstResult(start).setMaxResults(end);
 
         if (repoFilter.getProductGemstones() != null) {
             query.setParameterList("gemstones", repoFilter.getProductGemstones());
@@ -87,74 +172,6 @@ public class ProductDAOImpl implements ProductDAO {
         if (repoFilter.getProductJewelryTypes() != null)
             query.setParameter("JT", repoFilter.getProductJewelryTypes());
 
-        List<Product> ps = query.list();
-
-        makeItEager(ps);
-
-        return ps;
-
+        return  query;
     }
-
-    public List listNonPublishedProducts(int start, int end) {
-        List data = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product  p where p.productPublished = false").setFirstResult(start).setMaxResults(end).list();
-
-        makeItEager(data);
-        return data;
-    }
-
-    public List listPublishedProducts(int start, int end) {
-        List data =  hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product  p where p.productPublished = true ").setFirstResult(start).setMaxResults(end).list();
-
-        makeItEager(data);
-        return data;
-    }
-
-    public List listOutOfStockProducts(int start, int end) {
-        List data = (ArrayList<Product>) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product  p where p.productQuantity <= 0").setFirstResult(start).setMaxResults(end).list();
-        makeItEager(data);
-        return data;
-
-    }
-
-    public List listFilteredProducts(int start, int end) {
-        return null;
-    }
-
-    public long countAll() {
-        return (Long) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("select count(*) from com.mana.spring.domain.Product").uniqueResult();
-    }
-
-    public long countInStock(boolean inStock) {
-        if (inStock)
-            return (Long) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("select count(*) from com.mana.spring.domain.Product p where p.productQuantity > 0").uniqueResult();
-        else
-            return (Long) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("select count(*) from com.mana.spring.domain.Product p where p.productQuantity <= 0").uniqueResult();
-    }
-
-    public long countPublished(boolean published) {
-
-        return (Long) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("select count(*) from com.mana.spring.domain.Product p where p.productOnFeatured = :pub").setParameter("pub", published).uniqueResult();
-
-    }
-
-    public Product getProductByName(String name) {
-        Product product = (Product) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product p where p.productName= :name ").setParameter("name", name).uniqueResult();
-        makeItEager(product);
-
-        return product;
-    }
-
-    private void makeItEager(Product product) {
-        hibernateTemplate.initialize(product.getGemstones());
-        hibernateTemplate.initialize(product.getMetals());
-        hibernateTemplate.initialize(product.getImages());
-        hibernateTemplate.initialize(product.getProductJewelryType());
-        hibernateTemplate.initialize(product.getPurchases());
-    }
-
-    private void makeItEager(List<Product> product) {
-        for (Product p : product)
-            makeItEager(p);
-    }
-
 }

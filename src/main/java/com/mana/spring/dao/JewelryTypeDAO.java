@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface JewelryTypeDAO {
 
-    void saveJewelryType(JewelryType jewelryType);
+    JewelryType saveJewelryType(JewelryType jewelryType);
 
-    void updateJewelryType(JewelryType jewelryType);
+    JewelryType updateJewelryType(JewelryType jewelryType);
 
     void deactivateJewelryType(String jewelryTypeName);
 

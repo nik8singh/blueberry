@@ -9,9 +9,9 @@ public interface GemstoneService {
 
     GemstoneListDTO getInactiveGemstones(int pageNumber);
 
-    void addGemstone(Gemstone gemstone);
+    Gemstone addGemstone(Gemstone gemstone);
 
-    void updateGemstone(Gemstone gemstone);
+    Gemstone updateGemstone(Gemstone gemstone);
 
     void deactivateGemstone(String gemstoneName);
 

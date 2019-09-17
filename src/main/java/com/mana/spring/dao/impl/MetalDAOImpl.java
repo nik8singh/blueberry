@@ -14,12 +14,14 @@ public class MetalDAOImpl implements MetalDAO {
     @Autowired
     private HibernateTemplate hibernateTemplate;
 
-    public void saveMetal(Metal metal) {
+    public Metal saveMetal(Metal metal) {
         hibernateTemplate.save(metal);
+        return metal;
     }
 
-    public void updateMetal(Metal metal) {
+    public Metal updateMetal(Metal metal) {
         hibernateTemplate.update(metal);
+        return metal;
     }
 
     public void deactivateMetal(String metalName) {

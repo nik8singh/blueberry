@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -20,6 +21,7 @@ public class Gemstone {
     @Column(name = "gemstone_id")
     private long gemstoneId;
 
+    @NotBlank(message = "Please provide a name")
     @Column(name = "gemstone_name", nullable = false)
     private String gemstoneName;
 

@@ -14,12 +14,14 @@ public class JewelryTypeDAOImpl implements JewelryTypeDAO {
     @Autowired
     private HibernateTemplate hibernateTemplate;
 
-    public void saveJewelryType(JewelryType jewelryType) {
+    public JewelryType saveJewelryType(JewelryType jewelryType) {
         hibernateTemplate.save(jewelryType);
+        return jewelryType;
     }
 
-    public void updateJewelryType(JewelryType jewelryType) {
+    public JewelryType updateJewelryType(JewelryType jewelryType) {
         hibernateTemplate.update(jewelryType);
+        return jewelryType;
     }
 
     public void deactivateJewelryType(String jewelryTypeName) {

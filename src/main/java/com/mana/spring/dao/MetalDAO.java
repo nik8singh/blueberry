@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface MetalDAO {
 
-    void saveMetal(Metal metal);
+    Metal saveMetal(Metal metal);
 
-    void updateMetal(Metal metal);
+    Metal updateMetal(Metal metal);
 
     void deactivateMetal(String metalName);
 

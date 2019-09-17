@@ -10,7 +10,7 @@ public interface ProductService {
 
     ProductListDTO getFeaturedProducts();
 
-    ProductListDTO getInStockProducts(int pageNumber, ProductRepoFilter repoFilter);
+    ProductListDTO getInStockProducts(int pageNumber);
 
     ProductListDTO getNonPublishedProducts(int pageNumber);
 
@@ -18,11 +18,11 @@ public interface ProductService {
 
     ProductListDTO getOutOfStockProducts(int pageNumber);
 
-    ProductListDTO getFilteredProducts(int pageNumber);
+    ProductListDTO getFilteredProducts(int pageNumber, ProductRepoFilter repoFilter);
 
-    void addProduct(Product product);
+    Product addProduct(Product product);
 
-    void updateProduct(Product product);
+    Product updateProduct(Product product);
 
     Product getProduct(Long productId);
 

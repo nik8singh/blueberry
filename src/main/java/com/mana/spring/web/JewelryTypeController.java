@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/jt")
 public class JewelryTypeController {
@@ -22,7 +24,7 @@ public class JewelryTypeController {
         return jewelryTypeService.getActiveJewelryTypes(pageNumber);
     }
 
-    @RequestMapping(value = "cus/list/inactive/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "adm/list/inactive/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     JewelryTypeListDTO getAllInactiveJewelryTypes(@PathVariable int pageNumber) {
 
@@ -38,20 +40,20 @@ public class JewelryTypeController {
     }
 
     @RequestMapping(value = "adm/save", method = RequestMethod.POST)
-    public ResponseEntity saveJewelryType(@RequestBody JewelryType metal) {
+    public JewelryType saveJewelryType(@Valid @RequestBody JewelryType metal) {
 
-        jewelryTypeService.addJewelryType(metal);
-        return new ResponseEntity(metal, HttpStatus.OK);
+
+        return jewelryTypeService.addJewelryType(metal);
     }
 
     @RequestMapping(value = "adm/update", method = RequestMethod.POST)
-    public ResponseEntity updateJewelryType(@RequestBody JewelryType metal) {
+    public JewelryType updateJewelryType(@Valid @RequestBody JewelryType metal) {
 
-        jewelryTypeService.updateJewelryType(metal);
-        return new ResponseEntity(HttpStatus.OK);
+
+        return jewelryTypeService.updateJewelryType(metal);
     }
 
-    @RequestMapping(value = "adm/deactivate/{name}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "adm/deactivate/{name}", method = RequestMethod.POST)
     public ResponseEntity deactivateJewelryType(@PathVariable String name) {
 
         jewelryTypeService.deactivateJewelryType(name);

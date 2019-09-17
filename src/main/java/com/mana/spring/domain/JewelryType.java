@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -21,6 +22,7 @@ public class JewelryType {
     private long jewelryTypeId;
 
     @Column(name = "jewelry_type_name", nullable = false)
+    @NotBlank(message = "Please provide a name")
     private String jewelryTypeName;
 
     @Column(name = "jewelry_type_description")
@@ -32,11 +34,13 @@ public class JewelryType {
     @CreationTimestamp
     @Column(name = "created_date", updatable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
+    @JsonIgnore
     private Date createdDate;
 
     @UpdateTimestamp
     @Column(name = "updated_date")
     @Temporal(value = TemporalType.TIMESTAMP)
+    @JsonIgnore
     private Date updatedDate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productJewelryType", fetch = FetchType.LAZY)

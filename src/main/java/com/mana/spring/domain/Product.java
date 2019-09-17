@@ -5,8 +5,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -22,38 +25,38 @@ public class Product {
     private long productId;
 
     @Column(name = "product_name")
-//    @NotEmpty(message = "Please provide a name")
+    @NotBlank(message = "Please provide a name")
     private String productName;
 
     @Column(name = "product_description")
-//    @NotEmpty(message = "Please provide description")
+    @NotBlank(message = "Please provide description")
     private String productDescription;
 
     @Column(name = "product_weight")
-//    @DecimalMin(value = "0.001", message = "Product Weight cannot be less than 0.001")
+    @DecimalMin(value = "0.001", message = "Product Weight cannot be less than 0.001")
     private double productWeight;
 
     @Column(name = "weight_unit")
-//    @NotEmpty(message = "Please provide weight unit")
+    @NotBlank(message = "Please provide weight unit")
     private String weightUnit;
 
     @Column(name = "product_price")
-//    @DecimalMin(value = "1", message = "Product Price cannot be less than 1")
+    @DecimalMin(value = "1", message = "Product Price cannot be less than 1")
     private double productPrice;
 
     @Column(name = "product_sku", unique = true)
     private String productSku;
 
     @Column(name = "price_currency")
-//    @NotEmpty(message = "Please provide Currency Type")
+    @NotBlank(message = "Please provide Currency Type")
     private String productCurrency;
 
     @Column(name = "product_quantity")
-//    @Min(value = 0, message = "Quantity cannot be less than 0")
+    @Min(value = 0, message = "Quantity cannot be less than 0")
     private int productQuantity;
 
     @Column(name = "product_quantity_type")
-//    @NotEmpty(message = "Please provide Quantity Type")
+    @NotBlank(message = "Please provide Quantity Type")
     private String productQuantityType;
 
     @Column(name = "product_onfeatured")
@@ -63,7 +66,7 @@ public class Product {
     private boolean productPublished;
 
     @Column(name = "product_expense")
-//    @DecimalMin(value = "0.001", message = "Product Price cannot be less than 0.001")
+    @DecimalMin(value = "0.001", message = "Product Price cannot be less than 0.001")
     private double productExpense;
 
     @Column(name = "product_accept_coupon")

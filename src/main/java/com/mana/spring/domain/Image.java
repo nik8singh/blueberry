@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -29,6 +30,7 @@ public class Image {
     private String imagePageName;
 
     @Column(name = "image")
+    @NotBlank(message = "Please select an image")
     private byte[] image;
 
     @Column(name = "image_priority")
@@ -37,11 +39,13 @@ public class Image {
     @CreationTimestamp
     @Column(name = "created_date", updatable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
+    @JsonIgnore
     private Date createdDate;
 
     @UpdateTimestamp
     @Column(name = "updated_date")
     @Temporal(value = TemporalType.TIMESTAMP)
+    @JsonIgnore
     private Date updatedDate;
 
     @ManyToOne(fetch = FetchType.LAZY)

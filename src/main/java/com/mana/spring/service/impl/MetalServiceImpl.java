@@ -30,19 +30,18 @@ public class MetalServiceImpl implements MetalService {
         return metalListDTO;
     }
 
-    public void addMetal(Metal metal) {
+    public Metal addMetal(Metal metal) {
         metal.setMetalActive(true);
-        metalDAO.saveMetal(metal);
+        return metalDAO.saveMetal(metal);
     }
 
-    public void updateMetal(Metal metal) {
+    public Metal updateMetal(Metal metal) {
         Metal metalFromDb = metalDAO.getMetalById((metal.getMetalId()));
         metalFromDb.setMetalName(metal.getMetalName());
         metalFromDb.setMetalDescription(metal.getMetalDescription());
-        metalFromDb.setMetalActive(metal.isMetalActive());
         metalFromDb.setCreatedDate(null);
         metalFromDb.setUpdatedDate(null);
-        metalDAO.updateMetal(metalFromDb);
+       return metalDAO.updateMetal(metalFromDb);
     }
 
     public void deactivateMetal(String metalName) {

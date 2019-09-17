@@ -30,20 +30,20 @@ public class JewelryTypeServiceImpl implements JewelryTypeService {
         return jewelryTypeListDTO;
     }
 
-    public void addJewelryType(JewelryType jewelryType) {
+    public JewelryType addJewelryType(JewelryType jewelryType) {
         jewelryType.setJewelryTypeActive(true);
-        jewelryTypeDAO.saveJewelryType(jewelryType);
+        return jewelryTypeDAO.saveJewelryType(jewelryType);
 
     }
 
-    public void updateJewelryType(JewelryType jewelryType) {
+    public JewelryType updateJewelryType(JewelryType jewelryType) {
         JewelryType jewelryTypeFromDb = jewelryTypeDAO.getJewelryTypeById((jewelryType.getJewelryTypeId()));
         jewelryTypeFromDb.setJewelryTypeName(jewelryType.getJewelryTypeName());
         jewelryTypeFromDb.setJewelryTypeDescription(jewelryType.getJewelryTypeDescription());
         jewelryTypeFromDb.setJewelryTypeActive(jewelryType.isJewelryTypeActive());
         jewelryTypeFromDb.setCreatedDate(null);
         jewelryTypeFromDb.setUpdatedDate(null);
-        jewelryTypeDAO.updateJewelryType(jewelryTypeFromDb);
+        return jewelryTypeDAO.updateJewelryType(jewelryTypeFromDb);
     }
 
     public void deactivateJewelryType(String jewelryTypeName) {

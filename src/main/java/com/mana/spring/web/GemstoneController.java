@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/gemstone")
 public class GemstoneController {
@@ -38,20 +40,18 @@ public class GemstoneController {
     }
 
     @RequestMapping(value = "adm/save", method = RequestMethod.POST)
-    public ResponseEntity saveGemstone(@RequestBody Gemstone gemstone) {
+    public Gemstone saveGemstone(@Valid @RequestBody Gemstone gemstone) {
 
-        gemstoneService.addGemstone(gemstone);
-        return new ResponseEntity(gemstone, HttpStatus.OK);
+        return gemstoneService.addGemstone(gemstone);
     }
 
     @RequestMapping(value = "adm/update", method = RequestMethod.POST)
-    public ResponseEntity updateGemstone(@RequestBody Gemstone gemstone) {
+    public Gemstone updateGemstone(@Valid @RequestBody Gemstone gemstone) {
 
-        gemstoneService.updateGemstone(gemstone);
-        return new ResponseEntity(HttpStatus.OK);
+        return gemstoneService.updateGemstone(gemstone);
     }
 
-    @RequestMapping(value = "adm/deactivate/{name}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "adm/deactivate/{name}", method = RequestMethod.POST)
     public ResponseEntity deactivateGemstone(@PathVariable String name) {
 
         gemstoneService.deactivateGemstone(name);

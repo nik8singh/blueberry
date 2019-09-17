@@ -5,9 +5,9 @@ import com.mana.spring.dto.ProductListDTO;
 import com.mana.spring.dto.ProductRepoFilter;
 import com.mana.spring.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @RestController
@@ -46,8 +46,14 @@ public class ProductController {
 
     @RequestMapping(value = "vis/list/instock/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    ProductListDTO getInStockProducts(@PathVariable int pageNumber, @RequestBody ProductRepoFilter productRepoFilter) {
-        return productService.getInStockProducts(pageNumber, productRepoFilter);
+    ProductListDTO getInStockProducts(@PathVariable int pageNumber) {
+        return productService.getInStockProducts(pageNumber);
+    }
+
+    @RequestMapping(value = "vis/list/filtered/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    ProductListDTO getfilteredProducts(@PathVariable int pageNumber, @RequestBody ProductRepoFilter productRepoFilter) {
+        return productService.getFilteredProducts(pageNumber, productRepoFilter);
     }
 
     @RequestMapping(value = "vis/list/published/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
@@ -69,15 +75,15 @@ public class ProductController {
     }
 
     @RequestMapping(value = "adm/save", method = RequestMethod.POST)
-    public ResponseEntity saveProduct( @RequestBody Product product) {
+    public Product saveProduct( @Valid @RequestBody Product product) {
 
-        productService.addProduct(product);
-        return new ResponseEntity(product, HttpStatus.OK);
+
+        return  productService.addProduct(product);
     }
 
     @RequestMapping(value = "adm/update", method = RequestMethod.POST)
-    public ResponseEntity updateProduct( @RequestBody Product product) {
-        productService.updateProduct(product);
-        return new ResponseEntity(HttpStatus.OK);
+    public Product updateProduct( @Valid @RequestBody Product product) {
+
+        return productService.updateProduct(product);
     }
 }

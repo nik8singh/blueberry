@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface GemstoneDAO {
 
-    void saveGemstone(Gemstone gemstone);
+    Gemstone saveGemstone(Gemstone gemstone);
 
-    void updateGemstone(Gemstone gemstone);
+    Gemstone updateGemstone(Gemstone gemstone);
 
     void deactivateGemstone(String gemstoneName);
 
