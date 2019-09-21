@@ -57,6 +57,7 @@ public class Address {
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "userId")
+    @JsonIgnore
     private User user;
 
     @JsonIgnore

@@ -10,8 +10,6 @@ public interface UserService {
 
     ArrayList<User> getUsers(int pageNumber);
 
-    User getUserByEmail(String email);
-
     ArrayList<CartItem> getUserCart(String email);
 
     ArrayList<Invoice>  getUserInvoices(String email);

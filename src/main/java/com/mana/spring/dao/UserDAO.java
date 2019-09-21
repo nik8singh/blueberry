@@ -14,7 +14,7 @@ public interface UserDAO {
 
     User getUserInvoices(String email);
 
-    void saveUser(User user);
+    User saveUser(User user);
 
     void deactivateUser(String email);
 

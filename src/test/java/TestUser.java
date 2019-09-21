@@ -22,7 +22,7 @@ public class TestUser {
     @Test
     public void getUser() {
 
-        System.out.println(userController.getUserByEmail("nscoder8@gmail.com"));
+//        System.out.println(userController.getUserByEmail("nscoder8@gmail.com"));
     }
 
     @Test

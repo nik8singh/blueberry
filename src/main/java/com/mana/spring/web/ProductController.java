@@ -5,6 +5,8 @@ import com.mana.spring.dto.ProductListDTO;
 import com.mana.spring.dto.ProductRepoFilter;
 import com.mana.spring.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -85,5 +87,11 @@ public class ProductController {
     public Product updateProduct( @Valid @RequestBody Product product) {
 
         return productService.updateProduct(product);
+    }
+
+    @RequestMapping(value = "adm/authtest", method = RequestMethod.GET)
+    public ResponseEntity updateProduct() {
+
+        return new ResponseEntity("Logged in ", HttpStatus.OK);
     }
 }

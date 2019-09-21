@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 
 @RestController
@@ -18,16 +19,16 @@ public class UserController {
     @Autowired
     public UserService userService;
 
-    @RequestMapping(value = "adm/list/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/list/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     ArrayList<User> getAllUsers(@PathVariable int pageNumber) {
         return userService.getUsers(pageNumber);
     }
 
-    @RequestMapping(value = "cus/user/{email}", method = RequestMethod.GET)
-    public User getUserByEmail(@PathVariable String email) {
-        return userService.getUserByEmail(email);
-    }
+//    @RequestMapping(value = "cus/user/{email}", method = RequestMethod.GET)
+//    public User getUserByEmail(@PathVariable String email) {
+//        return userService.getUserByEmail(email);
+//    }
 
     @RequestMapping(value = "cus/cart/{email}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
@@ -42,7 +43,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public ResponseEntity registerUser(@RequestBody User user) {
+    public ResponseEntity registerUser(@Valid @RequestBody User user) {
         boolean newUser = userService.registerUser(user, false);
         // newUser is false if account was deactivated in past
         if (newUser)

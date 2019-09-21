@@ -1,11 +1,10 @@
 package com.mana.spring.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,7 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "user")
-@JsonIgnoreProperties({"userPassword"})
+//@JsonIgnoreProperties({"userPassword"})
 public class User {
 
     @Id
@@ -22,27 +21,26 @@ public class User {
     @Column(name = "user_id")
     private long userId;
 
+    @NotBlank(message = "Please provide a first name")
     @Column(name = "user_firstname")
     private String userFirstName;
 
+    @NotBlank(message = "Please provide a last name")
     @Column(name = "user_lastname")
     private String userLastName;
 
+    @NotBlank(message = "Please provide a email")
     @Column(name = "user_email")
     private String userEmail;
 
+    @NotBlank(message = "Please provide a password")
     @Column(name = "user_password")
-    @JsonIgnore
+//    @JsonIgnore
     private String userPassword;
 
     @Column(name = "deleted")
     private boolean deleted;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
-    @JsonIdentityInfo(
-            generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "authorityId")
-    private Set<UserAuthority> userAuthorities = new HashSet<>(0);
 
     @CreationTimestamp
     @Column(name = "created_date", updatable = false)
@@ -53,6 +51,13 @@ public class User {
     @Column(name = "updated_date")
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;
+
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "authorityId")
+    private Set<UserAuthority> userAuthorities = new HashSet<>(0);
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     @JsonIdentityInfo(

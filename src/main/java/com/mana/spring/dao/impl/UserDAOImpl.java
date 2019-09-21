@@ -15,7 +15,9 @@ public class UserDAOImpl implements UserDAO {
     private HibernateTemplate hibernateTemplate;
 
     public List listUser(int start, int end) {
-        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.User").setFirstResult(start).setMaxResults(end).list();
+        List users = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.User").setFirstResult(start).setMaxResults(end).list();
+        makeItEager(users);
+        return users;
     }
 
     public User getUserByEmail(String email) {
@@ -34,8 +36,9 @@ public class UserDAOImpl implements UserDAO {
         return user;
     }
 
-    public void saveUser(User user) {
+    public User saveUser(User user) {
         hibernateTemplate.save(user);
+        return user;
     }
 
     public void deactivateUser(String email) {
@@ -53,5 +56,17 @@ public class UserDAOImpl implements UserDAO {
     public void updatePassword(User user) {
         hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("UPDATE com.mana.spring.domain.User us SET us.userPassword = :newPassword WHERE us.userEmail= :email").setParameter("email", user.getUserEmail()).setParameter("newPassword", user.getUserPassword()).executeUpdate();
     }
+
+    private void makeItEager(User user) {
+        hibernateTemplate.initialize(user.getInvoices());
+        hibernateTemplate.initialize(user.getCartItems());
+        hibernateTemplate.initialize(user.getAddresses());
+    }
+
+    private void makeItEager(List<User> user) {
+        for (User p : user)
+            makeItEager(p);
+    }
+
 
 }

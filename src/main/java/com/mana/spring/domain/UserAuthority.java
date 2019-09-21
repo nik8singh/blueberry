@@ -1,6 +1,7 @@
 package com.mana.spring.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class UserAuthority {
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "userId")
+    @JsonIgnore
     private User user;
 
     public UserAuthority() {

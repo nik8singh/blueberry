@@ -3,106 +3,104 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation=" http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
                             http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-                            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan base-package="com.mana.spring.web"/>
     <context:component-scan base-package="com.mana.spring.exception"/>
     <mvc:annotation-driven/>
     <context:annotation-config/>
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-    <bean id="appProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location">
-            <value>classpath:app.properties</value>
-        </property>
-    </bean>
+    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
+    <!--<bean id="appProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+        <!--<property name="location">-->
+            <!--<value>classpath:app.properties</value>-->
+        <!--</property>-->
+    <!--</bean>-->
 
-    <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
-          destroy-method="close">
-        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="${dburl}"/>
-        <property name="username" value="${dbuser}"/>
-        <property name="password" value="${dbpassword}"/>
-    </bean>
+    <!--<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"-->
+          <!--destroy-method="close">-->
+        <!--<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>-->
+        <!--<property name="url" value="${dburl}"/>-->
+        <!--<property name="username" value="${dbuser}"/>-->
+        <!--<property name="password" value="${dbpassword}"/>-->
+    <!--</bean>-->
 
-    <bean id="mySessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-        <property name="dataSource" ref="myDataSource"/>
-        <property name="packagesToScan" value="com.mana.spring.domain"/>
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MariaDBDialect</prop>
-                <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
-                <prop key="show_sql">true</prop>
-                <prop key="format_sql">true</prop>
-                <prop key="use_sql_comments">true</prop>
-            </props>
-        </property>
-    </bean>
+    <!--<bean id="mySessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">-->
+        <!--<property name="dataSource" ref="myDataSource"/>-->
+        <!--<property name="packagesToScan" value="com.mana.spring.domain"/>-->
+        <!--<property name="hibernateProperties">-->
+            <!--<props>-->
+                <!--<prop key="hibernate.dialect">org.hibernate.dialect.MariaDBDialect</prop>-->
+                <!--<prop key="hibernate.show_sql">true</prop>-->
+                <!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
+                <!--<prop key="show_sql">true</prop>-->
+                <!--<prop key="format_sql">true</prop>-->
+                <!--<prop key="use_sql_comments">true</prop>-->
+            <!--</props>-->
+        <!--</property>-->
+    <!--</bean>-->
 
 
-    <bean id="gemstoneDAO" class="com.mana.spring.dao.impl.GemstoneDAOImpl"/>
-    <bean id="gemstoneService" class="com.mana.spring.service.impl.GemstoneServiceImpl"/>
+    <!--<bean id="gemstoneDAO" class="com.mana.spring.dao.impl.GemstoneDAOImpl"/>-->
+    <!--<bean id="gemstoneService" class="com.mana.spring.service.impl.GemstoneServiceImpl"/>-->
     <bean id="gemstoneController" class="com.mana.spring.web.GemstoneController"/>
 
-    <bean id="jewelryTypeDAO" class="com.mana.spring.dao.impl.JewelryTypeDAOImpl"/>
-    <bean id="jewelryTypeService" class="com.mana.spring.service.impl.JewelryTypeServiceImpl"/>
+    <!--<bean id="jewelryTypeDAO" class="com.mana.spring.dao.impl.JewelryTypeDAOImpl"/>-->
+    <!--<bean id="jewelryTypeService" class="com.mana.spring.service.impl.JewelryTypeServiceImpl"/>-->
     <bean id="jewelryTypeController" class="com.mana.spring.web.JewelryTypeController"/>
 
-    <bean id="metalDAO" class="com.mana.spring.dao.impl.MetalDAOImpl"/>
-    <bean id="metalService" class="com.mana.spring.service.impl.MetalServiceImpl"/>
+    <!--<bean id="metalDAO" class="com.mana.spring.dao.impl.MetalDAOImpl"/>-->
+    <!--<bean id="metalService" class="com.mana.spring.service.impl.MetalServiceImpl"/>-->
     <bean id="metalController" class="com.mana.spring.web.MetalController"/>
 
-    <bean id="couponDAO" class="com.mana.spring.dao.impl.CouponDAOImpl"/>
-    <bean id="couponService" class="com.mana.spring.service.impl.CouponServiceImpl"/>
+    <!--<bean id="couponDAO" class="com.mana.spring.dao.impl.CouponDAOImpl"/>-->
+    <!--<bean id="couponService" class="com.mana.spring.service.impl.CouponServiceImpl"/>-->
     <bean id="couponController" class="com.mana.spring.web.CouponController"/>
 
-    <bean id="userDAO" class="com.mana.spring.dao.impl.UserDAOImpl"/>
-    <bean id="userService" class="com.mana.spring.service.impl.UserServiceImpl"/>
+    <!--<bean id="userDAO" class="com.mana.spring.dao.impl.UserDAOImpl" autowire="byType"/>-->
+    <!--<bean id="userService" class="com.mana.spring.service.impl.UserServiceImpl"/>-->
     <bean id="userController" class="com.mana.spring.web.UserController"/>
 
-    <bean id="shopService" class="com.mana.spring.service.impl.ShopServiceImpl"/>
-    <bean id="shopDAO" class="com.mana.spring.dao.impl.ShopDAOImpl"/>
+    <!--<bean id="shopService" class="com.mana.spring.service.impl.ShopServiceImpl"/>-->
+    <!--<bean id="shopDAO" class="com.mana.spring.dao.impl.ShopDAOImpl"/>-->
     <bean id="shopController" class="com.mana.spring.web.ShopController"/>
 
-    <bean id="productService" class="com.mana.spring.service.impl.ProductServiceImpl"/>
-    <bean id="productDAO" class="com.mana.spring.dao.impl.ProductDAOImpl"/>
+    <!--<bean id="productService" class="com.mana.spring.service.impl.ProductServiceImpl"/>-->
+    <!--<bean id="productDAO" class="com.mana.spring.dao.impl.ProductDAOImpl"/>-->
     <bean id="productController" class="com.mana.spring.web.ProductController"/>
 
-    <bean id="addressService" class="com.mana.spring.service.impl.AddressServiceImpl"/>
-    <bean id="addressDAO" class="com.mana.spring.dao.impl.AddressDAOImpl"/>
+    <!--<bean id="addressService" class="com.mana.spring.service.impl.AddressServiceImpl"/>-->
+    <!--<bean id="addressDAO" class="com.mana.spring.dao.impl.AddressDAOImpl"/>-->
     <bean id="addressController" class="com.mana.spring.web.AddressController"/>
 
-    <bean id="imageService" class="com.mana.spring.service.impl.ImageServiceImpl"/>
-    <bean id="imageDAO" class="com.mana.spring.dao.impl.ImageDAOImpl"/>
+    <!--<bean id="imageService" class="com.mana.spring.service.impl.ImageServiceImpl"/>-->
+    <!--<bean id="imageDAO" class="com.mana.spring.dao.impl.ImageDAOImpl"/>-->
     <bean id="imageController" class="com.mana.spring.web.ImageController"/>
 
-    <bean id="cartItemService" class="com.mana.spring.service.impl.CartItemServiceImpl"/>
-    <bean id="cartItemDAO" class="com.mana.spring.dao.impl.CartItemDAOImpl"/>
+    <!--<bean id="cartItemService" class="com.mana.spring.service.impl.CartItemServiceImpl"/>-->
+    <!--<bean id="cartItemDAO" class="com.mana.spring.dao.impl.CartItemDAOImpl"/>-->
     <bean id="cartItemController" class="com.mana.spring.web.CartItemController"/>
 
-    <bean id="purchaseDAO" class="com.mana.spring.dao.impl.PurchaseDAOImpl"/>
+    <!--<bean id="purchaseDAO" class="com.mana.spring.dao.impl.PurchaseDAOImpl"/>-->
 
-    <bean id="invoiceService" class="com.mana.spring.service.impl.InvoiceServiceImpl"/>
-    <bean id="invoiceDAO" class="com.mana.spring.dao.impl.InvoiceDAOImpl"/>
+    <!--<bean id="invoiceService" class="com.mana.spring.service.impl.InvoiceServiceImpl"/>-->
+    <!--<bean id="invoiceDAO" class="com.mana.spring.dao.impl.InvoiceDAOImpl"/>-->
     <bean id="invoiceController" class="com.mana.spring.web.InvoiceController"/>
 
-    <bean id="hibernateTemplate"
-          class="org.springframework.orm.hibernate5.HibernateTemplate">
-        <property name="sessionFactory">
-            <ref bean="mySessionFactory"/>
-        </property>
-        <property name="checkWriteOperations" value="false"/>
-    </bean>
+    <!--<bean id="authorizationController" class="com.mana.spring.web.AuthorizationController"/>-->
 
-    <bean id="transactionManager"
-          class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-        <property name="sessionFactory" ref="mySessionFactory"/>
-    </bean>
+    <!--<bean id="hibernateTemplate"-->
+          <!--class="org.springframework.orm.hibernate5.HibernateTemplate">-->
+        <!--<property name="sessionFactory">-->
+            <!--<ref bean="mySessionFactory"/>-->
+        <!--</property>-->
+        <!--<property name="checkWriteOperations" value="false"/>-->
+    <!--</bean>-->
 
-
+    <!--<bean id="transactionManager"-->
+          <!--class="org.springframework.orm.hibernate5.HibernateTransactionManager">-->
+        <!--<property name="sessionFactory" ref="mySessionFactory"/>-->
+    <!--</bean>-->
 
 </beans>

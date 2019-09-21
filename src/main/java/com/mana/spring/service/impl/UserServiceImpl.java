@@ -8,6 +8,11 @@ import com.mana.spring.domain.UserAuthority;
 import com.mana.spring.service.UserService;
 import com.mana.spring.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User.UserBuilder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -15,18 +20,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserDAO userDAO;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     public ArrayList<User> getUsers(int pageNumber) {
         int size = Pagination.getPageSize();
         return (ArrayList<User>) userDAO.listUser((pageNumber - 1) * size, size);
-    }
-
-    public User getUserByEmail(String email) {
-        return userDAO.getUserByEmail(email);
     }
 
     public ArrayList<CartItem> getUserCart(String email) {
@@ -38,9 +42,10 @@ public class UserServiceImpl implements UserService {
     }
 
     // returns true if new user
-    public boolean registerUser(User user, boolean admin) {
+    public boolean registerUser(User user, boolean admin){
         User checkIfUserExists = userDAO.getUserByEmail(user.getUserEmail());
-        if (checkIfUserExists != null) {
+
+        if (checkIfUserExists != null && checkIfUserExists.isDeleted()) {
             checkIfUserExists.setUserLastName(user.getUserLastName());
             checkIfUserExists.setUserFirstName(user.getUserFirstName());
             checkIfUserExists.setUserPassword(user.getUserPassword());
@@ -49,17 +54,22 @@ public class UserServiceImpl implements UserService {
             checkIfUserExists.setUpdatedDate(null);
             userDAO.updatePassword(checkIfUserExists);
             return false;
+        }else if(checkIfUserExists != null && !checkIfUserExists.isDeleted()){
+            return false;
         }
+
         Set<UserAuthority> auths = new HashSet<>();
         UserAuthority auth = new UserAuthority(user, false);
         auths.add(auth);
-        if(admin)
-        {
-            auth = new UserAuthority(user,true);
+        if (admin) {
+            auth = new UserAuthority(user, true);
             auths.add(auth);
         }
         user.setUserAuthorities(auths);
-        userDAO.saveUser(user);
+        System.out.println("password provided : "+user.getUserPassword());
+        System.out.println("password encoded : "+passwordEncoder.encode(user.getUserPassword()));
+        user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
+        System.out.println("Saved in Database "+userDAO.saveUser(user));
         return true;
     }
 
@@ -82,4 +92,27 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
+        System.out.println("Email: " + email);
+        User user = userDAO.getUserByEmail(email);
+        UserBuilder userBuilder = null;
+        if (user != null) {
+            userBuilder = org.springframework.security.core.userdetails.User.withUsername(email);
+            userBuilder.disabled(user.isDeleted());
+            userBuilder.password(user.getUserPassword());
+            String[] authorities = user.getUserAuthorities()
+                    .stream().map(UserAuthority::getRole).toArray(String[]::new);
+
+
+            userBuilder.authorities(authorities);
+        } else {
+            throw new UsernameNotFoundException("User not found.");
+        }
+
+        System.out.println(user);
+
+        return userBuilder.build();
+    }
 }
