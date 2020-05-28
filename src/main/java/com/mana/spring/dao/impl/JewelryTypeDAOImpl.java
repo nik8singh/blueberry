@@ -24,15 +24,23 @@ public class JewelryTypeDAOImpl implements JewelryTypeDAO {
         return jewelryType;
     }
 
-    public void deactivateJewelryType(String jewelryTypeName) {
-        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("update com.mana.spring.domain.JewelryType jt set jt.jewelryTypeActive = false where jt.jewelryTypeName= :name ").setParameter("name", jewelryTypeName).executeUpdate();
+    public void deactivateJewelryType(long id) {
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("update com.mana.spring.domain.JewelryType jt set jt.jewelryTypeActive = false where jt.jewelryTypeId= :id ").setParameter("id", id).executeUpdate();
+    }
+
+    public void activateJewelryType(long id) {
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("update com.mana.spring.domain.JewelryType jt set jt.jewelryTypeActive = true where jt.jewelryTypeId= :id ").setParameter("id", id).executeUpdate();
     }
 
     public List listActiveJewelryType(int start, int end) {
-        System.out.println("========== Start: "+start);
-        System.out.println("========== end: "+end);
 
         return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.JewelryType jt where jt.jewelryTypeActive= true").setFirstResult(start).setMaxResults(end).list();
+
+    }
+
+    public List listActiveJewelryType() {
+
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.JewelryType jt where jt.jewelryTypeActive= true").list();
 
     }
 
@@ -52,13 +60,18 @@ public class JewelryTypeDAOImpl implements JewelryTypeDAO {
 
     public JewelryType getJewelryTypeById(long jewelryTypeId) {
         JewelryType jewelryType = (JewelryType) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.JewelryType jt where jt.jewelryTypeId= :id ").setParameter("id", jewelryTypeId).uniqueResult();
-        hibernateTemplate.initialize(jewelryType.getProducts());
+//        hibernateTemplate.initialize(jewelryType.getProducts());
         return jewelryType;
     }
 
     public long count(boolean active) {
         return (Long) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("select count(*) from com.mana.spring.domain.JewelryType jt where jt.jewelryTypeActive = :ac").setParameter("ac", active).uniqueResult();
 
+    }
+
+    @Override
+    public List listPartialSearch(String searchWord) {
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.JewelryType jt where jt.jewelryTypeName LIKE concat('%',:searchWord,'%') or jt.jewelryTypeDescription LIKE concat('%',:searchWord,'%')").setParameter("searchWord", searchWord).list();
     }
 
 }

@@ -31,6 +31,12 @@ public class GemstoneController {
         return gemstoneService.getInactiveGemstones(pageNumber);
     }
 
+    @RequestMapping(value = "adm/list/search/{searchWord}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    GemstoneListDTO getPartialSearch(@PathVariable String searchWord) {
+        return gemstoneService.partialSearch(searchWord);
+    }
+
 
     @RequestMapping(value = "vis/gemstone/{name}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
@@ -51,10 +57,15 @@ public class GemstoneController {
         return gemstoneService.updateGemstone(gemstone);
     }
 
-    @RequestMapping(value = "adm/deactivate/{name}", method = RequestMethod.POST)
-    public ResponseEntity deactivateGemstone(@PathVariable String name) {
+    @RequestMapping(value = "adm/deactivate/{id}", method = RequestMethod.POST)
+    public ResponseEntity deactivateGemstone(@PathVariable long id) {
+        gemstoneService.deactivateGemstone(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
-        gemstoneService.deactivateGemstone(name);
+    @RequestMapping(value = "adm/activate/{id}", method = RequestMethod.POST)
+    public ResponseEntity activateGemstone(@PathVariable long id) {
+        gemstoneService.activateGemstone(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 

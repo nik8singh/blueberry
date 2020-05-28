@@ -10,9 +10,13 @@ public interface JewelryTypeDAO {
 
     JewelryType updateJewelryType(JewelryType jewelryType);
 
-    void deactivateJewelryType(String jewelryTypeName);
+    void deactivateJewelryType(long id);
+
+    void activateJewelryType(long id);
 
     List listActiveJewelryType(int start, int end);
+
+    List listActiveJewelryType();
 
     List listInactiveJewelryTypes(int start, int end);
 
@@ -22,4 +26,5 @@ public interface JewelryTypeDAO {
 
     long count(boolean active);
 
+    List listPartialSearch(String searchWord);
 }

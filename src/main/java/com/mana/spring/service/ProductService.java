@@ -1,6 +1,7 @@
 package com.mana.spring.service;
 
 import com.mana.spring.domain.Product;
+import com.mana.spring.dto.ProductDTO;
 import com.mana.spring.dto.ProductListDTO;
 import com.mana.spring.dto.ProductRepoFilter;
 
@@ -22,9 +23,11 @@ public interface ProductService {
 
     Product addProduct(Product product);
 
-    Product updateProduct(Product product);
+    void updateProduct(Product product);
 
-    Product getProduct(Long productId);
+    void updateProductPublish(Long productId, boolean publishFlag);
+
+    ProductDTO getProduct(Long productId);
 
     Product getProductByName(String name);
 }

@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -25,8 +24,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private UserDAO userDAO;
 
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     public ArrayList<User> getUsers(int pageNumber) {
         int size = Pagination.getPageSize();
@@ -66,10 +65,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             auths.add(auth);
         }
         user.setUserAuthorities(auths);
-        System.out.println("password provided : "+user.getUserPassword());
-        System.out.println("password encoded : "+passwordEncoder.encode(user.getUserPassword()));
-        user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
-        System.out.println("Saved in Database "+userDAO.saveUser(user));
+//        user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
+        userDAO.saveUser(user);
         return true;
     }
 

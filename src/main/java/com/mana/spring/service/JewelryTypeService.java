@@ -13,7 +13,13 @@ public interface JewelryTypeService {
 
     JewelryType updateJewelryType(JewelryType jewelryType);
 
-    void deactivateJewelryType(String jewelryTypeName);
+    void deactivateJewelryType(long id);
+
+    void activateJewelryType(long id);
 
     JewelryType getJewelryType(String jewelryTypeName);
+
+    JewelryType getJewelryTypebyId(long jewelryTypeId);
+
+    JewelryTypeListDTO partialSearch(String searchWord);
 }

@@ -24,6 +24,13 @@ public class TestMetal {
     }
 
     @Test
+    public void getPartialSearch() {
+
+        System.out.println(metalController.getPartialSearch("test"));
+
+    }
+
+    @Test
     public void getMetal() {
         System.out.println(metalController.getMetal("silver"));
     }
@@ -54,8 +61,12 @@ public class TestMetal {
 
     @Test
     public void deactivateMetal() {
-        System.out.println(metalController.deactivateMetal("Test Inactive Metal"));
+        System.out.println(metalController.deactivateMetal(12));
     }
 
+    @Test
+    public void activateMetal() {
+        System.out.println(metalController.activateMetal(12));
+    }
 
 }

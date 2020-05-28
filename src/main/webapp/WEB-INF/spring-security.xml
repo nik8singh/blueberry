@@ -7,20 +7,17 @@
 	http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 
     <http use-expressions="true" auto-config="true">
-        <intercept-url pattern="/*/adm/*" access="hasRole('ROLE_ADMIN')" />
-        <intercept-url pattern="/*/cus/*" access="hasRole('ROLE_CUSTOMER')" />
-
-
-        <csrf disabled="true" />
-
+        <intercept-url pattern="/" access="permitAll"/>
+        <!--        <intercept-url pattern="/*/adm/*" access="hasRole('ROLE_ADMIN')" />-->
+        <intercept-url pattern="/*/cus/*" access="hasRole('ROLE_CUSTOMER')"/>
+        <csrf disabled="true"/>
+        <cors/>
     </http>
 
     <authentication-manager>
         <authentication-provider user-service-ref = "userService">
+            <password-encoder ref="passwordEncoder"/>
         </authentication-provider>
     </authentication-manager>
 
-    <!--<beans:bean id="userService" class="com.mana.spring.service.impl.UserServiceImpl"/>-->
-
-    <!--<beans:bean id="userDAO" class="com.mana.spring.dao.impl.UserDAOImpl" autowire="byType"/>-->
 </beans:beans>

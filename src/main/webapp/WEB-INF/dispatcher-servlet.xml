@@ -88,14 +88,17 @@
     <!--<bean id="invoiceDAO" class="com.mana.spring.dao.impl.InvoiceDAOImpl"/>-->
     <bean id="invoiceController" class="com.mana.spring.web.InvoiceController"/>
 
+
+    <bean id="exceptionController" class="com.mana.spring.web.ExceptionController"/>
+
     <!--<bean id="authorizationController" class="com.mana.spring.web.AuthorizationController"/>-->
 
     <!--<bean id="hibernateTemplate"-->
-          <!--class="org.springframework.orm.hibernate5.HibernateTemplate">-->
-        <!--<property name="sessionFactory">-->
-            <!--<ref bean="mySessionFactory"/>-->
-        <!--</property>-->
-        <!--<property name="checkWriteOperations" value="false"/>-->
+    <!--class="org.springframework.orm.hibernate5.HibernateTemplate">-->
+    <!--<property name="sessionFactory">-->
+    <!--<ref bean="mySessionFactory"/>-->
+    <!--</property>-->
+    <!--<property name="checkWriteOperations" value="false"/>-->
     <!--</bean>-->
 
     <!--<bean id="transactionManager"-->

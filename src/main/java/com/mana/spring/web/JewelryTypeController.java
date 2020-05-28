@@ -31,6 +31,11 @@ public class JewelryTypeController {
         return jewelryTypeService.getInactiveJewelryTypes(pageNumber);
     }
 
+    @RequestMapping(value = "adm/list/search/{searchWord}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    JewelryTypeListDTO getPartialSearch(@PathVariable String searchWord) {
+        return jewelryTypeService.partialSearch(searchWord);
+    }
 
     @RequestMapping(value = "vis/jt/{name}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
@@ -53,10 +58,17 @@ public class JewelryTypeController {
         return jewelryTypeService.updateJewelryType(metal);
     }
 
-    @RequestMapping(value = "adm/deactivate/{name}", method = RequestMethod.POST)
-    public ResponseEntity deactivateJewelryType(@PathVariable String name) {
+    @RequestMapping(value = "adm/deactivate/{id}", method = RequestMethod.POST)
+    public ResponseEntity deactivateJewelryType(@PathVariable long id) {
 
-        jewelryTypeService.deactivateJewelryType(name);
+        jewelryTypeService.deactivateJewelryType(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "adm/activate/{id}", method = RequestMethod.POST)
+    public ResponseEntity activateJewelryType(@PathVariable long id) {
+
+        jewelryTypeService.activateJewelryType(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

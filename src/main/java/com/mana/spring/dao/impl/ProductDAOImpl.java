@@ -17,10 +17,8 @@ public class ProductDAOImpl implements ProductDAO {
     @Autowired
     private HibernateTemplate hibernateTemplate;
 
-
     public Product getProduct(Long productId) {
-
-        Product product = (Product) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product p where p.productId= :id ").setParameter("id", productId).uniqueResult();
+        Product product = hibernateTemplate.getSessionFactory().getCurrentSession().load(Product.class, productId);
         makeItEager(product);
         return product;
     }
@@ -30,9 +28,13 @@ public class ProductDAOImpl implements ProductDAO {
         return product;
     }
 
-    public Product updateProduct(Product product) {
+    @Override
+    public void updateProductPublish(Long productId, boolean publishFlag) {
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("update Product as p set p.productPublished=:flag where p.productId= :id").setParameter("id", productId).setParameter("flag", publishFlag).executeUpdate();
+    }
+
+    public void updateProduct(Product product) {
         hibernateTemplate.update(product);
-        return product;
     }
 
     public List listAllProducts(int start, int end) {
@@ -120,6 +122,11 @@ public class ProductDAOImpl implements ProductDAO {
 
         return product;
     }
+
+    public void updateSKU(long id, String sku) {
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("update Product as p set p.productSku=:sku where p.productId= :id   ").setParameter("id", id).setParameter("sku", sku).executeUpdate();
+    }
+
 
     private void makeItEager(Product product) {
         hibernateTemplate.initialize(product.getGemstones());

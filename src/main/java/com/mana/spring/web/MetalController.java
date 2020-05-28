@@ -31,6 +31,11 @@ public class MetalController {
         return metalService.getInactiveMetals(pageNumber);
     }
 
+    @RequestMapping(value = "adm/list/search/{searchWord}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    MetalListDTO getPartialSearch(@PathVariable String searchWord) {
+        return metalService.partialSearch(searchWord);
+    }
 
     @RequestMapping(value = "vis/metal/{name}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
@@ -48,13 +53,20 @@ public class MetalController {
     @RequestMapping(value = "adm/update", method = RequestMethod.POST)
     public Metal updateMetal(@Valid @RequestBody Metal metal) {
 
-        return  metalService.updateMetal(metal);
+        return metalService.updateMetal(metal);
     }
 
-    @RequestMapping(value = "adm/deactivate/{name}", method = RequestMethod.POST)
-    public ResponseEntity deactivateMetal(@PathVariable String name) {
+    @RequestMapping(value = "adm/deactivate/{id}", method = RequestMethod.POST)
+    public ResponseEntity deactivateMetal(@PathVariable long id) {
 
-        metalService.deactivateMetal(name);
+        metalService.deactivateMetal(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "adm/activate/{id}", method = RequestMethod.POST)
+    public ResponseEntity activateMetal(@PathVariable long id) {
+
+        metalService.activateMetal(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 

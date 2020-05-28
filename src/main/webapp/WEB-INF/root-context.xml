@@ -14,10 +14,9 @@
     <context:annotation-config/>
     <tx:annotation-driven transaction-manager="transactionManager"/>
     <bean id="appProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location">
-            <value>classpath:app.properties</value>
-        </property>
+        <property name="location" value="classpath:app.properties"/>
     </bean>
+    <!--    <context:property-placeholder location="classpath:app.properties"/>-->
 
     <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
@@ -42,6 +41,9 @@
         </property>
     </bean>
 
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="20000000"/>
+    </bean>
 
     <bean id="gemstoneDAO" class="com.mana.spring.dao.impl.GemstoneDAOImpl"/>
     <bean id="gemstoneService" class="com.mana.spring.service.impl.GemstoneServiceImpl"/>
@@ -82,9 +84,7 @@
 
     <bean id="hibernateTemplate"
           class="org.springframework.orm.hibernate5.HibernateTemplate">
-        <property name="sessionFactory">
-            <ref bean="mySessionFactory"/>
-        </property>
+        <property name="sessionFactory" ref="mySessionFactory"/>
         <property name="checkWriteOperations" value="false"/>
     </bean>
 

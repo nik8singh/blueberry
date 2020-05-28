@@ -24,6 +24,13 @@ public class TestJewelryType {
     }
 
     @Test
+    public void getPartialSearch() {
+
+        System.out.println(jewelryTypeController.getPartialSearch("ring"));
+
+    }
+
+    @Test
     public void getJewelryType() {
         System.out.println(jewelryTypeController.getJewelryType("Toe Ring"));
     }
@@ -54,7 +61,12 @@ public class TestJewelryType {
 
     @Test
     public void deactivateJewelryType() {
-        System.out.println(jewelryTypeController.deactivateJewelryType("Head Ring "));
+        System.out.println(jewelryTypeController.deactivateJewelryType(16));
+    }
+
+    @Test
+    public void activateJewelryType() {
+        System.out.println(jewelryTypeController.activateJewelryType(16));
     }
 
 

@@ -19,7 +19,10 @@ public class MetalServiceImpl implements MetalService {
     public MetalListDTO getActiveMetals(int pageNumber) {
         int size = Pagination.getPageSize();
         MetalListDTO metalListDTO = createListDTO(pageNumber, true);
-        metalListDTO.setMetals((ArrayList<Metal>) metalDAO.listActiveMetals((pageNumber - 1) * size, size));
+        if (pageNumber > 0)
+            metalListDTO.setMetals((ArrayList<Metal>) metalDAO.listActiveMetals((pageNumber - 1) * size, size));
+        else
+            metalListDTO.setMetals((ArrayList<Metal>) metalDAO.listActiveMetals());
         return metalListDTO;
     }
 
@@ -41,15 +44,26 @@ public class MetalServiceImpl implements MetalService {
         metalFromDb.setMetalDescription(metal.getMetalDescription());
         metalFromDb.setCreatedDate(null);
         metalFromDb.setUpdatedDate(null);
-       return metalDAO.updateMetal(metalFromDb);
+        return metalDAO.updateMetal(metalFromDb);
     }
 
-    public void deactivateMetal(String metalName) {
-        metalDAO.deactivateMetal(metalName);
+    public void deactivateMetal(long id) {
+        metalDAO.deactivateMetal(id);
+    }
+
+    public void activateMetal(long id) {
+        metalDAO.activateMetal(id);
     }
 
     public Metal getMetal(String metalName) {
         return metalDAO.getMetal(metalName, false);
+    }
+
+    @Override
+    public MetalListDTO partialSearch(String searchWord) {
+        MetalListDTO metalListDTO = new MetalListDTO();
+        metalListDTO.setMetals((ArrayList<Metal>) metalDAO.listPartialSearch(searchWord));
+        return metalListDTO;
     }
 
     private MetalListDTO createListDTO(int pageNumber, boolean active) {

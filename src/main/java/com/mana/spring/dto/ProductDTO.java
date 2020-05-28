@@ -1,10 +1,5 @@
 package com.mana.spring.dto;
 
-import com.mana.spring.domain.Gemstone;
-import com.mana.spring.domain.Image;
-import com.mana.spring.domain.JewelryType;
-import com.mana.spring.domain.Metal;
-
 import java.util.ArrayList;
 
 public class ProductDTO {
@@ -25,21 +20,38 @@ public class ProductDTO {
 
     private String productCurrency;
 
+    private int productQuantity;
+
+    private String productQuantityType;
+
+    private double productExpense;
+
+    private boolean productAcceptCoupon;
+
     private boolean productOnFeatured;
 
     private boolean productPublished;
 
     private boolean active;
 
-    private JewelryType jewelryType;
+    private JewelryTypeDTO jewelryType;
 
-    private ArrayList<Gemstone> gemstones;
+    private ArrayList<GemstoneDTO> gemstones;
 
-    private ArrayList<Metal> metals;
+    private ArrayList<MetalDTO> metals;
 
-    private ArrayList<Image> images;
+    private ArrayList<ImageDTO> images;
+    private ImageListDTO imageListDTO;
 
     public ProductDTO() {
+    }
+
+    public ImageListDTO getImageListDTO() {
+        return imageListDTO;
+    }
+
+    public void setImageListDTO(ImageListDTO imageListDTO) {
+        this.imageListDTO = imageListDTO;
     }
 
     public long getProductId() {
@@ -106,6 +118,38 @@ public class ProductDTO {
         this.productCurrency = productCurrency;
     }
 
+    public int getProductQuantity() {
+        return productQuantity;
+    }
+
+    public void setProductQuantity(int productQuantity) {
+        this.productQuantity = productQuantity;
+    }
+
+    public String getProductQuantityType() {
+        return productQuantityType;
+    }
+
+    public void setProductQuantityType(String productQuantityType) {
+        this.productQuantityType = productQuantityType;
+    }
+
+    public double getProductExpense() {
+        return productExpense;
+    }
+
+    public void setProductExpense(double productExpense) {
+        this.productExpense = productExpense;
+    }
+
+    public boolean isProductAcceptCoupon() {
+        return productAcceptCoupon;
+    }
+
+    public void setProductAcceptCoupon(boolean productAcceptCoupon) {
+        this.productAcceptCoupon = productAcceptCoupon;
+    }
+
     public boolean isProductOnFeatured() {
         return productOnFeatured;
     }
@@ -122,44 +166,44 @@ public class ProductDTO {
         this.productPublished = productPublished;
     }
 
-    public JewelryType getJewelryType() {
-        return jewelryType;
-    }
-
-    public void setJewelryType(JewelryType jewelryType) {
-        this.jewelryType = jewelryType;
-    }
-
-    public ArrayList<Gemstone> getGemstones() {
-        return gemstones;
-    }
-
-    public void setGemstones(ArrayList<Gemstone> gemstones) {
-        this.gemstones = gemstones;
-    }
-
-    public ArrayList<Metal> getMetals() {
-        return metals;
-    }
-
-    public void setMetals(ArrayList<Metal> metals) {
-        this.metals = metals;
-    }
-
-    public ArrayList<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(ArrayList<Image> images) {
-        this.images = images;
-    }
-
     public boolean isActive() {
         return active;
     }
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public JewelryTypeDTO getJewelryType() {
+        return jewelryType;
+    }
+
+    public void setJewelryType(JewelryTypeDTO jewelryType) {
+        this.jewelryType = jewelryType;
+    }
+
+    public ArrayList<GemstoneDTO> getGemstones() {
+        return gemstones;
+    }
+
+    public void setGemstones(ArrayList<GemstoneDTO> gemstones) {
+        this.gemstones = gemstones;
+    }
+
+    public ArrayList<MetalDTO> getMetals() {
+        return metals;
+    }
+
+    public void setMetals(ArrayList<MetalDTO> metals) {
+        this.metals = metals;
+    }
+
+    public ArrayList<ImageDTO> getImages() {
+        return images;
+    }
+
+    public void setImages(ArrayList<ImageDTO> images) {
+        this.images = images;
     }
 
     @Override
@@ -176,10 +220,10 @@ public class ProductDTO {
                 "\nproductOnFeatured=" + productOnFeatured +
                 "\nproductPublished=" + productPublished +
                 "\nactive=" + active +
-                "\njewelryType=" + jewelryType +
-                "\ngemstones=" + gemstones +
-                "\nmetals=" + metals +
-                "\nimages=" + images +
+                "\njewelryTypeDTO=" + jewelryType +
+                "\ngemstonesDtos=" + gemstones +
+                "\nmetalsDtos=" + metals +
+                "\nimagesDtos=" + images +
                 '}';
     }
 }

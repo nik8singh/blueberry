@@ -1,9 +1,16 @@
 package com.mana.spring.service.impl;
 
 import com.mana.spring.dao.ProductDAO;
+import com.mana.spring.domain.Gemstone;
+import com.mana.spring.domain.JewelryType;
 import com.mana.spring.domain.Product;
+import com.mana.spring.dto.ProductDTO;
+import com.mana.spring.dto.ProductDTOConverter;
 import com.mana.spring.dto.ProductListDTO;
 import com.mana.spring.dto.ProductRepoFilter;
+import com.mana.spring.service.GemstoneService;
+import com.mana.spring.service.JewelryTypeService;
+import com.mana.spring.service.MetalService;
 import com.mana.spring.service.ProductService;
 import com.mana.spring.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +23,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductDAO productDAO;
+
+    @Autowired
+    public GemstoneService gemstoneService;
+
+    @Autowired
+    public JewelryTypeService jewelryTypeService;
+
+    @Autowired
+    public MetalService metalService;
 
     public ProductListDTO getAllProducts(int pageNumber) {
 
@@ -63,42 +79,64 @@ public class ProductServiceImpl implements ProductService {
     public ProductListDTO getFilteredProducts(int pageNumber, ProductRepoFilter repoFilter) {
         int size = Pagination.getPageSize();
         ProductListDTO productListDTO = createListDTO(pageNumber, productDAO.countFiltered(repoFilter));
-        productListDTO.setProducts((ArrayList<Product>) productDAO.listFilteredProducts((pageNumber - 1) * size, size,repoFilter ));
+        productListDTO.setProducts((ArrayList<Product>) productDAO.listFilteredProducts((pageNumber - 1) * size, size, repoFilter));
 
         return productListDTO;
     }
 
     public Product addProduct(Product product) {
-        return productDAO.saveProduct(product);
+        Gemstone gemstone = gemstoneService.getGemstonebyId(product.getGemstones().iterator().next().getGemstoneId());
+        JewelryType jewelryType = jewelryTypeService.getJewelryTypebyId(product.getProductJewelryType().getJewelryTypeId());
+        String typeArray[] = jewelryType.getJewelryTypeName().split(" ");
+        String skuJT = jewelryType.getJewelryTypeName().substring(0, 4);
+        if (typeArray.length > 1)
+            skuJT += typeArray[1].charAt(0);
+        String sku = skuJT + "-" + gemstone.getGemstoneName().substring(0, 4);
+        product.setProductPublished(false);
+        product = productDAO.saveProduct(product);
+
+        sku += "-" + product.getProductId();
+        sku = sku.replaceAll("\\s", "").toLowerCase();
+        product.setProductSku(sku);
+        updateSKU(product.getProductId(), sku);
+
+        return product;
     }
 
-    public Product updateProduct(Product updatedProduct) {
+    public void updateSKU(long id, String sku) {
+        productDAO.updateSKU(id, sku);
+    }
+
+    public void updateProduct(Product updatedProduct) {
         Product productFromDb = productDAO.getProduct(updatedProduct.getProductId()); // true to keep fetch type EAGER
         productFromDb.setProductName(updatedProduct.getProductName());
         productFromDb.setProductDescription(updatedProduct.getProductDescription());
         productFromDb.setProductWeight(updatedProduct.getProductWeight());
         productFromDb.setWeightUnit(updatedProduct.getWeightUnit());
         productFromDb.setProductPrice(updatedProduct.getProductPrice());
-        productFromDb.setProductSku(updatedProduct.getProductSku());
         productFromDb.setProductCurrency(updatedProduct.getProductCurrency());
         productFromDb.setProductQuantity(updatedProduct.getProductQuantity());
         productFromDb.setProductQuantityType(updatedProduct.getProductQuantityType());
         productFromDb.setProductOnFeatured(updatedProduct.isProductOnFeatured());
-        productFromDb.setProductPublished(updatedProduct.isProductPublished());
         productFromDb.setProductExpense(updatedProduct.getProductExpense());
         productFromDb.setProductAcceptCoupon(updatedProduct.isProductAcceptCoupon());
-
         productFromDb.setProductJewelryType(updatedProduct.getProductJewelryType());
         productFromDb.setGemstones(updatedProduct.getGemstones());
         productFromDb.setMetals(updatedProduct.getMetals());
-
         productFromDb.setCreatedDate(null);
         productFromDb.setUpdatedDate(null);
-        return productDAO.updateProduct(productFromDb);
+        productDAO.updateProduct(productFromDb);
     }
 
-    public Product getProduct(Long productId) {
-        return productDAO.getProduct(productId); // true to keep fetch type EAGER
+    @Override
+    public void updateProductPublish(Long productId, boolean publishFlag) {
+        System.out.println("ID : " + productId + " FLag: " + publishFlag);
+        productDAO.updateProductPublish(productId, publishFlag);
+    }
+
+
+    public ProductDTO getProduct(Long productId) {
+        return ProductDTOConverter.convertToDTO(productDAO.getProduct(productId));
     }
 
     public Product getProductByName(String name) {

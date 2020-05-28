@@ -26,6 +26,13 @@ public class TestGemstone {
     }
 
     @Test
+    public void getPartialSearch() {
+
+        System.out.println(gemstoneController.getPartialSearch("ruby"));
+
+    }
+
+    @Test
     public void getGemstone() {
         System.out.println(gemstoneController.getGemstone("ruby"));
     }
@@ -59,7 +66,12 @@ public class TestGemstone {
 
     @Test
     public void deactivateGemstone() {
-        System.out.println(gemstoneController.deactivateGemstone("Test inactive"));
+        System.out.println(gemstoneController.deactivateGemstone(56));
+    }
+
+    @Test
+    public void activateGemstone() {
+        System.out.println(gemstoneController.activateGemstone(70));
     }
 
 

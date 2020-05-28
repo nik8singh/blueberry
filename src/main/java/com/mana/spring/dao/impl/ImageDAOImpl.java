@@ -19,7 +19,7 @@ public class ImageDAOImpl implements ImageDAO {
     }
 
     public void updateImageName(Image image) {
-        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("update com.mana.spring.domain.Image img set img.imageName=:name where img.imageId= :id ").setParameter("id", image.getImageId()).setParameter("name", image.getImageName()).executeUpdate();
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("update com.mana.spring.domain.Image img set img.image_public_id=:name where img.imageId= :id ").setParameter("id", image.getImageId()).setParameter("name", image.getImage_public_id()).executeUpdate();
     }
 
     public void deleteImageByProductAndPriority(long productId, int imagePriority) {
@@ -31,7 +31,17 @@ public class ImageDAOImpl implements ImageDAO {
     }
 
     public Image getImage(String imageName) {
-        return (Image) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Image img where img.imageName = :name").setParameter("name", imageName).uniqueResult();
+        return (Image) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Image img where img.image_public_id = :name").setParameter("name", imageName).uniqueResult();
+    }
+
+    @Override
+    public void updateImagePriorityBulk(long imageId, int priority) {
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("update com.mana.spring.domain.Image img set img.imagePriority=:p where img.imageId= :id ").setParameter("id", imageId).setParameter("p", priority).executeUpdate();
+    }
+
+    @Override
+    public void deleteImageByPublicId(String publicId) {
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("delete com.mana.spring.domain.Image img where img.image_public_id = :id").setParameter("id", publicId).executeUpdate();
     }
 
     public List getImagesByPage(String pageName) {
@@ -45,5 +55,11 @@ public class ImageDAOImpl implements ImageDAO {
     public long getProductImagesCount(long productId) {
         return (Long) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("select count(*) from com.mana.spring.domain.Image img where img.product.productId = :id").setParameter("id", productId).uniqueResult();
     }
+
+    @Override
+    public long getImageCounter() {
+        return (Long) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("select max(img.imageId) from com.mana.spring.domain.Image img").uniqueResult();
+    }
+
 
 }

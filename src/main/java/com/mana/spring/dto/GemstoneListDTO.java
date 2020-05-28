@@ -7,23 +7,30 @@ import java.util.ArrayList;
 
 public class GemstoneListDTO extends Pagination {
 
-    private ArrayList<Gemstone> gemstones;
+    private ArrayList<GemstoneDTO> gemstonesDtos;
 
     public GemstoneListDTO() {
+        gemstonesDtos = new ArrayList<>();
     }
 
-    public ArrayList<Gemstone> getGemstones() {
-        return gemstones;
+    public ArrayList<GemstoneDTO> getGemstones() {
+        return gemstonesDtos;
+    }
+
+    public void setGemstonesDtos(ArrayList<GemstoneDTO> gemstonesDtos) {
+        this.gemstonesDtos = gemstonesDtos;
     }
 
     public void setGemstones(ArrayList<Gemstone> gemstones) {
-        this.gemstones = gemstones;
+        for (Gemstone g : gemstones) {
+            this.gemstonesDtos.add(GemstoneDTOConverter.convertToDTO(g));
+        }
     }
 
     @Override
     public String toString() {
         return "\nGemstoneListDTO{" +
-                "\n\tgemstones=" + gemstones +
+                "\n\tgemstones=" + gemstonesDtos +
                 "\n\tcount=" + count +
                 "\n\ttotalPages=" + totalPages +
                 "\n\tcurrentPageNumber=" + currentPageNumber +

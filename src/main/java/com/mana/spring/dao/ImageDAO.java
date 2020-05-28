@@ -16,10 +16,15 @@ public interface ImageDAO {
 
     Image getImage(String imageName);
 
+    void updateImagePriorityBulk(long imageId, int priority);
+
+    void deleteImageByPublicId(String publicId);
+
     List getImagesByPage(String pageName);
 
     List getImagesByPanel(String panelName);
 
     long getProductImagesCount(long productId);
 
+    long getImageCounter();
 }

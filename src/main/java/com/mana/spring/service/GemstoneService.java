@@ -9,13 +9,17 @@ public interface GemstoneService {
 
     GemstoneListDTO getInactiveGemstones(int pageNumber);
 
+    GemstoneListDTO partialSearch(String searchWord);
+
     Gemstone addGemstone(Gemstone gemstone);
 
     Gemstone updateGemstone(Gemstone gemstone);
 
-    void deactivateGemstone(String gemstoneName);
+    void deactivateGemstone(long id);
 
     Gemstone getGemstone(String gemstoneName);
 
+    Gemstone getGemstonebyId(long id);
 
+    void activateGemstone(long id);
 }

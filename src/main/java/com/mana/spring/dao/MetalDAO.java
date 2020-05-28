@@ -10,9 +10,13 @@ public interface MetalDAO {
 
     Metal updateMetal(Metal metal);
 
-    void deactivateMetal(String metalName);
+    void deactivateMetal(long id);
+
+    void activateMetal(long id);
 
     List listActiveMetals(int start, int end);
+
+    List listActiveMetals();
 
     List listInactiveMetals(int start, int end);
 
@@ -21,4 +25,6 @@ public interface MetalDAO {
     Metal getMetalById(long metalId);
 
     long count(boolean active);
+
+    List listPartialSearch(String searchWord);
 }

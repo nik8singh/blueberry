@@ -11,7 +11,9 @@ public interface ProductDAO {
 
     Product saveProduct(Product product);
 
-    Product updateProduct(Product product);
+    void updateProductPublish(Long productId, boolean publishFlag);
+
+    void updateProduct(Product product);
 
     List listAllProducts(int start, int end);
 
@@ -36,5 +38,7 @@ public interface ProductDAO {
     long countFiltered(ProductRepoFilter repoFilter);
 
     Product getProductByName(String name);
+
+    void updateSKU(long id, String sku);
 
 }

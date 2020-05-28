@@ -7,23 +7,31 @@ import java.util.ArrayList;
 
 public class MetalListDTO extends Pagination {
 
-    private ArrayList<Metal> metals;
+    private ArrayList<MetalDTO> metalsDtos;
 
     public MetalListDTO() {
+        metalsDtos = new ArrayList<>();
     }
 
-    public ArrayList<Metal> getMetals() {
-        return metals;
+
+    public ArrayList<MetalDTO> getMetalsDtos() {
+        return metalsDtos;
+    }
+
+    public void setMetalsDtos(ArrayList<MetalDTO> metalsDtos) {
+        this.metalsDtos = metalsDtos;
     }
 
     public void setMetals(ArrayList<Metal> metals) {
-        this.metals = metals;
+        for (Metal m : metals) {
+            this.metalsDtos.add(MetalDTOConverter.convertToDTO(m));
+        }
     }
 
     @Override
     public String toString() {
         return "MetalListDTO{" +
-                "\n\tmetals=" + metals +
+                "\n\tmetals=" + metalsDtos +
                 "\n\tcount=" + count +
                 "\n\ttotalPages=" + totalPages +
                 "\n\tcurrentPageNumber=" + currentPageNumber +

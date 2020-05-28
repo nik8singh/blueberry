@@ -19,7 +19,10 @@ public class JewelryTypeServiceImpl implements JewelryTypeService {
     public JewelryTypeListDTO getActiveJewelryTypes(int pageNumber) {
         int size = Pagination.getPageSize();
         JewelryTypeListDTO jewelryTypeListDTO = createListDTO(pageNumber, true);
-        jewelryTypeListDTO.setJewelryTypes((ArrayList<JewelryType>) jewelryTypeDAO.listActiveJewelryType((pageNumber - 1) * size, size));
+        if (pageNumber > 0)
+            jewelryTypeListDTO.setJewelryTypes((ArrayList<JewelryType>) jewelryTypeDAO.listActiveJewelryType((pageNumber - 1) * size, size));
+        else
+            jewelryTypeListDTO.setJewelryTypes((ArrayList<JewelryType>) jewelryTypeDAO.listActiveJewelryType());
         return jewelryTypeListDTO;
     }
 
@@ -46,12 +49,29 @@ public class JewelryTypeServiceImpl implements JewelryTypeService {
         return jewelryTypeDAO.updateJewelryType(jewelryTypeFromDb);
     }
 
-    public void deactivateJewelryType(String jewelryTypeName) {
-        jewelryTypeDAO.deactivateJewelryType(jewelryTypeName);
+    public void deactivateJewelryType(long id) {
+        jewelryTypeDAO.deactivateJewelryType(id);
+    }
+
+    public void activateJewelryType(long id) {
+        jewelryTypeDAO.activateJewelryType(id);
     }
 
     public JewelryType getJewelryType(String jewelryTypeName) {
         return jewelryTypeDAO.getJewelryType(jewelryTypeName, false);
+    }
+
+    @Override
+    public JewelryType getJewelryTypebyId(long jewelryTypeId) {
+        return jewelryTypeDAO.getJewelryTypeById(jewelryTypeId);
+    }
+
+
+    @Override
+    public JewelryTypeListDTO partialSearch(String searchWord) {
+        JewelryTypeListDTO jewelryTypeListDTO = new JewelryTypeListDTO();
+        jewelryTypeListDTO.setJewelryTypes((ArrayList<JewelryType>) jewelryTypeDAO.listPartialSearch(searchWord));
+        return jewelryTypeListDTO;
     }
 
     private JewelryTypeListDTO createListDTO(int pageNumber, boolean active) {

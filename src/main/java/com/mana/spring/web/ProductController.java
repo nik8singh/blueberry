@@ -1,6 +1,7 @@
 package com.mana.spring.web;
 
 import com.mana.spring.domain.Product;
+import com.mana.spring.dto.ProductDTO;
 import com.mana.spring.dto.ProductListDTO;
 import com.mana.spring.dto.ProductRepoFilter;
 import com.mana.spring.service.ProductService;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.File;
 
 
 @RestController
@@ -22,9 +24,10 @@ public class ProductController {
 
     @RequestMapping(value = "vis/p/{id}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    Product getProduct(@PathVariable Long id) {
-
-        return productService.getProduct(id);
+    ProductDTO getProduct(@PathVariable Long id) {
+        ProductDTO productDTO = productService.getProduct(id);
+        System.out.println(productDTO);
+        return productDTO;
     }
 
     @RequestMapping(value = "vis/product/{name}", method = RequestMethod.GET, produces = "application/json")
@@ -79,19 +82,27 @@ public class ProductController {
     @RequestMapping(value = "adm/save", method = RequestMethod.POST)
     public Product saveProduct( @Valid @RequestBody Product product) {
 
-
-        return  productService.addProduct(product);
+        return productService.addProduct(product);
     }
 
     @RequestMapping(value = "adm/update", method = RequestMethod.POST)
-    public Product updateProduct( @Valid @RequestBody Product product) {
+    public ResponseEntity updateProduct(@Valid @RequestBody Product product) {
+        productService.updateProduct(product);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
-        return productService.updateProduct(product);
+    @RequestMapping(value = "adm/publish/{id}/{publishFlag}", method = RequestMethod.POST)
+    public ResponseEntity updateProductPublish(@PathVariable Long id, @PathVariable Boolean publishFlag) {
+        productService.updateProductPublish(id, publishFlag);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @RequestMapping(value = "adm/authtest", method = RequestMethod.GET)
-    public ResponseEntity updateProduct() {
+    public ResponseEntity authtest() {
 
-        return new ResponseEntity("Logged in ", HttpStatus.OK);
+        String rootPath = System.getProperty("catalina.home");
+        File dir = new File(rootPath + File.separator + "images");
+        System.out.println(dir);
+        return new ResponseEntity(dir.mkdir(), HttpStatus.OK);
     }
 }

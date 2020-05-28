@@ -7,19 +7,26 @@ import java.util.ArrayList;
 
 public class ProductListDTO extends Pagination {
 
-    private ArrayList<Product> products;
+    private ArrayList<ProductDTO> productsDtos;
 
     private String sort;
 
     public ProductListDTO() {
+        productsDtos = new ArrayList<>();
     }
 
-    public ArrayList<Product> getProducts() {
-        return products;
+    public ArrayList<ProductDTO> getProductsDtos() {
+        return productsDtos;
+    }
+
+    public void setProductsDtos(ArrayList<ProductDTO> productsDtos) {
+        this.productsDtos = productsDtos;
     }
 
     public void setProducts(ArrayList<Product> products) {
-        this.products = products;
+        for (Product p : products) {
+            this.productsDtos.add(ProductDTOConverter.convertToDTO(p));
+        }
     }
 
     public String getSort() {
@@ -33,7 +40,7 @@ public class ProductListDTO extends Pagination {
     @Override
     public String toString() {
         return "\nProductListDTO{" +
-                "\nproducts=" + products +
+                "\nproducts=" + productsDtos +
                 "\nsort='" + sort + '\'' +
                 "\n\tcount=" + count +
                 "\n\ttotalPages=" + totalPages +

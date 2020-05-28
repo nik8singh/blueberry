@@ -10,15 +10,23 @@ public interface GemstoneDAO {
 
     Gemstone updateGemstone(Gemstone gemstone);
 
-    void deactivateGemstone(String gemstoneName);
+    void deactivateGemstone(long id);
 
     List listActiveGemstones(int start, int end);
+
+    List listActiveGemstones();
 
     List listInactiveGemstones(int start, int end);
 
     Gemstone getGemstone(String gemstoneName, boolean requireProducts);
 
+    Gemstone getGemstonebyId(long gemstoneid, boolean requireProducts);
+
+    List listPartialSearch(String searchWord);
+
     Gemstone getGemstoneById(long gemstoneId);
 
     long count(boolean active);
+
+    void activateGemstone(long id);
 }

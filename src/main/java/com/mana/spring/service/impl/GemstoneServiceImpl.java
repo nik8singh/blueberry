@@ -19,7 +19,10 @@ public class GemstoneServiceImpl implements GemstoneService {
     public GemstoneListDTO getActiveGemstones(int pageNumber) {
         int size = Pagination.getPageSize();
         GemstoneListDTO gemstoneListDTO = createListDTO(pageNumber, true);
-        gemstoneListDTO.setGemstones((ArrayList<Gemstone>) gemstoneDAO.listActiveGemstones((pageNumber - 1) * size, size));
+        if (pageNumber > 0)
+            gemstoneListDTO.setGemstones((ArrayList<Gemstone>) gemstoneDAO.listActiveGemstones((pageNumber - 1) * size, size));
+        else
+            gemstoneListDTO.setGemstones((ArrayList<Gemstone>) gemstoneDAO.listActiveGemstones());
         return gemstoneListDTO;
     }
 
@@ -30,20 +33,41 @@ public class GemstoneServiceImpl implements GemstoneService {
         return gemstoneListDTO;
     }
 
-    public void deactivateGemstone(String gemstoneName) {
-        gemstoneDAO.deactivateGemstone(gemstoneName);
+    @Override
+    public GemstoneListDTO partialSearch(String searchWord) {
+        GemstoneListDTO gemstoneListDTO = new GemstoneListDTO();
+        gemstoneListDTO.setGemstones((ArrayList<Gemstone>) gemstoneDAO.listPartialSearch(searchWord));
+        return gemstoneListDTO;
+    }
+
+    public void deactivateGemstone(long id) {
+        gemstoneDAO.deactivateGemstone(id);
     }
 
     public Gemstone getGemstone(String gemstoneName) {
         return gemstoneDAO.getGemstone(gemstoneName, false); // false to keep fetch type LAZY
     }
 
+    @Override
+    public Gemstone getGemstonebyId(long id) {
+        return gemstoneDAO.getGemstonebyId(id, false);
+    }
+
+
+    @Override
+    public void activateGemstone(long id) {
+        gemstoneDAO.activateGemstone(id);
+
+    }
+
     public Gemstone addGemstone(Gemstone gemstone) {
-        gemstone.setGemstoneActive(true);
-       return gemstoneDAO.saveGemstone(gemstone);
+//        gemstone.setGemstoneActive(true);
+        System.out.println("New Add Active : " + gemstone.isGemstoneActive());
+        return gemstoneDAO.saveGemstone(gemstone);
     }
 
     public Gemstone updateGemstone(Gemstone gemstone) {
+
         Gemstone gemstoneFromDb = gemstoneDAO.getGemstoneById(gemstone.getGemstoneId());
         gemstoneFromDb.setGemstoneName(gemstone.getGemstoneName());
         gemstoneFromDb.setGemstoneDescription(gemstone.getGemstoneDescription());

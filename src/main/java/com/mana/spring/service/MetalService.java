@@ -13,8 +13,11 @@ public interface MetalService {
 
     Metal updateMetal(Metal metal);
 
-    void deactivateMetal(String metalName);
+    void deactivateMetal(long id);
+
+    void activateMetal(long id);
 
     Metal getMetal(String metalName);
 
+    MetalListDTO partialSearch(String searchWord);
 }
