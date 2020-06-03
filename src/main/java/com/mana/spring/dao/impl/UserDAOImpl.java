@@ -2,6 +2,7 @@ package com.mana.spring.dao.impl;
 
 import com.mana.spring.dao.UserDAO;
 import com.mana.spring.domain.User;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
@@ -10,6 +11,10 @@ import java.util.List;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
+
+
+    @Autowired
+    private SessionFactory sessionFactory;
 
     @Autowired
     private HibernateTemplate hibernateTemplate;

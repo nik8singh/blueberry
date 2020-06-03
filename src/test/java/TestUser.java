@@ -28,12 +28,12 @@ public class TestUser {
     @Test
     public void addNewUser() {
         User user = new User();
-        user.setUserFirstName("John");
+        user.setUserFirstName("ADMIN2");
         user.setUserLastName("Doe");
-        user.setUserEmail("JDoe@gmail.com");
-        user.setUserPassword("Welcome2");
+        user.setUserEmail("admin@test.com");
+        user.setUserPassword("test");
 
-        userController.registerUser(user);
+        userController.registerAdminUser(user);
     }
 
     @Test

@@ -13,6 +13,7 @@
     <mvc:annotation-driven/>
     <context:annotation-config/>
     <tx:annotation-driven transaction-manager="transactionManager"/>
+
     <bean id="appProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:app.properties"/>
     </bean>
@@ -79,8 +80,6 @@
 
     <bean id="invoiceService" class="com.mana.spring.service.impl.InvoiceServiceImpl"/>
     <bean id="invoiceDAO" class="com.mana.spring.dao.impl.InvoiceDAOImpl"/>
-
-    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
     <bean id="hibernateTemplate"
           class="org.springframework.orm.hibernate5.HibernateTemplate">

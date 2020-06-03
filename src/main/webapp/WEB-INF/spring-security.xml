@@ -6,18 +6,49 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 
+    <!-- Application entry point which will redirect to login if user is not authenticated -->
+    <beans:bean id="myBasicAuthenticationEntryPoint" class="com.mana.spring.web.auth.HttpAuthenticationEntryPoint"/>
+
+    <!--    &lt;!&ndash; if user authentication is successful then AppSuccessHandler will redirect to page based on role&ndash;&gt;-->
+    <beans:bean id="successHandler" class="com.mana.spring.web.auth.AuthSuccessHandler"/>
+
+    <!--    &lt;!&ndash; if user authentication is successful then AppSuccessHandler will redirect to page based on role&ndash;&gt;-->
+    <!--    <beans:bean id="failureHandler" class="com.mana.spring.web.auth.AuthFailureHandler"/>-->
+
+    <!--    <beans:bean id="corsHandler" class="com.mana.spring.filter.CORSFilter" />-->
+
+    <!-- Without login below url can be accessed and they are public,hence security is none -->
+    <http pattern="/*/vis/**" security="none"/>
+
     <http use-expressions="true" auto-config="true">
-        <intercept-url pattern="/" access="permitAll"/>
-        <!--        <intercept-url pattern="/*/adm/*" access="hasRole('ROLE_ADMIN')" />-->
-        <intercept-url pattern="/*/cus/*" access="hasRole('ROLE_CUSTOMER')"/>
+        <!--        <http-basic entry-point-ref="myBasicAuthenticationEntryPoint"/>-->
+        <intercept-url pattern="/*/adm/**" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/*/cus/**" access="hasRole('ROLE_CUSTOMER')"/>
+        <intercept-url pattern="/**" access="permitAll"/>
         <csrf disabled="true"/>
-        <cors/>
+        <!--        default-target-url="/auth/login-success"-->
+        <form-login
+                login-page="/auth/login"
+                authentication-success-handler-ref="successHandler"
+                login-processing-url="/secureLogin"
+                authentication-failure-url="/auth/accessdenied"
+                username-parameter="username"
+                password-parameter="password"/>
+        <custom-filter after="BASIC_AUTH_FILTER" ref="tokenFilter"/>
     </http>
 
     <authentication-manager>
-        <authentication-provider user-service-ref = "userService">
-            <password-encoder ref="passwordEncoder"/>
+        <authentication-provider user-service-ref="userService">
+            <password-encoder ref="bCryptPasswordEncoder"/>
         </authentication-provider>
+
     </authentication-manager>
+
+    <beans:bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+    </beans:bean>
+
+    <beans:bean id="noOpPasswordEncoder" class="org.springframework.security.crypto.password.NoOpPasswordEncoder"/>
+
+    <beans:bean id="tokenFilter" class="com.mana.spring.filter.JWTAuthorizationFilter"/>
 
 </beans:beans>

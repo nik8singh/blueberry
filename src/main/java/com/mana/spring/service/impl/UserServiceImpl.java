@@ -8,14 +8,16 @@ import com.mana.spring.domain.UserAuthority;
 import com.mana.spring.service.UserService;
 import com.mana.spring.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User.UserBuilder;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Transactional
@@ -24,8 +26,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private UserDAO userDAO;
 
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
 
     public ArrayList<User> getUsers(int pageNumber) {
         int size = Pagination.getPageSize();
@@ -65,7 +65,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             auths.add(auth);
         }
         user.setUserAuthorities(auths);
-//        user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setUserPassword(encoder.encode(user.getUserPassword()));
         userDAO.saveUser(user);
         return true;
     }
@@ -90,26 +91,28 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
-        System.out.println("Email: " + email);
-        User user = userDAO.getUserByEmail(email);
-        UserBuilder userBuilder = null;
-        if (user != null) {
-            userBuilder = org.springframework.security.core.userdetails.User.withUsername(email);
-            userBuilder.disabled(user.isDeleted());
-            userBuilder.password(user.getUserPassword());
-            String[] authorities = user.getUserAuthorities()
-                    .stream().map(UserAuthority::getRole).toArray(String[]::new);
-
-
-            userBuilder.authorities(authorities);
-        } else {
-            throw new UsernameNotFoundException("User not found.");
-        }
-
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("Username Email: " + username + " DAO: " + userDAO);
+        User user = userDAO.getUserByEmail(username);
         System.out.println(user);
+        if (user != null) {
+            List<SimpleGrantedAuthority> simpleGrantedAuthorities = buildSimpleGrantedAuthorities(user);
+            UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUserEmail(), user.getUserPassword(), !user.isDeleted(), true
+                    , true, true, simpleGrantedAuthorities);
+            return userDetails;
+        }
+        throw new UsernameNotFoundException("No User Found with username: " + username);
 
-        return userBuilder.build();
+
+    }
+
+    private List<SimpleGrantedAuthority> buildSimpleGrantedAuthorities(final User user) {
+        List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
+        if (user.getUserAuthorities() != null) {
+            for (UserAuthority role : user.getUserAuthorities()) {
+                simpleGrantedAuthorities.add(new SimpleGrantedAuthority(role.getRole()));
+            }
+        }
+        return simpleGrantedAuthorities;
     }
 }

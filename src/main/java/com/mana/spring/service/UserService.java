@@ -3,6 +3,7 @@ package com.mana.spring.service;
 import com.mana.spring.domain.CartItem;
 import com.mana.spring.domain.Invoice;
 import com.mana.spring.domain.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 
@@ -22,4 +23,5 @@ public interface UserService {
 
     void updatePassword(User user);
 
+    UserDetails loadUserByUsername(String username);
 }
