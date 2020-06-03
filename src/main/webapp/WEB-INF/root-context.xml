@@ -81,6 +81,9 @@
     <bean id="invoiceService" class="com.mana.spring.service.impl.InvoiceServiceImpl"/>
     <bean id="invoiceDAO" class="com.mana.spring.dao.impl.InvoiceDAOImpl"/>
 
+    <bean id="adminTokenService" class="com.mana.spring.service.impl.AdminTokenServiceImpl"/>
+    <bean id="adminTokenDAO" class="com.mana.spring.dao.impl.AdminTokenDAOImpl"/>
+
     <bean id="hibernateTemplate"
           class="org.springframework.orm.hibernate5.HibernateTemplate">
         <property name="sessionFactory" ref="mySessionFactory"/>

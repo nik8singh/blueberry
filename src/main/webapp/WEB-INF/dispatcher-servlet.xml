@@ -12,13 +12,6 @@
     <mvc:annotation-driven/>
     <context:annotation-config/>
 
-    <bean id="viewResolver"
-          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-
-        <property name="prefix" value="/"/>
-        <property name="suffix" value=".html"/>
-    </bean>
-
     <bean id="gemstoneController" class="com.mana.spring.web.GemstoneController"/>
 
     <bean id="jewelryTypeController" class="com.mana.spring.web.JewelryTypeController"/>
@@ -45,7 +38,9 @@
 
     <bean id="exceptionController" class="com.mana.spring.web.ExceptionController"/>
 
-    <!--<bean id="authorizationController" class="com.mana.spring.web.AuthorizationController"/>-->
+    <bean id="adminTokenController" class="com.mana.spring.web.AdminTokenController"/>
+
+    <bean id="authorizationController" class="com.mana.spring.web.AuthorizationController"/>
 
 
 </beans>

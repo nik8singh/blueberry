@@ -19,6 +19,8 @@
 
     <!-- Without login below url can be accessed and they are public,hence security is none -->
     <http pattern="/*/vis/**" security="none"/>
+    <http pattern="/*/register/**" security="none"/>
+
 
     <http use-expressions="true" auto-config="true">
         <!--        <http-basic entry-point-ref="myBasicAuthenticationEntryPoint"/>-->

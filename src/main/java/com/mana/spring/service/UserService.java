@@ -24,4 +24,6 @@ public interface UserService {
     void updatePassword(User user);
 
     UserDetails loadUserByUsername(String username);
+
+    boolean validateToken(String token);
 }

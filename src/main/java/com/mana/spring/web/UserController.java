@@ -42,24 +42,29 @@ public class UserController {
         return userService.getUserInvoices(email);
     }
 
-    @RequestMapping(value = "save", method = RequestMethod.POST)
+    @RequestMapping(value = "/register/save", method = RequestMethod.POST)
     public ResponseEntity registerUser(@Valid @RequestBody User user) {
         boolean newUser = userService.registerUser(user, false);
         // newUser is false if account was deactivated in past
         if (newUser)
-            return new ResponseEntity(newUser, HttpStatus.OK);
+            return new ResponseEntity(true, HttpStatus.OK);
         else
-            return new ResponseEntity(newUser, HttpStatus.FOUND);
+            return new ResponseEntity(false, HttpStatus.FOUND);
     }
 
-    @RequestMapping(value = "adm/save", method = RequestMethod.POST)
-    public ResponseEntity registerAdminUser(@RequestBody User user) {
+    @RequestMapping(value = "/register/save/admin/{token}", method = RequestMethod.POST)
+    public ResponseEntity registerAdminUser(@PathVariable String token, @RequestBody User user) {
+        if (!userService.validateToken(token)) {
+            return new ResponseEntity("Token is incorrect or expired", HttpStatus.UNAUTHORIZED);
+        }
+
         boolean newUser = userService.registerUser(user, true);
+
         // newUser is false if account was deactivated in past
         if (newUser)
-            return new ResponseEntity(newUser, HttpStatus.OK);
+            return new ResponseEntity("User account is active now", HttpStatus.OK);
         else
-            return new ResponseEntity(newUser, HttpStatus.FOUND);
+            return new ResponseEntity("Account with this email already exists", HttpStatus.CONFLICT);
     }
 
     @RequestMapping(value = "cus/deactivate", method = RequestMethod.DELETE)

@@ -1,10 +1,8 @@
 package com.mana.spring.service.impl;
 
+import com.mana.spring.dao.AdminTokenDAO;
 import com.mana.spring.dao.UserDAO;
-import com.mana.spring.domain.CartItem;
-import com.mana.spring.domain.Invoice;
-import com.mana.spring.domain.User;
-import com.mana.spring.domain.UserAuthority;
+import com.mana.spring.domain.*;
 import com.mana.spring.service.UserService;
 import com.mana.spring.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +23,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private AdminTokenDAO adminTokenDAO;
 
 
     public ArrayList<User> getUsers(int pageNumber) {
@@ -52,7 +53,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             checkIfUserExists.setCreatedDate(null);
             checkIfUserExists.setUpdatedDate(null);
             userDAO.updatePassword(checkIfUserExists);
-            return false;
+            return true;
         }else if(checkIfUserExists != null && !checkIfUserExists.isDeleted()){
             return false;
         }
@@ -97,13 +98,25 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         System.out.println(user);
         if (user != null) {
             List<SimpleGrantedAuthority> simpleGrantedAuthorities = buildSimpleGrantedAuthorities(user);
-            UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUserEmail(), user.getUserPassword(), !user.isDeleted(), true
+            return new org.springframework.security.core.userdetails.User(user.getUserEmail(), user.getUserPassword(), !user.isDeleted(), true
                     , true, true, simpleGrantedAuthorities);
-            return userDetails;
         }
         throw new UsernameNotFoundException("No User Found with username: " + username);
 
 
+    }
+
+    @Override
+    public boolean validateToken(String token) {
+        ArrayList<AdminToken> activeTokens
+                = (ArrayList<AdminToken>) adminTokenDAO.listActiveTokens();
+
+        for (AdminToken at : activeTokens) {
+            if (at.getAdminToken().equals(token))
+                return true;
+        }
+
+        return false;
     }
 
     private List<SimpleGrantedAuthority> buildSimpleGrantedAuthorities(final User user) {
