@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.File;
 
 
 @RestController
@@ -97,12 +96,9 @@ public class ProductController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "adm/authtest", method = RequestMethod.GET)
-    public ResponseEntity authtest() {
-
-        String rootPath = System.getProperty("catalina.home");
-        File dir = new File(rootPath + File.separator + "images");
-        System.out.println(dir);
-        return new ResponseEntity(dir.mkdir(), HttpStatus.OK);
+    @RequestMapping(value = "adm/list/search/{searchWord}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    ProductListDTO getPartialSearch(@PathVariable String searchWord) {
+        return productService.partialSearch(searchWord);
     }
 }

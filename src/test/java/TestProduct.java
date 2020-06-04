@@ -70,7 +70,7 @@ public class TestProduct {
 
     @Test
     public void imageTest() {
-        productController.authtest();
+//        productController.authtest();
 //        File dir = new File(rootPath + File.separator + "images");
     }
 

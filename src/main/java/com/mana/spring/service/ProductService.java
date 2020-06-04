@@ -30,5 +30,7 @@ public interface ProductService {
     ProductDTO getProduct(Long productId);
 
     Product getProductByName(String name);
+
+    ProductListDTO partialSearch(String searchWord);
 }
 

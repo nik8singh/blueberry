@@ -41,4 +41,6 @@ public interface ProductDAO {
 
     void updateSKU(long id, String sku);
 
+    List listPartialSearch(String searchWord);
+
 }

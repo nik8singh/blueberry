@@ -127,6 +127,10 @@ public class ProductDAOImpl implements ProductDAO {
         hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("update Product as p set p.productSku=:sku where p.productId= :id   ").setParameter("id", id).setParameter("sku", sku).executeUpdate();
     }
 
+    public List listPartialSearch(String searchWord) {
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product p where p.productName LIKE concat('%',:searchWord,'%') or p.productDescription LIKE concat('%',:searchWord,'%')").setParameter("searchWord", searchWord).list();
+    }
+
 
     private void makeItEager(Product product) {
         hibernateTemplate.initialize(product.getGemstones());
@@ -140,6 +144,7 @@ public class ProductDAOImpl implements ProductDAO {
         for (Product p : product)
             makeItEager(p);
     }
+
 
     private Query filterQuery(ProductRepoFilter repoFilter){
 

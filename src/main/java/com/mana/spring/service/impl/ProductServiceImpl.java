@@ -87,7 +87,7 @@ public class ProductServiceImpl implements ProductService {
     public Product addProduct(Product product) {
         Gemstone gemstone = gemstoneService.getGemstonebyId(product.getGemstones().iterator().next().getGemstoneId());
         JewelryType jewelryType = jewelryTypeService.getJewelryTypebyId(product.getProductJewelryType().getJewelryTypeId());
-        String typeArray[] = jewelryType.getJewelryTypeName().split(" ");
+        String[] typeArray = jewelryType.getJewelryTypeName().split(" ");
         String skuJT = jewelryType.getJewelryTypeName().substring(0, 4);
         if (typeArray.length > 1)
             skuJT += typeArray[1].charAt(0);
@@ -141,6 +141,13 @@ public class ProductServiceImpl implements ProductService {
 
     public Product getProductByName(String name) {
         return productDAO.getProductByName(name); // true to keep fetch type EAGER
+    }
+
+    @Override
+    public ProductListDTO partialSearch(String searchWord) {
+        ProductListDTO productListDTO = new ProductListDTO();
+        productListDTO.setProducts((ArrayList<Product>) productDAO.listPartialSearch(searchWord));
+        return productListDTO;
     }
 
     private ProductListDTO createListDTO(int pageNumber, long count) {
