@@ -26,4 +26,6 @@ public interface UserService {
     UserDetails loadUserByUsername(String username);
 
     boolean validateToken(String token);
+
+    ArrayList<User> getAdminUsers();
 }

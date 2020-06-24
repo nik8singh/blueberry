@@ -23,4 +23,6 @@ public interface UserDAO {
     void updateUser(User user);
 
     void updatePassword(User user);
+
+    List listAdminUser();
 }

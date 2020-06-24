@@ -25,6 +25,12 @@ public class UserController {
         return userService.getUsers(pageNumber);
     }
 
+    @RequestMapping(value = "adm/list", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    ArrayList<User> getAllAdminUsers() {
+        return userService.getAdminUsers();
+    }
+
 //    @RequestMapping(value = "cus/user/{email}", method = RequestMethod.GET)
 //    public User getUserByEmail(@PathVariable String email) {
 //        return userService.getUserByEmail(email);
@@ -68,7 +74,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "cus/deactivate", method = RequestMethod.DELETE)
-    public ResponseEntity deleteUser(@RequestBody User user) {
+    public ResponseEntity deactivateUser(@RequestBody User user) {
         userService.deactivateUser(user);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -85,8 +91,4 @@ public class UserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/unauth", method = RequestMethod.GET)
-    public ResponseEntity sendAuth() {
-        return new ResponseEntity(HttpStatus.UNAUTHORIZED);
-    }
 }

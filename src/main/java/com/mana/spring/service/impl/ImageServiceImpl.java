@@ -93,7 +93,9 @@ public class ImageServiceImpl implements ImageService {
                 }
         );
 
-        imageDAO.saveImage(ImageDTOConverter.convertToDAO(imageDTO));
+        long newImgId = imageDAO.saveImage(ImageDTOConverter.convertToDAO(imageDTO));
+        imageDTO.setImageId(newImgId);
+        System.out.println(imageDTO);
         return imageDTO;
     }
 

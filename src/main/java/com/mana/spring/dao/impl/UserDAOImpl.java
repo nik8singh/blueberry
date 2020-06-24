@@ -62,10 +62,20 @@ public class UserDAOImpl implements UserDAO {
         hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("UPDATE com.mana.spring.domain.User us SET us.userPassword = :newPassword WHERE us.userEmail= :email").setParameter("email", user.getUserEmail()).setParameter("newPassword", user.getUserPassword()).executeUpdate();
     }
 
+    @Override
+    public List listAdminUser() {
+//        List auth = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.UserAuthority auth  where auth.role =:auth").setParameter("auth","ROLE_ADMIN").list();
+        List users = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("select user from com.mana.spring.domain.User user left join user.userAuthorities auth where auth.role =:auth").setParameter("auth", "ROLE_ADMIN").list();
+
+        makeItEager(users);
+        return users;
+    }
+
     private void makeItEager(User user) {
         hibernateTemplate.initialize(user.getInvoices());
         hibernateTemplate.initialize(user.getCartItems());
         hibernateTemplate.initialize(user.getAddresses());
+        hibernateTemplate.initialize(user.getUserAuthorities());
     }
 
     private void makeItEager(List<User> user) {

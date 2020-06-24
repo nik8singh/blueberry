@@ -15,7 +15,7 @@ import java.util.List;
 public class JwtTokenUtil {
     private final String HEADER = "Authorization";
     private final String PREFIX = "Bearer ";
-    private final String SECRET = "mySecretKey";
+    private final String SECRET = "thisIsASecretKeyForDZICreationsLoginFeatureByNikhilSinghWelcomeToOnlineShoppingAPI";
 
     public String getUsernameFromToken(Claims claims) {
         return claims.getSubject();
@@ -68,7 +68,7 @@ public class JwtTokenUtil {
         String token = Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 600000))
+                .setExpiration(new Date(System.currentTimeMillis() + 900000))
                 .claim("authorities", listAuthorities)
                 .signWith(SignatureAlgorithm.HS512, SECRET.getBytes()
                 )

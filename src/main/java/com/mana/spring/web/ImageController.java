@@ -27,7 +27,6 @@ public class ImageController {
 
     @RequestMapping(value = "adm/updatePriority", method = RequestMethod.POST)
     public ResponseEntity updateImagePriorityBulk(@RequestBody ImageListDTO imageListDTO) {
-
         imageService.updateImagePriorityBulk(imageListDTO);
         return new ResponseEntity(HttpStatus.OK);
     }

@@ -39,7 +39,7 @@ public class AuthorizationController {
     @RequestMapping(value = "/accessdenied", method = RequestMethod.GET)
     public ResponseEntity apiAuthenticationFailure() {
         System.out.println("This is Auth Fail");
-        return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity("Authentication Failed", HttpStatus.UNAUTHORIZED);
     }
 
     @RequestMapping(value = "/login-success", method = RequestMethod.GET)

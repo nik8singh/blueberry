@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ImageDAO {
 
-    void saveImage(Image image);
+    Long saveImage(Image image);
 
     void updateImageName(Image image);
 

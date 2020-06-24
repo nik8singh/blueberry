@@ -14,8 +14,8 @@ public class ImageDAOImpl implements ImageDAO {
     @Autowired
     private HibernateTemplate hibernateTemplate;
 
-    public void saveImage(Image image) {
-        hibernateTemplate.save(image);
+    public Long saveImage(Image image) {
+        return (Long) hibernateTemplate.save(image);
     }
 
     public void updateImageName(Image image) {

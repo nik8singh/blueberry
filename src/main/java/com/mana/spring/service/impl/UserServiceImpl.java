@@ -45,6 +45,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public boolean registerUser(User user, boolean admin){
         User checkIfUserExists = userDAO.getUserByEmail(user.getUserEmail());
 
+        // If user exists and is deleted
         if (checkIfUserExists != null && checkIfUserExists.isDeleted()) {
             checkIfUserExists.setUserLastName(user.getUserLastName());
             checkIfUserExists.setUserFirstName(user.getUserFirstName());
@@ -55,9 +56,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             userDAO.updatePassword(checkIfUserExists);
             return true;
         }else if(checkIfUserExists != null && !checkIfUserExists.isDeleted()){
+            // If user exists and is not deleted. [USER ALREADY EXISTS]
             return false;
         }
 
+        //If new user
         Set<UserAuthority> auths = new HashSet<>();
         UserAuthority auth = new UserAuthority(user, false);
         auths.add(auth);
@@ -93,17 +96,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("Username Email: " + username + " DAO: " + userDAO);
         User user = userDAO.getUserByEmail(username);
-        System.out.println(user);
         if (user != null) {
             List<SimpleGrantedAuthority> simpleGrantedAuthorities = buildSimpleGrantedAuthorities(user);
             return new org.springframework.security.core.userdetails.User(user.getUserEmail(), user.getUserPassword(), !user.isDeleted(), true
                     , true, true, simpleGrantedAuthorities);
         }
         throw new UsernameNotFoundException("No User Found with username: " + username);
-
-
     }
 
     @Override
@@ -117,6 +116,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
 
         return false;
+    }
+
+    @Override
+    public ArrayList<User> getAdminUsers() {
+        ArrayList<User> users = (ArrayList<User>) userDAO.listAdminUser();
+        return users;
     }
 
     private List<SimpleGrantedAuthority> buildSimpleGrantedAuthorities(final User user) {

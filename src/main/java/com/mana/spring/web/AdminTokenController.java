@@ -17,7 +17,7 @@ public class AdminTokenController {
     @Autowired
     public AdminTokenService adminTokenService;
 
-    @RequestMapping(value = "adm/generate", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "adm/generate", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
     AdminToken generateAdminToken() {
         return adminTokenService.generate();

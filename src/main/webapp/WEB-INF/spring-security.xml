@@ -25,7 +25,7 @@
     <http use-expressions="true" auto-config="true">
         <!--        <http-basic entry-point-ref="myBasicAuthenticationEntryPoint"/>-->
         <intercept-url pattern="/*/adm/**" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/*/cus/**" access="hasRole('ROLE_CUSTOMER')"/>
+        <intercept-url pattern="/*/cus/**" access="hasAnyRole('ROLE_CUSTOMER','ROLE_ADMIN')"/>
         <intercept-url pattern="/**" access="permitAll"/>
         <csrf disabled="true"/>
         <!--        default-target-url="/auth/login-success"-->

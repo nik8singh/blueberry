@@ -54,7 +54,7 @@ public class TestUser {
         User user = new User();
         user.setUserEmail("JDoe@gmail.com");
 
-        userController.deleteUser(user);
+        userController.deactivateUser(user);
     }
 
 

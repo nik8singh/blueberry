@@ -21,6 +21,7 @@ public class AdminTokenServiceImpl implements AdminTokenService {
 
     @Override
     public AdminToken generate() {
+        System.out.println("Generating Token");
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
         int targetStringLength = 10;
@@ -34,7 +35,7 @@ public class AdminTokenServiceImpl implements AdminTokenService {
         AdminToken adminToken = new AdminToken();
         adminToken.setAdminToken(generatedString);
 
-        Date newDate = DateUtils.addHours(new Date(), 24);
+        Date newDate = DateUtils.addHours(new Date(), 1);
 
         adminToken.setExpiration(newDate);
         adminTokenDAO.generate(adminToken);
