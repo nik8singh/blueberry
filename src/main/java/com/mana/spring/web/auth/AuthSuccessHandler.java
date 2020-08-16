@@ -15,7 +15,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
         response.setStatus(HttpServletResponse.SC_OK);
-
+        System.out.println("Login Success");
         JwtTokenUtil jwtTokenUtil = new JwtTokenUtil();
         response.getWriter().write(jwtTokenUtil.generateToken());
         response.setStatus(HttpServletResponse.SC_ACCEPTED);

@@ -10,11 +10,17 @@ public class ShopDTO {
 
     private String shopDescription;
 
+    private String shopPrivateNote;
+
     private String boothNumber;
 
     private Date shopStartDate;
 
     private Date shopEndDate;
+
+    private double shopSale;
+
+    private double shopExpense;
 
     private long addressId;
 
@@ -56,6 +62,14 @@ public class ShopDTO {
         this.shopDescription = shopDescription;
     }
 
+    public String getShopPrivateNote() {
+        return shopPrivateNote;
+    }
+
+    public void setShopPrivateNote(String shopPrivateNote) {
+        this.shopPrivateNote = shopPrivateNote;
+    }
+
     public String getBoothNumber() {
         return boothNumber;
     }
@@ -78,6 +92,22 @@ public class ShopDTO {
 
     public void setShopEndDate(Date shopEndDate) {
         this.shopEndDate = shopEndDate;
+    }
+
+    public double getShopSale() {
+        return shopSale;
+    }
+
+    public void setShopSale(double shopSale) {
+        this.shopSale = shopSale;
+    }
+
+    public double getShopExpense() {
+        return shopExpense;
+    }
+
+    public void setShopExpense(double shopExpense) {
+        this.shopExpense = shopExpense;
     }
 
     public long getAddressId() {
@@ -144,15 +174,19 @@ public class ShopDTO {
         this.addressCountry = addressCountry;
     }
 
+
     @Override
     public String toString() {
         return "\nShopDTO{" +
                 "\n\tshopId=" + shopId +
                 "\n\tshopName='" + shopName + '\'' +
                 "\n\tshopDescription='" + shopDescription + '\'' +
+                "\n\taddressId=" + shopPrivateNote +
                 "\n\tboothNumber='" + boothNumber + '\'' +
                 "\n\tshopStartDate=" + shopStartDate +
                 "\n\tshopEndDate=" + shopEndDate +
+                "\n\tshopSale=" + shopSale +
+                "\n\tshopExpense=" + shopExpense +
                 "\n\taddressId=" + addressId +
                 "\n\taddressFullname='" + addressFullname + '\'' +
                 "\n\taddressLineOne='" + addressLineOne + '\'' +

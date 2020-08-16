@@ -3,6 +3,10 @@ package com.mana.spring.service.impl;
 import com.mana.spring.dao.AdminTokenDAO;
 import com.mana.spring.dao.UserDAO;
 import com.mana.spring.domain.*;
+import com.mana.spring.dto.NewUserDTO;
+import com.mana.spring.dto.NewUserDTOConverter;
+import com.mana.spring.dto.UserDTO;
+import com.mana.spring.dto.UserDTOConverter;
 import com.mana.spring.service.UserService;
 import com.mana.spring.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,25 +46,26 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     // returns true if new user
-    public boolean registerUser(User user, boolean admin){
-        User checkIfUserExists = userDAO.getUserByEmail(user.getUserEmail());
+    public boolean registerUser(NewUserDTO newUserDTO, boolean admin) {
+        User checkIfUserExists = userDAO.getUserByEmail(newUserDTO.getUserEmail());
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         // If user exists and is deleted
         if (checkIfUserExists != null && checkIfUserExists.isDeleted()) {
-            checkIfUserExists.setUserLastName(user.getUserLastName());
-            checkIfUserExists.setUserFirstName(user.getUserFirstName());
-            checkIfUserExists.setUserPassword(user.getUserPassword());
-            checkIfUserExists.setDeleted(false);
-            checkIfUserExists.setCreatedDate(null);
-            checkIfUserExists.setUpdatedDate(null);
-            userDAO.updatePassword(checkIfUserExists);
-            return true;
+//            checkIfUserExists.setUserPassword(encoder.encode(newUserDTO.getUserPassword()));
+//            checkIfUserExists.setDeleted(false);
+//            checkIfUserExists.setCreatedDate(null);
+//            checkIfUserExists.setUpdatedDate(null);
+//            userDAO.updateUser(checkIfUserExists);
+//            return true;
+            // send email to verify account to enable it again.
+            return false;
         }else if(checkIfUserExists != null && !checkIfUserExists.isDeleted()){
             // If user exists and is not deleted. [USER ALREADY EXISTS]
             return false;
         }
-
         //If new user
+        User user = NewUserDTOConverter.convertToDomain(newUserDTO);
         Set<UserAuthority> auths = new HashSet<>();
         UserAuthority auth = new UserAuthority(user, false);
         auths.add(auth);
@@ -69,9 +74,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             auths.add(auth);
         }
         user.setUserAuthorities(auths);
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setUserPassword(encoder.encode(user.getUserPassword()));
+        user.setUserPassword(encoder.encode(newUserDTO.getUserPassword()));
+
         userDAO.saveUser(user);
+
         return true;
     }
 
@@ -87,6 +93,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public void deactivateUser(User user) {
         userDAO.deactivateUser(user.getUserEmail());
 
+    }
+
+    @Override
+    public void activateUser(User user) {
+        userDAO.activateUser(user.getUserEmail());
     }
 
     public void updatePassword(User user) {
@@ -106,11 +117,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public UserDTO getUserByEmail(String username) {
+        System.out.println(username);
+        return UserDTOConverter.convertToDTO(userDAO.getUserByEmail(username));
+    }
+
+    @Override
     public boolean validateToken(String token) {
         ArrayList<AdminToken> activeTokens
                 = (ArrayList<AdminToken>) adminTokenDAO.listActiveTokens();
 
         for (AdminToken at : activeTokens) {
+            System.out.println();
+            System.out.println("Comparing: " + token + " with: " + at + " || at.getAdminToken().equals(token): " + at.getAdminToken().equals(token));
             if (at.getAdminToken().equals(token))
                 return true;
         }

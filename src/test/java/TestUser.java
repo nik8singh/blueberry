@@ -46,7 +46,7 @@ public class TestUser {
         user.setUserEmail("JDoe@gmail.com");
         user.setUserPassword("Welcome2");
 
-        userController.registerUser(user);
+//        userController.registerUser(user);
     }
 
     @Test

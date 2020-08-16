@@ -20,12 +20,6 @@ public class AddressDTO {
 
     private boolean active;
 
-    private UserDTO userDTO;
-
-    private ShopDTO shopDTO;
-
-    private InvoiceDTO invoiceDTO;
-
     public long getAddressId() {
         return addressId;
     }
@@ -90,36 +84,12 @@ public class AddressDTO {
         this.addressCountry = addressCountry;
     }
 
-    public UserDTO getUserDTO() {
-        return userDTO;
-    }
-
-    public void setUserDTO(UserDTO userDTO) {
-        this.userDTO = userDTO;
-    }
-
-    public ShopDTO getShopDTO() {
-        return shopDTO;
-    }
-
-    public void setShopDTO(ShopDTO shopDTO) {
-        this.shopDTO = shopDTO;
-    }
-
     public boolean isActive() {
         return active;
     }
 
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    public InvoiceDTO getInvoiceDTO() {
-        return invoiceDTO;
-    }
-
-    public void setInvoiceDTO(InvoiceDTO invoiceDTO) {
-        this.invoiceDTO = invoiceDTO;
     }
 
     @Override
@@ -134,9 +104,6 @@ public class AddressDTO {
                 "\n addressZipcode='" + addressZipcode + '\'' +
                 "\n addressCountry='" + addressCountry + '\'' +
                 "\n active=" + active +
-                "\n userDTO=" + userDTO +
-                "\n shopDTO=" + shopDTO +
-                "\n invoiceDTO=" + invoiceDTO +
                 '}';
     }
 }

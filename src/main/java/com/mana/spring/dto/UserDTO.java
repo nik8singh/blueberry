@@ -19,9 +19,9 @@ public class UserDTO {
     @JsonIgnore
     private String userPassword;
 
-    private String authorizationLevel;
-
     private boolean deleted;
+
+    private Set<UserAuthorityDTO> userAuthorityDTO = new HashSet<>(0);
 
     private Set<AddressDTO> addressesDto = new HashSet<>(0);
 
@@ -72,12 +72,12 @@ public class UserDTO {
         this.userPassword = userPassword;
     }
 
-    public String getAuthorizationLevel() {
-        return authorizationLevel;
+    public Set<UserAuthorityDTO> getUserAuthorityDTO() {
+        return userAuthorityDTO;
     }
 
-    public void setAuthorizationLevel(String authorizationLevel) {
-        this.authorizationLevel = authorizationLevel;
+    public void setUserAuthorityDTO(Set<UserAuthorityDTO> userAuthorityDTO) {
+        this.userAuthorityDTO = userAuthorityDTO;
     }
 
     public Set<AddressDTO> getAddressesDto() {
@@ -119,8 +119,7 @@ public class UserDTO {
                 "\n userFirstName='" + userFirstName + '\'' +
                 "\n userLastName='" + userLastName + '\'' +
                 "\n userEmail='" + userEmail + '\'' +
-                "\n userPassword='" + userPassword + '\'' +
-                "\n authorizationLevel='" + authorizationLevel + '\'' +
+                "\n authorizationLevel='" + userAuthorityDTO + '\'' +
                 "\n deleted=" + deleted +
                 "\n addressesDto=" + addressesDto +
                 "\n invoiceDTOS=" + invoiceDTOS +

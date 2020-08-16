@@ -21,6 +21,9 @@ public class Shop {
     @Column(name = "shop_desrciption")
     private String shopDescription;
 
+    @Column(name = "shop_private_note")
+    private String shopPrivateNote;
+
     @Column(name = "booth_number")
     private String boothNumber;
 
@@ -29,6 +32,13 @@ public class Shop {
 
     @Column(name = "shop_end_date")
     private Date shopEndDate;
+
+    @Column(name = "shop_sale")
+    private double shopSale;
+
+    @Column(name = "shop_expense")
+    private double shopExpense;
+
 
     @CreationTimestamp
     @Column(name = "created_date", updatable = false)
@@ -45,6 +55,14 @@ public class Shop {
     private Address shopAddress;
 
     public Shop() {
+    }
+
+    public String getShopPrivateNote() {
+        return shopPrivateNote;
+    }
+
+    public void setShopPrivateNote(String shopPrivateNote) {
+        this.shopPrivateNote = shopPrivateNote;
     }
 
     public long getShopId() {
@@ -95,6 +113,22 @@ public class Shop {
         this.shopEndDate = shopEndDate;
     }
 
+    public double getShopSale() {
+        return shopSale;
+    }
+
+    public void setShopSale(double shopSale) {
+        this.shopSale = shopSale;
+    }
+
+    public double getShopExpense() {
+        return shopExpense;
+    }
+
+    public void setShopExpense(double shopExpense) {
+        this.shopExpense = shopExpense;
+    }
+
     public Date getCreatedDate() {
         return createdDate;
     }
@@ -130,7 +164,10 @@ public class Shop {
                 "\n\tshopEndDate= " + shopEndDate +
                 "\n\tcreatedDate= " + createdDate +
                 "\n\tupdatedDate= " + updatedDate +
+                "\n\tshopSale= " + shopSale +
+                "\n\tshopExpense= " + shopExpense +
                 "\n\tshopAddress= " + shopAddress +
+                "\n\tshopAddress= " + shopPrivateNote +
                 '}';
     }
 }

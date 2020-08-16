@@ -24,8 +24,8 @@ public class ShopDAOImpl implements ShopDAO {
         hibernateTemplate.update(shop);
     }
 
-    public void deleteShop(String shopName) {
-        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("delete com.mana.spring.domain.Shop sh where sh.shopName = :name").setParameter("name", shopName).executeUpdate();
+    public void deleteShop(long id) {
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("delete com.mana.spring.domain.Shop sh where sh.shopId = :name").setParameter("name", id).executeUpdate();
 
 
     }

@@ -10,7 +10,7 @@ public interface ShopDAO {
 
     void updateShop(Shop shop);
 
-    void deleteShop(String shopName);
+    void deleteShop(long id);
 
     Shop getShop(String shopName);
 

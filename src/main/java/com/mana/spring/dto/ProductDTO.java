@@ -41,6 +41,7 @@ public class ProductDTO {
     private ArrayList<MetalDTO> metals;
 
     private ArrayList<ImageDTO> images;
+
     private ImageListDTO imageListDTO;
 
     public ProductDTO() {

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/jt")
+@RequestMapping("/jewelryType")
 public class JewelryTypeController {
 
     @Autowired

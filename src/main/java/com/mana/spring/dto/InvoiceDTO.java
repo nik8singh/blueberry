@@ -10,9 +10,7 @@ public class InvoiceDTO {
 
     private double invoiceAmount;
 
-    private AddressDTO shippingAddressDTO;
-
-    private UserDTO userDTO;
+    private String shippingAddressDTO;
 
     public InvoiceDTO() {
     }
@@ -49,21 +47,14 @@ public class InvoiceDTO {
         this.invoiceAmount = invoiceAmount;
     }
 
-    public AddressDTO getShippingAddressDTO() {
+    public String getShippingAddressDTO() {
         return shippingAddressDTO;
     }
 
-    public void setShippingAddressDTO(AddressDTO shippingAddressDTO) {
+    public void setShippingAddressDTO(String shippingAddressDTO) {
         this.shippingAddressDTO = shippingAddressDTO;
     }
 
-    public UserDTO getUserDTO() {
-        return userDTO;
-    }
-
-    public void setUserDTO(UserDTO userDTO) {
-        this.userDTO = userDTO;
-    }
 
     @Override
     public String toString() {
@@ -73,7 +64,6 @@ public class InvoiceDTO {
                 "\n taxAmount=" + taxAmount +
                 "\n invoiceAmount=" + invoiceAmount +
                 "\n shippingAddressDTO=" + shippingAddressDTO +
-                "\n userDTO=" + userDTO +
                 '}';
     }
 }

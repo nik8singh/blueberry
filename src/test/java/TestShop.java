@@ -19,8 +19,8 @@ public class TestShop {
 
     @Test
     public void getAllShops() {
-        List<Shop> shops = shopController.getAllShops();
-        System.out.println(shops);
+//        List<Shop> shops = shopController.getAllShops();
+//        System.out.println(shops);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class TestShop {
 
     @Test
     public void deleteShop() {
-        System.out.println(shopController.deleteShop("TO BE DELETED"));
+//        System.out.println(shopController.deleteShop("TO BE DELETED"));
     }
 
     @Test
@@ -53,7 +53,7 @@ public class TestShop {
         address.setAddressState("Cali");
         address.setAddressCountry("USA");
         shop.setShopAddress(address);
-        shopController.updateShop(shop);
+//        shopController.updateShop(shop);
     }
 
     @Test
@@ -76,7 +76,7 @@ public class TestShop {
 
         shop.setShopAddress(address);
 
-        shopController.saveShop(shop);
+//        shopController.saveShop(shop);
 
     }
 

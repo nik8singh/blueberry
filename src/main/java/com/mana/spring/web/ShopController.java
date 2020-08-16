@@ -1,6 +1,7 @@
 package com.mana.spring.web;
 
 import com.mana.spring.domain.Shop;
+import com.mana.spring.dto.ShopDTO;
 import com.mana.spring.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,8 @@ public class ShopController {
     public ShopService shopService;
 
     @RequestMapping(value = "vis/list", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody ArrayList<Shop> getAllShops() {
+    public @ResponseBody
+    ArrayList<ShopDTO> getAllShops() {
         return shopService.getShops();
     }
 
@@ -27,25 +29,27 @@ public class ShopController {
     }
 
     @RequestMapping(value = "adm/save", method = RequestMethod.POST)
-    public ResponseEntity saveShop(@RequestBody Shop shop) {
-        shopService.addShop(shop);
-        return new ResponseEntity(shop, HttpStatus.OK);
+    public ResponseEntity saveShop(@RequestBody ShopDTO shopDTO) {
+        shopService.addShop(shopDTO);
+        return new ResponseEntity(shopDTO, HttpStatus.OK);
     }
 
     @RequestMapping(value = "adm/update", method = RequestMethod.POST)
-    public ResponseEntity updateShop(@RequestBody Shop shop) {
-        shopService.updateShop(shop);
+    public ResponseEntity updateShop(@RequestBody ShopDTO shopDTO) {
+        System.out.println(shopDTO);
+        shopService.updateShop(shopDTO);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "adm/delete/{shopName}", method = RequestMethod.DELETE)
-    public ResponseEntity deleteShop(@PathVariable String shopName) {
-        shopService.deleteShop(shopName);
+    @RequestMapping(value = "adm/delete/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteShop(@PathVariable long id) {
+        shopService.deleteShop(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @RequestMapping(value = "vis/shop/{shopName}", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody Shop getShop(@PathVariable String shopName) {
+    public @ResponseBody
+    Shop getShop(@PathVariable String shopName) {
         return shopService.getShop(shopName);
     }
 

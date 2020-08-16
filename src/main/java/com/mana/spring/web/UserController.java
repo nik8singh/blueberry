@@ -3,6 +3,8 @@ package com.mana.spring.web;
 import com.mana.spring.domain.CartItem;
 import com.mana.spring.domain.Invoice;
 import com.mana.spring.domain.User;
+import com.mana.spring.dto.NewUserDTO;
+import com.mana.spring.dto.UserDTO;
 import com.mana.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,25 +33,25 @@ public class UserController {
         return userService.getAdminUsers();
     }
 
-//    @RequestMapping(value = "cus/user/{email}", method = RequestMethod.GET)
-//    public User getUserByEmail(@PathVariable String email) {
-//        return userService.getUserByEmail(email);
-//    }
-
-    @RequestMapping(value = "cus/cart/{email}", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody
-    ArrayList<CartItem> getUserCart(@PathVariable String email) {
-        return userService.getUserCart(email);
+    @RequestMapping(value = "cus/user", method = RequestMethod.GET)
+    public UserDTO getUserByEmail(@RequestParam String e) {
+        return userService.getUserByEmail(e);
     }
 
-    @RequestMapping(value = "cus/orders/{email}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "cus/cart", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    ArrayList<Invoice> getUserOrders(@PathVariable String email) {
-        return userService.getUserInvoices(email);
+    ArrayList<CartItem> getUserCart(@RequestParam String e) {
+        return userService.getUserCart(e);
+    }
+
+    @RequestMapping(value = "cus/orders", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    ArrayList<Invoice> getUserOrders(@RequestParam String e) {
+        return userService.getUserInvoices(e);
     }
 
     @RequestMapping(value = "/register/save", method = RequestMethod.POST)
-    public ResponseEntity registerUser(@Valid @RequestBody User user) {
+    public ResponseEntity registerUser(@Valid @RequestBody NewUserDTO user) {
         boolean newUser = userService.registerUser(user, false);
         // newUser is false if account was deactivated in past
         if (newUser)
@@ -59,12 +61,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register/save/admin/{token}", method = RequestMethod.POST)
-    public ResponseEntity registerAdminUser(@PathVariable String token, @RequestBody User user) {
+    public ResponseEntity registerAdminUser(@PathVariable String token, @RequestBody NewUserDTO newUserDTO) {
+        System.out.println(newUserDTO);
         if (!userService.validateToken(token)) {
             return new ResponseEntity("Token is incorrect or expired", HttpStatus.UNAUTHORIZED);
         }
 
-        boolean newUser = userService.registerUser(user, true);
+        boolean newUser = userService.registerUser(newUserDTO, true);
 
         // newUser is false if account was deactivated in past
         if (newUser)
@@ -76,6 +79,12 @@ public class UserController {
     @RequestMapping(value = "cus/deactivate", method = RequestMethod.DELETE)
     public ResponseEntity deactivateUser(@RequestBody User user) {
         userService.deactivateUser(user);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "adm/activate", method = RequestMethod.POST)
+    public ResponseEntity activateUser(@RequestBody User user) {
+        userService.activateUser(user);
         return new ResponseEntity(HttpStatus.OK);
     }
 

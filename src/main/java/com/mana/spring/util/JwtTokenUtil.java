@@ -15,7 +15,7 @@ import java.util.List;
 public class JwtTokenUtil {
     private final String HEADER = "Authorization";
     private final String PREFIX = "Bearer ";
-    private final String SECRET = "thisIsASecretKeyForDZICreationsLoginFeatureByNikhilSinghWelcomeToOnlineShoppingAPI";
+    private final String SECRET = "0;/S0?k:YzMk8MV.pPWwhJ@rjo34eegU},xk^?v]%lms8CD+l#fOn;rl-=:i.G'";
 
     public String getUsernameFromToken(Claims claims) {
         return claims.getSubject();

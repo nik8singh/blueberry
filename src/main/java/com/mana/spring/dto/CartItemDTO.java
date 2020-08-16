@@ -6,8 +6,6 @@ public class CartItemDTO {
 
     private int productQuantity;
 
-    private UserDTO userDTO;
-
     private ProductDTO productDTO;
 
     public CartItemDTO() {
@@ -29,14 +27,6 @@ public class CartItemDTO {
         this.productQuantity = productQuantity;
     }
 
-    public UserDTO getUserDTO() {
-        return userDTO;
-    }
-
-    public void setUserDTO(UserDTO userDTO) {
-        this.userDTO = userDTO;
-    }
-
     public ProductDTO getProductDTO() {
         return productDTO;
     }
@@ -50,7 +40,6 @@ public class CartItemDTO {
         return "\nCartItem{" +
                 "\ncartItemId=" + cartItemId +
                 "\n productQuantity='" + productQuantity + '\'' +
-                "\n user=" + userDTO +
                 "\n product=" + productDTO +
                 '}';
     }

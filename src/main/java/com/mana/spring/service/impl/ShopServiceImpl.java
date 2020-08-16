@@ -2,6 +2,8 @@ package com.mana.spring.service.impl;
 
 import com.mana.spring.dao.ShopDAO;
 import com.mana.spring.domain.Shop;
+import com.mana.spring.dto.ShopDTO;
+import com.mana.spring.dto.ShopDTOConverter;
 import com.mana.spring.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,16 +16,19 @@ public class ShopServiceImpl implements ShopService {
     @Autowired
     private ShopDAO shopDAO;
 
-    public ArrayList<Shop> getShops() {
-        return (ArrayList<Shop>) shopDAO.listShop();
+    public ArrayList<ShopDTO> getShops() {
+        ArrayList<Shop> shops = (ArrayList<Shop>) shopDAO.listShop();
+
+        return ShopDTOConverter.convertToListOfDTOs(shops);
     }
 
-    public void addShop(Shop shop) {
+    public void addShop(ShopDTO shopDTO) {
+        Shop shop = ShopDTOConverter.convertToDomain(shopDTO);
         shopDAO.saveShop(shop);
     }
 
-    public void updateShop(Shop shop) {
-
+    public void updateShop(ShopDTO shopDTO) {
+        Shop shop = ShopDTOConverter.convertToDomain(shopDTO);
         shopDAO.updateShop(shop);
     }
 
@@ -31,8 +36,8 @@ public class ShopServiceImpl implements ShopService {
         return shopDAO.getShop(shopName);
     }
 
-    public void deleteShop(String shopName) {
-        shopDAO.deleteShop(shopName);
+    public void deleteShop(long id) {
+        shopDAO.deleteShop(id);
 
     }
 
