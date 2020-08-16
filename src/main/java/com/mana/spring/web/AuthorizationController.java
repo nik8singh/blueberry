@@ -51,7 +51,7 @@ public class AuthorizationController {
         return new ResponseEntity(jwtTokenUtil.generateToken(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "adm/refresh-token", method = RequestMethod.GET)
+    @RequestMapping(value = "cus/refresh-token", method = RequestMethod.GET)
     public ResponseEntity refreshToken() {
 
         System.out.println("This is Token Refresh");
