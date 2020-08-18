@@ -7,6 +7,7 @@ import com.mana.spring.dto.NewUserDTO;
 import com.mana.spring.dto.NewUserDTOConverter;
 import com.mana.spring.dto.UserDTO;
 import com.mana.spring.dto.UserDTOConverter;
+import com.mana.spring.service.EmailService;
 import com.mana.spring.service.UserService;
 import com.mana.spring.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private AdminTokenDAO adminTokenDAO;
 
+
+    @Autowired
+    public EmailService emailService;
 
     public ArrayList<User> getUsers(int pageNumber) {
         int size = Pagination.getPageSize();
@@ -73,6 +77,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userDAO.saveUser(user);
         adminTokenDAO.delete(token);
 
+        try {
+            String ENDL = System.getProperty("line.separator");
+            String text = "Hi " + newUserDTO.getUserFirstName() + "," + ENDL + ENDL + " Your account setup is complete in admin dzi creations system. Welcome to the team. " + ENDL + ENDL + ENDL + ENDL + ENDL + " This is an automatically generated message from DZI Creations. Replies are not monitored or answered.";
+            emailService.sendSimpleMessage(newUserDTO.getUserEmail(), "Welcome to Admin Dzi Creations!", text);
+        } catch (Exception ex) {
+            ex.fillInStackTrace();
+        }
         return true;
     }
 
@@ -145,5 +156,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             }
         }
         return simpleGrantedAuthorities;
+    }
+
+    @Override
+    public void emailTest() {
+        try {
+            String ENDL = System.getProperty("line.separator");
+            String text = "Hi Nikhil," + ENDL + ENDL + " Your account setup is complete in admin dzi creations system. Welcome to the team. " + ENDL + ENDL + ENDL + ENDL + ENDL + "This is an automatically generated message from DZI Creations. Replies are not monitored or answered.";
+            emailService.sendSimpleMessage("nikhil.singh@partner.vermont.gov", "Welcome to Admin DZI Creations!", text);
+        } catch (Exception ex) {
+            ex.fillInStackTrace();
+        }
     }
 }

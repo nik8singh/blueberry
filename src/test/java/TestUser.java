@@ -1,4 +1,5 @@
 import com.mana.spring.domain.User;
+import com.mana.spring.service.EmailService;
 import com.mana.spring.web.UserController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +14,9 @@ import java.util.Random;
 public class TestUser {
     @Autowired
     private UserController userController;
+
+    @Autowired
+    private EmailService emailService;
 
     @Test
     public void getAllUsers() {

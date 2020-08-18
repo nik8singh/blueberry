@@ -88,16 +88,23 @@ public class UserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "update", method = RequestMethod.POST)
+    @RequestMapping(value = "cus/update", method = RequestMethod.POST)
     public ResponseEntity updateUser(@RequestBody User user) {
         userService.updateUser(user);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "updatepw", method = RequestMethod.DELETE)
+    @RequestMapping(value = "cus/updatepw", method = RequestMethod.DELETE)
     public ResponseEntity updatePassword(@RequestBody User user) {
         userService.updatePassword(user);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @RequestMapping(value = "email", method = RequestMethod.GET)
+    public void testEmail() {
+        System.out.println("accepting call");
+        userService.emailTest();
+    }
+
 
 }

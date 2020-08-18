@@ -34,4 +34,6 @@ public interface UserService {
     boolean validateToken(String token);
 
     ArrayList<User> getAdminUsers();
+
+    void emailTest();
 }
