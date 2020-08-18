@@ -89,6 +89,13 @@
     <bean id="invoiceDAO" class="com.mana.spring.dao.impl.InvoiceDAOImpl"/>
     <bean id="invoiceController" class="com.mana.spring.web.InvoiceController"/>
 
+    <bean id="exceptionController" class="com.mana.spring.web.ExceptionController"/>
+
+    <bean id="adminTokenController" class="com.mana.spring.web.AdminTokenController"/>
+    <bean id="adminTokenService" class="com.mana.spring.service.impl.AdminTokenServiceImpl"/>
+    <bean id="adminTokenDAO" class="com.mana.spring.dao.impl.AdminTokenDAOImpl"/>
+
+    <bean id="authorizationController" class="com.mana.spring.web.AuthorizationController"/>
 
     <bean id="emailService" class="com.mana.spring.service.impl.EmailServiceImpl"/>
 

@@ -52,7 +52,7 @@ public class ImageDAOImpl implements ImageDAO {
         return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Image img where img.imagePanelName = :name").setParameter("name", panelName).list();
     }
 
-    public long getProductImagesCount(long productId) {
+    public Long getProductImagesCount(long productId) {
         return (Long) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("select count(*) from com.mana.spring.domain.Image img where img.product.productId = :id").setParameter("id", productId).uniqueResult();
     }
 

@@ -93,6 +93,7 @@ public class ImageServiceImpl implements ImageService {
                 }
         );
 
+        imageDTO.setImagePriority((int) (imageDAO.getProductImagesCount(imageDTO.getProductId()) + 1));
         long newImgId = imageDAO.saveImage(ImageDTOConverter.convertToDAO(imageDTO));
         imageDTO.setImageId(newImgId);
         System.out.println(imageDTO);
@@ -147,7 +148,6 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public long getImageCounter() {
-
         return imageDAO.getImageCounter();
     }
 

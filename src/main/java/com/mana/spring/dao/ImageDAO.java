@@ -24,7 +24,8 @@ public interface ImageDAO {
 
     List getImagesByPanel(String panelName);
 
-    long getProductImagesCount(long productId);
+    Long getProductImagesCount(long productId);
 
     long getImageCounter();
+
 }
