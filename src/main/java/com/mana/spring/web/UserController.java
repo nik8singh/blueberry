@@ -100,11 +100,4 @@ public class UserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "email", method = RequestMethod.GET)
-    public void testEmail() {
-        System.out.println("accepting call");
-        userService.emailTest();
-    }
-
-
 }

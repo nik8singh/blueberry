@@ -35,5 +35,4 @@ public interface UserService {
 
     ArrayList<User> getAdminUsers();
 
-    void emailTest();
 }
