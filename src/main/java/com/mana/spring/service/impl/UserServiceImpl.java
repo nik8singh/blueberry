@@ -46,21 +46,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     // returns true if new user
-    public boolean registerUser(NewUserDTO newUserDTO, boolean admin) {
+    public boolean registerUser(NewUserDTO newUserDTO, boolean admin, String token) {
         User checkIfUserExists = userDAO.getUserByEmail(newUserDTO.getUserEmail());
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         // If user exists and is deleted
         if (checkIfUserExists != null && checkIfUserExists.isDeleted()) {
-//            checkIfUserExists.setUserPassword(encoder.encode(newUserDTO.getUserPassword()));
-//            checkIfUserExists.setDeleted(false);
-//            checkIfUserExists.setCreatedDate(null);
-//            checkIfUserExists.setUpdatedDate(null);
-//            userDAO.updateUser(checkIfUserExists);
-//            return true;
             // send email to verify account to enable it again.
             return false;
-        }else if(checkIfUserExists != null && !checkIfUserExists.isDeleted()){
+        } else if (checkIfUserExists != null && !checkIfUserExists.isDeleted()) {
             // If user exists and is not deleted. [USER ALREADY EXISTS]
             return false;
         }
@@ -77,6 +71,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setUserPassword(encoder.encode(newUserDTO.getUserPassword()));
 
         userDAO.saveUser(user);
+        adminTokenDAO.delete(token);
 
         return true;
     }
@@ -118,7 +113,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDTO getUserByEmail(String username) {
-        System.out.println(username);
+        System.out.println("username : " + username);
         return UserDTOConverter.convertToDTO(userDAO.getUserByEmail(username));
     }
 
@@ -128,10 +123,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 = (ArrayList<AdminToken>) adminTokenDAO.listActiveTokens();
 
         for (AdminToken at : activeTokens) {
-            System.out.println();
-            System.out.println("Comparing: " + token + " with: " + at + " || at.getAdminToken().equals(token): " + at.getAdminToken().equals(token));
-            if (at.getAdminToken().equals(token))
+            if (at.getAdminToken().equals(token)) {
                 return true;
+            }
         }
 
         return false;

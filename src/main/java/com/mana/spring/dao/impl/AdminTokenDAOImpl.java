@@ -26,4 +26,9 @@ public class AdminTokenDAOImpl implements AdminTokenDAO {
 
         return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.AdminToken token where token.expiration >:today").setParameter("today", today).list();
     }
+
+    @Override
+    public void delete(String adminToken) {
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("delete com.mana.spring.domain.AdminToken tk where tk.adminToken = :token").setParameter("token", adminToken).executeUpdate();
+    }
 }

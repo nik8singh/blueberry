@@ -17,7 +17,7 @@ public interface UserService {
 
     ArrayList<Invoice> getUserInvoices(String email);
 
-    boolean registerUser(NewUserDTO newUserDTO, boolean admin);
+    boolean registerUser(NewUserDTO newUserDTO, boolean admin, String token);
 
     void updateUser(User user);
 

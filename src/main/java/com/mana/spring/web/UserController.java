@@ -52,7 +52,7 @@ public class UserController {
 
     @RequestMapping(value = "/register/save", method = RequestMethod.POST)
     public ResponseEntity registerUser(@Valid @RequestBody NewUserDTO user) {
-        boolean newUser = userService.registerUser(user, false);
+        boolean newUser = userService.registerUser(user, false, null);
         // newUser is false if account was deactivated in past
         if (newUser)
             return new ResponseEntity(true, HttpStatus.OK);
@@ -67,7 +67,7 @@ public class UserController {
             return new ResponseEntity("Token is incorrect or expired", HttpStatus.UNAUTHORIZED);
         }
 
-        boolean newUser = userService.registerUser(newUserDTO, true);
+        boolean newUser = userService.registerUser(newUserDTO, true, token);
 
         // newUser is false if account was deactivated in past
         if (newUser)

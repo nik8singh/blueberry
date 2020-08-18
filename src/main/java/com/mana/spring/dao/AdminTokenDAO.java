@@ -9,4 +9,6 @@ public interface AdminTokenDAO {
     void generate(AdminToken adminToken);
 
     List listActiveTokens();
+
+    void delete(String adminToken);
 }
