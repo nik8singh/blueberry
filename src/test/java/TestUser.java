@@ -1,4 +1,5 @@
 import com.mana.spring.domain.User;
+import com.mana.spring.dto.NewUserDTO;
 import com.mana.spring.service.EmailService;
 import com.mana.spring.web.UserController;
 import org.junit.Test;
@@ -33,13 +34,13 @@ public class TestUser {
 
     @Test
     public void addNewUser() {
-        User user = new User();
-        user.setUserFirstName("ADMIN2");
-        user.setUserLastName("Doe");
-        user.setUserEmail("admin@test.com");
-        user.setUserPassword("test");
+        NewUserDTO user = new NewUserDTO();
+        user.setUserFirstName("Nikhil");
+        user.setUserLastName("Singh");
+        user.setUserEmail("authtest001@aol.com");
+        user.setUserPassword("welcome1");
 
-//        userController.registerAdminUser(user);
+        userController.registerAdminUser("testing", user);
     }
 
     @Test
@@ -85,7 +86,11 @@ public class TestUser {
         User user = new User();
         user.setUserEmail("JDoe@gmail.com");
         user.setUserPassword("MyPassword121");
-        userController.updatePassword(user);
+//        userController.updatePassword(user);
+    }
+
+    @Test
+    public void passwordResetEmail() {
     }
 
 }

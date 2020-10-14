@@ -95,6 +95,9 @@
     <bean id="adminTokenService" class="com.mana.spring.service.impl.AdminTokenServiceImpl"/>
     <bean id="adminTokenDAO" class="com.mana.spring.dao.impl.AdminTokenDAOImpl"/>
 
+
+    <bean id="passwordResetDAO" class="com.mana.spring.dao.impl.PasswordResetDAOImpl"/>
+
     <bean id="authorizationController" class="com.mana.spring.web.AuthorizationController"/>
 
     <bean id="emailService" class="com.mana.spring.service.impl.EmailServiceImpl"/>

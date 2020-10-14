@@ -25,7 +25,7 @@ public interface UserService {
 
     void activateUser(User user);
 
-    void updatePassword(User user);
+    boolean updatePassword(NewUserDTO newUserDTO, String token);
 
     UserDetails loadUserByUsername(String username);
 
@@ -34,5 +34,7 @@ public interface UserService {
     boolean validateToken(String token);
 
     ArrayList<User> getAdminUsers();
+
+    void sendPasswordResetEmail(String email);
 
 }

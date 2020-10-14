@@ -21,8 +21,10 @@ public class  CORSFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         System.out.println("CORSFilter HTTP Request: " + request.getMethod());
 
-        // Authorize (allow) all domains to consume the content
+        // Authorize (allow) domains to consume the content
+//        ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Origin", "http://admin.dzicreations.com");
         ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Origin", "*");
+
         ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Headers",
                 "origin, content-type, accept, authorization");
         ((HttpServletResponse) servletResponse).addHeader("Access-Control-Allow-Credentials", "true");
@@ -30,8 +32,7 @@ public class  CORSFilter implements Filter {
                 "GET, POST, PUT, DELETE, OPTIONS, HEAD");
 
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
-//
-//        // For HTTP OPTIONS verb/method reply with ACCEPTED status code -- per CORS handshake
+        // For HTTP OPTIONS verb/method reply with ACCEPTED status code -- per CORS handshake
         if (request.getMethod().equals("OPTIONS")) {
             resp.setStatus(HttpServletResponse.SC_OK);
             System.out.println("OPTIONS HttpServletResponse: " + HttpServletResponse.SC_OK);

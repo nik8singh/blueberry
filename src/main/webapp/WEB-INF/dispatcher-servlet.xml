@@ -32,8 +32,6 @@
 
     <bean id="cartItemController" class="com.mana.spring.web.CartItemController"/>
 
-    <!--<bean id="purchaseDAO" class="com.mana.spring.dao.impl.PurchaseDAOImpl"/>-->
-
     <bean id="invoiceController" class="com.mana.spring.web.InvoiceController"/>
 
     <bean id="exceptionController" class="com.mana.spring.web.ExceptionController"/>

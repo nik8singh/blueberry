@@ -62,7 +62,6 @@ public class UserController {
 
     @RequestMapping(value = "/register/save/admin/{token}", method = RequestMethod.POST)
     public ResponseEntity registerAdminUser(@PathVariable String token, @RequestBody NewUserDTO newUserDTO) {
-        System.out.println(newUserDTO);
         if (!userService.validateToken(token)) {
             return new ResponseEntity("Token is incorrect or expired", HttpStatus.UNAUTHORIZED);
         }
@@ -91,13 +90,25 @@ public class UserController {
     @RequestMapping(value = "cus/update", method = RequestMethod.POST)
     public ResponseEntity updateUser(@RequestBody User user) {
         userService.updateUser(user);
+
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "cus/updatepw", method = RequestMethod.DELETE)
-    public ResponseEntity updatePassword(@RequestBody User user) {
-        userService.updatePassword(user);
+    @RequestMapping(value = "updatepw/{token}", method = RequestMethod.POST)
+    public ResponseEntity updatePassword(@PathVariable String token, @RequestBody NewUserDTO newUserDTO) {
+        System.out.println("Token = " + token);
+        boolean flag = userService.updatePassword(newUserDTO, token);
+        if (flag)
+            return new ResponseEntity("User password reset successful", HttpStatus.OK);
+        else
+            return new ResponseEntity("Something went wrong. Try again", HttpStatus.BAD_REQUEST);
+    }
+
+    @RequestMapping(value = "pwresetrequest", method = RequestMethod.POST)
+    public ResponseEntity passwordResetRequest(@RequestBody UserDTO userDTO) {
+        userService.sendPasswordResetEmail(userDTO.getUserEmail());
         return new ResponseEntity(HttpStatus.OK);
     }
+
 
 }
