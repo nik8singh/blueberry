@@ -92,13 +92,11 @@ public class TestCoupons {
         coupon.setCouponStartDate(date);
         date = formatter.parse("2019-8-31");
         coupon.setCouponEndDate(date);
-        couponController.updateCoupon(coupon);
+//        couponController.updateCoupon(coupon);
     }
 
     @Test
     public void delete() {
-        couponController.deleteCoupon("Winter2019");
+//        couponController.deleteCoupon("Winter2019");
     }
-
-
 }

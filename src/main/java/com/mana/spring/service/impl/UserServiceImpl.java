@@ -215,7 +215,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             bodyPara2 = "A password reset request was made for your DZI Creations account. If you did not make this request, please contact us at contact@dzicreations.com";
             bodyPara3 = "Click this link to reset the password for your email, " + email.toLowerCase() + ":";
             button = "Reset Password";
-            buttonURL = "http://localhost/dziadmin/resetPassword.html?tk=" + token;
+            buttonURL = "http://admin.dzicreations.com/resetPassword.html?tk=" + token;
         }
 
 

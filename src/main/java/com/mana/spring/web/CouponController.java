@@ -8,8 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
-//@Controller
 @RequestMapping("/coupon")
 public class CouponController {
 
@@ -42,15 +43,8 @@ public class CouponController {
     }
 
     @RequestMapping(value = "adm/update", method = RequestMethod.POST)
-    public ResponseEntity updateCoupon(@RequestBody Coupon coupon) {
-        couponService.updateCoupon(coupon);
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "adm/delete", method = RequestMethod.DELETE)
-    public ResponseEntity deleteCoupon(@RequestBody String couponName) {
-        couponService.deleteCoupon(couponName);
-        return new ResponseEntity(HttpStatus.OK);
+    public Coupon updateCoupon(@Valid @RequestBody Coupon coupon) {
+        return couponService.updateCoupon(coupon);
     }
 
     @RequestMapping(value = "cus/coupon/{name}", method = RequestMethod.GET, produces = "application/json")
@@ -59,5 +53,22 @@ public class CouponController {
         return couponService.getCoupon(name);
     }
 
+    @RequestMapping(value = "adm/list/search/{searchWord}", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody
+    CouponListDTO getPartialSearch(@PathVariable String searchWord) {
+        return couponService.partialSearch(searchWord);
+    }
+
+    @RequestMapping(value = "adm/activate/{id}", method = RequestMethod.POST)
+    public ResponseEntity activateCoupon(@PathVariable long id) {
+        couponService.activateCoupon(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "adm/deactivate/{id}", method = RequestMethod.POST)
+    public ResponseEntity deactivateCoupon(@PathVariable long id) {
+        couponService.deactivateCoupon(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
 }

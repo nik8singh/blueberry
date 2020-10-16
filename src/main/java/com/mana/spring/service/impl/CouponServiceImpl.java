@@ -46,7 +46,7 @@ public class CouponServiceImpl implements CouponService {
         couponDAO.saveCoupon(coupon);
     }
 
-    public void updateCoupon(Coupon coupon) {
+    public Coupon updateCoupon(Coupon coupon) {
         Coupon couponFromDb = couponDAO.getCouponById(coupon.getCouponId());
 
         couponFromDb.setCouponName(coupon.getCouponName());
@@ -55,12 +55,24 @@ public class CouponServiceImpl implements CouponService {
         couponFromDb.setCouponDiscountPercent(coupon.getCouponDiscountPercent());
         couponFromDb.setCreatedDate(null);
         couponFromDb.setUpdatedDate(null);
-        couponDAO.updateCoupon(couponFromDb);
+        return couponDAO.updateCoupon(couponFromDb);
     }
 
+    @Override
+    public void deactivateCoupon(long id) {
+        couponDAO.deactivateCoupon(id);
+    }
 
-    public void deleteCoupon(String couponName) {
-        couponDAO.deleteCoupon(couponName);
+    @Override
+    public void activateCoupon(long id) {
+        couponDAO.activateCoupon(id);
+    }
+
+    @Override
+    public CouponListDTO partialSearch(String searchWord) {
+        CouponListDTO couponListDTO = new CouponListDTO();
+        couponListDTO.setCoupons((ArrayList<Coupon>) couponDAO.listPartialSearch(searchWord));
+        return couponListDTO;
     }
 
     private boolean updateActiveStatus(Coupon coupon) {
@@ -69,10 +81,8 @@ public class CouponServiceImpl implements CouponService {
             return false;
         else if (coupon.getCouponStartDate().compareTo(today) > 0) // start is after today
             return false;
-        else if (coupon.getCouponStartDate().compareTo(today) < 0 && coupon.getCouponEndDate().compareTo(today) > 0)
-            return true;
+        else return coupon.getCouponStartDate().compareTo(today) < 0 && coupon.getCouponEndDate().compareTo(today) > 0;
 
-        return false;
     }
 
     private CouponListDTO createListDTO(int pageNumber, boolean active) {

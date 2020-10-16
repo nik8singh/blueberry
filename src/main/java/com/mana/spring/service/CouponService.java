@@ -17,8 +17,12 @@ public interface CouponService {
 
     void addCoupon(Coupon coupon);
 
-    void updateCoupon(Coupon coupon);
+    Coupon updateCoupon(Coupon coupon);
 
-    void deleteCoupon(String couponName);
+    void deactivateCoupon(long id);
+
+    void activateCoupon(long id);
+
+    CouponListDTO partialSearch(String searchWord);
 
 }

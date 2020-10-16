@@ -9,9 +9,11 @@ public interface CouponDAO {
 
     void saveCoupon(Coupon coupon);
 
-    void updateCoupon(Coupon coupon);
+    Coupon updateCoupon(Coupon coupon);
 
-    void deleteCoupon(String couponName);
+    void deactivateCoupon(long id);
+
+    void activateCoupon(long id);
 
     List listCoupon();
 
@@ -24,5 +26,7 @@ public interface CouponDAO {
     Coupon getCouponById(long couponId);
 
     long count(boolean active);
+
+    List listPartialSearch(String searchWord);
 
 }
