@@ -39,6 +39,9 @@ public class User {
     @JsonIgnore
     private String userPassword;
 
+    @Column(name = "user_note")
+    private String note;
+
     @Column(name = "deleted")
     private boolean deleted;
 
@@ -68,13 +71,15 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "invoiceId")
-    private Set<Invoice> invoices = new HashSet<>(0);
+            property = "orderId")
+    @JsonIgnore
+    private Set<Order> orders = new HashSet<>(0);
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "cartItemId")
+    @JsonIgnore
     private Set<CartItem> cartItems = new HashSet<>(0);
 
     public User() {
@@ -152,14 +157,6 @@ public class User {
         this.deleted = deleted;
     }
 
-    public Set<Invoice> getInvoices() {
-        return invoices;
-    }
-
-    public void setInvoices(Set<Invoice> invoices) {
-        this.invoices = invoices;
-    }
-
     public Set<CartItem> getCartItems() {
         return cartItems;
     }
@@ -176,6 +173,21 @@ public class User {
         this.userAuthorities = userAuthorities;
     }
 
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
 
     @Override
     public String toString() {
@@ -189,9 +201,9 @@ public class User {
                 "\n userAuthorities=" + userAuthorities +
                 "\n createdDate=" + createdDate +
                 "\n updatedDate=" + updatedDate +
+                "\n note=" + note +
 //                "\n addresses=" + addresses +
 //                "\n cartItems=" + cartItems +
-//                "\n invoices=" + invoices +
                 '}';
     }
 }

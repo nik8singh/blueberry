@@ -23,19 +23,24 @@ public class CartItemDAOImpl implements CartItemDAO {
         hibernateTemplate.delete(cartItem);
     }
 
+    @Override
+    public void deleteUserCart(long userId) {
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("delete com.mana.spring.domain.CartItem cart where cart.user.userId= :id").setParameter("id", userId).executeUpdate();
+    }
+
     public void update(CartItem cartItem) {
         hibernateTemplate.update(cartItem);
     }
 
-    public List listUserCartItems(String email) {
-        List<CartItem> carts= hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.CartItem cart where cart.user.userEmail= :email").setParameter("email", email).list();
+    public List listUserCartItems(long userId) {
+        List<CartItem> carts = hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.CartItem cart where cart.user.userId= :id").setParameter("id", userId).list();
         for (CartItem c : carts)
             hibernateTemplate.initialize(c.getProduct());
 
         return carts;
     }
 
-    public CartItem cartItemByProductAndUser(CartItem cartItem) {
-        return (CartItem) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.CartItem cart where cart.user.userEmail= :email AND cart.product.productId=:productId").setParameter("email", cartItem.getUser().getUserEmail()).setParameter("productId",cartItem.getProduct().getProductId()).uniqueResult();
+    public CartItem cartItemByProductAndUser(long userId, long productId) {
+        return (CartItem) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.CartItem cart where cart.user.userId= :userId AND cart.product.productId=:productId").setParameter("userId", userId).setParameter("productId", productId).uniqueResult();
     }
 }

@@ -25,15 +25,13 @@ public class AuthorizationController {
     }
 
     @RequestMapping(value = "adm/login-check", method = RequestMethod.GET)
-    public ResponseEntity<String> thisIsAdminLoginCheck() {
+    public void thisIsAdminLoginCheck() {
         System.out.println("This is ADMIN Login Check");
-        return new ResponseEntity<String>("{\"success\" : false, \"message\" : \"authentication-failure\"}", getJsonHeaders(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "cus/login-check", method = RequestMethod.GET)
-    public ResponseEntity<String> thisIsCustomerLoginCheck() {
+    public void thisIsCustomerLoginCheck() {
         System.out.println("This is CUSTOMER Login Check");
-        return new ResponseEntity<String>("{\"success\" : false, \"message\" : \"authentication-failure\"}", getJsonHeaders(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/accessdenied", method = RequestMethod.GET)

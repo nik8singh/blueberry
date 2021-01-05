@@ -24,9 +24,7 @@ public class ProductController {
     @RequestMapping(value = "vis/p/{id}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     ProductDTO getProduct(@PathVariable Long id) {
-        ProductDTO productDTO = productService.getProduct(id);
-        System.out.println(productDTO);
-        return productDTO;
+        return productService.getProduct(id);
     }
 
     @RequestMapping(value = "vis/product/{name}", method = RequestMethod.GET, produces = "application/json")

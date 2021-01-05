@@ -85,16 +85,20 @@
 
     <bean id="purchaseDAO" class="com.mana.spring.dao.impl.PurchaseDAOImpl"/>
 
-    <bean id="invoiceService" class="com.mana.spring.service.impl.InvoiceServiceImpl"/>
-    <bean id="invoiceDAO" class="com.mana.spring.dao.impl.InvoiceDAOImpl"/>
-    <bean id="invoiceController" class="com.mana.spring.web.InvoiceController"/>
-
     <bean id="exceptionController" class="com.mana.spring.web.ExceptionController"/>
 
     <bean id="adminTokenController" class="com.mana.spring.web.AdminTokenController"/>
     <bean id="adminTokenService" class="com.mana.spring.service.impl.AdminTokenServiceImpl"/>
     <bean id="adminTokenDAO" class="com.mana.spring.dao.impl.AdminTokenDAOImpl"/>
 
+
+    <bean id="orderController" class="com.mana.spring.web.OrderController"/>
+    <bean id="orderService" class="com.mana.spring.service.impl.OrderServiceImpl"/>
+    <bean id="orderDAO" class="com.mana.spring.dao.impl.OrderDAOImpl"/>
+
+    <bean id="taxRateController" class="com.mana.spring.web.TaxRateController"/>
+    <bean id="taxRateService" class="com.mana.spring.service.impl.TaxRateServiceImpl"/>
+    <bean id="taxRateDAO" class="com.mana.spring.dao.impl.TaxRateDAOImpl"/>
 
     <bean id="passwordResetDAO" class="com.mana.spring.dao.impl.PasswordResetDAOImpl"/>
 
@@ -104,9 +108,7 @@
 
     <bean id="hibernateTemplate"
           class="org.springframework.orm.hibernate5.HibernateTemplate">
-        <property name="sessionFactory">
-            <ref bean="mySessionFactory"/>
-        </property>
+        <property name="sessionFactory" ref="mySessionFactory"/>
         <property name="checkWriteOperations" value="false"/>
     </bean>
 

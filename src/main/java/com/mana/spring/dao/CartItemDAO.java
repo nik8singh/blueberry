@@ -10,10 +10,12 @@ public interface CartItemDAO {
 
     void delete(CartItem cartItem);
 
+    void deleteUserCart(long userId);
+
     void update(CartItem cartItem);
 
-    List listUserCartItems(String email);
+    List listUserCartItems(long userId);
 
-    CartItem cartItemByProductAndUser(CartItem cartItem);
+    CartItem cartItemByProductAndUser(long userId, long productId);
 
 }

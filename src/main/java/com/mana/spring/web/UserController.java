@@ -1,11 +1,11 @@
 package com.mana.spring.web;
 
 import com.mana.spring.domain.CartItem;
-import com.mana.spring.domain.Invoice;
 import com.mana.spring.domain.User;
 import com.mana.spring.dto.NewUserDTO;
 import com.mana.spring.dto.UserDTO;
 import com.mana.spring.service.UserService;
+import com.mana.spring.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,11 +44,11 @@ public class UserController {
         return userService.getUserCart(e);
     }
 
-    @RequestMapping(value = "cus/orders", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody
-    ArrayList<Invoice> getUserOrders(@RequestParam String e) {
-        return userService.getUserInvoices(e);
-    }
+//    @RequestMapping(value = "cus/orders", method = RequestMethod.GET, produces = "application/json")
+//    public @ResponseBody
+//    ArrayList<Invoice> getUserOrders(@RequestParam String e) {
+//        return userService.getUserInvoices(e);
+//    }
 
     @RequestMapping(value = "/register/save", method = RequestMethod.POST)
     public ResponseEntity registerUser(@Valid @RequestBody NewUserDTO user) {
@@ -66,7 +66,7 @@ public class UserController {
             return new ResponseEntity("Token is incorrect or expired", HttpStatus.UNAUTHORIZED);
         }
 
-        boolean newUser = userService.registerUser(newUserDTO, true, token);
+        boolean newUser = userService.registerUser(newUserDTO, false, token);
 
         // newUser is false if account was deactivated in past
         if (newUser)
@@ -110,5 +110,20 @@ public class UserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+
+    @RequestMapping(value = "cus/checkoutLogin", method = RequestMethod.GET)
+    public ResponseEntity checkoutLogin(@RequestBody UserDTO userDTO) {
+        if (userService.validatePasswordForCheckout(userDTO.getUserEmail(), userDTO.getUserPassword())) {
+            JwtTokenUtil jwtTokenUtil = new JwtTokenUtil();
+            return new ResponseEntity(jwtTokenUtil.generateToken(), HttpStatus.OK);
+        }
+        return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+    }
+
+    @RequestMapping(value = "adm/privateNote/{userId}", method = RequestMethod.POST)
+    public ResponseEntity privateNoteUpdate(@RequestBody String message, @PathVariable long userId) {
+        userService.updatePrivateNote(message, userId);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
 }

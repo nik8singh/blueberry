@@ -131,6 +131,11 @@ public class ProductDAOImpl implements ProductDAO {
         return hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product p where p.productName LIKE concat('%',:searchWord,'%') or p.productDescription LIKE concat('%',:searchWord,'%')").setParameter("searchWord", searchWord).list();
     }
 
+    @Override
+    public void allocateFromInventory(long productId) {
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("update Product p SET p.productQuantity=-1 where p.productId=:id").setParameter("id", productId).executeUpdate();
+    }
+
 
     private void makeItEager(Product product) {
         hibernateTemplate.initialize(product.getGemstones());

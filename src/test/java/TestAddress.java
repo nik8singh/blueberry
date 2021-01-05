@@ -28,7 +28,7 @@ public class TestAddress {
         address.setAddressCountry("USA");
         address.setAddressZipcode("05452");
         User user = new User();
-        user.setUserId(1L);
+        user.setUserId(29L);
         address.setUser(user);
 
         addressController.saveAddress(address);

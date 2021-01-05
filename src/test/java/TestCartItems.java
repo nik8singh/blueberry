@@ -1,6 +1,7 @@
 import com.mana.spring.domain.CartItem;
 import com.mana.spring.domain.Product;
 import com.mana.spring.domain.User;
+import com.mana.spring.dto.CartItemDTOConverter;
 import com.mana.spring.web.CartItemController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,25 +17,25 @@ public class TestCartItems {
     CartItemController cartItemController;
 
     @Test
-    public void addToCart(){
+    public void addToCart() {
         CartItem cartItem = new CartItem();
         User user = new User();
         Product product = new Product();
 
-        product.setProductId(24L);
-        user.setUserId(1L);
+        product.setProductId(6L);
+        user.setUserId(29L);
 
-        cartItem.setProductQuantity(2);
+        cartItem.setItemQuantity(1);
         cartItem.setProduct(product);
         cartItem.setUser(user);
 
-        cartItemController.addToCart(cartItem);
+        cartItemController.addToCart(CartItemDTOConverter.convertToDTO(cartItem));
 
     }
 
     @Test
     public void getCart(){
-        System.out.println(cartItemController.getUserCart("nik8singh@gmail.com"));
+//        System.out.println(cartItemController.getUserCart("nik8singh@gmail.com"));
     }
 
     @Test
@@ -42,7 +43,7 @@ public class TestCartItems {
         CartItem cartItem = new CartItem();
         cartItem.setCartItemId(7L);
 
-        cartItemController.removeFromCart(cartItem);
+//        cartItemController.removeFromCart(cartItem);
     }
 
     @Test
@@ -54,11 +55,11 @@ public class TestCartItems {
         product.setProductId(24L);
         user.setUserEmail("nik8singh@gmail.com");
 
-        cartItem.setProductQuantity(1);
+//        cartItem.setProductQuantity(1);
         cartItem.setProduct(product);
         cartItem.setUser(user);
 
-        cartItemController.updateCartItem(cartItem);
+//        cartItemController.updateCartItem(cartItem);
 
     }
 }

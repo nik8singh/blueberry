@@ -48,10 +48,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return new ArrayList<>(userDAO.getUserCart(email).getCartItems());
     }
 
-    public ArrayList<Invoice> getUserInvoices(String email) {
-        return new ArrayList<>(userDAO.getUserInvoices(email).getInvoices());
-    }
-
     // returns true if new user
     public boolean registerUser(NewUserDTO newUserDTO, boolean admin, String token) {
         User checkIfUserExists = userDAO.getUserByEmail(newUserDTO.getUserEmail());
@@ -187,6 +183,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             ex.printStackTrace();
         }
 
+    }
+
+    @Override
+    public boolean validatePasswordForCheckout(String email, String password) {
+        return new BCryptPasswordEncoder().matches(password, loadUserByUsername(email).getPassword());
+    }
+
+    @Override
+    public void updatePrivateNote(String message, long id) {
+        System.out.println(message);
+        System.out.println(id);
+        userDAO.updatePrivateNote(message, id);
     }
 
     private List<SimpleGrantedAuthority> buildSimpleGrantedAuthorities(final User user) {

@@ -1,16 +1,19 @@
 package com.mana.spring.service;
 
-import com.mana.spring.domain.CartItem;
-
-import java.util.ArrayList;
+import com.mana.spring.dto.CartItemDTO;
+import com.mana.spring.dto.CartItemListDTO;
 
 public interface CartItemService {
 
-    void addToCart(CartItem cartItem);
+    void addToCart(CartItemDTO cartItemDTO);
 
-    void removeFromCart(CartItem cartItem);
+    void removeFromCart(CartItemDTO cartItemDTO);
 
-    void updateCartItem(CartItem cartItem);
+    void emptyUserCart(long userId);
 
-    ArrayList<CartItem> getUserCart(String email);
+    void updateCartItem(CartItemDTO cartItemDTO);
+
+    CartItemListDTO getUserCart(long userId);
+
+    void addListToCart(CartItemListDTO cartItemListDTO);
 }

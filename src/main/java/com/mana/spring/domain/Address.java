@@ -18,25 +18,25 @@ public class Address {
     @Column(name = "address_id")
     private long addressId;
 
-    @Column(name = "address_fullname")
+    @Column(name = "address_fullname", nullable = false)
     private String addressFullname;
 
-    @Column(name = "address_lineone")
+    @Column(name = "address_lineone", nullable = false)
     private String addressLineOne;
 
     @Column(name = "address_linetwo")
     private String addressLineTwo;
 
-    @Column(name = "address_city")
+    @Column(name = "address_city", nullable = false)
     private String addressCity;
 
-    @Column(name = "address_state")
+    @Column(name = "address_state", nullable = false)
     private String addressState;
 
-    @Column(name = "address_zipcode")
+    @Column(name = "address_zipcode", nullable = false)
     private String addressZipcode;
 
-    @Column(name = "address_country")
+    @Column(name = "address_country", nullable = false)
     private String addressCountry;
 
     @Column(name = "active")

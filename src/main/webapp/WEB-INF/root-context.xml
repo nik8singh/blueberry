@@ -78,15 +78,18 @@
 
     <bean id="purchaseDAO" class="com.mana.spring.dao.impl.PurchaseDAOImpl"/>
 
-    <bean id="invoiceService" class="com.mana.spring.service.impl.InvoiceServiceImpl"/>
-    <bean id="invoiceDAO" class="com.mana.spring.dao.impl.InvoiceDAOImpl"/>
-
     <bean id="adminTokenService" class="com.mana.spring.service.impl.AdminTokenServiceImpl"/>
     <bean id="adminTokenDAO" class="com.mana.spring.dao.impl.AdminTokenDAOImpl"/>
 
     <bean id="passwordResetDAO" class="com.mana.spring.dao.impl.PasswordResetDAOImpl"/>
 
     <bean id="emailService" class="com.mana.spring.service.impl.EmailServiceImpl"/>
+
+    <bean id="orderService" class="com.mana.spring.service.impl.OrderServiceImpl"/>
+    <bean id="orderDAO" class="com.mana.spring.dao.impl.OrderDAOImpl"/>
+
+    <bean id="taxRateService" class="com.mana.spring.service.impl.TaxRateServiceImpl"/>
+    <bean id="taxRateDAO" class="com.mana.spring.dao.impl.TaxRateDAOImpl"/>
 
     <bean id="hibernateTemplate"
           class="org.springframework.orm.hibernate5.HibernateTemplate">

@@ -1,6 +1,7 @@
 package com.mana.spring.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -17,14 +18,15 @@ public class CartItem {
     @Column(name = "cartItem_id")
     private long cartItemId;
 
-    @Column(name = "product_quantity")
-    private int productQuantity;
+    @Column(name = "item_quantity")
+    private int itemQuantity;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "userId")
+    @JsonIgnore
     private User user;
 
     @ManyToOne
@@ -44,7 +46,8 @@ public class CartItem {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;
 
-    public CartItem() {}
+    public CartItem() {
+    }
 
     public long getCartItemId() {
         return cartItemId;
@@ -54,12 +57,12 @@ public class CartItem {
         this.cartItemId = cartItemId;
     }
 
-    public int getProductQuantity() {
-        return productQuantity;
+    public int getItemQuantity() {
+        return itemQuantity;
     }
 
-    public void setProductQuantity(int productQuantity) {
-        this.productQuantity = productQuantity;
+    public void setItemQuantity(int itemQuantity) {
+        this.itemQuantity = itemQuantity;
     }
 
     public User getUser() {
@@ -98,7 +101,7 @@ public class CartItem {
     public String toString() {
         return "\nCartItem{" +
                 "\ncartItemId=" + cartItemId +
-                "\n productQuantity='" + productQuantity + '\'' +
+                "\n itemQuantity='" + itemQuantity + '\'' +
 //                "\n user=" + user +
 //                "\n product=" + product +
                 "\n createdDate=" + createdDate +

@@ -1,14 +1,21 @@
 import com.mana.spring.domain.User;
 import com.mana.spring.dto.NewUserDTO;
+import com.mana.spring.dto.UserDTO;
 import com.mana.spring.service.EmailService;
 import com.mana.spring.web.UserController;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Random;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @ContextConfiguration({"classpath:test-servlet.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -19,28 +26,50 @@ public class TestUser {
     @Autowired
     private EmailService emailService;
 
-    @Test
-    public void getAllUsers() {
+    private MockMvc mockMvc;
 
-        System.out.println(userController.getAllUsers(1));
-
+    @Before
+    public void setup() {
+        this.mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
     }
 
     @Test
-    public void getUser() {
+    public void getAllUsers() throws Exception {
+
+//        System.out.println(userController.getAllUsers(1));
+        this.mockMvc.perform(get("/user/list/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    public void PasswordCheck() {
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserEmail("nik8singh@gmail.com");
+        userDTO.setUserPassword("Welcome3");
+        System.out.println(userController.checkoutLogin(userDTO));
 
 //        System.out.println(userController.getUserByEmail("nscoder8@gmail.com"));
     }
 
     @Test
     public void addNewUser() {
-        NewUserDTO user = new NewUserDTO();
-        user.setUserFirstName("Nikhil");
-        user.setUserLastName("Singh");
-        user.setUserEmail("authtest001@aol.com");
-        user.setUserPassword("welcome1");
 
-        userController.registerAdminUser("testing", user);
+
+        String[] firstName = {"John", "Kate", "Jacob", "Ian", "Scott", "Jonathan", "Carmen"};
+        String[] lastName = {"Smith", "Taylor", "Zazeza", "Maillie", "Sin", "Sharma", "Doe"};
+        String[] email = {"John@smith2.com", "Kate@taylor.com", "Jacob@Zazeza.gov", "Ian@Maillie.com", "Scott@Sin.net", "Jonathan@Sharma.com", "Carmen@Doe.gmail.com"};
+        String[] pass = {"welcome1", "welcome1", "welcome1", "welcome1", "welcome1", "welcome1", "welcome1"};
+
+        for (int i = 0; i < firstName.length; i++) {
+            NewUserDTO user = new NewUserDTO();
+            user.setUserFirstName(firstName[i]);
+            user.setUserLastName(lastName[i]);
+            user.setUserEmail(email[i]);
+            user.setUserPassword(pass[i]);
+            userController.registerAdminUser("testing", user);
+        }
     }
 
     @Test
@@ -90,7 +119,8 @@ public class TestUser {
     }
 
     @Test
-    public void passwordResetEmail() {
+    public void getUserByEmail() {
+        System.out.println(userController.getUserByEmail("nik8singh@gmail.com"));
     }
 
 }

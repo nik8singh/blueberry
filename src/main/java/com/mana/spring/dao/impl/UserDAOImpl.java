@@ -29,6 +29,11 @@ public class UserDAOImpl implements UserDAO {
         return (User) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.User us where us.userEmail= :email").setParameter("email", email).uniqueResult();
     }
 
+    @Override
+    public User getUserById(long id) {
+        return (User) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.User us where us.userId= :id").setParameter("id", id).uniqueResult();
+    }
+
     public User getUserCart(String email) {
         User user = getUserByEmail(email);
         hibernateTemplate.initialize(user.getCartItems());
@@ -37,7 +42,7 @@ public class UserDAOImpl implements UserDAO {
 
     public User getUserInvoices(String email) {
         User user = getUserByEmail(email);
-        hibernateTemplate.initialize(user.getInvoices());
+//        hibernateTemplate.initialize(user.getInvoices());
         return user;
     }
 
@@ -71,8 +76,13 @@ public class UserDAOImpl implements UserDAO {
         return users;
     }
 
+    @Override
+    public void updatePrivateNote(String message, long id) {
+        hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("UPDATE com.mana.spring.domain.User us SET us.note = :newNote WHERE us.userId= :userId").setParameter("userId", id).setParameter("newNote", message).executeUpdate();
+    }
+
     private void makeItEager(User user) {
-        hibernateTemplate.initialize(user.getInvoices());
+//        hibernateTemplate.initialize(user.getInvoices());
         hibernateTemplate.initialize(user.getCartItems());
         hibernateTemplate.initialize(user.getAddresses());
         hibernateTemplate.initialize(user.getUserAuthorities());

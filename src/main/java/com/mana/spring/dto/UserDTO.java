@@ -19,15 +19,21 @@ public class UserDTO {
     @JsonIgnore
     private String userPassword;
 
+    private String note;
+
     private boolean deleted;
 
     private Set<UserAuthorityDTO> userAuthorityDTO = new HashSet<>(0);
 
     private Set<AddressDTO> addressesDto = new HashSet<>(0);
 
-    private Set<InvoiceDTO> invoiceDTOS = new HashSet<>(0);
-
     private Set<CartItemDTO> cartItemDTOS = new HashSet<>(0);
+
+    private Set<OrderDTO> orderDTOS = new HashSet<>(0);
+
+    private double totalBuys;
+
+    private double totalBusiness;
 
     public UserDTO() {
     }
@@ -96,20 +102,43 @@ public class UserDTO {
         this.deleted = deleted;
     }
 
-    public Set<InvoiceDTO> getInvoiceDTOS() {
-        return invoiceDTOS;
-    }
-
-    public void setInvoiceDTOS(Set<InvoiceDTO> invoiceDTOS) {
-        this.invoiceDTOS = invoiceDTOS;
-    }
-
     public Set<CartItemDTO> getCartItemDTOS() {
         return cartItemDTOS;
     }
 
     public void setCartItemDTOS(Set<CartItemDTO> cartItemDTOS) {
         this.cartItemDTOS = cartItemDTOS;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public Set<OrderDTO> getOrderDTOS() {
+        return orderDTOS;
+    }
+
+    public void setOrderDTOS(Set<OrderDTO> orderDTOS) {
+        this.orderDTOS = orderDTOS;
+        this.totalBuys = 0;
+        this.totalBusiness = 0;
+        for (OrderDTO orderDTO : orderDTOS)
+            if (!orderDTO.getOrderStatus().equals("Not Executed")) {
+                this.totalBuys++;
+                this.totalBusiness += orderDTO.getFinalTotal();
+            }
+    }
+
+    public double getTotalBuys() {
+        return totalBuys;
+    }
+
+    public double getTotalBusiness() {
+        return totalBusiness;
     }
 
     @Override
@@ -121,9 +150,12 @@ public class UserDTO {
                 "\n userEmail='" + userEmail + '\'' +
                 "\n authorizationLevel='" + userAuthorityDTO + '\'' +
                 "\n deleted=" + deleted +
+                "\n note=" + note +
                 "\n addressesDto=" + addressesDto +
-                "\n invoiceDTOS=" + invoiceDTOS +
                 "\n cartItemDTOS=" + cartItemDTOS +
+                "\n orderDTOS=" + orderDTOS +
+                "\n totalBuys=" + totalBuys +
+                "\n totalBusiness=" + totalBusiness +
                 '}';
     }
 }

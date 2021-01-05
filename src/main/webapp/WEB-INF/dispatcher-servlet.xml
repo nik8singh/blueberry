@@ -32,13 +32,14 @@
 
     <bean id="cartItemController" class="com.mana.spring.web.CartItemController"/>
 
-    <bean id="invoiceController" class="com.mana.spring.web.InvoiceController"/>
-
     <bean id="exceptionController" class="com.mana.spring.web.ExceptionController"/>
 
     <bean id="adminTokenController" class="com.mana.spring.web.AdminTokenController"/>
 
     <bean id="authorizationController" class="com.mana.spring.web.AuthorizationController"/>
 
+    <bean id="orderController" class="com.mana.spring.web.OrderController"/>
+
+    <bean id="taxRateController" class="com.mana.spring.web.TaxRateController"/>
 
 </beans>

@@ -1,7 +1,6 @@
 package com.mana.spring.service;
 
 import com.mana.spring.domain.CartItem;
-import com.mana.spring.domain.Invoice;
 import com.mana.spring.domain.User;
 import com.mana.spring.dto.NewUserDTO;
 import com.mana.spring.dto.UserDTO;
@@ -15,7 +14,7 @@ public interface UserService {
 
     ArrayList<CartItem> getUserCart(String email);
 
-    ArrayList<Invoice> getUserInvoices(String email);
+//    ArrayList<Invoice> getUserInvoices(String email);
 
     boolean registerUser(NewUserDTO newUserDTO, boolean admin, String token);
 
@@ -36,5 +35,9 @@ public interface UserService {
     ArrayList<User> getAdminUsers();
 
     void sendPasswordResetEmail(String email);
+
+    boolean validatePasswordForCheckout(String email, String password);
+
+    void updatePrivateNote(String message, long id);
 
 }

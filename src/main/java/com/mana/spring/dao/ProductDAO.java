@@ -43,4 +43,6 @@ public interface ProductDAO {
 
     List listPartialSearch(String searchWord);
 
+    void allocateFromInventory(long productId);
+
 }

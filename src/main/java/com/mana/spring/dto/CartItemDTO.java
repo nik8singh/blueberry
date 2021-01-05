@@ -4,9 +4,21 @@ public class CartItemDTO {
 
     private long cartItemId;
 
-    private int productQuantity;
+    private int itemQuantity;
 
-    private ProductDTO productDTO;
+    private long productId;
+
+    private String productName;
+
+    private double productPrice;
+
+    private String productSku;
+
+    private String productCurrency;
+
+    private String image_secure_url;
+
+    private long userId;
 
     public CartItemDTO() {
     }
@@ -19,28 +31,82 @@ public class CartItemDTO {
         this.cartItemId = cartItemId;
     }
 
-    public int getProductQuantity() {
-        return productQuantity;
+    public int getItemQuantity() {
+        return itemQuantity;
     }
 
-    public void setProductQuantity(int productQuantity) {
-        this.productQuantity = productQuantity;
+    public void setItemQuantity(int itemQuantity) {
+        this.itemQuantity = itemQuantity;
     }
 
-    public ProductDTO getProductDTO() {
-        return productDTO;
+    public long getProductId() {
+        return productId;
     }
 
-    public void setProductDTO(ProductDTO productDTO) {
-        this.productDTO = productDTO;
+    public void setProductId(long productId) {
+        this.productId = productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public double getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(double productPrice) {
+        this.productPrice = productPrice;
+    }
+
+    public String getProductSku() {
+        return productSku;
+    }
+
+    public void setProductSku(String productSku) {
+        this.productSku = productSku;
+    }
+
+    public String getProductCurrency() {
+        return productCurrency;
+    }
+
+    public void setProductCurrency(String productCurrency) {
+        this.productCurrency = productCurrency;
+    }
+
+    public String getImage_secure_url() {
+        return image_secure_url;
+    }
+
+    public void setImage_secure_url(String image_secure_url) {
+        this.image_secure_url = image_secure_url;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     @Override
     public String toString() {
-        return "\nCartItem{" +
-                "\ncartItemId=" + cartItemId +
-                "\n productQuantity='" + productQuantity + '\'' +
-                "\n product=" + productDTO +
+        return "CartItemDTO{" +
+                "cartItemId=" + cartItemId +
+                ", itemQuantity=" + itemQuantity +
+                ", productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", productPrice=" + productPrice +
+                ", productSku='" + productSku + '\'' +
+                ", productCurrency='" + productCurrency + '\'' +
+                ", image_secure_url=" + image_secure_url +
+                ", userId=" + userId +
                 '}';
     }
 }

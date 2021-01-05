@@ -8,7 +8,6 @@ public class PurchaseDTO {
 
     private ProductDTO productDTO;
 
-    private InvoiceDTO invoiceDTO;
 
     public PurchaseDTO() {
     }
@@ -35,14 +34,6 @@ public class PurchaseDTO {
 
     public void setProductDTO(ProductDTO productDTO) {
         this.productDTO = productDTO;
-    }
-
-    public InvoiceDTO getInvoiceDTO() {
-        return invoiceDTO;
-    }
-
-    public void setInvoiceDTO(InvoiceDTO invoiceDTO) {
-        this.invoiceDTO = invoiceDTO;
     }
 
     @Override

@@ -10,6 +10,8 @@ public interface UserDAO {
 
     User getUserByEmail(String email);
 
+    User getUserById(long id);
+
     User getUserCart(String email);
 
     User getUserInvoices(String email);
@@ -25,4 +27,6 @@ public interface UserDAO {
     void updatePassword(User user);
 
     List listAdminUser();
+
+    void updatePrivateNote(String message, long id);
 }

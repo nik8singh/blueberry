@@ -122,8 +122,8 @@
 
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -197,10 +197,25 @@
             <artifactId>spring-context-support</artifactId>
             <version>${org.springframework.version}</version>
         </dependency>
+
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>1.4.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.squareup</groupId>
+            <artifactId>square</artifactId>
+            <version>7.0.0.20201118</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Payment -->
+        <dependency>
+            <groupId>com.squareup</groupId>
+            <artifactId>square</artifactId>
+            <version>4.0.0.20191217</version>
         </dependency>
 
         <!-- Testing -->
@@ -233,5 +248,7 @@
             <artifactId>jsonassert</artifactId>
             <version>1.5.0</version>
         </dependency>
+
+
     </dependencies>
 </project>

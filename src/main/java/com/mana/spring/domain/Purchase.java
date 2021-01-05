@@ -31,11 +31,11 @@ public class Purchase {
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "invoice_id")
+    @JoinColumn(name = "order_id")
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
-            property = "invoiceId")
-    private Invoice invoice;
+            property = "orderId")
+    private Order order;
 
     @CreationTimestamp
     @Column(name = "created_date", updatable = false)
@@ -74,14 +74,6 @@ public class Purchase {
         this.product = product;
     }
 
-    public Invoice getInvoice() {
-        return invoice;
-    }
-
-    public void setInvoice(Invoice invoice) {
-        this.invoice = invoice;
-    }
-
     public Date getCreatedDate() {
         return createdDate;
     }
@@ -106,14 +98,21 @@ public class Purchase {
         this.productAmount = productAmount;
     }
 
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
     @Override
     public String toString() {
         return "\nPurchase{" +
                 "\npurchaseId=" + purchaseId +
                 "\n productQuantity=" + productQuantity +
-                "\nproductAmount=" +productAmount +
+                "\nproductAmount=" + productAmount +
                 "\n product=" + product +
-//                "\n invoice=" + invoice +
                 "\n createdDate=" + createdDate +
                 "\n updatedDate=" + updatedDate +
                 '}';

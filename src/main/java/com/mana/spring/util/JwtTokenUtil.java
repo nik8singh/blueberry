@@ -57,7 +57,6 @@ public class JwtTokenUtil {
         return false;
     }
 
-
     //generate token for user
     public String generateToken() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
