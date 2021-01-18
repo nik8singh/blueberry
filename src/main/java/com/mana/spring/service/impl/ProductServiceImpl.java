@@ -4,10 +4,7 @@ import com.mana.spring.dao.ProductDAO;
 import com.mana.spring.domain.Gemstone;
 import com.mana.spring.domain.JewelryType;
 import com.mana.spring.domain.Product;
-import com.mana.spring.dto.ProductDTO;
-import com.mana.spring.dto.ProductDTOConverter;
-import com.mana.spring.dto.ProductListDTO;
-import com.mana.spring.dto.ProductRepoFilter;
+import com.mana.spring.dto.*;
 import com.mana.spring.service.GemstoneService;
 import com.mana.spring.service.JewelryTypeService;
 import com.mana.spring.service.MetalService;
@@ -16,6 +13,7 @@ import com.mana.spring.util.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.transaction.Transactional;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 @Transactional
@@ -76,12 +74,26 @@ public class ProductServiceImpl implements ProductService {
         return productListDTO;
     }
 
-    public ProductListDTO getFilteredProducts(int pageNumber, ProductRepoFilter repoFilter) {
+    public ProductMinimumListDTO getFilteredProducts(int pageNumber, ProductRepoFilter repoFilter) {
         int size = Pagination.getPageSize();
-        ProductListDTO productListDTO = createListDTO(pageNumber, productDAO.countFiltered(repoFilter));
-        productListDTO.setProducts((ArrayList<Product>) productDAO.listFilteredProducts((pageNumber - 1) * size, size, repoFilter));
 
-        return productListDTO;
+
+        ProductMinimumListDTO productMinimumListDTO = createMinimumListDTO(pageNumber, productDAO.countFiltered(repoFilter));
+        Object[] results = productDAO.listFilteredProducts((pageNumber - 1) * size, size, repoFilter);
+        ArrayList<ProductMinimumDTO> arrayList = new ArrayList<>();
+        for (Object result : results) {
+            Object[] obj = (Object[]) result;
+            ProductMinimumDTO productMinimumDTO = new ProductMinimumDTO();
+            BigInteger val = (BigInteger) obj[0];
+            productMinimumDTO.setProductId(val.longValue());
+            val = (BigInteger) obj[1];
+            productMinimumDTO.setJewelryTypeId(val.longValue());
+            productMinimumDTO.setProductName((String) obj[2]);
+            productMinimumDTO.setImage_public_id((String) obj[3]);
+            arrayList.add(productMinimumDTO);
+        }
+        productMinimumListDTO.setProductMinimumDTOS(arrayList);
+        return productMinimumListDTO;
     }
 
     public Product addProduct(Product product) {
@@ -125,6 +137,7 @@ public class ProductServiceImpl implements ProductService {
         productFromDb.setMetals(updatedProduct.getMetals());
         productFromDb.setCreatedDate(null);
         productFromDb.setUpdatedDate(null);
+        System.out.println(productFromDb);
         productDAO.updateProduct(productFromDb);
     }
 
@@ -157,6 +170,15 @@ public class ProductServiceImpl implements ProductService {
         productListDTO.calculateAndSetTotalPages();
 
         return productListDTO;
+    }
+
+    private ProductMinimumListDTO createMinimumListDTO(int pageNumber, long count) {
+        ProductMinimumListDTO productMinimumListDTO = new ProductMinimumListDTO();
+        productMinimumListDTO.setCount(count);
+        productMinimumListDTO.setCurrentPageNumber(pageNumber);
+        productMinimumListDTO.calculateAndSetTotalPages();
+
+        return productMinimumListDTO;
     }
 
 }

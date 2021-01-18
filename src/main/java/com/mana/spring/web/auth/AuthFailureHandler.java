@@ -13,7 +13,7 @@ public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException exception) throws IOException, ServletException {
-        System.out.println("Login Fail");
+        System.out.println("Authorization Fail");
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, exception.getMessage());
     }
 }

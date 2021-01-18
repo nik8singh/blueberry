@@ -3,6 +3,7 @@ package com.mana.spring.web;
 import com.mana.spring.domain.Product;
 import com.mana.spring.dto.ProductDTO;
 import com.mana.spring.dto.ProductListDTO;
+import com.mana.spring.dto.ProductMinimumListDTO;
 import com.mana.spring.dto.ProductRepoFilter;
 import com.mana.spring.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,7 @@ public class ProductController {
 
     @RequestMapping(value = "vis/list/filtered/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
-    ProductListDTO getfilteredProducts(@PathVariable int pageNumber, @RequestBody ProductRepoFilter productRepoFilter) {
+    ProductMinimumListDTO getfilteredProducts(@PathVariable int pageNumber, @RequestBody ProductRepoFilter productRepoFilter) {
         return productService.getFilteredProducts(pageNumber, productRepoFilter);
     }
 
@@ -83,7 +84,8 @@ public class ProductController {
     }
 
     @RequestMapping(value = "adm/update", method = RequestMethod.POST)
-    public ResponseEntity updateProduct(@Valid @RequestBody Product product) {
+    public ResponseEntity updateProduct(@RequestBody Product product) {
+        System.out.println(product);
         productService.updateProduct(product);
         return new ResponseEntity(HttpStatus.OK);
     }

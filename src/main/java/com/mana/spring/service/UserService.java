@@ -34,7 +34,7 @@ public interface UserService {
 
     ArrayList<User> getAdminUsers();
 
-    void sendPasswordResetEmail(String email);
+    void sendPasswordResetEmail(String email, boolean admin);
 
     boolean validatePasswordForCheckout(String email, String password);
 

@@ -20,7 +20,8 @@ public class AuthorizationController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ResponseEntity<String> apiLoginPage() {
-        System.out.println("This is Login Page");
+        System.out.println("This is Login Page because of 401: " + getJsonHeaders());
+
         return new ResponseEntity<String>(getJsonHeaders(), HttpStatus.UNAUTHORIZED);
     }
 

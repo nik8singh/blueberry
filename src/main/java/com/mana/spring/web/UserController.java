@@ -38,6 +38,11 @@ public class UserController {
         return userService.getUserByEmail(e);
     }
 
+    @RequestMapping(value = "cus/userfirstname", method = RequestMethod.GET)
+    public String getUserFirstName(@RequestParam String e) {
+        return userService.getUserByEmail(e).getUserFirstName();
+    }
+
     @RequestMapping(value = "cus/cart", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     ArrayList<CartItem> getUserCart(@RequestParam String e) {
@@ -68,7 +73,6 @@ public class UserController {
 
         boolean newUser = userService.registerUser(newUserDTO, false, token);
 
-        // newUser is false if account was deactivated in past
         if (newUser)
             return new ResponseEntity("User account is active now", HttpStatus.OK);
         else
@@ -104,12 +108,17 @@ public class UserController {
             return new ResponseEntity("Something went wrong. Try again", HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "pwresetrequest", method = RequestMethod.POST)
+    @RequestMapping(value = "admacc/pwresetrequest", method = RequestMethod.POST)
     public ResponseEntity passwordResetRequest(@RequestBody UserDTO userDTO) {
-        userService.sendPasswordResetEmail(userDTO.getUserEmail());
+        userService.sendPasswordResetEmail(userDTO.getUserEmail(), true);
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @RequestMapping(value = "cusacc/pwresetrequest", method = RequestMethod.POST)
+    public ResponseEntity passwordResetRequestCustomer(@RequestBody UserDTO userDTO) {
+        userService.sendPasswordResetEmail(userDTO.getUserEmail(), false);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
     @RequestMapping(value = "cus/checkoutLogin", method = RequestMethod.GET)
     public ResponseEntity checkoutLogin(@RequestBody UserDTO userDTO) {

@@ -12,20 +12,18 @@
     <!--    &lt;!&ndash; if user authentication is successful then AppSuccessHandler will redirect to page based on role&ndash;&gt;-->
     <beans:bean id="successHandler" class="com.mana.spring.web.auth.AuthSuccessHandler"/>
 
-    <!--    &lt;!&ndash; if user authentication is successful then AppSuccessHandler will redirect to page based on role&ndash;&gt;-->
-    <!--    <beans:bean id="failureHandler" class="com.mana.spring.web.auth.AuthFailureHandler"/>-->
-
+<!--    <beans:bean id="failureHandler" class="com.mana.spring.web.auth.AuthFailureHandler"/>-->
     <!--    <beans:bean id="corsHandler" class="com.mana.spring.filter.CORSFilter" />-->
 
     <!-- Without login below url can be accessed and they are public,hence security is none -->
     <http pattern="/*/vis/**" security="none"/>
     <http pattern="/*/register/**" security="none"/>
 
-
     <http use-expressions="true" auto-config="true">
         <!--        <http-basic entry-point-ref="myBasicAuthenticationEntryPoint"/>-->
+        <!--        <intercept-url pattern="/*/cus/**" access="hasAnyRole('ROLE_CUSTOMER','ROLE_ADMIN')"/>-->
+        <intercept-url pattern="/*/cus/**" access="hasRole('ROLE_CUSTOMER')"/>
         <intercept-url pattern="/*/adm/**" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/*/cus/**" access="hasAnyRole('ROLE_CUSTOMER','ROLE_ADMIN')"/>
         <intercept-url pattern="/**" access="permitAll"/>
         <csrf disabled="true"/>
         <!--        default-target-url="/auth/login-success"-->

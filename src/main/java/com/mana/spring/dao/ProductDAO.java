@@ -27,7 +27,7 @@ public interface ProductDAO {
 
     List listOutOfStockProducts(int start, int end);
 
-    List listFilteredProducts(int start, int end, ProductRepoFilter repoFilter);
+    Object[] listFilteredProducts(int start, int end, ProductRepoFilter repoFilter);
 
     long countAll();
 

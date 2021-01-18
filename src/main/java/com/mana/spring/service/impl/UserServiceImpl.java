@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         adminTokenDAO.delete(token);
 
         try {
-            emailService.sendSimpleMessage(newUserDTO.getUserEmail(), "Welcome to Admin DZI Creations!", generatePWResetEmail(true, newUserDTO.getUserFirstName(), newUserDTO.getUserEmail(), null));
+            emailService.sendSimpleMessage(newUserDTO.getUserEmail(), "Welcome to Admin DZI Creations!", generatePWResetEmail(true, newUserDTO.getUserFirstName(), newUserDTO.getUserEmail(), null, false));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -159,7 +159,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void sendPasswordResetEmail(String email) {
+    public void sendPasswordResetEmail(String email, boolean admin) {
         User user = userDAO.getUserByEmail(email);
         if (user == null)
             return;
@@ -178,7 +178,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         passwordResetDAO.savePasswordReset(passwordReset);
 
         try {
-            emailService.sendSimpleMessage(user.getUserEmail(), "Reset Password for your DZI Creations Account", generatePWResetEmail(false, user.getUserFirstName(), user.getUserEmail(), passwordReset.getToken()));
+            emailService.sendSimpleMessage(user.getUserEmail(), "Reset Password for your DZI Creations Account", generatePWResetEmail(false, user.getUserFirstName(), user.getUserEmail(), passwordReset.getToken(), admin));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -207,7 +207,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return simpleGrantedAuthorities;
     }
 
-    private String generatePWResetEmail(boolean welcome, String firstName, String email, String token) {
+    private String generatePWResetEmail(boolean welcome, String firstName, String email, String token, boolean admin) {
         String title, bodyPara1, bodyPara2, bodyPara3, button, buttonURL;
         if (welcome) {
             title = "Welcome to DZI Creations!";
@@ -223,7 +223,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             bodyPara2 = "A password reset request was made for your DZI Creations account. If you did not make this request, please contact us at contact@dzicreations.com";
             bodyPara3 = "Click this link to reset the password for your email, " + email.toLowerCase() + ":";
             button = "Reset Password";
-            buttonURL = "http://admin.dzicreations.com/resetPassword.html?tk=" + token;
+            if (admin)
+                buttonURL = "http://admin.dzicreations.com/resetPassword.html?tk=" + token;
+            else
+                buttonURL = "http://dzicreations.com/resetPassword.html?tk=" + token;
         }
 
 

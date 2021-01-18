@@ -1,6 +1,8 @@
 package com.mana.spring.dao.impl;
 
 import com.mana.spring.dao.ProductDAO;
+import com.mana.spring.domain.Gemstone;
+import com.mana.spring.domain.Metal;
 import com.mana.spring.domain.Product;
 import com.mana.spring.dto.ProductRepoFilter;
 import org.hibernate.query.Query;
@@ -77,20 +79,98 @@ public class ProductDAOImpl implements ProductDAO {
 
     }
 
-    public List listFilteredProducts(int start, int end, ProductRepoFilter repoFilter) {
-        List data = (ArrayList<Product>) hibernateTemplate.getSessionFactory().getCurrentSession().createQuery("from com.mana.spring.domain.Product  p where p.productQuantity > 0 and p.productJewelryType = :jt").setParameter("jt",repoFilter.getProductJewelryTypes()).setFirstResult(start).setMaxResults(end).list();
-        makeItEager(data);
-        return data;
+    public Object[] listFilteredProducts(int start, int end, ProductRepoFilter repoFilter) {
+        String query = "", finalSelect = "";
 
-//        Query  query = filterQuery(repoFilter);
-//
-//        query.setFirstResult(start).setMaxResults(end);
-//
-//        List<Product> ps = query.list();
-//
-//        makeItEager(ps);
-//
-//        return ps;
+        if (repoFilter.getProductGemstones() != null) {
+
+            query += "WITH StonesToFind AS ( SELECT * FROM gemstone WHERE gemstone_name IN (";
+
+            int i = 0;
+            for (Gemstone gemstone : repoFilter.getProductGemstones()) {
+                if (i > 0)
+                    query += ",";
+                query += "'" + gemstone.getGemstoneName() + "'";
+                i++;
+            }
+            query += ")), findProduct AS ( " +
+                    " SELECT p.product_id, p.product_jewelry_type, p.product_name, img.image_public_id " +
+                    " FROM product AS p " +
+                    " JOIN gemstone_product AS ps ON ps.product_id = p.product_id " +
+                    " JOIN image AS img ON img.product_id = p.product_id AND img.image_priority = '1'" +
+                    " LEFT JOIN StonesToFind AS s ON s.gemstone_id = ps.gemstone_id" +
+                    " GROUP BY p.product_id " +
+                    " HAVING COUNT(CASE WHEN s.gemstone_id IS NULL THEN 1 END) = 0 " +
+                    "     AND COUNT(*) = (SELECT COUNT(*) FROM StonesToFind) " +
+                    ")";
+
+            finalSelect = "SELECT * FROM findProduct p";
+        }
+
+        if (repoFilter.getProductMetals() != null) {
+            String metalsSearched = "";
+            finalSelect = "SELECT * FROM productSearched p";
+            int i = 0;
+            for (Metal metal : repoFilter.getProductMetals()) {
+                if (i > 0)
+                    metalsSearched += ",";
+                metalsSearched += "'" + metal.getMetalName() + "'";
+                i++;
+            }
+
+            if (repoFilter.getProductGemstones() != null) {
+                query += ", MetalsToFind AS ( SELECT * FROM metal WHERE metal_name IN (" + metalsSearched + "))" +
+                        ", productSearched AS ( SELECT pp.product_id, pp.product_jewelry_type, pp.product_name, pp.image_public_id FROM findProduct AS pp " +
+                        " JOIN metal_product AS pm ON pm.product_id = pp.product_id";
+            } else {
+                query += "WITH MetalsToFind AS ( SELECT * FROM metal WHERE metal_name IN (" + metalsSearched + "))" +
+                        ", productSearched AS ( SELECT pp.product_id, pp.product_jewelry_type, pp.product_name, img.image_public_id FROM product AS pp " +
+                        " JOIN metal_product AS pm ON pm.product_id = pp.product_id" +
+                        " JOIN image AS img ON img.product_id = pp.product_id AND img.image_priority = '1'";
+            }
+
+            query += " LEFT JOIN MetalsToFind AS m ON m.metal_id = pm.metal_id" +
+                    " GROUP BY pp.product_id " +
+                    " HAVING COUNT(CASE WHEN m.metal_id IS NULL THEN 1 END) = 0 " +
+                    "     AND COUNT(*) = (SELECT COUNT(*) FROM MetalsToFind) " +
+                    ") ";
+        }
+
+        query += finalSelect;
+        if (repoFilter.getProductJewelryTypes() != null && (repoFilter.getProductMetals() != null || repoFilter.getProductGemstones() != null))
+            query += " where product_jewelry_type = '" + repoFilter.getProductJewelryTypes().getJewelryTypeId() + "'";
+        else if (repoFilter.getProductJewelryTypes() != null && (repoFilter.getProductMetals() == null && repoFilter.getProductGemstones() == null))
+            query = "SELECT p.product_id, p.product_jewelry_type, p.product_name, img.image_public_id FROM product AS p JOIN image AS img ON img.product_id = p.product_id AND img.image_priority = '1' WHERE p.product_jewelry_type = '" + repoFilter.getProductJewelryTypes().getJewelryTypeId() + "'";
+
+        return hibernateTemplate.getSessionFactory().getCurrentSession().createSQLQuery(query).setFirstResult(start).setMaxResults(end).list().toArray();
+
+
+//        "WITH StonesToFind AS (" +
+//                "    SELECT * " +
+//                "    FROM gemstone " +
+//                "    WHERE gemstone_name IN ('Ruby', 'Emeralds') " +
+//                "), findProduct AS ( " +
+//                " SELECT p.product_id, p.product_jewelry_type, p.product_name, img.image_public_id " +
+//                " FROM product AS p " +
+//                " JOIN gemstone_product AS ps ON ps.product_id = p.product_id " +
+//                " JOIN image AS img ON img.product_id = p.product_id AND img.image_priority = '1'" +
+//                " LEFT JOIN StonesToFind AS s ON s.gemstone_id = ps.gemstone_id" +
+//                " GROUP BY p.product_id " +
+//                " HAVING COUNT(CASE WHEN s.gemstone_id IS NULL THEN 1 END) = 0 " +
+//                "     AND COUNT(*) = (SELECT COUNT(*) FROM StonesToFind) " +
+//                "), MetalsToFind AS ( " +
+//                "    SELECT * " +
+//                "    FROM metal " +
+//                "    WHERE metal_name IN ('Gold') " +
+//                "), productSearched AS ( " +
+//                " SELECT pp.product_id, pp.product_jewelry_type, pp.product_name, pp.image_public_id FROM findProduct AS pp " +
+//                " JOIN metal_product AS pm ON pm.product_id = pp.product_id" +
+//                " LEFT JOIN MetalsToFind AS m ON m.metal_id = pm.metal_id" +
+//                " GROUP BY pp.product_id " +
+//                " HAVING COUNT(CASE WHEN m.metal_id IS NULL THEN 1 END) = 0 " +
+//                "     AND COUNT(*) = (SELECT COUNT(*) FROM MetalsToFind) " +
+//                ") " +
+//                "SELECT * FROM productSearched p  "
     }
 
     public long countAll() {

@@ -3,6 +3,7 @@ package com.mana.spring.service;
 import com.mana.spring.domain.Product;
 import com.mana.spring.dto.ProductDTO;
 import com.mana.spring.dto.ProductListDTO;
+import com.mana.spring.dto.ProductMinimumListDTO;
 import com.mana.spring.dto.ProductRepoFilter;
 
 public interface ProductService {
@@ -19,7 +20,7 @@ public interface ProductService {
 
     ProductListDTO getOutOfStockProducts(int pageNumber);
 
-    ProductListDTO getFilteredProducts(int pageNumber, ProductRepoFilter repoFilter);
+    ProductMinimumListDTO getFilteredProducts(int pageNumber, ProductRepoFilter repoFilter);
 
     Product addProduct(Product product);
 

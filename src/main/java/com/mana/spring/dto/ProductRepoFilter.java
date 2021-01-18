@@ -57,4 +57,13 @@ public class ProductRepoFilter extends Pagination {
     public void setSortByr(String sortByr) {
         this.sortByr = sortByr;
     }
+
+    @Override
+    public String toString() {
+        return "ProductRepoFilter{" +
+                "productJewelryTypes=" + productJewelryTypes.getJewelryTypeId() +
+                ", productGemstones=" + productGemstones +
+                ", productMetals=" + productMetals +
+                '}';
+    }
 }
