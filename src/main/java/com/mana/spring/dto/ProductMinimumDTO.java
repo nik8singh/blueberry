@@ -4,7 +4,8 @@ public class ProductMinimumDTO {
     private long productId;
     private long jewelryTypeId;
     private String productName;
-    private String image_public_id;
+    private String image_secure_url;
+    private double productPrice;
 
     public long getProductId() {
         return productId;
@@ -30,12 +31,20 @@ public class ProductMinimumDTO {
         this.productName = productName;
     }
 
-    public String getImage_public_id() {
-        return image_public_id;
+    public String getImage_secure_url() {
+        return image_secure_url;
     }
 
-    public void setImage_public_id(String image_public_id) {
-        this.image_public_id = image_public_id;
+    public void setImage_secure_url(String image_secure_url) {
+        this.image_secure_url = image_secure_url;
+    }
+
+    public double getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(double productPrice) {
+        this.productPrice = productPrice;
     }
 
     @Override
@@ -43,8 +52,9 @@ public class ProductMinimumDTO {
         return "\n\nProductMinimumDTO{" +
                 "\nproductId=" + productId +
                 "\njewelryTypeId=" + jewelryTypeId +
+                "\nproductPrice='" + productPrice + '\'' +
                 "\nproductName='" + productName + '\'' +
-                "\nimage_public_id='" + image_public_id + '\'' +
+                "\nimage_secure_url='" + image_secure_url + '\'' +
                 '}';
     }
 }

@@ -45,17 +45,15 @@ public class JewelryTypeController {
     }
 
     @RequestMapping(value = "adm/save", method = RequestMethod.POST)
-    public JewelryType saveJewelryType(@Valid @RequestBody JewelryType metal) {
+    public JewelryType saveJewelryType(@Valid @RequestBody JewelryType jt) {
 
-
-        return jewelryTypeService.addJewelryType(metal);
+        return jewelryTypeService.addJewelryType(jt);
     }
 
     @RequestMapping(value = "adm/update", method = RequestMethod.POST)
-    public JewelryType updateJewelryType(@Valid @RequestBody JewelryType metal) {
+    public JewelryType updateJewelryType(@Valid @RequestBody JewelryType jt) {
 
-
-        return jewelryTypeService.updateJewelryType(metal);
+        return jewelryTypeService.updateJewelryType(jt);
     }
 
     @RequestMapping(value = "adm/deactivate/{id}", method = RequestMethod.POST)

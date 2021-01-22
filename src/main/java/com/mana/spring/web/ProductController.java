@@ -53,13 +53,14 @@ public class ProductController {
         return productService.getInStockProducts(pageNumber);
     }
 
-    @RequestMapping(value = "vis/list/filtered/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "vis/list/shopFilter/{pageNumber}", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
-    ProductMinimumListDTO getfilteredProducts(@PathVariable int pageNumber, @RequestBody ProductRepoFilter productRepoFilter) {
+    ProductMinimumListDTO getFilteredProducts(@PathVariable int pageNumber, @RequestBody ProductRepoFilter productRepoFilter) {
+
         return productService.getFilteredProducts(pageNumber, productRepoFilter);
     }
 
-    @RequestMapping(value = "vis/list/published/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "vis/list/published/{pageNumber}", method = RequestMethod.GET, produces = "application/json", consumes = "application/json")
     public @ResponseBody
     ProductListDTO getPublishedProducts(@PathVariable int pageNumber) {
         return productService.getPublishedProducts(pageNumber);

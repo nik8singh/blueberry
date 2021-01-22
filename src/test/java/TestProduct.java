@@ -39,12 +39,22 @@ public class TestProduct {
         metals.add(metal);
         productRepoFilter.setProductMetals(metals);
 
+
+        Set<JewelryType> jewelryTypes = new HashSet<>();
         JewelryType jewelryType = new JewelryType();
         jewelryType.setJewelryTypeId(5);
-        productRepoFilter.setProductJewelryTypes(jewelryType);
+        jewelryTypes.add(jewelryType);
+        jewelryType = new JewelryType();
+        jewelryType.setJewelryTypeId(8);
+        jewelryTypes.add(jewelryType);
+        productRepoFilter.setProductJewelryTypes(jewelryTypes);
 
+        productRepoFilter.setMin(20);
+        productRepoFilter.setMax(200);
 
-        System.out.println(productController.getfilteredProducts(1, productRepoFilter));
+        productRepoFilter.setSortBy("newest");
+
+        System.out.println(productController.getFilteredProducts(1, productRepoFilter));
         System.out.println("=================TEST 1 END====================================");
     }
 
@@ -65,7 +75,7 @@ public class TestProduct {
         productRepoFilter.setProductMetals(metals);
 
 
-        System.out.println(productController.getfilteredProducts(1, productRepoFilter));
+        System.out.println(productController.getFilteredProducts(1, productRepoFilter));
         System.out.println("=================TEST 2 END====================================");
     }
 
@@ -79,7 +89,7 @@ public class TestProduct {
         gemstones.add(gemstone);
         productRepoFilter.setProductGemstones(gemstones);
 
-        System.out.println(productController.getfilteredProducts(1, productRepoFilter));
+        System.out.println(productController.getFilteredProducts(1, productRepoFilter));
         System.out.println("=================TEST 3 END====================================");
     }
 
@@ -94,7 +104,7 @@ public class TestProduct {
         metals.add(metal);
         productRepoFilter.setProductMetals(metals);
 
-        System.out.println(productController.getfilteredProducts(1, productRepoFilter));
+        System.out.println(productController.getFilteredProducts(1, productRepoFilter));
         System.out.println("=================TEST 4 END====================================");
     }
 
@@ -108,11 +118,13 @@ public class TestProduct {
         gemstones.add(gemstone);
         productRepoFilter.setProductGemstones(gemstones);
 
+        Set<JewelryType> jewelryTypes = new HashSet<>();
         JewelryType jewelryType = new JewelryType();
         jewelryType.setJewelryTypeId(5);
-        productRepoFilter.setProductJewelryTypes(jewelryType);
+        jewelryTypes.add(jewelryType);
+        productRepoFilter.setProductJewelryTypes(jewelryTypes);
 
-        System.out.println(productController.getfilteredProducts(1, productRepoFilter));
+        System.out.println(productController.getFilteredProducts(1, productRepoFilter));
         System.out.println("=================TEST 5 END====================================");
     }
 
@@ -121,11 +133,16 @@ public class TestProduct {
         System.out.println("=================TEST 6 START====================================");
         ProductRepoFilter productRepoFilter = new ProductRepoFilter();
 
+        Set<JewelryType> jewelryTypes = new HashSet<>();
         JewelryType jewelryType = new JewelryType();
-        jewelryType.setJewelryTypeId(5);
-        productRepoFilter.setProductJewelryTypes(jewelryType);
+        jewelryType.setJewelryTypeId(4);
+        jewelryTypes.add(jewelryType);
+        jewelryType = new JewelryType();
+        jewelryType.setJewelryTypeId(8);
+        jewelryTypes.add(jewelryType);
+        productRepoFilter.setProductJewelryTypes(jewelryTypes);
 
-        System.out.println(productController.getfilteredProducts(1, productRepoFilter));
+        System.out.println(productController.getFilteredProducts(1, productRepoFilter));
         System.out.println("=================TEST 6 END====================================");
     }
 

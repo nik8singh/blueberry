@@ -9,20 +9,24 @@ import java.util.Set;
 
 public class ProductRepoFilter extends Pagination {
 
-    private JewelryType productJewelryTypes;
+    private Set<JewelryType> productJewelryTypes;
     private Set<Gemstone> productGemstones;
     private Set<Metal> productMetals;
-    private String sortOrder;
-    private String sortByr;
+    /**
+     * Available sorts - pricelowToHigh, priceHighToLow, newest, relevance
+     **/
+    private String sortBy = "relevance";
+    private double min = 0;
+    private double max = -1;
 
     public ProductRepoFilter() {
     }
 
-    public JewelryType getProductJewelryTypes() {
+    public Set<JewelryType> getProductJewelryTypes() {
         return productJewelryTypes;
     }
 
-    public void setProductJewelryTypes(JewelryType productJewelryTypes) {
+    public void setProductJewelryTypes(Set<JewelryType> productJewelryTypes) {
         this.productJewelryTypes = productJewelryTypes;
     }
 
@@ -42,28 +46,42 @@ public class ProductRepoFilter extends Pagination {
         this.productMetals = productMetals;
     }
 
-    public String getSortOrder() {
-        return sortOrder;
+    public double getMin() {
+        return min;
     }
 
-    public void setSortOrder(String sortOrder) {
-        this.sortOrder = sortOrder;
+    public void setMin(double min) {
+        this.min = min;
     }
 
-    public String getSortByr() {
-        return sortByr;
+    public double getMax() {
+        return max;
     }
 
-    public void setSortByr(String sortByr) {
-        this.sortByr = sortByr;
+    public void setMax(double max) {
+        this.max = max;
+    }
+
+    public String getSortBy() {
+        return sortBy;
+    }
+
+    public void setSortBy(String sortBy) {
+        this.sortBy = sortBy;
     }
 
     @Override
     public String toString() {
-        return "ProductRepoFilter{" +
-                "productJewelryTypes=" + productJewelryTypes.getJewelryTypeId() +
-                ", productGemstones=" + productGemstones +
-                ", productMetals=" + productMetals +
+        return "\nProductRepoFilter{" +
+                "\nproductJewelryTypes=" + productJewelryTypes +
+                "\n productGemstones=" + productGemstones +
+                "\n productMetals=" + productMetals +
+                "\n sortBy='" + sortBy + '\'' +
+                "\n min=" + min +
+                "\n max=" + max +
+                "\n count=" + count +
+                "\n totalPages=" + totalPages +
+                "\n currentPageNumber=" + currentPageNumber +
                 '}';
     }
 }

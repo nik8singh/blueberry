@@ -76,20 +76,19 @@ public class ProductServiceImpl implements ProductService {
 
     public ProductMinimumListDTO getFilteredProducts(int pageNumber, ProductRepoFilter repoFilter) {
         int size = Pagination.getPageSize();
-
-
         ProductMinimumListDTO productMinimumListDTO = createMinimumListDTO(pageNumber, productDAO.countFiltered(repoFilter));
+
         Object[] results = productDAO.listFilteredProducts((pageNumber - 1) * size, size, repoFilter);
         ArrayList<ProductMinimumDTO> arrayList = new ArrayList<>();
+
         for (Object result : results) {
             Object[] obj = (Object[]) result;
             ProductMinimumDTO productMinimumDTO = new ProductMinimumDTO();
-            BigInteger val = (BigInteger) obj[0];
-            productMinimumDTO.setProductId(val.longValue());
-            val = (BigInteger) obj[1];
-            productMinimumDTO.setJewelryTypeId(val.longValue());
+            productMinimumDTO.setProductId(((BigInteger) obj[0]).longValue());
+            productMinimumDTO.setJewelryTypeId(((BigInteger) obj[1]).longValue());
             productMinimumDTO.setProductName((String) obj[2]);
-            productMinimumDTO.setImage_public_id((String) obj[3]);
+            productMinimumDTO.setImage_secure_url((String) obj[3]);
+            productMinimumDTO.setProductPrice((double) obj[4]);
             arrayList.add(productMinimumDTO);
         }
         productMinimumListDTO.setProductMinimumDTOS(arrayList);

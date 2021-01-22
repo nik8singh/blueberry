@@ -2,7 +2,7 @@ package com.mana.spring.util;
 
 public class Pagination {
 
-    private static int pageSize = 10;
+    private static int pageSize = 25;
 
     protected long count;
     protected int totalPages;
