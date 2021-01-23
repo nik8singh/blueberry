@@ -160,15 +160,19 @@ public class ProductDAOImpl implements ProductDAO {
                 i++;
             }
             query += ")), findProduct AS ( " +
-                    " SELECT p.product_id, p.product_jewelry_type, p.product_name, img.image_secure_url,  p.product_price, p.product_published, p.created_date " +
-                    " FROM product AS p " +
-                    " JOIN gemstone_product AS ps ON ps.product_id = p.product_id " +
-                    " JOIN image AS img ON img.product_id = p.product_id AND img.image_priority = '1'" +
-                    " LEFT JOIN StonesToFind AS s ON s.gemstone_id = ps.gemstone_id" +
-                    " GROUP BY p.product_id " +
-                    " HAVING COUNT(CASE WHEN s.gemstone_id IS NULL THEN 1 END) = 0 " +
-                    "     AND COUNT(*) = (SELECT COUNT(*) FROM StonesToFind) " +
-                    ")";
+                    " SELECT p.product_id, p.product_jewelry_type, p.product_name, img.image_secure_url,  p.product_price, p.product_published, p.created_date FROM product AS p " +
+                    " JOIN image AS img ON img.product_id = p.product_id AND img.image_priority = '1'";
+            if (!repoFilter.isExactGT())
+                query += " JOIN StonesToFind AS s" +
+                        " JOIN gemstone_product AS ps ON ps.product_id = p.product_id AND ps.gemstone_id = s.gemstone_id" +
+                        " GROUP BY p.product_id ";
+            else
+                query += " JOIN gemstone_product AS ps ON ps.product_id = p.product_id " +
+                        " LEFT JOIN StonesToFind AS s ON s.gemstone_id = ps.gemstone_id" +
+                        " GROUP BY p.product_id " +
+                        " HAVING COUNT(CASE WHEN s.gemstone_id IS NULL THEN 1 END) = 0 " +
+                        "     AND COUNT(*) = (SELECT COUNT(*) FROM StonesToFind) ";
+            query += ")";
 
             finalSelect = "SELECT " + finalSelectWhat + " FROM findProduct p";
         }
@@ -186,20 +190,37 @@ public class ProductDAOImpl implements ProductDAO {
 
             if (repoFilter.getProductGemstones() != null) {
                 query += ", MetalsToFind AS ( SELECT * FROM metal WHERE metal_name IN (" + metalsSearched + "))" +
-                        ", productSearched AS ( SELECT pp.product_id, pp.product_jewelry_type, pp.product_name, pp.image_secure_url, pp.product_price, pp.product_published,  pp.created_date FROM findProduct AS pp " +
-                        " JOIN metal_product AS pm ON pm.product_id = pp.product_id";
+                        ", productSearched AS ( SELECT pp.product_id, pp.product_jewelry_type, pp.product_name, pp.image_secure_url, pp.product_price, pp.product_published,  pp.created_date FROM findProduct AS pp ";
+
+                if (!repoFilter.isExactMT())
+                    query += " JOIN MetalsToFind AS m" +
+                            " JOIN metal_product AS pm ON pm.product_id = pp.product_id AND pm.metal_id = m.metal_id" +
+                            " GROUP BY pp.product_id";
+                else
+                    query += " JOIN metal_product AS pm ON pm.product_id = pp.product_id" +
+                            " LEFT JOIN MetalsToFind AS m ON m.metal_id = pm.metal_id" +
+                            " GROUP BY pp.product_id " +
+                            " HAVING COUNT(CASE WHEN m.metal_id IS NULL THEN 1 END) = 0 " +
+                            "     AND COUNT(*) = (SELECT COUNT(*) FROM MetalsToFind) ";
+
             } else {
                 query += "WITH MetalsToFind AS ( SELECT * FROM metal WHERE metal_name IN (" + metalsSearched + "))" +
                         ", productSearched AS ( SELECT pp.product_id, pp.product_jewelry_type, pp.product_name, img.image_secure_url, pp.product_price, pp.product_published, pp.created_date FROM product AS pp " +
-                        " JOIN metal_product AS pm ON pm.product_id = pp.product_id" +
                         " JOIN image AS img ON img.product_id = pp.product_id AND img.image_priority = '1'";
+                if (!repoFilter.isExactMT())
+                    query += "JOIN MetalsToFind AS m" +
+                            "JOIN metal_product AS pm ON pm.product_id = pp.product_id AND pm.metal_id = m.metal_id" +
+                            "GROUP BY pp.product_id";
+                else
+                    query += " JOIN metal_product AS pm ON pm.product_id = pp.product_id" +
+                            " LEFT JOIN MetalsToFind AS m ON m.metal_id = pm.metal_id" +
+                            " GROUP BY pp.product_id " +
+                            " HAVING COUNT(CASE WHEN m.metal_id IS NULL THEN 1 END) = 0 " +
+                            "     AND COUNT(*) = (SELECT COUNT(*) FROM MetalsToFind) ";
             }
 
-            query += " LEFT JOIN MetalsToFind AS m ON m.metal_id = pm.metal_id" +
-                    " GROUP BY pp.product_id " +
-                    " HAVING COUNT(CASE WHEN m.metal_id IS NULL THEN 1 END) = 0 " +
-                    "     AND COUNT(*) = (SELECT COUNT(*) FROM MetalsToFind) " +
-                    ") ";
+
+            query += ")";
         }
 
         query += finalSelect;

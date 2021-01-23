@@ -18,6 +18,8 @@ public class ProductRepoFilter extends Pagination {
     private String sortBy = "relevance";
     private double min = 0;
     private double max = -1;
+    private boolean exactMT = false;
+    private boolean exactGT = false;
 
     public ProductRepoFilter() {
     }
@@ -70,6 +72,22 @@ public class ProductRepoFilter extends Pagination {
         this.sortBy = sortBy;
     }
 
+    public boolean isExactMT() {
+        return exactMT;
+    }
+
+    public void setExactMT(boolean exactMT) {
+        this.exactMT = exactMT;
+    }
+
+    public boolean isExactGT() {
+        return exactGT;
+    }
+
+    public void setExactGT(boolean exactGT) {
+        this.exactGT = exactGT;
+    }
+
     @Override
     public String toString() {
         return "\nProductRepoFilter{" +
@@ -79,6 +97,8 @@ public class ProductRepoFilter extends Pagination {
                 "\n sortBy='" + sortBy + '\'' +
                 "\n min=" + min +
                 "\n max=" + max +
+                "\n exactMT=" + exactMT +
+                "\n exactGT=" + exactGT +
                 "\n count=" + count +
                 "\n totalPages=" + totalPages +
                 "\n currentPageNumber=" + currentPageNumber +

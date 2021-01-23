@@ -26,31 +26,36 @@ public class TestProduct {
         ProductRepoFilter productRepoFilter = new ProductRepoFilter();
         Set<Gemstone> gemstones = new HashSet<>();
         Gemstone gemstone = new Gemstone();
-        gemstone.setGemstoneName("Sunstone");
+        gemstone.setGemstoneName("Ruby");
         gemstones.add(gemstone);
-//        gemstone = new Gemstone();
-//        gemstone.setGemstoneName("Emeralds");
-//        gemstones.add(gemstone);
+        gemstone = new Gemstone();
+        gemstone.setGemstoneName("Emeralds");
+        gemstones.add(gemstone);
         productRepoFilter.setProductGemstones(gemstones);
 
         Set<Metal> metals = new HashSet<>();
         Metal metal = new Metal();
-        metal.setMetalName("Silver Plated");
+        metal.setMetalName("Gold");
+        metals.add(metal);
+        metal = new Metal();
+        metal.setMetalName("Silver");
         metals.add(metal);
         productRepoFilter.setProductMetals(metals);
 
-
         Set<JewelryType> jewelryTypes = new HashSet<>();
         JewelryType jewelryType = new JewelryType();
-        jewelryType.setJewelryTypeId(5);
+        jewelryType.setJewelryTypeId(8);
         jewelryTypes.add(jewelryType);
         jewelryType = new JewelryType();
-        jewelryType.setJewelryTypeId(8);
+        jewelryType.setJewelryTypeId(9);
         jewelryTypes.add(jewelryType);
         productRepoFilter.setProductJewelryTypes(jewelryTypes);
 
-        productRepoFilter.setMin(20);
-        productRepoFilter.setMax(200);
+//        productRepoFilter.setMin(20);
+//        productRepoFilter.setMax(200);
+
+        productRepoFilter.setExactGT(false);
+        productRepoFilter.setExactMT(true);
 
         productRepoFilter.setSortBy("newest");
 
